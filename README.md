@@ -4,7 +4,7 @@ About:
 Rike is a meta-ticketing/planning system based on kanban.  
 It focuses on self-organization and peer-review.  
 
-![rike-logo](raw/master/logo.png)
+![rike-logo](rike/raw/master/logo.png)
   
 For further information see:  
   
