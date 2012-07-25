@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Tomcat"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Liferay6"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/aAEInterface"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/al-interface"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JSON"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JUnit 4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/apache_commons"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/prettytime"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

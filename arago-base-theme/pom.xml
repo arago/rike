@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>arago-base-theme</artifactId>
+	<packaging>war</packaging>
+	<name>${project.artifactId}</name>
+	<parent>
+     <groupId>de.arago</groupId>
+     <artifactId>parent</artifactId><version><!--parent-->4.0-SNAPSHOT</version>
+    </parent>
+  <build>
+    <finalName>arago-theme</finalName>
+    <plugins>
+			<plugin>
+				<groupId>com.liferay.maven.plugins</groupId>
+				<artifactId>liferay-maven-plugin</artifactId>
+				<version>${liferay.version}</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>theme-merge</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<autoDeployDir>${liferay.auto.deploy.dir}</autoDeployDir>
+					<liferayVersion>${liferay.version}</liferayVersion>
+					<parentTheme>${liferay.theme.parent}</parentTheme>
+					<themeType>${liferay.theme.type}</themeType>
+          <pluginType>theme</pluginType>
+				</configuration>
+			</plugin>
+			
+		</plugins>
+  </build>
+  <dependencies>
+	</dependencies>
+	  <properties>
+  		<liferay.auto.deploy.dir>/opt/liferay-portal-current/deploy</liferay.auto.deploy.dir>
+  		<liferay.theme.parent>_styled</liferay.theme.parent>
+  		<liferay.theme.type>vm</liferay.theme.type>
+  		<liferay.version>6.0.6</liferay.version>
+  	</properties>
+</project>

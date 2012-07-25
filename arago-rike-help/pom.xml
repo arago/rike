@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.arago</groupId>
+  <artifactId>arago-rike-help</artifactId>
+  <packaging>war</packaging>
+  <parent>
+    <groupId>de.arago</groupId>
+    <artifactId>parent</artifactId>
+    <version><!--parent-->4.0-SNAPSHOT
+    </version>
+  </parent>
+
+  <build>
+    <finalName>arago-rike-help</finalName>
+    <plugins>
+      <plugin>
+        <groupId>com.liferay.maven.plugins</groupId>
+        <artifactId>liferay-maven-plugin</artifactId>
+        <version>${liferay.version}</version>
+        <configuration>
+          <autoDeployDir>${liferay.auto.deploy.dir}</autoDeployDir>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+                  
+        </configuration>
+        <version>2.1.1</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+		
+    <dependency>
+      <groupId>javax.portlet</groupId>
+      <artifactId>portlet-api</artifactId>
+      <version>2.0</version>
+      <scope>provided</scope>
+    </dependency>
+		
+		
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
+      <!--<scope>provided</scope>-->
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>portlet-util</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+  <properties>
+    <liferay.auto.deploy.dir>/opt/liferay-portal-current/deploy</liferay.auto.deploy.dir>
+    <liferay.version>6.0.6</liferay.version>
+    <netbeans.hint.deploy.server>liferay</netbeans.hint.deploy.server>
+  </properties>
+  <name>arago-rike-help</name>
+</project>

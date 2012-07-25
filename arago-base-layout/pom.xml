@@ -1,0 +1,26 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>arago-base-layout</artifactId>
+	<packaging>war</packaging>
+	<name>${project.artifactId}</name>
+	<parent>
+     <groupId>de.arago</groupId>
+     <artifactId>parent</artifactId><version><!--parent-->4.0-SNAPSHOT</version>
+    </parent>
+	<build>
+	  <finalName>${project.artifactId}</finalName>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>com.liferay.portal</groupId>
+			<artifactId>portal-service</artifactId>
+			<version>${liferay.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	<properties>
+		<liferay.theme.parent>_styled</liferay.theme.parent>
+		<liferay.theme.type>vm</liferay.theme.type>
+		<liferay.version>6.0.6</liferay.version>
+	</properties>
+</project>

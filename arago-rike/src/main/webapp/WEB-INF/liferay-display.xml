@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE display PUBLIC "-//Liferay//DTD Display 6.0.0//EN" "http://www.liferay.com/dtd/liferay-display_6_0_0.dtd">
+
+<display>
+	<category name="arago Rike">
+		<portlet id="arago-rike-overview" />
+		<portlet id="arago-rike-mytasks" />
+		<portlet id="arago-rike-task" />
+		<portlet id="arago-rike-tasklog" />
+		<portlet id="arago-rike-svg" />
+		<portlet id="arago-rike-report" />
+		<portlet id="arago-rike-report2" />
+    <portlet id="arago-rike-leaderboard" />
+
+	</category>
+</display>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+
+<web-app>
+
+	<servlet>
+		<servlet-name>SvgDataServlet</servlet-name>
+		<servlet-class>de.arago.rike.svg.SVGDataServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SvgDataServlet</servlet-name>
+		<url-pattern>/svg</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ReportDataServlet</servlet-name>
+		<servlet-class>de.arago.rike.report.ReportDataServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ReportDataServlet</servlet-name>
+		<url-pattern>/report/json</url-pattern>
+	</servlet-mapping>
+
+</web-app>

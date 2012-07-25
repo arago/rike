@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>portlet-util</artifactId>
+  <packaging>jar</packaging>
+  <name>arago-portlet-util</name>
+  <parent>
+    <groupId>de.arago</groupId>
+    <artifactId>parent</artifactId>
+    <version><!--parent-->4.0-SNAPSHOT
+    </version>
+  </parent>
+  <dependencies>
+    
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8.2</version>
+      <scope>test</scope>
+    </dependency>
+	
+    <dependency>
+      <groupId>javax.portlet</groupId>
+      <artifactId>portlet-api</artifactId>
+      <version>2.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>arago-data</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>net.minidev</groupId>
+      <artifactId>json-smart</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.6</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.4</version>
+      <scope>provided</scope>
+    </dependency>
+		
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>debug-util</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+		
+    <dependency>
+      <groupId>com.liferay.portal</groupId>
+      <artifactId>portal-service</artifactId>
+      <version>${liferay.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.ocpsoft</groupId>
+      <artifactId>ocpsoft-pretty-time</artifactId>
+      <version>1.0.6</version>
+    </dependency>
+  </dependencies>
+  <properties>
+    <liferay.auto.deploy.dir>/opt/liferay-portal-6.0.1/deploy</liferay.auto.deploy.dir>
+    <liferay.version>6.0.6</liferay.version>
+  </properties>
+</project>

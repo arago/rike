@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <!-- MySQL -->
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+    <property name="hibernate.c3p0.max_size">20</property>
+    <property name="hibernate.c3p0.min_size">2</property>
+    <property name="hibernate.c3p0.timeout">60</property>
+    <property name="hibernate.c3p0.max_statements">0</property>
+    <property name="hibernate.c3p0.idle_test_period">30</property>
+    <!-- Sessions and transactions -->
+    <property name="current_session_context_class">thread</property>
+    <property name="hibernate.show_sql">false</property>
+    <property name="format_sql">true</property>
+    <property name="hibernate.c3p0.validationQuery"> = SELECT 1</property>
+    <property name="hibernate.c3p0.maxIdle">5</property>
+    <property name="hibernate.c3p0.maxActive">20</property>
+    <property name="hibernate.c3p0.initialSize">5</property>
+    <property name="hibernate.c3p0.timeBetweenEvictionRunsMillis">10000</property>
+    <property name="hibernate.c3p0.testWhileIdle">true</property>
+    <property name="hibernate.c3p0.preferredTestQuery">SELECT 1</property>
+    <property name="hibernate.c3p0.autoCommitOnClose">true</property>
+    <property name="hibernate.c3p0.testConnectionOnCheckout">true</property>
+    <!-- Mappings -->
+    <mapping resource="de/arago/rike/data/Task.hbm.xml"/>
+    <mapping resource="de/arago/rike/data/Milestone.hbm.xml"/>
+    <mapping resource="de/arago/rike/data/Artifact.hbm.xml"/>
+    <mapping resource="de/arago/rike/data/TaskUser.hbm.xml"/>
+    <mapping resource="de/arago/rike/data/TaskLog.hbm.xml"/>
+    <mapping resource="de/arago/rike/data/Dependency.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>
