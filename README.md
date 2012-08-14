@@ -8,7 +8,7 @@ It focuses on self-organization and peer-review.
   
 For further information see:  
   
-* [Development Approach](DEVELOPMENT_APPROACH.md)
+* [Development Approach](https://github.com/arago/rike/blob/master/DEVELOPMENT_APPROACH.md)
 * (German) [rike-projektmanagement-nach-dem-kanban-prinzip](http://www.automatisierungs-experten.de/rike-%E2%80%93-projektmanagement-nach-dem-kanban-prinzip/)
 * (German) [die-erste-runde-gamification-bei-arago](http://www.automatisierungs-experten.de/die-erste-runde-gamification-bei-arago/)
 
