@@ -32,14 +32,14 @@ Progressing to the next step is only permitted once the prior step has been fina
 There are two potential outcomes:
 
 + success: 
-if the last step of the development cycle hass been finalised the project is considered successful. Subsequently, the version number of the respective product is increased and the implemented changes are captured in the respective change log.
+if the last step of the development cycle has been finalised the project is considered successful. Subsequently, the version number of the respective product is increased and the implemented changes are captured in the respective change log.
 + failure: 
 if a project is stalled, outdated, unwanted or unnecessary, it is stopped and classified as failed.
 
 The analysis regarding the number of projects which have been successful, have failed or are ongoing will give you a rough measure of a team’s effectiveness.
 
 ### A) Requirements Capturing
-A project is given a name and a short description. A WiKi page is established for it. The Requirements.dotx needs to be filled and attached to the wiki page and then sent to “customer”. The content of the file is agreed in one or several iterations. The result of this step is a requirements document that has been “approved” by both sides. If such approval cannot be achieved within a month this incarnation of the project is considered a failure. 
+A project is given a name and a short description. A WiKi page is established for it. The [Requirements.dotx](https://raw.github.com/arago/rike/master/Requirements.dotx) needs to be filled and attached to the wiki page and then sent to “customer”. The content of the file is agreed in one or several iterations. The result of this step is a requirements document that has been “approved” by both sides. If such approval cannot be achieved within a month this incarnation of the project is considered a failure. 
 
 ### B) Design
 In the design phase, the implementation of a release is planned on a single task basis. The result is:
