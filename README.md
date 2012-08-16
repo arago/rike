@@ -16,6 +16,10 @@ For further information see:
 Quickstart:
 =============
 
+* see [AMI_QUICKSTART](https://github.com/arago/rike/blob/master/AMI_QUICKSTART.md) on how to start a preconfigured EC2 rike instance
+
+or build from source:
+
 * install all maven dependencies and system requirements
 * package the arago-base-theme and arago-base-layout
 * package the arago-rike webapp
