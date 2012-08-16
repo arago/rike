@@ -1,10 +1,11 @@
+![rike-logo](https://github.com/arago/rike/raw/master/logo.png)
+
 About:
 =============
 
-Rike is a meta-ticketing/planning system based on kanban.  
-It focuses on self-organization and peer-review.  
+Rike enables teams to autonomously administer their tasks according to the kanban principle and to thus work in a more focused manner. The meta-ticketing/planning tool is based on the kanban principle and embraces elements of other agile methods like extreme programming or scrum. With Rike, team members autonomously choose their tasks according to the so-called "pull principle". Thereby, all team members are equally challenged and able to bring their 
+individual strengths to the table. By minimizing simultaneously pending tasks, Rike reduces the throughput time for individual tasks.
 
-![rike-logo](https://github.com/arago/rike/raw/master/logo.png)
   
 For further information see:  
   
