@@ -8,10 +8,13 @@ individual strengths to the table. By minimizing simultaneously pending tasks, R
 
   
 For further information see:  
-  
-* [Development Approach](https://github.com/arago/rike/blob/master/DEVELOPMENT_APPROACH.md)
+
+* (English) [Press Release](http://www.arago.de/news/arago-makes-project-management-tool-available-as-an-open-source-solution/)  
+* (English) [Development Approach](https://github.com/arago/rike/blob/master/DEVELOPMENT_APPROACH.md)
 * (German) [rike-projektmanagement-nach-dem-kanban-prinzip](http://www.automatisierungs-experten.de/rike-%E2%80%93-projektmanagement-nach-dem-kanban-prinzip/)
 * (German) [die-erste-runde-gamification-bei-arago](http://www.automatisierungs-experten.de/die-erste-runde-gamification-bei-arago/)
+* (English) [News Article](http://www.h-online.com/open/news/item/Rike-project-management-tool-open-sourced-1672595.html)
+* (German) [News Article](http://www.heise.de/developer/meldung/arago-stellt-Projektmanagement-Tool-Rike-unter-Open-Source-Lizenz-1671177.html)
 
 Quickstart:
 =============
