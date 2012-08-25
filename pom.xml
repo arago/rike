@@ -152,4 +152,16 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+  <modules>
+    <module>arago-base-layout</module>
+    <module>arago-base-theme</module>
+    <module>arago-data</module>
+    <module>arago-data-util</module>
+    <module>arago-debug-util</module>
+    <module>arago-portlet-util</module>
+    <module>arago-rike</module>
+    <module>arago-rike-help</module>
+  </modules>
+
 </project>
