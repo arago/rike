@@ -37,10 +37,10 @@ System Requirements:
 =============
 
 - mysql (>= 5)
-- graphviz (dot)
+- [graphviz](http://www.graphviz.org/) (dot)
 - java (>= 1.6)
-- liferay (= 6.0.6, with jquery)
-- maven (>= 3) is needed for assembly
+- [liferay](http://www.liferay.com/) (= 6.0.6, with jquery)
+- [maven](http://maven.apache.org/) (>= 3) is needed for assembly
 
 License:
 =============
