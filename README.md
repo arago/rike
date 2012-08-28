@@ -15,6 +15,7 @@ For further information see:
 * (German) [die-erste-runde-gamification-bei-arago](http://www.automatisierungs-experten.de/die-erste-runde-gamification-bei-arago/)
 * (English) [News Article](http://www.h-online.com/open/news/item/Rike-project-management-tool-open-sourced-1672595.html)
 * (German) [News Article](http://www.heise.de/developer/meldung/arago-stellt-Projektmanagement-Tool-Rike-unter-Open-Source-Lizenz-1671177.html)
+* (English) [Help](https://github.com/arago/rike/wiki)
 
 Quickstart:
 =============
@@ -37,10 +38,10 @@ System Requirements:
 =============
 
 - mysql (>= 5)
-- graphviz (dot)
+- [graphviz](http://www.graphviz.org/) (dot)
 - java (>= 1.6)
-- liferay (= 6.0.6, with jquery)
-- maven (>= 3) is needed for assembly
+- [liferay](http://www.liferay.com/) (= 6.0.6, with jquery)
+- [maven](http://maven.apache.org/) (>= 3) is needed for assembly
 
 License:
 =============
