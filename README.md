@@ -24,15 +24,8 @@ Quickstart:
 
 or build from source:
 
-* install all maven dependencies and system requirements
-* package the arago-base-theme and arago-base-layout
-* package the arago-rike webapp
-* import the schema into the database
-* configure the system property `-Dde.arago.data.util.datasource.rike`  
-( e.g. `-Dde.arago.data.util.datasource.rike=jdbc:mysql://127.0.0.1/rike?user=rike&amp;password=123&amp;useUnicode=true&amp;characterEncoding=UTF-8` )
-* deploy all .war to the portlet server
-* create a new page, select an arago layout and the arago skin
-* add rike portlets
+* [Compile and Deploy (standalone)](https://github.com/arago/rike/wiki/Compiling-and-Deploying-rike-%7C-standalone)
+* [Configure Liferay afterwards (standalone)](https://github.com/arago/rike/wiki/Configuring-Liferay-%7C-standalone)
 
 System Requirements:
 =============
