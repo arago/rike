@@ -24,14 +24,13 @@ package de.arago.portlet.util;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.util.KeyValuePair;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.service.UserGroupLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.logging.Level;
@@ -70,6 +69,12 @@ public class SecurityHelper {
 
   private static final ConcurrentMap<String, UserContainer> cache      = new ConcurrentHashMap<String, UserContainer>();
   private static final ConcurrentMap<String, UserContainer> emailCache = new ConcurrentHashMap<String, UserContainer>();
+  
+  /**
+   * enable this if your frontend proxy does basic authentication
+   */
+  private static final boolean basicAuthEnabled = "true".equals(System.getProperty("de.arago.security.basicauth"));
+  
   
   private static void refreshUsers() throws Exception
   {
@@ -116,8 +121,7 @@ public class SecurityHelper {
   {
     UserContainer container = cache.get(name);
     
-    // TODO nullpointerexception getpassword, find liferay thing to compare encrypted passwords
-    if (container != null && !container.isExpired()/* && user.getPasswordUnencrypted().equals(pass)*/) return container.getUser();
+    if (container != null && !container.isExpired()) return container.getUser();
     
     if (mayRefreshCache)
     {
@@ -131,6 +135,8 @@ public class SecurityHelper {
   
   private static User getUserFromAuthHeader(HttpServletRequest request) throws Exception
   {
+    if (!basicAuthEnabled) return null;
+    
     String auth					 = request.getHeader("Authorization");
     if (auth == null) return null;
     
