@@ -43,6 +43,22 @@
     </repository>
   </repositories>
   
+  <distributionManagement>
+           <repository>
+                   <id>arago Internal</id>
+                   <uniqueVersion>false</uniqueVersion>
+                   <name>arago Repository</name>
+                   <url>scp://vm-repository.devel.arago.de:/repositories/maven2/</url>
+           </repository>
+           <snapshotRepository>
+                   <id>arago Internal</id>
+                   <uniqueVersion>false</uniqueVersion>
+                   <name>arago Repository</name>
+                   <url>scp://vm-repository.devel.arago.de:/repositories/maven2/</url>
+           </snapshotRepository>
+   </distributionManagement>
+  
+  
   <build>
     <plugins>
       

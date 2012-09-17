@@ -30,6 +30,7 @@ import com.liferay.portal.service.UserGroupLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -229,7 +230,9 @@ public class SecurityHelper {
 	}
 	
 	public static String[] getUserGroups(String user){
-		ArrayList<String> result = new ArrayList<String>();
+		if (user == null || user.isEmpty()) return new String[0];
+    ArrayList<String> result = new ArrayList<String>();
+    
 		try {
 			List<UserGroup> groups = UserGroupLocalServiceUtil.getUserUserGroups(Long.valueOf(user,10));
 			for(UserGroup g: groups) {
@@ -242,7 +245,10 @@ public class SecurityHelper {
 	}
 
 	public static List<String[]> getUserGroupsWithNames(String user){
+    if (user == null || user.isEmpty()) return Collections.EMPTY_LIST;
+    
 		ArrayList<String[]> result = new ArrayList<String[]>();
+    
 		try {
 			List<UserGroup> groups = UserGroupLocalServiceUtil.getUserUserGroups(Long.valueOf(user,10));
 			for(UserGroup g: groups) {
