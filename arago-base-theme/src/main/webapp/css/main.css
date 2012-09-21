@@ -819,7 +819,6 @@ div.rule-editor-options-content-wrapper:hover {
 {
   white-space:nowrap;
   overflow:hidden;
-  max-width:90%;
 }
 
 .portletbox h1 span.rightalign{ position:absolute; right:4px; float:right }
