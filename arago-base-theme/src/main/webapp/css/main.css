@@ -815,6 +815,13 @@ div.rule-editor-options-content-wrapper:hover {
 	background-image: -ms-linear-gradient(bottom, #F0F0F0 100%, #CCCCCC 0%);
 	background-image: -webkit-gradient(  linear,  left bottom,  left top,  color-stop(1, #F0F0F0),  color-stop(0, #CCCCCC) );
 }
+.portletbox .head h1
+{
+  white-space:nowrap;
+  overflow:hidden;
+  max-width:90%;
+}
+
 .portletbox h1 span.rightalign{ position:absolute; right:4px; float:right }
 .portletbox h2 {font-size:1em; }
 .portletbox .right { position:absolute; right:4px; float:right }
