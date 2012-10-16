@@ -6,13 +6,10 @@
   <packaging>war</packaging>
   <name>${project.artifactId}</name>
   <parent>
-    <groupId>de.arago</groupId>
-    <artifactId>parent</artifactId>
-    <version><!--parent-->4.0-SNAPSHOT
-    </version>
+     <groupId>de.arago</groupId>
+     <artifactId>rike-parent</artifactId>
+     <version>4.0</version>
   </parent>
-
-
 
   <build>
     <finalName>arago-rike</finalName>

@@ -1,35 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.arago</groupId>
-  <artifactId>parent</artifactId>
+  <artifactId>rike-parent</artifactId>
   <packaging>pom</packaging>
-  <name>arago parent</name>
-  <version><!--parent-->4.0-SNAPSHOT
-  </version>
+  <version>4.0</version>
   <repositories>
     <repository>
-      <id>central</id>
-      <url>http://vm-repository.devel.arago.de/maven2/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
-    <repository>
-      <id>arago</id>
-      <url>http://vm-repository.devel.arago.de/maven2/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
-    <repository>
       <id>jboss</id>
-      <url>http://repository.jboss.com/maven2</url>
+      <url>http://repository.jboss.org/nexus/content/groups/public</url>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
@@ -48,35 +26,8 @@
       </releases>
     </repository>
     <repository>
-      <id>Sonatype-public</id>
-      <name>SnakeYAML repository</name>
-      <url>http://oss.sonatype.org/content/groups/public/</url>
-    </repository>
-    <repository>
-      <id>xwiki</id>
-      <url>http://maven.xwiki.org/releases/</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
-    
-    <repository>
-      <id>xwiki-externals</id>
-      <url>http://maven.xwiki.org/externals/</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
-    
-    <repository>
       <id>maven</id>
-      <url>http://repo1.maven.org/maven2/</url>
+      <url>http://repo1.maven.org/maven2</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -86,34 +37,7 @@
     </repository>
     
   </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>arago Internal</id>
-      <name>arago Plugin Repository</name>
-      <url>http://vm-repository.devel.arago.de/maven2</url>
-      <layout>default</layout>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <updatePolicy>never</updatePolicy>
-      </releases>
-    </pluginRepository>
-  </pluginRepositories>
-  <distributionManagement>
-    <repository>
-      <id>arago Internal</id>
-      <uniqueVersion>false</uniqueVersion>
-      <name>arago Repository</name>
-      <url>scp://vm-repository.devel.arago.de:/repositories/maven2/</url>
-    </repository>
-    <snapshotRepository>
-      <id>arago Internal</id>
-      <uniqueVersion>false</uniqueVersion>
-      <name>arago Repository</name>
-      <url>scp://vm-repository.devel.arago.de:/repositories/maven2/</url>
-    </snapshotRepository>
-  </distributionManagement>
+
   <build>
     <plugins>
       
