@@ -3,9 +3,10 @@
 	<artifactId>arago-base-theme</artifactId>
 	<packaging>war</packaging>
 	<name>${project.artifactId}</name>
-	<parent>
-     <groupId>de.arago</groupId>
-     <artifactId>parent</artifactId><version><!--parent-->4.0-SNAPSHOT</version>
+    <parent>
+       <groupId>de.arago</groupId>
+       <artifactId>rike-parent</artifactId>
+       <version>4.0</version>
     </parent>
   <build>
     <finalName>arago-theme</finalName>
