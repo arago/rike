@@ -4,11 +4,8 @@
     <artifactId>arago-data-util</artifactId>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
-    <parent>
-        <groupId>de.arago</groupId>
-        <artifactId>rike-parent</artifactId>
-        <version>4.0</version>
-    </parent>
+    <groupId>de.arago</groupId>
+    <version>4.0</version>
    
     <dependencies>
         <dependency>
@@ -29,6 +26,18 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <properties>
-    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
