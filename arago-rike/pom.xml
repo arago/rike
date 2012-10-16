@@ -129,7 +129,7 @@
     
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>portlet-util</artifactId>
+            <artifactId>arago-portlet-util</artifactId>
             <version>${project.version}</version>
         </dependency>
     
