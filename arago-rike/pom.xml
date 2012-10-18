@@ -8,6 +8,29 @@
     <groupId>de.arago</groupId>
     <version>4.0</version>
 
+    <repositories>
+      <repository>
+        <id>jboss</id>
+        <url>http://repository.jboss.org/nexus/content/groups/public</url>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+      </repository>
+      <repository>
+        <id>maven</id>
+        <url>http://repo1.maven.org/maven2</url>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+      </repository>
+    </repositories>
+
     <build>
         <finalName>arago-rike</finalName>
         <plugins>
