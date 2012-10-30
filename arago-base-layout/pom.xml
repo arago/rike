@@ -3,10 +3,8 @@
 	<artifactId>arago-base-layout</artifactId>
 	<packaging>war</packaging>
 	<name>${project.artifactId}</name>
-	<parent>
-     <groupId>de.arago</groupId>
-     <artifactId>parent</artifactId><version><!--parent-->4.0-SNAPSHOT</version>
-    </parent>
+    <groupId>de.arago</groupId>
+    <version>4.0</version>
 	<build>
 	  <finalName>${project.artifactId}</finalName>
 	</build>
