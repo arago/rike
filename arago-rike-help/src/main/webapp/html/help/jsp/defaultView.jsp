@@ -8,7 +8,7 @@ Hello World!
 <script type="text/javascript">
 $.globalPortletJS
 	([
-		'/arago-theme/js/help/help.js'
+		'/arago-rike/js/help/help.js'
 	]);
 </script>
 <style>

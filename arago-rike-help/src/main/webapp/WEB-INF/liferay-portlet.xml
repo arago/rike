@@ -6,6 +6,7 @@
 		<portlet-name>rike-help</portlet-name>
 		<use-default-template>false</use-default-template>
 		<instanceable>false</instanceable>
+		<header-portlet-javascript>/js/help/help.js</header-portlet-javascript>
 	</portlet>
 
 
