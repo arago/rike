@@ -67,7 +67,7 @@
 
             %>
             <tr>
-              <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getId().toString())%></td>
+              <td class="shrink center"><%= StringEscapeUtils.escapeHtml(task.getId().toString())%></td>
               <td class="<%= ViewHelper.getTaskStatusColorClass(task)%>"></td>
               <td class="last shrink"><a href="<portlet:actionURL portletMode="view" />&action=selectTask&id=<%= URLEncoder.encode(task.getId().toString(), "UTF-8")%>"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></a></td>
             </tr>

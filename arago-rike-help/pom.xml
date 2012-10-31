@@ -68,7 +68,7 @@
     </dependencies>
     <properties>
         <liferay.auto.deploy.dir>/opt/liferay-portal-current/deploy</liferay.auto.deploy.dir>
-        <liferay.version>6.0.6</liferay.version>
+        <liferay.version>6.1.1</liferay.version>
         <netbeans.hint.deploy.server>liferay</netbeans.hint.deploy.server>
     </properties>
 </project>

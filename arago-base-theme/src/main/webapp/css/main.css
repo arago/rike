@@ -2545,7 +2545,7 @@ div:hover > .tooltip, li:hover > .tooltip, a:hover > .tooltip, span:hover > .too
 	margin-top:-40px;
 	background: #004785;
 	background: -moz-linear-gradient(top,#004785 0%, #004785 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #004785), color-stop(100%, ##004785));
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #004785), color-stop(100%, #004785));
 	border: 1px solid #004785;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;

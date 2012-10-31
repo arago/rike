@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.0.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_0_0.dtd">
+<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.1.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_1_0.dtd">
 
 <liferay-portlet-app>
 	<portlet>
@@ -14,6 +14,7 @@
 		<use-default-template>true</use-default-template>
 		<instanceable>false</instanceable>
 		<header-portlet-css>/css/main.css</header-portlet-css>
+		<header-portlet-javascript>/js/help/help.js</header-portlet-javascript>
 	</portlet>
 
 	<portlet>
@@ -34,12 +35,16 @@
 		<portlet-name>arago-rike-svg</portlet-name>
 		<use-default-template>true</use-default-template>
 		<instanceable>false</instanceable>
+		<header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
 	</portlet>
 
 	<portlet>
 		<portlet-name>arago-rike-report</portlet-name>
 		<use-default-template>true</use-default-template>
 		<instanceable>false</instanceable>
+		<header-portlet-javascript>/js/flot/jquery.flot.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/flot/jquery.flot.navigate.min.js</header-portlet-javascript>
+		<header-portlet-javascript>/js/flot/jquery.flot.fillbetween.min.js</header-portlet-javascript>
 	</portlet>
 
 	<portlet>

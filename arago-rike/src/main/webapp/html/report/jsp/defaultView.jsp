@@ -17,14 +17,14 @@
     milestone = milestone == null ? "" : milestone;
 %>
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
   $.globalPortletJS
   ([
-    '/arago-theme/js/flot/jquery.flot.js',
-    '/arago-theme/js/flot/jquery.flot.navigate.min.js',
-    '/arago-theme/js/flot/jquery.flot.fillbetween.min.js'
+    '/arago-rike/js/flot/jquery.flot.js',
+    '/arago-rike/js/flot/jquery.flot.navigate.min.js',
+    '/arago-rike/js/flot/jquery.flot.fillbetween.min.js'
   ], false);
-</script>
+</script>-->
 
 <div class="portlet big <%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "maximized" : ""%>">
   <div class="portletbox">
