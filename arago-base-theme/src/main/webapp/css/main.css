@@ -2657,12 +2657,12 @@ table.issue-overview tbody td.message { max-width:180px; overflow:hidden;}
 
  @media screen and (max-width: 1024px) {
 #container {
-	width:800px;
+	/*width:800px;*/
 	padding:0;
 	margin:0 auto;
 }
 #content {
-	width:800px;
+	/*width:800px;*/
 }
 }
 /* Scrollbars */
