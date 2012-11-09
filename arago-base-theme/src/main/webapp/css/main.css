@@ -2680,6 +2680,30 @@ table.issue-overview tbody td.message { max-width:180px; overflow:hidden;}
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
+/*update 051112*/
+
+ul.lightstatus {
+	margin:0
+	}
+ul.lightstatus li{
+	float:left; width:20px; margin:0 12px;
+	border-radius:12px;
+	}
+ul.lightstatus li.red {
+	background:#cc0000;
+}
+ul.lightstatus li.yellow {
+	background:#ffb400;
+}
+ul.lightstatus li.green {
+	background:#17a00d;
+}
+ul.lightstatus li.grey {
+	background:#535b53;
+}
+ul.lightstatus li a { color:#fff;}
+
+
 
 /* actionlayer 
 
