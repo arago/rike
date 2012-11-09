@@ -17,14 +17,15 @@
     milestone = milestone == null ? "" : milestone;
 %>
 
-<!--<script type="text/javascript">
+<script type="text/javascript">
   $.globalPortletJS
   ([
     '/arago-rike/js/flot/jquery.flot.js',
     '/arago-rike/js/flot/jquery.flot.navigate.min.js',
-    '/arago-rike/js/flot/jquery.flot.fillbetween.min.js'
+    '/arago-rike/js/flot/jquery.flot.fillbetween.min.js',
+    '/arago-rike/js/flot/jquery.flot.selection.js'
   ], false);
-</script>-->
+</script>
 
 <div class="portlet big <%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "maximized" : ""%>">
   <div class="portletbox">
@@ -46,7 +47,9 @@
     <div class="content nohead nofooter">
       <div class="inner" id="<portlet:namespace />PortletContent">
         <div id="<portlet:namespace />chart"></div>
-      </div>
+            <p><input id="whole" type="button" value="Whole period" />
+             <label><input id="zoom" type="checkbox" />Zoom to selection.</label></p>
+	 </div>
       
       <script type="text/javascript">
 
@@ -72,8 +75,8 @@
 
               poll = function(noRepoll)
               {
-                $("#<portlet:namespace />chart").width($('#<portlet:namespace />PortletContent').width() - 12).height(/*$('#<portlet:namespace />PortletContent').height() - 40*/ 266).show();
-
+                $("#<portlet:namespace />chart").width($('#<portlet:namespace />PortletContent').width() - 40).height($("div.portletbox").height()-80).show();
+		var placeholder = $("#<portlet:namespace />chart");            
                 try
                 {
 									
@@ -89,7 +92,7 @@
                       tmp   = [],
                       enablePlane = <%= type.equals("taskstatus") ? "true" : "false"%>;
                   
-                  
+                      var placeholder = $("#<portlet:namespace />chart");
                       $(result).each(function()
                       {
                         if (enablePlane)
@@ -101,39 +104,45 @@
                     
                         tmp.push(this);
                       });
-                  
-                      result = tmp;
-
-                      $.plot($("#<portlet:namespace />chart"), result, {
-                        legend:
-                          {
-                          show: false && <%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "true" : "false"%>,
-                          position: "se"
-                        },
-                        series: {
-                          lines: { show: true, fill: enablePlane},
-                          bars: { show: false },
-                          points: { show: false }
-                        },
-                        grid: { hoverable: true, clickable: true },
-
-                        xaxis: {
-                          mode: "time"
-                        },
-                        yaxis: {
-                          min: 0,
-                          tickFormatter: function (v, axis) { return (v / 1000) +"k LOC" }
-												
-                        }/*,
-                        zoom: {
-                          interactive: true
-                        },
-                        pan: {
-                          interactive: true
-                        }*/
-                      });
+                       result = tmp;
+                        var options = {
+                                legend: { show:false },
+                                series: {
+                                stack:1,
+                                lines: { show: true, fill:enablePlane},                                         
+                                        //bars:{show: false},
+                                        points: { show: true }
+                                        },
+                                 grid:{hoverable:true,clickable:true},
+                                 xaxis: { mode:"time"},
+                                 yaxis: { min:null,tickFormatter:function(m,n){return(m/1000)+"k LOC"}},
+                                 selection: { mode: "x" }
+                                 };                     
 
 
+                                                                    placeholder.bind("plotselected", function (event, ranges) {
+                                                                   // $("#selection").text(ranges.xaxis.from.toFixed(1) + " to " + ranges.xaxis.to.toFixed(1));
+                                                                      
+                                                                    var zoom = $("#zoom").attr("checked");
+                                                                    if (zoom)
+                                                                        //plot= $.plot(placeholder, e,
+                                                                        $.plot(placeholder, result,
+                                                                              $.extend(true, {}, options, {
+                                                                                  xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to }
+                                                                              }));
+                                                                    }); 
+
+                      $.plot(placeholder, result, options);
+
+                                                                
+                       $("#whole").click(function () {
+                              $.plot(placeholder,result, options);
+                              }); 
+                                                                
+                       placeholder.bind("plotunselected", function (event) {
+                              $("#selection").text("");
+                              });
+                                                                    
                       function showTooltip(x, y, contents) {
                         $('<div id="<portlet:namespace />tooltip">' + contents + '</div>').css( {
                           position: 'absolute',
@@ -147,10 +156,11 @@
                         }).appendTo("body").fadeIn(200);
                       }
 
+
                       var previousPoint = null;
                   
                   
-                      $("#<portlet:namespace />chart").bind("plotclick", function(event, pos, item) 
+                      placeholder.bind("plotclick", function(event, pos, item) 
                       {
                         if (item)
                         {
@@ -163,7 +173,7 @@
                         };  
                       });
                   
-                      $("#<portlet:namespace />chart").bind("plothover", function (event, pos, item) {
+                      placeholder.bind("plothover", function (event, pos, item) {
 
                         if (item) {
                           if (previousPoint != item.datapoint) {
@@ -183,8 +193,7 @@
                         }
 										
                       });
-
-
+                     
                     }
                   });
 
