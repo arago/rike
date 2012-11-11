@@ -51,8 +51,4 @@ Bugs and Suggestions
 Known Issues
 =============
 
-* disable portlet validation: in `portal-ext.properties` add `portlet.xml.validate=false`
-* disable jsp strict quote escaping: `-Dorg.apache.jasper.compiler.Parser.STRICT_QUOTE_ESCAPING=false`
-* jquery needs to be provided by liferay (via `javascript.barebone.files` or `javascript.everything.files` in `portal-ext.properties`)
-
  
