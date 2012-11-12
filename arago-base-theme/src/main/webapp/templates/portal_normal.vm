@@ -54,7 +54,7 @@ $theme.include($top_messages_include)
   </div>
   <div id="footer">
 
-       	#dockbar()
+##       #dockbar()
     
   </div>
 </div>
