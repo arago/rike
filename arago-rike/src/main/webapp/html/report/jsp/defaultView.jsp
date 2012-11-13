@@ -17,16 +17,6 @@
     milestone = milestone == null ? "" : milestone;
 %>
 
-<script type="text/javascript">
-  $.globalPortletJS
-  ([
-    '/arago-rike/js/flot/jquery.flot.js',
-    '/arago-rike/js/flot/jquery.flot.navigate.min.js',
-    '/arago-rike/js/flot/jquery.flot.fillbetween.min.js',
-    '/arago-rike/js/flot/jquery.flot.selection.js'
-  ], false);
-</script>
-
 <div class="portlet big <%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "maximized" : ""%>">
   <div class="portletbox">
     <!-- head -->
@@ -51,8 +41,7 @@
     <div class="content nohead nofooter">
       <div class="inner" id="<portlet:namespace />PortletContent">
         <div id="<portlet:namespace />chart"></div>
-            <p><input id="whole" type="button" value="Whole period" />
-             <label><input id="zoom" type="checkbox" />Zoom to selection.</label></p>
+            <p><input id="<portlet:namespace />whole" type="button" value="Whole period" /></p>
 	 </div>
       
       <script type="text/javascript">
@@ -127,8 +116,6 @@
                                                                     placeholder.bind("plotselected", function (event, ranges) {
                                                                    // $("#selection").text(ranges.xaxis.from.toFixed(1) + " to " + ranges.xaxis.to.toFixed(1));
                                                                       
-                                                                    var zoom = $("#zoom").attr("checked");
-                                                                    if (zoom)
                                                                         //plot= $.plot(placeholder, e,
                                                                         $.plot(placeholder, result,
                                                                               $.extend(true, {}, options, {
@@ -139,13 +126,13 @@
                       $.plot(placeholder, result, options);
 
                                                                 
-                       $("#whole").click(function () {
+                       $("#<portlet:namespace />whole").click(function () {
                               $.plot(placeholder,result, options);
                               }); 
                                                                 
-                       placeholder.bind("plotunselected", function (event) {
+                       /*placeholder.bind("plotunselected", function (event) {
                               $("#selection").text("");
-                              });
+                              });*/
                                                                     
                       function showTooltip(x, y, contents) {
                         $('<div id="<portlet:namespace />tooltip">' + contents + '</div>').css( {

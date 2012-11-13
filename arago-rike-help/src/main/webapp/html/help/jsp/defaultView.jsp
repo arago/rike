@@ -4,12 +4,12 @@
 <%@ taglib uri="http://java.sun.com/portlet" prefix="portlet" %>
 
 <portlet:defineObjects />
-<script type="text/javascript">
+<!--<script type="text/javascript">
 $.globalPortletJS
 	([
 		'/arago-rike/js/help/help.js'
 	]);
-</script>
+</script>-->
 <style>
  .help-left-pane {padding:0px}
  .help-left-pane iframe {overflow:auto}
