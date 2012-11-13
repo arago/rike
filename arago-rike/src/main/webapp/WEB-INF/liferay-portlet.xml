@@ -2,77 +2,84 @@
 <!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.1.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_1_0.dtd">
 
 <liferay-portlet-app>
-	<portlet>
-		<portlet-name>arago-rike-overview</portlet-name>
-		<use-default-template>true</use-default-template>
-		<instanceable>false</instanceable>
-		<header-portlet-css>/css/main.css</header-portlet-css>
-                <header-portlet-javascript>/js/jquery-1.8.1.min.js</header-portlet-javascript>
-	</portlet>
+  <portlet>
+    <portlet-name>arago-rike-overview</portlet-name>
+    <use-default-template>true</use-default-template>
+    <instanceable>false</instanceable>
+    <header-portlet-css>/css/main.css</header-portlet-css>
+    <header-portlet-javascript>/js/jquery.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
+  </portlet>
 
-	<portlet>
-		<portlet-name>arago-rike-mytasks</portlet-name>
-		<use-default-template>true</use-default-template>
-		<instanceable>false</instanceable>
-		<header-portlet-css>/css/main.css</header-portlet-css>
-                <header-portlet-javascript>/js/jquery-1.8.1.min.js</header-portlet-javascript>
-		<header-portlet-javascript>/js/help/help.js</header-portlet-javascript>
-	</portlet>
+  <portlet>
+    <portlet-name>arago-rike-mytasks</portlet-name>
+    <use-default-template>true</use-default-template>
+    <instanceable>false</instanceable>
+    <header-portlet-css>/css/main.css</header-portlet-css>
+    <header-portlet-javascript>/js/jquery.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/help/help.js</header-portlet-javascript>
+  </portlet>
 
-	<portlet>
-		<portlet-name>arago-rike-task</portlet-name>
-		<use-default-template>true</use-default-template>
-		<instanceable>false</instanceable>
-		<header-portlet-css>/css/main.css</header-portlet-css>
-                <header-portlet-javascript>/js/jquery-1.8.1.min.js</header-portlet-javascript>
-	</portlet>
+  <portlet>
+    <portlet-name>arago-rike-task</portlet-name>
+    <use-default-template>true</use-default-template>
+    <instanceable>false</instanceable>
+    <header-portlet-css>/css/main.css</header-portlet-css>
+    <header-portlet-javascript>/js/jquery.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
+  </portlet>
 
-	<portlet>
-		<portlet-name>arago-rike-tasklog</portlet-name>
-		<use-default-template>true</use-default-template>
-		<instanceable>false</instanceable>
-		<header-portlet-css>/css/main.css</header-portlet-css>
-                <header-portlet-javascript>/js/jquery-1.8.1.min.js</header-portlet-javascript>
-	</portlet>
+  <portlet>
+    <portlet-name>arago-rike-tasklog</portlet-name>
+    <use-default-template>true</use-default-template>
+    <instanceable>false</instanceable>
+    <header-portlet-css>/css/main.css</header-portlet-css>
+    <header-portlet-javascript>/js/jquery.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
+  </portlet>
 
-	<portlet>
-		<portlet-name>arago-rike-svg</portlet-name>
-		<use-default-template>true</use-default-template>
-		<instanceable>false</instanceable>
-                <header-portlet-javascript>/js/jquery-1.8.1.min.js</header-portlet-javascript>
-		<header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
-	</portlet>
+  <portlet>
+    <portlet-name>arago-rike-svg</portlet-name>
+    <use-default-template>true</use-default-template>
+    <instanceable>false</instanceable>
+    <header-portlet-javascript>/js/jquery.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
+  </portlet>
 
-	<portlet>
-		<portlet-name>arago-rike-report</portlet-name>
-		<use-default-template>true</use-default-template>
-		<instanceable>false</instanceable>
-                <header-portlet-javascript>/js/jquery-1.8.1.min.js</header-portlet-javascript>
-		<header-portlet-javascript>/js/flot/jquery.flot.js</header-portlet-javascript>
-		<header-portlet-javascript>/js/flot/jquery.flot.navigate.min.js</header-portlet-javascript>
-		<header-portlet-javascript>/js/flot/jquery.flot.fillbetween.min.js</header-portlet-javascript>
-	</portlet>
+  <portlet>
+    <portlet-name>arago-rike-report</portlet-name>
+    <use-default-template>true</use-default-template>
+    <instanceable>false</instanceable>
+    <header-portlet-javascript>/js/jquery.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/flot/jquery.flot.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/flot/jquery.flot.navigate.min.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/flot/jquery.flot.fillbetween.min.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/flot/jquery.flot.selection.js</header-portlet-javascript>
+    
+  </portlet>
 
-	<portlet>
-		<portlet-name>arago-rike-report2</portlet-name>
-		<use-default-template>true</use-default-template>
-		<instanceable>false</instanceable>
-	</portlet>
+  <portlet>
+    <portlet-name>arago-rike-report2</portlet-name>
+    <use-default-template>true</use-default-template>
+    <instanceable>false</instanceable>
+  </portlet>
 
-	<role-mapper>
-		<role-name>administrator</role-name>
-		<role-link>Administrator</role-link>
-	</role-mapper>
-	<role-mapper>
-		<role-name>guest</role-name>
-		<role-link>Guest</role-link>
-	</role-mapper>
-	<role-mapper>
-		<role-name>power-user</role-name>
-		<role-link>Power User</role-link>
-	</role-mapper>
-	<role-mapper>
-		<role-name>user</role-name>
-		<role-link>User</role-link>
-	</role-mapper>
+  <role-mapper>
+    <role-name>administrator</role-name>
+    <role-link>Administrator</role-link>
+  </role-mapper>
+  <role-mapper>
+    <role-name>guest</role-name>
+    <role-link>Guest</role-link>
+  </role-mapper>
+  <role-mapper>
+    <role-name>power-user</role-name>
+    <role-link>Power User</role-link>
+  </role-mapper>
+  <role-mapper>
+    <role-name>user</role-name>
+    <role-link>User</role-link>
+  </role-mapper>
 </liferay-portlet-app>
