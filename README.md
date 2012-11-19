@@ -48,6 +48,11 @@ Bugs and Suggestions
 * please use the issue options of the sourcecode hoster
 * contact: rike-dev (at) arago.de
 
+Roadmap
+=============
+* prepare for liferay 6.1
+* publish in liferay marketplace
+
 Known Issues
 =============
 

@@ -2,6 +2,11 @@
 
 This document defines the development workflows and policies for an agile, free and goal driven approach like we at arago use for our product development. 
 
+## Note
+
+This approach is an **example** how rike can be used. The process should always be adapted to the team. Or it may even be completely different. It is up to the team to decide where to put task descriptions, how to record requirements, how to communicate, etc pp.
+
+
 ## 1 Modes of Operation
 
 There are two modes for delivering projects: "Innovation Machine" and "Emergency".
@@ -39,7 +44,7 @@ if a project is stalled, outdated, unwanted or unnecessary, it is stopped and cl
 The analysis regarding the number of projects which have been successful, have failed or are ongoing will give you a rough measure of a team’s effectiveness.
 
 ### A) Requirements Capturing
-A project is given a name and a short description. A WiKi page is established for it. The [Requirements.dotx](https://raw.github.com/arago/rike/master/Requirements.dotx) needs to be filled and attached to the wiki page and then sent to “customer”. The content of the file is agreed in one or several iterations. The result of this step is a requirements document that has been “approved” by both sides. If such approval cannot be achieved within a month this incarnation of the project is considered a failure. 
+A project is given a name and a short description. A WiKi page is established for it. The [requirements.pdf](https://raw.github.com/arago/rike/master/requirements.pdf) needs to be filled and attached to the wiki page and then sent to “customer”. The content of the file is agreed in one or several iterations. The result of this step is a requirements document that has been “approved” by both sides. If such approval cannot be achieved within a month this incarnation of the project is considered a failure. 
 
 ### B) Design
 In the design phase, the implementation of a release is planned on a single task basis. The result is:
