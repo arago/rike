@@ -4,7 +4,7 @@
   <packaging>jar</packaging>
   <name>${project.artifactId}</name>
   <groupId>de.arago</groupId>
-  <version>4.0</version>
+  <version>4.1-SNAPSHOT</version>
 
   <repositories>
     <repository>
@@ -106,6 +106,6 @@
   
   <properties>
     <liferay.auto.deploy.dir>/opt/liferay-portal-6.0.1/deploy</liferay.auto.deploy.dir>
-    <liferay.version>6.0.6</liferay.version>
+    <liferay.version>6.1.1</liferay.version>
   </properties>
 </project>

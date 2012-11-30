@@ -28,7 +28,11 @@
         My Tasks
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.mytasks');" title="Help"><span class="icon">S</span></a> 
-          <a href="<portlet:actionURL portletMode="view" windowState="<%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "normal" : "maximized"%>"/>" title="Maximize"><span class="icon">%</span></a>
+          <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
+            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+          <% } else { %>
+            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+          <% } %>
         </span>
       </h1>
       <div class="inner">
@@ -67,7 +71,7 @@
 
             %>
             <tr>
-              <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getId().toString())%></td>
+              <td class="shrink center"><%= StringEscapeUtils.escapeHtml(task.getId().toString())%></td>
               <td class="<%= ViewHelper.getTaskStatusColorClass(task)%>"></td>
               <td class="last shrink"><a href="<portlet:actionURL portletMode="view" />&action=selectTask&id=<%= URLEncoder.encode(task.getId().toString(), "UTF-8")%>"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></a></td>
             </tr>
