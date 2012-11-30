@@ -31,8 +31,6 @@ $theme.include($top_messages_include)
 <a name="scrolltop"></a> 
 <div id="container"> 
 
-       	#dockbar()
-    
   	<div class="clear"></div> 
 	
 	<div id="logo"></div>
@@ -54,7 +52,8 @@ $theme.include($top_messages_include)
 	#end
 
   </div>
-  <div id="footer"></div>
+  <div id="footer">
+  </div>
 </div>
 
 $theme.include($bottom_ext_include)

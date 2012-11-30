@@ -1,14 +1,9 @@
 <?xml version="1.0"?>
 
-<portlet-app
-	version="2.0"
-	xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
->
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd">
 	<portlet>
-		<portlet-name>arago-rike-overview</portlet-name>
 		<description>Overview</description>
+		<portlet-name>arago-rike-overview</portlet-name>
 		<display-name>Overview</display-name>
 		<portlet-class>de.arago.rike.overview.Overview</portlet-class>
 		<expiration-cache>0</expiration-cache>
@@ -18,56 +13,6 @@
 			<portlet-mode>EDIT</portlet-mode>
 			<portlet-mode>HELP</portlet-mode>
 		</supports>
-
-
-		<supported-processing-event>
-			<qname>MilestoneChangeNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>MilestoneChangeNotification</qname>
-		</supported-publishing-event>
-    
-    <supported-processing-event>
-			<qname>TaskFilterRequest</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskFilterRequest</qname>
-		</supported-publishing-event>
-
-		<supported-processing-event>
-			<qname>TaskSelectNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskSelectNotification</qname>
-		</supported-publishing-event>
-
-		<supported-processing-event>
-			<qname>TaskUpdateNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskUpdateNotification</qname>
-		</supported-publishing-event>
-
-		<supported-processing-event>
-			<qname>TaskCreateNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskCreateNotification</qname>
-		</supported-publishing-event>
-
-		<supported-processing-event>
-			<qname>TaskLogNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskLogNotification</qname>
-		</supported-publishing-event>
-
 		<portlet-info>
 			<title>Overview</title>
 			<short-title>Overview</short-title>
@@ -92,11 +37,48 @@
 		<security-role-ref>
 			<role-name>user</role-name>
 		</security-role-ref>
+	<!-- -->	
+		<supported-processing-event>
+			<qname>MilestoneChangeNotification</qname>
+		</supported-processing-event>
+		<supported-processing-event>
+			<qname>TaskFilterRequest</qname>
+		</supported-processing-event>
+		<supported-processing-event>
+			<qname>TaskSelectNotification</qname>
+		</supported-processing-event>
+		<supported-processing-event>
+			<qname>TaskUpdateNotification</qname>
+		</supported-processing-event>
+		<supported-processing-event>
+			<qname>TaskCreateNotification</qname>
+		</supported-processing-event>
+		<supported-processing-event>
+			<qname>TaskLogNotification</qname>
+		</supported-processing-event>
+		
+		<supported-publishing-event>
+			<qname>MilestoneChangeNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>TaskFilterRequest</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>TaskSelectNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>TaskUpdateNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>TaskCreateNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>TaskLogNotification</qname>
+		</supported-publishing-event>
 	</portlet>
-
 	<portlet>
-		<portlet-name>arago-rike-mytasks</portlet-name>
 		<description>My Tasks</description>
+		<portlet-name>arago-rike-mytasks</portlet-name>
 		<display-name>My Tasks</display-name>
 		<portlet-class>de.arago.rike.mytasks.MyTasks</portlet-class>
 		<expiration-cache>0</expiration-cache>
@@ -106,40 +88,6 @@
 			<portlet-mode>EDIT</portlet-mode>
 			<portlet-mode>HELP</portlet-mode>
 		</supports>
-
-
-		<supported-processing-event>
-			<qname>TaskSelectNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskSelectNotification</qname>
-		</supported-publishing-event>
-
-		<supported-processing-event>
-			<qname>TaskUpdateNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskUpdateNotification</qname>
-		</supported-publishing-event>
-
-		<supported-processing-event>
-			<qname>TaskCreateNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskCreateNotification</qname>
-		</supported-publishing-event>
-
-		<supported-processing-event>
-			<qname>TaskLogNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskLogNotification</qname>
-		</supported-publishing-event>
-
 		<portlet-info>
 			<title>My Tasks</title>
 			<short-title>My Tasks</short-title>
@@ -164,11 +112,37 @@
 		<security-role-ref>
 			<role-name>user</role-name>
 		</security-role-ref>
-	</portlet>
 
+		<supported-processing-event>
+			<qname>TaskSelectNotification</qname>
+		</supported-processing-event>
+		<supported-processing-event>
+			<qname>TaskUpdateNotification</qname>
+		</supported-processing-event>
+		<supported-processing-event>
+			<qname>TaskCreateNotification</qname>
+		</supported-processing-event>
+		<supported-processing-event>
+			<qname>TaskLogNotification</qname>
+		</supported-processing-event>
+		<supported-publishing-event>
+			<qname>TaskSelectNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>TaskUpdateNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>TaskCreateNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>TaskLogNotification</qname>
+		</supported-publishing-event>
+		
+	</portlet>
+<!-- -->
 	<portlet>
-		<portlet-name>arago-rike-task</portlet-name>
 		<description>Task</description>
+		<portlet-name>arago-rike-task</portlet-name>
 		<display-name>Task</display-name>
 		<portlet-class>de.arago.rike.task.Task</portlet-class>
 		<expiration-cache>0</expiration-cache>
@@ -178,40 +152,6 @@
 			<portlet-mode>EDIT</portlet-mode>
 			<portlet-mode>HELP</portlet-mode>
 		</supports>
-
-
-		<supported-processing-event>
-			<qname>TaskSelectNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskSelectNotification</qname>
-		</supported-publishing-event>
-
-		<supported-processing-event>
-			<qname>TaskUpdateNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskUpdateNotification</qname>
-		</supported-publishing-event>
-
-		<supported-processing-event>
-			<qname>TaskCreateNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskCreateNotification</qname>
-		</supported-publishing-event>
-
-		<supported-processing-event>
-			<qname>TaskLogNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskLogNotification</qname>
-		</supported-publishing-event>
-
 		<portlet-info>
 			<title>Task</title>
 			<short-title>Task</short-title>
@@ -236,11 +176,36 @@
 		<security-role-ref>
 			<role-name>user</role-name>
 		</security-role-ref>
-	</portlet>
 
+		<supported-processing-event>
+			<qname>TaskSelectNotification</qname>
+		</supported-processing-event>
+		<supported-processing-event>
+			<qname>TaskUpdateNotification</qname>
+		</supported-processing-event>
+		<supported-processing-event>
+			<qname>TaskCreateNotification</qname>
+		</supported-processing-event>
+		<supported-processing-event>
+			<qname>TaskLogNotification</qname>
+		</supported-processing-event>
+
+		<supported-publishing-event>
+			<qname>TaskSelectNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>TaskUpdateNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>TaskCreateNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>TaskLogNotification</qname>
+		</supported-publishing-event>
+	</portlet>
 	<portlet>
+		<description>Task Log</description>		
 		<portlet-name>arago-rike-tasklog</portlet-name>
-		<description>Task Log</description>
 		<display-name>Task Log</display-name>
 		<portlet-class>de.arago.rike.tasklog.TaskLog</portlet-class>
 		<expiration-cache>0</expiration-cache>
@@ -250,40 +215,6 @@
 			<portlet-mode>EDIT</portlet-mode>
 			<portlet-mode>HELP</portlet-mode>
 		</supports>
-
-
-		<supported-processing-event>
-			<qname>TaskSelectNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskSelectNotification</qname>
-		</supported-publishing-event>
-
-		<supported-processing-event>
-			<qname>TaskUpdateNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskUpdateNotification</qname>
-		</supported-publishing-event>
-
-		<supported-processing-event>
-			<qname>TaskCreateNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskCreateNotification</qname>
-		</supported-publishing-event>
-
-		<supported-processing-event>
-			<qname>TaskLogNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskLogNotification</qname>
-		</supported-publishing-event>
-
 		<portlet-info>
 			<title>Task Log</title>
 			<short-title>Task Log</short-title>
@@ -308,9 +239,35 @@
 		<security-role-ref>
 			<role-name>user</role-name>
 		</security-role-ref>
+		
+		<supported-processing-event>
+			<qname>TaskSelectNotification</qname>
+		</supported-processing-event>
+		<supported-processing-event>
+			<qname>TaskUpdateNotification</qname>
+		</supported-processing-event>
+		<supported-processing-event>
+			<qname>TaskCreateNotification</qname>
+		</supported-processing-event>
+		<supported-processing-event>
+			<qname>TaskLogNotification</qname>
+		</supported-processing-event>
+
+		<supported-publishing-event>
+			<qname>TaskSelectNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>TaskUpdateNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>TaskCreateNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>TaskLogNotification</qname>
+		</supported-publishing-event>
+		
 	</portlet>
-  
-<!--  <portlet>
+	<!--  <portlet>
 		<portlet-name>arago-rike-leaderboard</portlet-name>
 		<description>Leaderboard</description>
 		<display-name>Leaderboard</display-name>
@@ -350,10 +307,9 @@
 			<role-name>user</role-name>
 		</security-role-ref>
 	</portlet>-->
-
 	<portlet>
-		<portlet-name>arago-rike-svg</portlet-name>
 		<description>SVG</description>
+		<portlet-name>arago-rike-svg</portlet-name>
 		<display-name>SVG</display-name>
 		<portlet-class>de.arago.rike.svg.SVG</portlet-class>
 		<expiration-cache>0</expiration-cache>
@@ -363,16 +319,6 @@
 			<portlet-mode>EDIT</portlet-mode>
 			<portlet-mode>HELP</portlet-mode>
 		</supports>
-
-
-    <supported-processing-event>
-			<qname>SelectMilestoneRequest</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>SelectMilestoneRequest</qname>
-		</supported-publishing-event>
-
 		<portlet-info>
 			<title>SVG</title>
 			<short-title>SVG</short-title>
@@ -397,13 +343,26 @@
 		<security-role-ref>
 			<role-name>user</role-name>
 		</security-role-ref>
+		<supported-processing-event>
+			<qname>SelectMilestoneRequest</qname>
+		</supported-processing-event>
+		<supported-publishing-event>
+			<qname>SelectMilestoneRequest</qname>
+		</supported-publishing-event>
 	</portlet>
-
 	<portlet>
-		<portlet-name>arago-rike-report</portlet-name>
 		<description>Report TaskStatus</description>
+		<portlet-name>arago-rike-report</portlet-name>
 		<display-name>Report TaskStatus</display-name>
 		<portlet-class>de.arago.rike.report.Report</portlet-class>
+				<init-param>
+			<name>type</name>
+			<value>taskstatus</value>
+		</init-param>
+		<init-param>
+			<name>typeName</name>
+			<value>Task Status</value>
+		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
@@ -411,34 +370,6 @@
 			<portlet-mode>EDIT</portlet-mode>
 			<portlet-mode>HELP</portlet-mode>
 		</supports>
-
-
-		<supported-processing-event>
-			<qname>MilestoneChangeNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>MilestoneChangeNotification</qname>
-		</supported-publishing-event>
-
-    <supported-processing-event>
-			<qname>TaskFilterRequest</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>TaskFilterRequest</qname>
-		</supported-publishing-event>
-
-		<init-param>
-			<name>type</name>
-			<value>taskstatus</value>
-		</init-param>
-
-		<init-param>
-			<name>typeName</name>
-			<value>Task Status</value>
-		</init-param>
-
 		<portlet-info>
 			<title>Report TaskStatus</title>
 			<short-title>Report TaskStatus</short-title>
@@ -463,13 +394,32 @@
 		<security-role-ref>
 			<role-name>user</role-name>
 		</security-role-ref>
+		<supported-processing-event>
+			<qname>MilestoneChangeNotification</qname>
+		</supported-processing-event>
+		<supported-processing-event>
+			<qname>TaskFilterRequest</qname>
+		</supported-processing-event>
+		<supported-publishing-event>
+			<qname>MilestoneChangeNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>TaskFilterRequest</qname>
+		</supported-publishing-event>
 	</portlet>
-
 	<portlet>
-		<portlet-name>arago-rike-report2</portlet-name>
 		<description>Report Burndown</description>
+		<portlet-name>arago-rike-report2</portlet-name>
 		<display-name>Report Burndown</display-name>
 		<portlet-class>de.arago.rike.report.Report</portlet-class>
+				<init-param>
+			<name>type</name>
+			<value>burndown</value>
+		</init-param>
+		<init-param>
+			<name>typeName</name>
+			<value>Burndown</value>
+		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
@@ -477,33 +427,6 @@
 			<portlet-mode>EDIT</portlet-mode>
 			<portlet-mode>HELP</portlet-mode>
 		</supports>
-
-    <supported-processing-event>
-			<qname>SelectMilestoneRequest</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>SelectMilestoneRequest</qname>
-		</supported-publishing-event>
-    
-		<supported-processing-event>
-			<qname>MilestoneChangeNotification</qname>
-		</supported-processing-event>
-
-		<supported-publishing-event>
-			<qname>MilestoneChangeNotification</qname>
-		</supported-publishing-event>
-
-		<init-param>
-			<name>type</name>
-			<value>burndown</value>
-		</init-param>
-
-		<init-param>
-			<name>typeName</name>
-			<value>Burndown</value>
-		</init-param>
-
 		<portlet-info>
 			<title>Report Burndown</title>
 			<short-title>Report Burndown</short-title>
@@ -528,46 +451,46 @@
 		<security-role-ref>
 			<role-name>user</role-name>
 		</security-role-ref>
+
+		<supported-processing-event>
+			<qname>SelectMilestoneRequest</qname>
+		</supported-processing-event>
+		<supported-processing-event>
+			<qname>MilestoneChangeNotification</qname>
+		</supported-processing-event>
+		<supported-publishing-event>
+			<qname>SelectMilestoneRequest</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>MilestoneChangeNotification</qname>
+		</supported-publishing-event>
 	</portlet>
-
-
 	<event-definition>
 		<qname>TaskSelectNotification</qname>
 		<value-type>java.util.HashMap</value-type>
 	</event-definition>
-
 	<event-definition>
 		<qname>TaskUpdateNotification</qname>
 		<value-type>java.util.HashMap</value-type>
 	</event-definition>
-	
 	<event-definition>
 		<qname>TaskCreateNotification</qname>
 		<value-type>java.util.HashMap</value-type>
 	</event-definition>
-
 	<event-definition>
 		<qname>TaskLogNotification</qname>
 		<value-type>java.util.HashMap</value-type>
 	</event-definition>
-
 	<event-definition>
 		<qname>MilestoneChangeNotification</qname>
 		<value-type>java.util.HashMap</value-type>
 	</event-definition>
-  
-  <event-definition>
+	<event-definition>
 		<qname>TaskFilterRequest</qname>
 		<value-type>java.util.HashMap</value-type>
 	</event-definition>
-  
-  <event-definition>
+	<event-definition>
 		<qname>SelectMilestoneRequest</qname>
 		<value-type>java.util.HashMap</value-type>
 	</event-definition>
-  
-  
-  
-  
-
 </portlet-app>

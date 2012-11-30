@@ -40,13 +40,15 @@ final class ConfigHelper
     final Configuration configuration = new Configuration();
 	  configuration.configure();
 
-    final String jdbcUrl = System.getProperty(PREFIX + datasource);
+    String jdbcUrl = System.getProperty(PREFIX + datasource);
     
-    if (jdbcUrl != null && !jdbcUrl.isEmpty())
+    if (jdbcUrl == null || jdbcUrl.isEmpty())
     {
-      configuration.setProperty("hibernate.connection.url", jdbcUrl);
-      setCredentials(configuration, jdbcUrl);
+      jdbcUrl = "jdbc:mysql://127.0.0.1/rike?user=rike&password=rike&useUnicode=true&characterEncoding=UTF-8";
     }
+    
+    configuration.setProperty("hibernate.connection.url", jdbcUrl);
+    setCredentials(configuration, jdbcUrl);
 
     setDebug(configuration);
     setAdditionalProperties(configuration, p);

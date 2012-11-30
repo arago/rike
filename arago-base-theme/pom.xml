@@ -5,7 +5,7 @@
     <packaging>war</packaging>
     <name>${project.artifactId}</name>
     <groupId>de.arago</groupId>
-    <version>4.0</version>
+    <version>4.1-SNAPSHOT</version>
 
     <repositories>
         <repository>
@@ -54,6 +54,6 @@
         <liferay.auto.deploy.dir>/opt/liferay-portal-current/deploy</liferay.auto.deploy.dir>
         <liferay.theme.parent>_styled</liferay.theme.parent>
         <liferay.theme.type>vm</liferay.theme.type>
-        <liferay.version>6.0.6</liferay.version>
+        <liferay.version>6.1.1</liferay.version>
     </properties>
 </project>
