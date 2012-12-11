@@ -48,11 +48,12 @@ Bugs and Suggestions
 * please use the issue options of the sourcecode hoster
 * contact: rike-dev (at) arago.de
 
+Roadmap
+=============
+* prepare for liferay 6.1
+* publish in liferay marketplace
+
 Known Issues
 =============
-
-* disable portlet validation: in `portal-ext.properties` add `portlet.xml.validate=false`
-* disable jsp strict quote escaping: `-Dorg.apache.jasper.compiler.Parser.STRICT_QUOTE_ESCAPING=false`
-* jquery needs to be provided by liferay (via `javascript.barebone.files` or `javascript.everything.files` in `portal-ext.properties`)
 
  

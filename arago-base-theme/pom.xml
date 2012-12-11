@@ -5,7 +5,7 @@
     <packaging>war</packaging>
     <name>${project.artifactId}</name>
     <groupId>de.arago</groupId>
-    <version>4.0</version>
+    <version>4.1-SNAPSHOT</version>
 
     <repositories>
         <repository>
@@ -32,6 +32,8 @@
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>theme-merge</goal>
+                            <goal>build-css</goal>
+                            <goal>build-thumbnail</goal>
                         </goals>
                     </execution>
                 </executions>

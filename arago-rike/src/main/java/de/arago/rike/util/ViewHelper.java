@@ -56,6 +56,7 @@ public class ViewHelper {
 	private static final List<String> priorities = new LinkedList<String>();
 	private static final Map<String, String> statusNames = new HashMap<String, String>();
 	private static final List<String> status = new LinkedList<String>();
+	private static final Map<String, String> statusColors = new HashMap<String, String>();
 
 	static {
 		challenges.add(Challenge.DIFFICULT.toString());
@@ -83,6 +84,11 @@ public class ViewHelper {
 		statusNames.put(Status.OPEN.toString(), "open");
 		statusNames.put(Status.IN_PROGRESS.toString(), "in progress");
 		statusNames.put(Status.DONE.toString(), "completed");
+                
+		statusColors.put(Status.UNKNOWN.toString(), "blue");
+		statusColors.put(Status.OPEN.toString(), "red");
+		statusColors.put(Status.IN_PROGRESS.toString(), "yellow");
+		statusColors.put(Status.DONE.toString(), "green");
 	}
 
 	private static String encode(String what) {
@@ -240,5 +246,9 @@ public class ViewHelper {
 
 	public static String getStatus(String what) {
 		return statusNames.get(what.toUpperCase());
+	}
+
+	public static String getColor(String what) {
+		return statusColors.get(what.toUpperCase());
 	}
 }
