@@ -1273,95 +1273,6 @@ div.portletbox table table td.left {
 	height:100px;
 	min-height:100px;
 }
-
-/*
-.dockbar {
-	width:1250px;
-	margin:0 auto;
-	background:#011c35;
-	height:30px;
-	border-radius:0 0 3px 3px;
-	-webkit-border-radius:0 0 3px 3px;
-	background-image: linear-gradient(bottom, rgb(0,51,102) 22%, rgb(0,69,129) 61%);
-	background-image: -o-linear-gradient(bottom, rgb(0,51,102) 22%, rgb(0,69,129) 61%);
-	background-image: -moz-linear-gradient(bottom, rgb(0,51,102) 22%, rgb(0,69,129) 61%);
-	background-image: -webkit-linear-gradient(bottom, rgb(0,51,102) 22%, rgb(0,69,129) 61%);
-	background-image: -ms-linear-gradient(bottom, rgb(0,51,102) 22%, rgb(0,69,129) 61%);
-	background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0.22, rgb(0,51,102)), color-stop(0.61, rgb(0,69,129)) );
-	position:relative;
-	z-index:300;
-}
-.dockbar:after {
-	clear:both;
-	content:".";
-	display:block;
-	height:0;
-	visibility:hidden;
-}
-.dockbar a {
-	color:#fff!important;
-	font-weight:bold;
-}
-.dockbar .menu-button-active {
-	background:#5C94DA url(../images/dockbar/button_active_bg.png) repeat-x 0 0;
-}
-.dockbar .menu-button-active a {
-	color:#FFF;
-	text-shadow:-1px -1px #2C2F34;
-}
-.dockbar .user-avatar .sign-out {
-	font-size:.8em;
-	padding-left:0;
-}
-.dockbar ul {
-	margin:0;
-	padding:0;
-}
-.dockbar li li {
-	margin-left:0;
-}
-html>.lfr-dockbar-pinned {
-	padding-top:3.45em;
-}
-.lfr-dockbar-pinned .dockbar {
-	left:0;
-	position:fixed;
-	right:0;
-	top:0;
-}
-.dockbar .pin-dockbar {
-	margin-left:0;
-}
-.pin-dockbar img {
-	background:url(../images/dockbar/pin.png) no-repeat 0 0;
-	height:27px;
-	vertical-align:middle;
-	width:27px;
-}
-.lfr-dockbar-pinned .pin-dockbar img {
-	background-image:url(../images/dockbar/unpin.png);
-}
-.dockbar .user-avatar img {
-	vertical-align:middle;
-	width:25px;
-}
-.dockbar .impersonating-user {
-	background:url(../images/messages/alert.png) no-repeat 0 50%;
-	padding-left:20px;
-}
-.dockbar .impersonating-user .user-links a {
-	color:#999;
-}
-.aui-dockbarmenu-hidden {
-	visibility:hidden;
-}
-.dockbar .aui-toolbar {
-	float:left;
-}
-.dockbar .user-toolbar {
-	float:right;
-}
-*/
 .aui-underlay .portal-add-content {
 	background-color:transparent;
 	font-size:11px;
@@ -1426,41 +1337,9 @@ html>.lfr-dockbar-pinned {
 .my-places-menu a:hover .site-type {
 	color:#FFF;
 }
-.dockbar .toggle-controls a {
-	background:url(/arago-theme/pix/checked.png) no-repeat 0 50%;
-	padding-left:20px;
-}
 .controls-hidden .toggle-controls a {
 	background-image:url(../images/dockbar/unchecked.png);
 }
-.dockbar .menu-button {
-	display:inline-block;
-	padding:5px 20px 5px 5px;
-	text-decoration:none;
-}
-.dockbar .menu-button span {
-	padding-left:20px;
-}
-.dockbar .add-content .menu-button span {
-	background-image:url(../images/common/add.png);
-}
-.dockbar .manage-content .menu-button span {
-	background-image:url(../images/dockbar/settings.png);
-}
-.dockbar .my-places .menu-button span {
-	background-image:url(/arago-theme/pix/places.png);
-}
-.dockbar .staging-options .menu-button span {
-	background-image:url(../images/dockbar/staging.png);
-}
-.dockbar-messages-container {
-	left:50%;
-	margin-left:-150px;
-}
-.dockbar-messages {
-	width:300px;
-}
-
 .showing-messages .dockbar-messages {
 	display:block;
 }
@@ -1604,7 +1483,7 @@ body.portlet {
 	padding:1px;
 }
 .portlet-content, .portlet-minimized .portlet-content-container {
-	padding:12px 10px 10px;
+	padding:0px 0px 0px;
 }
 .portlet-minimized .portlet-content {
 	padding:0;
@@ -1949,42 +1828,6 @@ input[type="image"] {
 	border:none;
 	padding:0;
 }
-/*input[type="submit"], input[type="button"], input[type="reset"], button {
-	background:#F5F5F5 url(../images/forms/button.png) repeat-x 0 0;
-	border-color:#DEDEDE #BFBFBF #BFBFBF #DEDEDE;
-	color:#34404F;
-	cursor:pointer;
-	font-weight:bold;
-	overflow:visible;
-	padding:5px;
-	width:auto;
-}
-input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:focus, input[type="button"]:focus, input[type="reset"]:focus, button:hover, button:focus {
-	background:#DFF4FF;
-	border:1px solid #A7CEDF;
-	color:#369;
-}
-input[type="submit"], input[type="button"], input[type="reset"], button, .lfr-actions, .lfr-actions ul {
-	background:#D4D4D4 url(../images/portlet/header_bg.png) repeat-x 0 0;
-	border:1px solid;
-	border-color:#C8C9CA #9E9E9E #9E9E9E #C8C9CA;
-	color:#34404F;
-	font-weight:bold;
-}
-input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover, button:hover, .lfr-actions:hover, .lfr-actions:hover ul {
-	background:#B9CED9 url(../images/application/state_hover_bg.png) repeat-x 0 0;
-	border-color:#627782;
-	color:#369;
-}
-input[type="submit"]:focus, input[type="button"]:focus, input[type="reset"]:focus, button:focus, .lfr-actions:focus, .lfr-actions:focus ul {
-	background:#EBEBEB url(../images/application/state_active_bg.png) repeat-x 0 0;
-	border-color:#555;
-}
-input.focus, textarea.focus, .ie6 input.focus, .ie6 textarea.focus {
-	background:#FFC none;
-	border:1px solid #FC0;
-}
-*/
 .aui-menu-content, body>.lfr-menu-list ul, .aui-underlay-content, .aui-dialog-content {
 	-moz-box-shadow:2px 4px 7px rgba(0,0,0,0.5);
 	-webkit-box-shadow:2px 4px 7px rgba(0,0,0,0.5);
@@ -2680,6 +2523,30 @@ table.issue-overview tbody td.message { max-width:180px; overflow:hidden;}
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
+/*update 051112*/
+
+ul.lightstatus {
+	margin:0
+	}
+ul.lightstatus li{
+	float:left; width:20px; margin:0 12px;
+	border-radius:12px;
+	}
+ul.lightstatus li.red {
+	background:#cc0000;
+}
+ul.lightstatus li.yellow {
+	background:#ffb400;
+}
+ul.lightstatus li.green {
+	background:#17a00d;
+}
+ul.lightstatus li.grey {
+	background:#535b53;
+}
+ul.lightstatus li a { color:#fff;}
+
+
 
 /* actionlayer 
 
