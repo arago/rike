@@ -22,6 +22,8 @@
  */
 package de.arago.rike.data;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -29,6 +31,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import net.minidev.json.JSONArray;
 
 import org.hibernate.Hibernate;
@@ -131,7 +134,7 @@ public class ChartTimeSeries {
 			if(data.containsKey(names[i])){
 				TreeMap<String,Object> map = new TreeMap<String, Object>();
 				map.put("label",labels[i]);
-        map.put("key", names[i]);
+                                map.put("key", names[i]);
 				map.put("color",colors[i]);
 				map.put("data",data.get(names[i]));
 				list.add(map);
@@ -147,18 +150,123 @@ public class ChartTimeSeries {
 			List<List<Long>> tmp = (List<List<Long>>)m.get("data");
 			for(List<Long> l:tmp){
 				Long sum;
-				if(dates.containsKey(l.get(0)))
-					sum = dates.get(l.get(0));
-				else
-					sum = new Long(0);
+				if(dates.containsKey(l.get(0))) {
+                                sum = dates.get(l.get(0));
+                                    }
+				else {
+                                sum = new Long(0);
+                                    }
 				sum = new Long(sum.longValue()+l.get(1).longValue());
 				l.set(1, sum);
 				dates.put(l.get(0),sum);
 			}
 		}
 	}
+        
+ /*       public static class BehalterMap{
+            public long fGr;
+            public long fGe;
+            public long fRo;
+            public long fBl; 
+            public BehalterMap(long grün, long gelb, long rot, long blau){
+                this.fGr=grün;
+                this.fGe=gelb;
+                this.fRo=rot;
+                this.fBl=blau;
+            }           
+            public String toString()
+            {
+                return fGr + ", " + fGe+ ", "+ fRo+", "+fBl;
+            }        
+        }
+        
+	static void printDataAsTable(List<Map<String,Object>> data){
+            TreeMap <Date,BehalterMap> ersteZeile = new TreeMap <Date,BehalterMap>();
+            BehalterMap bh;
+                for(Map<String,Object> m:data){
+                        List<List<Long>> tmp = (List<List<Long>>)m.get("data");
+                        long grün=0,gelb=0,rot=0,blau=0;
+                        Object c = m.get("color");
+                        String cl=c.toString();
+                        for(List<Long> l:tmp){
+                            Date d = new Date();
+                            d.setTime(l.get(0));
+                            if("green".equals(cl))
+                                grün=l.get(1);
+                            else if("yellow".equals(cl))
+                                gelb=l.get(1);
+                            else if("red".equals(cl))
+                                rot=l.get(1);
+                            else if("blue".equals(cl))
+                                blau=l.get(1);
+                            
+                    if(ersteZeile.containsKey(d))
+                    {
+                      bh = ersteZeile.get(d);
+                      bh.fGr+=grün;
+                      bh.fGe+=gelb; 
+                      bh.fRo+=rot;
+                      bh.fBl+=blau;
+                    } else{
+                      bh=new BehalterMap(grün,gelb,rot,blau);  
+                    }   
+                    
+                    ersteZeile.put(d,bh);
+                     }
 
-	
+                }
+            SimpleDateFormat sdf = new SimpleDateFormat();
+            sdf.applyPattern( "d. MMM yyyy" );
+             for(Map.Entry<Date,BehalterMap> entry : ersteZeile.entrySet()){
+                 System.out.println(sdf.format(entry.getKey())+"\t "+ entry.getValue());
+             }
+}*/
+       
+        public static List<Map<String,Object>>fillEmptyValues(List<Map<String,Object>> list){
+            //Hier werden alle Daten gespeichert
+            TreeSet<Long> DatumMap2= new TreeSet<Long>();
+            for(Map<String,Object> m:list){
+                List<List<Long>> tmp= (List<List<Long>>)m.get("data");
+                Object c = m.get("color");
+                for(List<Long>l :tmp){
+                    long d=l.get(0);
+                    if(DatumMap2.equals(d)){}
+                    else{
+                       DatumMap2.add(d);
+                    }
+                 }
+            }  
+            //Schleife sucht alle Daten(Datum)
+            for(Map<String,Object> m:list){                             
+            //Hier werden fehlende Daten zur "list" hinzugefügt
+                Object c = m.get("color");
+                //Existierende Daten für eine Farbe,die an der Reihe ist.
+                TreeMap<Long,Long>DatumExist=new TreeMap<Long,Long>();
+                List<List<Long>> tmp= (List<List<Long>>)m.get("data");                
+                for(List<Long> l:tmp){
+                    if (DatumExist.containsKey(l.get(0))){}
+                    else{
+                        DatumExist.put(l.get(0),l.get(1));}
+                }                                
+                long k=0;
+                TreeMap<Long,Long> ListeFull = new TreeMap<Long,Long>();                    
+                for(Long keyAkt: DatumMap2){
+                    if(DatumExist.containsKey(keyAkt)){
+                        ListeFull.put(keyAkt, DatumExist.get(keyAkt));}
+                    else{
+                        ListeFull.put(keyAkt, k);}
+                }
+                tmp.clear();
+                for(Long keyAkt2:DatumMap2){
+                        List<Long> lg=new ArrayList<Long>();
+                        lg.add(keyAkt2);
+                        lg.add(ListeFull.get(keyAkt2));
+                        tmp.add(lg);
+                }             
+            }
+            return list;
+        }
+        
 	private static void clearData(List<Map<String,Object>> list){
 		TreeMap<Long,Long> dates = new TreeMap<Long,Long>();
 		for(Map<String,Object> m:list){
@@ -221,7 +329,8 @@ public class ChartTimeSeries {
 		if(list==null)
 			return "";
 		if (type.equals("taskstatus"))
-			clearData(list);
+			clearData(list);                
+                list = fillEmptyValues(list);                               
 		stackData(list);
 		return JSONArray.toJSONString(list);
 	}
