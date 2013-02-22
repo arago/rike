@@ -12,6 +12,7 @@
     <module>arago-data</module>
     <module>arago-data-util</module>
     <module>arago-debug-util</module>
+    <module>arago-lucene</module>
     <module>arago-portlet-util</module>
     <module>arago-rike</module>
     <module>arago-rike-help</module>
