@@ -32,6 +32,8 @@
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>theme-merge</goal>
+                            <goal>build-css</goal>
+                            <goal>build-thumbnail</goal>
                         </goals>
                     </execution>
                 </executions>

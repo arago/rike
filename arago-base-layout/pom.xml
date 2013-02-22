@@ -7,6 +7,7 @@
     <version>4.1-SNAPSHOT</version>
 	<build>
 	  <finalName>${project.artifactId}</finalName>
+    <plugins></plugins>
 	</build>
 	<dependencies>
 		<dependency>
