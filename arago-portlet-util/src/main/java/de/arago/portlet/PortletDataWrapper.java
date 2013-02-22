@@ -35,6 +35,7 @@ import de.arago.data.IDataWrapper;
 import java.util.HashMap;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+import javax.portlet.WindowState;
 
 public class PortletDataWrapper implements IDataWrapper {
 	private PortletRequest m_request;
@@ -46,6 +47,8 @@ public class PortletDataWrapper implements IDataWrapper {
 		m_response = response;
 	}
 
+    
+  
 	public PortletDataWrapper(ActionRequest request, ActionResponse response){
 		m_request = request;
 		m_response = response;
@@ -57,6 +60,14 @@ public class PortletDataWrapper implements IDataWrapper {
 		m_response = response;
 	}
 	
+  public WindowState getWindowState()
+  {
+    if (m_request != null) return m_request.getWindowState();
+    if (m_actionResponse != null) return m_actionResponse.getWindowState();
+    
+    return WindowState.NORMAL;
+  }
+  
   @Override
 	public void setSessionAttribute(String key, Object value) {
 		m_request.getPortletSession().setAttribute(key, value);
@@ -76,7 +87,7 @@ public class PortletDataWrapper implements IDataWrapper {
 	public void removeSessionAttribute(String key) {
 		m_request.getPortletSession().removeAttribute(key);
 	}
-
+  
   @Override
 	public Enumeration<String> getRequestAttributeNames() {
 		return m_request.getParameterNames();
