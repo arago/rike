@@ -20,12 +20,12 @@ public final class IndexFactory {
         p.put("index.marsValidierer.converterClass", "de.arago.lucene.xmlschema.MarsSchemaConverter");
         p.put("index.marsValidierer.creatorClass", "de.arago.lucene.xmlschema.MarsSchemaIndexCreator");
         p.put("index.kiValidierer.converterClass", "de.arago.lucene.util.StringMapConverter");
-        p.put("index.kiValidierer.creatorClass", "de.arago.lucene.issue.IssueConditionIndexCreator");
+        p.put("index.kiValidierer.creatorClass", "de.arago.lucene.ki.IssueConditionIndexCreator");
         p.put("index.orga.creatorClass", "de.arago.wisdome.rike.task.TaskIndexCreator");
         p.put("index.orga.converterClass", "de.arago.wisdome.rike.task.TaskIndexConverter");
         p.put("index.mars-schema.creatorClass", "de.arago.lucene.xmlschema.MarsSchemaIndexCreator");
         p.put("index.mars-schema.converterClass", "de.arago.lucene.xmlschema.MarsSchemaConverter");
-        p.put("index.issue-condition.creatorClass", "de.arago.lucene.issue.IssueConditionIndexCreator");
+        p.put("index.issue-condition.creatorClass", "de.arago.lucene.ki.IssueConditionIndexCreator");
         p.put("index.issue-condition.converterClass", "de.arago.lucene.util.StringMapConverter");
         p.put("index.issue-statistics.creatorClass", "de.arago.lucene.issue.IssueStatisticIndexCreator");
         p.put("index.issue-statistics.converterClass", "de.arago.lucene.issue.IssueStatisticIndexConverter");
@@ -68,6 +68,7 @@ public final class IndexFactory {
         }
 
         config.setPath(path == null ? "/tmp/" + prefix + name + ".index" : path);
+        config.setProperties(settings);
 
         try {
             String klass = settings.getProperty(prefix + name + ".converterClass");
