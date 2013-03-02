@@ -95,9 +95,6 @@ public final class IndexFactory {
     private static <T> void fillIndex(Index<T> index) {
         String creatorKlass = settings.getProperty(prefix + index.getName() + ".creatorClass");
         if (creatorKlass == null) {
-            creatorKlass = getDefaultProperties().getProperty(prefix + index.getName() + ".creatorClass");
-        }
-        if (creatorKlass == null) {
             return;
         }
 
