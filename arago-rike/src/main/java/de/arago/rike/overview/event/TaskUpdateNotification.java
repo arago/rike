@@ -30,11 +30,11 @@ import de.arago.rike.util.TaskListFilter;
 
 public class TaskUpdateNotification  implements Event {
 
-	public void execute(IEventWrapper event) throws Exception {
-		TaskListFilter filter = (TaskListFilter) event.getSessionAttribute("taskListFilter");
+    public void execute(IEventWrapper event) throws Exception {
+        TaskListFilter filter = (TaskListFilter) event.getSessionAttribute("taskListFilter");
 
-		event.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
-		event.removeSessionAttribute("targetView");
-	}
+        event.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
+        event.removeSessionAttribute("targetView");
+    }
 
 }

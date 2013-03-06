@@ -26,19 +26,16 @@ import com.liferay.portal.model.User;
 import de.arago.portlet.util.SecurityHelper;
 import javax.servlet.http.HttpServletRequest;
 
-public class ServletUserService extends AbstractUserService
-{
-  private final HttpServletRequest request;
+public class ServletUserService extends AbstractUserService {
+    private final HttpServletRequest request;
 
-  public ServletUserService(HttpServletRequest request)
-  {
-    this.request = request;
-  } 
-  
-  @Override
-  public User getUser()
-  {
-    return SecurityHelper.getUserFromRequest(request);
-  }
-  
+    public ServletUserService(HttpServletRequest request) {
+        this.request = request;
+    }
+
+    @Override
+    public User getUser() {
+        return SecurityHelper.getUserFromRequest(request);
+    }
+
 }

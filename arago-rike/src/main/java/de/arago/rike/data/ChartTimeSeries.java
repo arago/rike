@@ -31,44 +31,44 @@ public class ChartTimeSeries {
 
     //private static final SessionFactory factory;
     public static String releaseTasksStatus =
-            "SELECT sum(summe_size) as value, task_status as name, moment "
-            + "FROM task_stat,milestones "
-            + "WHERE milestone_id=milestones.id AND milestones.release_name=? "
-            + "GROUP BY task_status, moment";
+        "SELECT sum(summe_size) as value, task_status as name, moment "
+        + "FROM task_stat,milestones "
+        + "WHERE milestone_id=milestones.id AND milestones.release_name=? "
+        + "GROUP BY task_status, moment";
     public static String milestoneTasksStatus =
-            "SELECT sum(summe_size) as value, task_status as name, moment "
-            + "FROM task_stat "
-            + "WHERE milestone_id = ? "
-            + "GROUP BY task_status, moment";
+        "SELECT sum(summe_size) as value, task_status as name, moment "
+        + "FROM task_stat "
+        + "WHERE milestone_id = ? "
+        + "GROUP BY task_status, moment";
     public static String allTasksStatus =
-            "SELECT sum(summe_size) as value, task_status as name, moment "
-            + "FROM task_stat "
-            + "GROUP BY task_status, moment";
+        "SELECT sum(summe_size) as value, task_status as name, moment "
+        + "FROM task_stat "
+        + "GROUP BY task_status, moment";
     public static String milestoneBurndown =
-            "SELECT sum( summe_size ) as value, milestones.title as name, moment "
-            + "FROM task_stat, milestones "
-            + "WHERE milestone_id = milestones.id "
-            + "AND task_status != 'done' "
-            + "AND due_date IS NOT NULL "
-            + "GROUP BY milestones.title, moment "
-            + "ORDER BY due_date, moment";
+        "SELECT sum( summe_size ) as value, milestones.title as name, moment "
+        + "FROM task_stat, milestones "
+        + "WHERE milestone_id = milestones.id "
+        + "AND task_status != 'done' "
+        + "AND due_date IS NOT NULL "
+        + "GROUP BY milestones.title, moment "
+        + "ORDER BY due_date, moment";
     public static String allBurndown =
-            "SELECT sum( summe_size ) as value, milestones.release_name as name, moment "
-            + "FROM task_stat, milestones "
-            + "WHERE milestone_id = milestones.id "
-            + "AND task_status != 'done' "
-            + "AND due_date IS NOT NULL "
-            + "GROUP BY milestones.release_name, moment "
-            + "ORDER BY moment";
+        "SELECT sum( summe_size ) as value, milestones.release_name as name, moment "
+        + "FROM task_stat, milestones "
+        + "WHERE milestone_id = milestones.id "
+        + "AND task_status != 'done' "
+        + "AND due_date IS NOT NULL "
+        + "GROUP BY milestones.release_name, moment "
+        + "ORDER BY moment";
     public static String releaseBurndown =
-            "SELECT sum( summe_size ) as value, milestones.title as name, moment "
-            + "FROM task_stat, milestones "
-            + "WHERE milestone_id = milestones.id "
-            + "AND task_status != 'done' "
-            + "AND milestones.release_name=? "
-            + "AND due_date IS NOT NULL "
-            + "GROUP BY milestones.title, moment "
-            + "ORDER BY due_date, moment";
+        "SELECT sum( summe_size ) as value, milestones.title as name, moment "
+        + "FROM task_stat, milestones "
+        + "WHERE milestone_id = milestones.id "
+        + "AND task_status != 'done' "
+        + "AND milestones.release_name=? "
+        + "AND due_date IS NOT NULL "
+        + "GROUP BY milestones.title, moment "
+        + "ORDER BY due_date, moment";
 
     public static Map<String, List<List<Long>>> query(String str, Object[] parameters) {
         //Session s = factory.getCurrentSession();
@@ -222,7 +222,7 @@ public class ChartTimeSeries {
         List<Map<String, Object>> list = null;
         if (type.equals("burndown")) {
             if (milestone.startsWith("release_")) {
-                list = toBurndownJSON(releaseBurndown, new Object[]{milestone.substring(8)});
+                list = toBurndownJSON(releaseBurndown, new Object[] {milestone.substring(8)});
             } else if (milestone.startsWith("milestone_")) {
                 list = toBurndownJSON(milestoneBurndown, null);
             } else {
@@ -233,9 +233,9 @@ public class ChartTimeSeries {
                 list = taskStatusJSON(allTasksStatus, null);
             } else {
                 if (milestone.startsWith("milestone_")) {
-                    list = taskStatusJSON(milestoneTasksStatus, new Object[]{milestone.substring(10)});
+                    list = taskStatusJSON(milestoneTasksStatus, new Object[] {milestone.substring(10)});
                 } else if (milestone.startsWith("release_")) {
-                    list = taskStatusJSON(releaseTasksStatus, new Object[]{milestone.substring(8)});
+                    list = taskStatusJSON(releaseTasksStatus, new Object[] {milestone.substring(8)});
                 }
             }
         }

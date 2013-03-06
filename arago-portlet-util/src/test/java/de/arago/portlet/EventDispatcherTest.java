@@ -34,91 +34,91 @@ import static org.junit.Assert.*;
 
 public class EventDispatcherTest {
 
-	private static class testClass {
-	}
+    private static class testClass {
+    }
 
-	private static class TestDataWrapper implements IEventWrapper {
+    private static class TestDataWrapper implements IEventWrapper {
 
-		private Map<Object,Object> data;
+        private Map<Object,Object> data;
 
-		public TestDataWrapper(Map<Object,Object> data) {
-			this.data = data;
-		}
+        public TestDataWrapper(Map<Object,Object> data) {
+            this.data = data;
+        }
 
-		public String getName() {
-			throw new UnsupportedOperationException("Not supported yet.");
-		}
+        public String getName() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
 
-		public void setName(String name) {
-			throw new UnsupportedOperationException("Not supported yet.");
-		}
+        public void setName(String name) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
 
-		public Object getEventAttribute(String key) {
-			return data.get(key);
-		}
+        public Object getEventAttribute(String key) {
+            return data.get(key);
+        }
 
-		public void setEventAttribute(String key, Object value) {
-			data.put(key, value);
-		}
+        public void setEventAttribute(String key, Object value) {
+            data.put(key, value);
+        }
 
-		public Object getSessionAttribute(String key) {
-			throw new UnsupportedOperationException("Not supported yet.");
-		}
+        public Object getSessionAttribute(String key) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
 
-		public void setSessionAttribute(String key, Object value) {
-			throw new UnsupportedOperationException("Not supported yet.");
-		}
+        public void setSessionAttribute(String key, Object value) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
 
-		public void removeSessionAttribute(String key) {
-			throw new UnsupportedOperationException("Not supported yet.");
-		}
+        public void removeSessionAttribute(String key) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
 
-		public String getUser() {
-			throw new UnsupportedOperationException("Not supported yet.");
-		}
-	}
+        public String getUser() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+    }
 
-	public EventDispatcherTest() {
-	}
+    public EventDispatcherTest() {
+    }
 
-	@BeforeClass
-	public static void setUpClass() throws Exception {
-	}
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
 
-	@AfterClass
-	public static void tearDownClass() throws Exception {
-	}
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
 
-	@Before
-	public void setUp() {
-	}
+    @Before
+    public void setUp() {
+    }
 
-	@After
-	public void tearDown() {
-	}
+    @After
+    public void tearDown() {
+    }
 
-	@Test
-	public void testLoad() {
-		EventDispatcher a = new EventDispatcher(testClass.class);
-		assertEquals(a.getNamespace(), "de.arago.portlet.event.");
-	}
+    @Test
+    public void testLoad() {
+        EventDispatcher a = new EventDispatcher(testClass.class);
+        assertEquals(a.getNamespace(), "de.arago.portlet.event.");
+    }
 
-	@Test
-	public void testDispatchDoesNotExist() throws Exception {
-		EventDispatcher a = new EventDispatcher(testClass.class);
-		Map<Object,Object> data = new HashMap<Object,Object>();
-		a.dispatch("testEventDoesNotExist", new TestDataWrapper(data));
-	}
+    @Test
+    public void testDispatchDoesNotExist() throws Exception {
+        EventDispatcher a = new EventDispatcher(testClass.class);
+        Map<Object,Object> data = new HashMap<Object,Object>();
+        a.dispatch("testEventDoesNotExist", new TestDataWrapper(data));
+    }
 
-	@Test
-	public void testDispatch() throws Exception {
-		EventDispatcher a = new EventDispatcher(testClass.class);
-		Map<Object,Object> data = new HashMap<Object,Object>();
+    @Test
+    public void testDispatch() throws Exception {
+        EventDispatcher a = new EventDispatcher(testClass.class);
+        Map<Object,Object> data = new HashMap<Object,Object>();
 
-		a.dispatch("DispatcherTestEvent", new TestDataWrapper(data));
+        a.dispatch("DispatcherTestEvent", new TestDataWrapper(data));
 
 
-		assertEquals("event executed", data.get("ok"));
+        assertEquals("event executed", data.get("ok"));
 
-	}
+    }
 }

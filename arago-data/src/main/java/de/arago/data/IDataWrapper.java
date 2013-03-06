@@ -26,15 +26,15 @@ import java.util.Enumeration;
 import java.util.HashMap;
 
 public interface IDataWrapper {
-	public void setSessionAttribute(String key,Object value);
-	public Enumeration<java.lang.String> getSessionAttributeNames(); 
-	public Object getSessionAttribute(String key);
-	public void removeSessionAttribute(String key);
+    public void setSessionAttribute(String key,Object value);
+    public Enumeration<java.lang.String> getSessionAttributeNames();
+    public Object getSessionAttribute(String key);
+    public void removeSessionAttribute(String key);
 
-	public Enumeration<java.lang.String> getRequestAttributeNames(); 
-	public String getRequestAttribute(String key);
-	public void setRequestAttribute(String key,Object value);
+    public Enumeration<java.lang.String> getRequestAttributeNames();
+    public String getRequestAttribute(String key);
+    public void setRequestAttribute(String key,Object value);
 
-	public void setEvent(String key, HashMap<String, Object> event);
-	public String getUser();
+    public void setEvent(String key, HashMap<String, Object> event);
+    public String getUser();
 }

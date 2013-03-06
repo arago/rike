@@ -31,131 +31,129 @@ import de.arago.portlet.jsp.UserService;
 
 public class TaskListFilter extends MapOptionFilter {
 
-	public static enum SortDirection {
+    public static enum SortDirection {
 
-		ASC,
-		DESC
-	};
+        ASC,
+        DESC
+    };
 
-	public static enum SortField {
+    public static enum SortField {
 
-		TITLE, STATUS, ID, PRIORITY
-	}
+        TITLE, STATUS, ID, PRIORITY
+    }
 
-  @Override
-	public void setDefaultOptions() {
-		setSortField(SortField.STATUS);
-		setSortDirection(SortDirection.ASC);
-		setUser("");
-		setStatus("");
-		setPriority("");
-		setMilestone("");
-		setCreator("");
-		setIsActive(false);
-	}
+    @Override
+    public void setDefaultOptions() {
+        setSortField(SortField.STATUS);
+        setSortDirection(SortDirection.ASC);
+        setUser("");
+        setStatus("");
+        setPriority("");
+        setMilestone("");
+        setCreator("");
+        setIsActive(false);
+    }
 
-	public void setSortField(SortField type) {
-		set("sort", type);
-	}
+    public void setSortField(SortField type) {
+        set("sort", type);
+    }
 
-	public void setSortField(String type) {
-		setSortField(SortField.valueOf(type));
-	}
+    public void setSortField(String type) {
+        setSortField(SortField.valueOf(type));
+    }
 
-	public void setSortDirection(SortDirection sortDirection) {
-		set("direction", sortDirection);
-	}
+    public void setSortDirection(SortDirection sortDirection) {
+        set("direction", sortDirection);
+    }
 
-	public void setSortDirection(String sortDirection) {
-		setSortDirection(SortDirection.valueOf(sortDirection));
-	}
+    public void setSortDirection(String sortDirection) {
+        setSortDirection(SortDirection.valueOf(sortDirection));
+    }
 
-	public SortField getSortField() {
-		return (SortField) get("sort");
-	}
+    public SortField getSortField() {
+        return (SortField) get("sort");
+    }
 
-	public SortDirection getSortDirection() {
-		return (SortDirection) get("direction");
-	}
+    public SortDirection getSortDirection() {
+        return (SortDirection) get("direction");
+    }
 
-	public String getUser() {
-		return (String) getOr("user", "");
-	}
+    public String getUser() {
+        return (String) getOr("user", "");
+    }
 
-	public void setUser(String what) {
-		set("user", what);
-	}
+    public void setUser(String what) {
+        set("user", what);
+    }
 
-	public String getMilestone() {
-		return (String) getOr("milestone", "");
-	}
+    public String getMilestone() {
+        return (String) getOr("milestone", "");
+    }
 
-	public void setMilestone(String what) {
-		set("milestone", what);
-	}
+    public void setMilestone(String what) {
+        set("milestone", what);
+    }
 
-	public String getArtifact() {
-		return (String) getOr("artifact", "");
-	}
+    public String getArtifact() {
+        return (String) getOr("artifact", "");
+    }
 
-	public void setArtifact(String what) {
-		set("artifact", what);
-	}
+    public void setArtifact(String what) {
+        set("artifact", what);
+    }
 
-	public String getStatus() {
-		return (String) getOr("status", "");
-	}
+    public String getStatus() {
+        return (String) getOr("status", "");
+    }
 
-	public void setStatus(String what) {
-		set("status", what.toLowerCase());
-	}
+    public void setStatus(String what) {
+        set("status", what.toLowerCase());
+    }
 
-	public String getPriority() {
-		return (String) getOr("priority", "");
-	}
+    public String getPriority() {
+        return (String) getOr("priority", "");
+    }
 
-	public void setPriority(String what) {
-		set("priority", what.toLowerCase());
-	}
+    public void setPriority(String what) {
+        set("priority", what.toLowerCase());
+    }
 
-	public void setIsActive(boolean b) {
-		set("isActive", b);
-	}
+    public void setIsActive(boolean b) {
+        set("isActive", b);
+    }
 
-	public boolean isActive() {
-		return (Boolean) getOr("isActive", false);
-	}
-	
-	public void setCreator(String who) 
-	{
-		set("creator", who);
-	}
-	
-	public String getCreator() 
-	{
-		return (String) getOr("creator", "");
-	}
-	
-	public String getInfo(UserService service){
-		LinkedList<String> parts = new LinkedList<String>();
-		String info = ""; 
-		if(!isActive())
-			info = "inactive";
-		else{
-			if(getMilestone().length()>0){
-				String mid = getMilestone();
-				for(String[] iter:ViewHelper.getAvailableMilestones(service))
-					if(mid.equals(iter[0])){
-						parts.add(iter[1]);
-						break;
-					}
-			}
-			if(getStatus().length()>0)
-				parts.add(ViewHelper.getStatus(getStatus()));
-			info = StringUtils.join(parts,", ");
-		}
-		if(info.length()==0)
-			info = "active";
-		return info;
-	}
+    public boolean isActive() {
+        return (Boolean) getOr("isActive", false);
+    }
+
+    public void setCreator(String who) {
+        set("creator", who);
+    }
+
+    public String getCreator() {
+        return (String) getOr("creator", "");
+    }
+
+    public String getInfo(UserService service) {
+        LinkedList<String> parts = new LinkedList<String>();
+        String info = "";
+        if(!isActive())
+            info = "inactive";
+        else {
+            if(getMilestone().length()>0) {
+                String mid = getMilestone();
+                for(String[] iter:ViewHelper.getAvailableMilestones(service))
+                    if(mid.equals(iter[0])) {
+                        parts.add(iter[1]);
+                        break;
+                    }
+            }
+            if(getStatus().length()>0)
+                parts.add(ViewHelper.getStatus(getStatus()));
+            info = StringUtils.join(parts,", ");
+        }
+        if(info.length()==0)
+            info = "active";
+        return info;
+    }
 }

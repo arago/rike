@@ -28,187 +28,187 @@ import java.util.Date;
 
 public class Task implements Serializable {
 
-	private long id;
-	private String title;
-	private String url;
-	private String owner;
-	private Date start;
-	private Date end;
-	private String creator;
-	private Date created;
-	private Integer sizeEstimated;
-	private Integer size;
-	private Integer hoursSpent;
-	private Milestone milestone;
-	private Artifact artifact;
-	private String priority;
-	private String challenge;
-	private String status;
+    private long id;
+    private String title;
+    private String url;
+    private String owner;
+    private Date start;
+    private Date end;
+    private String creator;
+    private Date created;
+    private Integer sizeEstimated;
+    private Integer size;
+    private Integer hoursSpent;
+    private Milestone milestone;
+    private Artifact artifact;
+    private String priority;
+    private String challenge;
+    private String status;
 
-	public static enum Status {
+    public static enum Status {
 
-		UNKNOWN, OPEN, IN_PROGRESS, DONE
-	}
+        UNKNOWN, OPEN, IN_PROGRESS, DONE
+    }
 
-	public static enum Challenge {
+    public static enum Challenge {
 
-		DIFFICULT, AVERAGE, EASY
-	}
+        DIFFICULT, AVERAGE, EASY
+    }
 
-	public static enum Priority {
+    public static enum Priority {
 
-		HIGH, NORMAL, LOW
-	}
+        HIGH, NORMAL, LOW
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-	public String getUrl() {
-		return url;
-	}
+    public String getUrl() {
+        return url;
+    }
 
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
 
-	public String getOwner() {
-		return owner;
-	}
+    public String getOwner() {
+        return owner;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public Status getStatusEnum() {
-		return Status.valueOf(status.toUpperCase());
-	}
+    public Status getStatusEnum() {
+        return Status.valueOf(status.toUpperCase());
+    }
 
-	public void setStatus(String what) {
-		setStatus(Status.valueOf(what.toUpperCase()));
-	}
+    public void setStatus(String what) {
+        setStatus(Status.valueOf(what.toUpperCase()));
+    }
 
-	public void setStatus(Status what) {
-		status = what.toString().toLowerCase();
-	}
+    public void setStatus(Status what) {
+        status = what.toString().toLowerCase();
+    }
 
-	public void setStart(Date start) {
-		this.start = start;
-	}
+    public void setStart(Date start) {
+        this.start = start;
+    }
 
-	public Date getStart() {
-		return start;
-	}
+    public Date getStart() {
+        return start;
+    }
 
-	public void setEnd(Date end) {
-		this.end = end;
-	}
+    public void setEnd(Date end) {
+        this.end = end;
+    }
 
-	public Date getEnd() {
-		return end;
-	}
+    public Date getEnd() {
+        return end;
+    }
 
-	public void setCreator(String creator) {
-		this.creator = creator;
-	}
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
 
-	public String getCreator() {
-		return creator;
-	}
+    public String getCreator() {
+        return creator;
+    }
 
-	public void setCreated(Date created) {
-		this.created = created;
-	}
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 
-	public Date getCreated() {
-		return created;
-	}
+    public Date getCreated() {
+        return created;
+    }
 
-	public Integer getSizeEstimated() {
-		return sizeEstimated;
-	}
+    public Integer getSizeEstimated() {
+        return sizeEstimated;
+    }
 
-	public void setSizeEstimated(Integer sizeEstimated) {
-		this.sizeEstimated = sizeEstimated;
-	}
+    public void setSizeEstimated(Integer sizeEstimated) {
+        this.sizeEstimated = sizeEstimated;
+    }
 
-	public Integer getSize() {
-		return size;
-	}
+    public Integer getSize() {
+        return size;
+    }
 
-	public void setSize(Integer size) {
-		this.size = size;
-	}
+    public void setSize(Integer size) {
+        this.size = size;
+    }
 
-	public Integer getHoursSpent() {
-		return hoursSpent;
-	}
+    public Integer getHoursSpent() {
+        return hoursSpent;
+    }
 
-	public void setHoursSpent(Integer spent) {
-		hoursSpent = spent;
-	}
+    public void setHoursSpent(Integer spent) {
+        hoursSpent = spent;
+    }
 
-	public Milestone getMilestone() {
-		return milestone;
-	}
+    public Milestone getMilestone() {
+        return milestone;
+    }
 
-	public void setMilestone(Milestone milestone) {
-		this.milestone = milestone;
-	}
+    public void setMilestone(Milestone milestone) {
+        this.milestone = milestone;
+    }
 
-	public String getPriority() {
-		return priority;
-	}
+    public String getPriority() {
+        return priority;
+    }
 
-	public void setPriority(String priority) {
-		setPriority(Priority.valueOf(priority.toUpperCase()));
-	}
+    public void setPriority(String priority) {
+        setPriority(Priority.valueOf(priority.toUpperCase()));
+    }
 
-	public String getChallenge() {
-		return challenge;
-	}
+    public String getChallenge() {
+        return challenge;
+    }
 
-	public Challenge getChallengeEnum() {
-		return Challenge.valueOf(challenge.toUpperCase());
-	}
+    public Challenge getChallengeEnum() {
+        return Challenge.valueOf(challenge.toUpperCase());
+    }
 
-	public void setChallenge(String challenge) {
-		setChallenge(Challenge.valueOf(challenge.toUpperCase()));
-	}
+    public void setChallenge(String challenge) {
+        setChallenge(Challenge.valueOf(challenge.toUpperCase()));
+    }
 
-	public void setChallenge(Challenge s) {
-		challenge = s.toString().toLowerCase();
-	}
+    public void setChallenge(Challenge s) {
+        challenge = s.toString().toLowerCase();
+    }
 
-	public void setPriority(Priority p) {
-		priority = p.toString().toLowerCase();
-	}
+    public void setPriority(Priority p) {
+        priority = p.toString().toLowerCase();
+    }
 
-	public Priority getPriorityEnum() {
-		return Priority.valueOf(priority.toUpperCase());
-	}
+    public Priority getPriorityEnum() {
+        return Priority.valueOf(priority.toUpperCase());
+    }
 
-	public void setArtifact(Artifact what) {
-		artifact = what;
-	}
+    public void setArtifact(Artifact what) {
+        artifact = what;
+    }
 
-	public Artifact getArtifact() {
-		return artifact;
-	}
+    public Artifact getArtifact() {
+        return artifact;
+    }
 }

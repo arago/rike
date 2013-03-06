@@ -12,15 +12,15 @@ import org.apache.lucene.util.Version;
 *
 * @author vvoss
 */
-final public class LowCaseAnalyzer extends Analyzer{
-    
+final public class LowCaseAnalyzer extends Analyzer {
+
     @Override
     public TokenStream tokenStream(String string, Reader reader) {
-        if("_name_prefix".equals(string)){
+        if("_name_prefix".equals(string)) {
             NGramTokenizer ngram = new NGramTokenizer(reader,2,4);
             TokenStream stream = new LowerCaseFilter(Version.LUCENE_36,ngram);
             return stream;
-        }else if(string.startsWith("_ngram_")){
+        } else if(string.startsWith("_ngram_")) {
             NGramTokenizer ngram = new NGramTokenizer(reader,3,4);
             return ngram;
         } else {
@@ -29,5 +29,5 @@ final public class LowCaseAnalyzer extends Analyzer{
             return stream;
         }
     }
-    
+
 }

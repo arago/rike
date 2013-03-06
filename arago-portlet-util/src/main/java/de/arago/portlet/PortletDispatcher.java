@@ -30,91 +30,91 @@ import java.util.logging.Logger;
 
 /**
  * The PortletDispatcher dispatches classbased work
- * 
+ *
  * based on the class namespace the dispatcher will look for classes in
  * [namespace].[other].,
- * 
+ *
  * e.g. class: de.arago.portlet.some.ThePortlet dispatchable: testEvent
- * 
+ *
  * will lead to loading the class de.arago.portlet.some.other.TestEvent and
  * execute it
  */
 
 public class PortletDispatcher<T> {
-	private static final Logger logger = Logger.getLogger(PortletDispatcher.class.getName());
+    private static final Logger logger = Logger.getLogger(PortletDispatcher.class.getName());
 
-	/**
-	 * the namespace where all the classes are located
-	 */
-	private String namespace;
+    /**
+     * the namespace where all the classes are located
+     */
+    private String namespace;
 
-	/**
-	 * cache
-	 */
-	private Map<String, T> cache = new ConcurrentHashMap<String, T>();
+    /**
+     * cache
+     */
+    private Map<String, T> cache = new ConcurrentHashMap<String, T>();
 
-	/**
-	 * 
-	 * @param forWho
-	 *            the class for which to dispatch, e.g. the portlet
-	 * @param type
-	 *            the type of the dispatchable e.g. event or action, ...
-	 */
-	protected PortletDispatcher(Class<?> forWho, String type) {
-		namespace = forWho.getPackage().getName().concat(".").concat(type).concat(".");
-	}
+    /**
+     *
+     * @param forWho
+     *            the class for which to dispatch, e.g. the portlet
+     * @param type
+     *            the type of the dispatchable e.g. event or action, ...
+     */
+    protected PortletDispatcher(Class<?> forWho, String type) {
+        namespace = forWho.getPackage().getName().concat(".").concat(type).concat(".");
+    }
 
-	protected T getDispatchable(final String name) {
-		if (name == null || name.length() == 0)
-			return null;
+    protected T getDispatchable(final String name) {
+        if (name == null || name.length() == 0)
+            return null;
 
-		String url = constructURL(name);
+        String url = constructURL(name);
 
-		if (cache.containsKey(url))
-			return cache.get(url);
+        if (cache.containsKey(url))
+            return cache.get(url);
 
-		try {
-			return loadAndCache(url);
-		} catch (ClassNotFoundException ignored) {
-			return null;
-		} catch (Throwable t) {
-			logger.log(Level.SEVERE, "failed to instantiate dispatchable", t);
-		}
+        try {
+            return loadAndCache(url);
+        } catch (ClassNotFoundException ignored) {
+            return null;
+        } catch (Throwable t) {
+            logger.log(Level.SEVERE, "failed to instantiate dispatchable", t);
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	private String constructURL(final String name) {
-		String sanitized = name.replaceAll("[^a-zA-Z0-9]", "");
-		sanitized = sanitized.substring(0, 1).toUpperCase().concat(sanitized.substring(1));
+    private String constructURL(final String name) {
+        String sanitized = name.replaceAll("[^a-zA-Z0-9]", "");
+        sanitized = sanitized.substring(0, 1).toUpperCase().concat(sanitized.substring(1));
 
-		return namespace.concat(sanitized);
-	}
+        return namespace.concat(sanitized);
+    }
 
-	/**
-	 * load a class and store in cache
-	 * 
-	 * @param url
-	 *            the url as de.arago.[..]
-	 * @return the loaded instance
-	 * @throws Throwable
-	 *             if class could not be loaded or instantiated
-	 */
-	private T loadAndCache(String url) throws Throwable {
-		Class<? extends T> klass = (Class<? extends T>) Class.forName(url);
+    /**
+     * load a class and store in cache
+     *
+     * @param url
+     *            the url as de.arago.[..]
+     * @return the loaded instance
+     * @throws Throwable
+     *             if class could not be loaded or instantiated
+     */
+    private T loadAndCache(String url) throws Throwable {
+        Class<? extends T> klass = (Class<? extends T>) Class.forName(url);
 
-		T instance = klass.newInstance();
-		cache.put(url, instance);
+        T instance = klass.newInstance();
+        cache.put(url, instance);
 
-		return instance;
-	}
+        return instance;
+    }
 
-	/**
-	 * Get the namespace from which classes are loaded
-	 * 
-	 * @return the namespace
-	 */
-	public String getNamespace() {
-		return namespace;
-	}
+    /**
+     * Get the namespace from which classes are loaded
+     *
+     * @return the namespace
+     */
+    public String getNamespace() {
+        return namespace;
+    }
 }

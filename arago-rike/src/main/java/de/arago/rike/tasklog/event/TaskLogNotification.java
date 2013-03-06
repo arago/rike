@@ -29,8 +29,8 @@ import de.arago.rike.util.TaskHelper;
 
 public class TaskLogNotification  implements Event {
 
-	public void execute(IEventWrapper event) throws Exception {
-		event.setSessionAttribute("list", TaskHelper.getRecentTaskLogs());
-	}
+    public void execute(IEventWrapper event) throws Exception {
+        event.setSessionAttribute("list", TaskHelper.getRecentTaskLogs());
+    }
 
 }

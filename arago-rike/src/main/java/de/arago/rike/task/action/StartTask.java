@@ -36,54 +36,53 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 public class StartTask implements Action {
 
-  @Override
-	public void execute(IDataWrapper data) throws Exception 
-  {
-   	if (data.getRequestAttribute("id") != null) {
-			String user = SecurityHelper.getUserEmail(data.getUser());
+    @Override
+    public void execute(IDataWrapper data) throws Exception {
+        if (data.getRequestAttribute("id") != null) {
+            String user = SecurityHelper.getUserEmail(data.getUser());
 
-			if (TaskHelper.getTasksInProgressForUser(user).size() < 3) {
-				Task task = TaskHelper.getTask(data.getRequestAttribute("id"));
+            if (TaskHelper.getTasksInProgressForUser(user).size() < 3) {
+                Task task = TaskHelper.getTask(data.getRequestAttribute("id"));
 
-				if (!TaskHelper.canDoTask(user, task) || task.getStatusEnum() != Task.Status.OPEN) {
-					return;
-				}
+                if (!TaskHelper.canDoTask(user, task) || task.getStatusEnum() != Task.Status.OPEN) {
+                    return;
+                }
 
-				task.setOwner(user);
-				task.setStart(new Date());
-				task.setStatus(Task.Status.IN_PROGRESS);
+                task.setOwner(user);
+                task.setStart(new Date());
+                task.setStatus(Task.Status.IN_PROGRESS);
 
-				TaskHelper.save(task);
-				StatisticHelper.update();
+                TaskHelper.save(task);
+                StatisticHelper.update();
 
-				if(task.getArtifact().getId().longValue()!=TaskHelper.OTHER_ARTEFACT_ID){
-					long price = task.getSizeEstimated();
-					
-					if(task.getChallengeEnum()==Task.Challenge.DIFFICULT)
-						price *= 2;
-					else if(task.getChallengeEnum()==Task.Challenge.EASY)
-						price /= 2;
-					
-					if(task.getPriorityEnum()==Task.Priority.HIGH)
-						price*=2;
-					else if(task.getPriorityEnum()==Task.Priority.LOW)
-						price /=2;
-					
-          System.err.println("{task} " + user + " started task #" + task.getId() + " (calculated price is "+price+")");
-          
-					TaskHelper.changeAccount(user, price);
-					TaskHelper.changeAccount(task.getCreator(), -price);
-				}
-        
-				data.setSessionAttribute("task", task);
+                if(task.getArtifact().getId().longValue()!=TaskHelper.OTHER_ARTEFACT_ID) {
+                    long price = task.getSizeEstimated();
 
-				HashMap<String, Object> notificationParam = new HashMap<String, Object>();
+                    if(task.getChallengeEnum()==Task.Challenge.DIFFICULT)
+                        price *= 2;
+                    else if(task.getChallengeEnum()==Task.Challenge.EASY)
+                        price /= 2;
 
-				notificationParam.put("id", task.getId().toString());
-				data.setEvent("TaskUpdateNotification", notificationParam);
+                    if(task.getPriorityEnum()==Task.Priority.HIGH)
+                        price*=2;
+                    else if(task.getPriorityEnum()==Task.Priority.LOW)
+                        price /=2;
 
-				TaskHelper.log(" started Task #" + task.getId().toString() + " <a href=\"[selectTask:" + task.getId().toString() + "]\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task, user, data);
-			}
-		}
-	}
+                    System.err.println("{task} " + user + " started task #" + task.getId() + " (calculated price is "+price+")");
+
+                    TaskHelper.changeAccount(user, price);
+                    TaskHelper.changeAccount(task.getCreator(), -price);
+                }
+
+                data.setSessionAttribute("task", task);
+
+                HashMap<String, Object> notificationParam = new HashMap<String, Object>();
+
+                notificationParam.put("id", task.getId().toString());
+                data.setEvent("TaskUpdateNotification", notificationParam);
+
+                TaskHelper.log(" started Task #" + task.getId().toString() + " <a href=\"[selectTask:" + task.getId().toString() + "]\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task, user, data);
+            }
+        }
+    }
 }

@@ -35,82 +35,77 @@ import javax.portlet.RenderResponse;
  *
  * based on the class simplename the dispatcher will look for action classes
  * in /prefix/[simplename]/suffix/[viewname].fileSuffix
- * 
+ *
  * e.g.
- * class:  de.arago.portlet.some.ThePortlet 
+ * class:  de.arago.portlet.some.ThePortlet
  * view: testView
- * 
+ *
  * will lead to including the jsp: /prefix/theportlet/testView.jsp
- *  
+ *
  */
 
-public class RenderDispatcher 
-{
-	/**
-	 * the namespace where all the views are located
-	 */
-	private final String viewNamespace;
-	private final String className;
-  
-  
-	private static String dirPrefix 	= "/html/";
-	private static String dirSuffix 	= "/jsp/";
-	private static String fileSuffix 	= ".jsp";
-	
-	/**
-	 * @param forWho The class on which to base the location of the jsp
-	 */
-	public RenderDispatcher(Class<?> forWho)
-	{
-		viewNamespace = dirPrefix
-									  .concat(forWho.getSimpleName().toLowerCase())
-									  .concat(dirSuffix);
-    
-    className = forWho.getName() + ".";
-	}
-	
-	/**
-	 * Dispatch a rendering request
-	 * 
-	 * @param viewName the name of the view
-	 * @param context the context of the current portlet
-	 * @param request 
-	 * @param response
-	 * @throws PortletException
-	 * @throws IOException
-	 */
-	public void dispatch(String viewName, PortletContext context, RenderRequest request, RenderResponse response) throws PortletException, IOException
-	{
-		long then = System.currentTimeMillis();
-						
-		String jsp = viewNamespace.concat(viewName.replaceAll("[^a-zA-Z0-9]", "")).concat(fileSuffix);
+public class RenderDispatcher {
+    /**
+     * the namespace where all the views are located
+     */
+    private final String viewNamespace;
+    private final String className;
 
-		context.getRequestDispatcher(jsp).include(request, response);
-		
-    Performance.timing("arago.portlet.dispatch.render", System.currentTimeMillis() - then);
-    Performance.timing("arago.portlet.dispatch.render." + className + viewName, System.currentTimeMillis() - then);
-    
-		System.err.println("{"+getClass().getName()+"} " + className + viewName + ": took " + (System.currentTimeMillis() - then));
-	}
-	
-	/**
-	 * Dispatch a rendering request, if viewName == null then defaultName is rendered
-	 * 
-	 * @param viewName the name of the view
-	 * @param defaultName the name of the defaultView
-	 * @param context the context of the current portlet
-	 * @param request 
-	 * @param response
-	 * @throws PortletException
-	 * @throws IOException
-	 */
-	public void dispatchWithDefault(Object viewName, String defaultName, PortletContext context, RenderRequest request, RenderResponse response) throws PortletException, IOException
-	{
-		if (viewName == null || viewName.toString().length() == 0)
-		{
-			dispatch(defaultName, context, request, response);
-		} else {
-			dispatch(viewName.toString(), context, request, response);
-		}
-	}
+
+    private static String dirPrefix 	= "/html/";
+    private static String dirSuffix 	= "/jsp/";
+    private static String fileSuffix 	= ".jsp";
+
+    /**
+     * @param forWho The class on which to base the location of the jsp
+     */
+    public RenderDispatcher(Class<?> forWho) {
+        viewNamespace = dirPrefix
+                        .concat(forWho.getSimpleName().toLowerCase())
+                        .concat(dirSuffix);
+
+        className = forWho.getName() + ".";
+    }
+
+    /**
+     * Dispatch a rendering request
+     *
+     * @param viewName the name of the view
+     * @param context the context of the current portlet
+     * @param request
+     * @param response
+     * @throws PortletException
+     * @throws IOException
+     */
+    public void dispatch(String viewName, PortletContext context, RenderRequest request, RenderResponse response) throws PortletException, IOException {
+        long then = System.currentTimeMillis();
+
+        String jsp = viewNamespace.concat(viewName.replaceAll("[^a-zA-Z0-9]", "")).concat(fileSuffix);
+
+        context.getRequestDispatcher(jsp).include(request, response);
+
+        Performance.timing("arago.portlet.dispatch.render", System.currentTimeMillis() - then);
+        Performance.timing("arago.portlet.dispatch.render." + className + viewName, System.currentTimeMillis() - then);
+
+        System.err.println("{"+getClass().getName()+"} " + className + viewName + ": took " + (System.currentTimeMillis() - then));
+    }
+
+    /**
+     * Dispatch a rendering request, if viewName == null then defaultName is rendered
+     *
+     * @param viewName the name of the view
+     * @param defaultName the name of the defaultView
+     * @param context the context of the current portlet
+     * @param request
+     * @param response
+     * @throws PortletException
+     * @throws IOException
+     */
+    public void dispatchWithDefault(Object viewName, String defaultName, PortletContext context, RenderRequest request, RenderResponse response) throws PortletException, IOException {
+        if (viewName == null || viewName.toString().length() == 0) {
+            dispatch(defaultName, context, request, response);
+        } else {
+            dispatch(viewName.toString(), context, request, response);
+        }
+    }
 }

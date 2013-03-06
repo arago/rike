@@ -21,7 +21,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /**
- * 
+ *
  */
 package de.arago.rike.overview.action;
 
@@ -33,7 +33,7 @@ import de.arago.rike.util.TaskListFilter;
 
 public class Refresh implements Action {
 
-	public void execute(IDataWrapper data) throws Exception {
-		data.setSessionAttribute("list", TaskHelper.getAllTasks((TaskListFilter) data.getSessionAttribute("taskListFilter")));
-	}
+    public void execute(IDataWrapper data) throws Exception {
+        data.setSessionAttribute("list", TaskHelper.getAllTasks((TaskListFilter) data.getSessionAttribute("taskListFilter")));
+    }
 }

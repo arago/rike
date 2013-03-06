@@ -37,56 +37,54 @@ import de.arago.portlet.util.SecurityHelper;
 
 public class Overview extends AragoPortlet {
 
-	@Override
-	public void initSession(IDataWrapper data) throws PortletException, IOException {
-		if (!SecurityHelper.isLoggedIn(data.getUser())) {
-			return;
-		}
+    @Override
+    public void initSession(IDataWrapper data) throws PortletException, IOException {
+        if (!SecurityHelper.isLoggedIn(data.getUser())) {
+            return;
+        }
 
-		try
-		{
-		Object taskListFilterObject = data.getSessionAttribute("taskListFilter");
+        try {
+            Object taskListFilterObject = data.getSessionAttribute("taskListFilter");
 
-		if (taskListFilterObject == null) {
-			TaskListFilter taskListFilter = new TaskListFilter();
-			taskListFilter.setDefaultOptions();
-			taskListFilter.setStatus("open");
-			taskListFilter.setIsActive(true);
-			taskListFilter.setSortField(TaskListFilter.SortField.PRIORITY);
-			taskListFilter.setSortDirection(TaskListFilter.SortDirection.ASC);
-			String user = SecurityHelper.getUserEmail(data.getUser());
-			if (user != null&&!user.isEmpty()) {
-				TaskUser tu = TaskHelper.checkIfUserExists(user);
-				if (tu != null) {
-					String lastSelectedMilestone = tu.getLast_ms();
-					if (lastSelectedMilestone != null && !lastSelectedMilestone.isEmpty()) {
-						taskListFilter.setMilestone(lastSelectedMilestone);
-					}
-				}
-			}
-			taskListFilterObject = taskListFilter;
-		}
+            if (taskListFilterObject == null) {
+                TaskListFilter taskListFilter = new TaskListFilter();
+                taskListFilter.setDefaultOptions();
+                taskListFilter.setStatus("open");
+                taskListFilter.setIsActive(true);
+                taskListFilter.setSortField(TaskListFilter.SortField.PRIORITY);
+                taskListFilter.setSortDirection(TaskListFilter.SortDirection.ASC);
+                String user = SecurityHelper.getUserEmail(data.getUser());
+                if (user != null&&!user.isEmpty()) {
+                    TaskUser tu = TaskHelper.checkIfUserExists(user);
+                    if (tu != null) {
+                        String lastSelectedMilestone = tu.getLast_ms();
+                        if (lastSelectedMilestone != null && !lastSelectedMilestone.isEmpty()) {
+                            taskListFilter.setMilestone(lastSelectedMilestone);
+                        }
+                    }
+                }
+                taskListFilterObject = taskListFilter;
+            }
 
-		data.setSessionAttribute("taskListFilter", taskListFilterObject);
-		data.setSessionAttribute("list", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
-		} catch(Throwable t) {
-			t.printStackTrace(System.err);
-		}
-	}
+            data.setSessionAttribute("taskListFilter", taskListFilterObject);
+            data.setSessionAttribute("list", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
+        } catch(Throwable t) {
+            t.printStackTrace(System.err);
+        }
+    }
 
-	@Override
-	protected boolean checkViewData(IDataWrapper data){
-		
-		if (!SecurityHelper.isLoggedIn(data.getUser()))
-			return false;
-		
-		Object taskListFilterObject = data.getSessionAttribute("taskListFilter");
+    @Override
+    protected boolean checkViewData(IDataWrapper data) {
 
-		if (taskListFilterObject != null)
-		{
-			data.setSessionAttribute("list", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
-		}
-		
-		return true;
-	}
+        if (!SecurityHelper.isLoggedIn(data.getUser()))
+            return false;
+
+        Object taskListFilterObject = data.getSessionAttribute("taskListFilter");
+
+        if (taskListFilterObject != null) {
+            data.setSessionAttribute("list", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
+        }
+
+        return true;
+    }
 }

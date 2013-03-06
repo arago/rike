@@ -27,15 +27,13 @@ import de.arago.data.IEventWrapper;
 import de.arago.rike.util.TaskHelper;
 import de.arago.rike.util.TaskListFilter;
 
-public class TaskFilterRequest implements Event
-{
-  @Override
-  public void execute(IEventWrapper event) throws Exception
-  {
-    TaskListFilter filter = (TaskListFilter) event.getSessionAttribute("taskListFilter");
-    
-    if (event.getEventAttribute("status") != null) filter.setStatus((String) event.getEventAttribute("status"));
-    
-    event.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
-  }
+public class TaskFilterRequest implements Event {
+    @Override
+    public void execute(IEventWrapper event) throws Exception {
+        TaskListFilter filter = (TaskListFilter) event.getSessionAttribute("taskListFilter");
+
+        if (event.getEventAttribute("status") != null) filter.setStatus((String) event.getEventAttribute("status"));
+
+        event.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
+    }
 }

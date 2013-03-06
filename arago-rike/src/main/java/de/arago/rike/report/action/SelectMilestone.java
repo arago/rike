@@ -21,7 +21,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /**
- * 
+ *
  */
 package de.arago.rike.report.action;
 
@@ -33,22 +33,19 @@ import de.arago.rike.data.Milestone;
 import java.util.HashMap;
 import org.hibernate.criterion.Restrictions;
 
-public class SelectMilestone implements Action
-{
-  @Override
-  public void execute(IDataWrapper data) throws Exception
-  {
-    HashMap<String, Object> notificationParam = new HashMap<String, Object>();
+public class SelectMilestone implements Action {
+    @Override
+    public void execute(IDataWrapper data) throws Exception {
+        HashMap<String, Object> notificationParam = new HashMap<String, Object>();
 
-    String milestone = data.getRequestAttribute("milestone");
-    
-    DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
-    Milestone m                      = helper.find(helper.filter().add(Restrictions.eq("title", milestone)));
-    
-    if (m != null)
-    {  
-      notificationParam.put("milestone", "milestone_" + m.getId());
-      data.setEvent("SelectMilestoneRequest", notificationParam);    
+        String milestone = data.getRequestAttribute("milestone");
+
+        DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
+        Milestone m                      = helper.find(helper.filter().add(Restrictions.eq("title", milestone)));
+
+        if (m != null) {
+            notificationParam.put("milestone", "milestone_" + m.getId());
+            data.setEvent("SelectMilestoneRequest", notificationParam);
+        }
     }
-  }
 }

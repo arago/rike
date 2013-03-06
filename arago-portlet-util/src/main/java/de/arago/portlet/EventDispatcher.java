@@ -50,49 +50,44 @@ import java.util.logging.Logger;
  * and execute it
  */
 
-public class EventDispatcher extends PortletDispatcher<Event>
-{
-  private static final Logger logger = Logger.getLogger(EventDispatcher.class.getName());
+public class EventDispatcher extends PortletDispatcher<Event> {
+    private static final Logger logger = Logger.getLogger(EventDispatcher.class.getName());
 
-  public EventDispatcher(Class<?> who)
-  {
-    super(who, "event");
-  }
-
-  /**
-	 * lookup and execute event,
-	 * if the event cannot be found (as a class or instance) nothing will be executed
-	 *
-	 * @param data the data passed to event
-	 */
-	public void dispatch(IEventWrapper data)
-	{
-		dispatch(data.getName(), data);
-	}
-
-	/**
-	 * lookup and execute event,
-	 * if the event cannot be found (as a class or instance) nothing will be executed
-	 *
-	 * @param name the name of the event, name will be sanitized to [a-zA-Z0-9]
-	 * @param data the data passed to event
-	 */
-	public void dispatch(String name, IEventWrapper data)
-	{
-		long then = System.currentTimeMillis();
-		
-		Event event = getDispatchable(name);
-
-    try
-    {
-      if (event != null) event.execute(data);
-    } catch(Throwable t) {
-			logger.log(Level.SEVERE, "event " + name + " failed ", t);
+    public EventDispatcher(Class<?> who) {
+        super(who, "event");
     }
-    
-    Performance.timing("arago.portlet.dispatch.event", System.currentTimeMillis() - then);
-    Performance.timing("arago.portlet.dispatch.event." + getNamespace() + name, System.currentTimeMillis() - then);
-		
-		System.err.println("{"+getClass().getName()+"} " + name + ": took " + (System.currentTimeMillis() - then));
-	}
+
+    /**
+     * lookup and execute event,
+     * if the event cannot be found (as a class or instance) nothing will be executed
+     *
+     * @param data the data passed to event
+     */
+    public void dispatch(IEventWrapper data) {
+        dispatch(data.getName(), data);
+    }
+
+    /**
+     * lookup and execute event,
+     * if the event cannot be found (as a class or instance) nothing will be executed
+     *
+     * @param name the name of the event, name will be sanitized to [a-zA-Z0-9]
+     * @param data the data passed to event
+     */
+    public void dispatch(String name, IEventWrapper data) {
+        long then = System.currentTimeMillis();
+
+        Event event = getDispatchable(name);
+
+        try {
+            if (event != null) event.execute(data);
+        } catch(Throwable t) {
+            logger.log(Level.SEVERE, "event " + name + " failed ", t);
+        }
+
+        Performance.timing("arago.portlet.dispatch.event", System.currentTimeMillis() - then);
+        Performance.timing("arago.portlet.dispatch.event." + getNamespace() + name, System.currentTimeMillis() - then);
+
+        System.err.println("{"+getClass().getName()+"} " + name + ": took " + (System.currentTimeMillis() - then));
+    }
 }

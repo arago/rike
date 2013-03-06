@@ -39,111 +39,110 @@ import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
-abstract public class AragoPortlet extends GenericPortlet implements IDataProcessor 
-{
-	private final JsonDispatcher jsonDispatcher;
-	private final ActionDispatcher actionDispatcher;
-	private final RenderDispatcher renderDispatcher;
-	private final EventDispatcher eventDispatcher;
-	/**
-	 * the request attribute from which to take the targetView
-	 */
-	private final String targetViewKey;
+abstract public class AragoPortlet extends GenericPortlet implements IDataProcessor {
+    private final JsonDispatcher jsonDispatcher;
+    private final ActionDispatcher actionDispatcher;
+    private final RenderDispatcher renderDispatcher;
+    private final EventDispatcher eventDispatcher;
+    /**
+     * the request attribute from which to take the targetView
+     */
+    private final String targetViewKey;
 
-	/**
-	 *
-	 * @param targetViewKey the key from which to take the targetView for doView
-	 */
-	public AragoPortlet(String targetViewKey) {
-		jsonDispatcher = new JsonDispatcher(this.getClass());
-		actionDispatcher = new ActionDispatcher(this.getClass());
-		renderDispatcher = new RenderDispatcher(this.getClass());
-		eventDispatcher = new EventDispatcher(this.getClass());
-		this.targetViewKey = targetViewKey;
-	}
+    /**
+     *
+     * @param targetViewKey the key from which to take the targetView for doView
+     */
+    public AragoPortlet(String targetViewKey) {
+        jsonDispatcher = new JsonDispatcher(this.getClass());
+        actionDispatcher = new ActionDispatcher(this.getClass());
+        renderDispatcher = new RenderDispatcher(this.getClass());
+        eventDispatcher = new EventDispatcher(this.getClass());
+        this.targetViewKey = targetViewKey;
+    }
 
-	public AragoPortlet() {
-		this("targetView");
-	}
+    public AragoPortlet() {
+        this("targetView");
+    }
 
-	@Override
-	public final void processAction(ActionRequest request,
-					ActionResponse response) throws PortletException, IOException {
-		action(new PortletDataWrapper(request, response));
-	}
+    @Override
+    public final void processAction(ActionRequest request,
+                                    ActionResponse response) throws PortletException, IOException {
+        action(new PortletDataWrapper(request, response));
+    }
 
-	@Override
-	public final void processEvent(EventRequest request, EventResponse response)
-					throws PortletException, IOException {
-		event(new PortletEventWrapper(request, response));
-	}
+    @Override
+    public final void processEvent(EventRequest request, EventResponse response)
+    throws PortletException, IOException {
+        event(new PortletEventWrapper(request, response));
+    }
 
-	@Override
-	public void doView(RenderRequest request, RenderResponse response)
-					throws PortletException, IOException {
-		PortletDataWrapper data = new PortletDataWrapper(request, response);
+    @Override
+    public void doView(RenderRequest request, RenderResponse response)
+    throws PortletException, IOException {
+        PortletDataWrapper data = new PortletDataWrapper(request, response);
 
-		if (!"true".equals(data.getSessionAttribute("isSessionInitialized"))) {
-			initSession(data);
-			data.setSessionAttribute("isSessionInitialized", "true");
-		}
-		
-		if(checkViewData(data))
-			renderDispatcher.dispatchWithDefault(
-						request.getPortletSession().getAttribute(targetViewKey), "defaultView",
-						getPortletContext(), request, response);
-	}
+        if (!"true".equals(data.getSessionAttribute("isSessionInitialized"))) {
+            initSession(data);
+            data.setSessionAttribute("isSessionInitialized", "true");
+        }
 
-	protected boolean checkViewData(IDataWrapper data){
-		return true;
-	}
+        if(checkViewData(data))
+            renderDispatcher.dispatchWithDefault(
+                request.getPortletSession().getAttribute(targetViewKey), "defaultView",
+                getPortletContext(), request, response);
+    }
 
-	@Override
-	public void doEdit(RenderRequest request, RenderResponse response)
-					throws PortletException, IOException {
-		renderDispatcher.dispatchWithDefault(
-						request.getPortletSession().getAttribute(targetViewKey), "defaultEdit",
-						getPortletContext(), request, response);
-	}
+    protected boolean checkViewData(IDataWrapper data) {
+        return true;
+    }
 
-	@Override
-	public void doHelp(RenderRequest request, RenderResponse response)
-					throws PortletException, java.io.IOException {
+    @Override
+    public void doEdit(RenderRequest request, RenderResponse response)
+    throws PortletException, IOException {
+        renderDispatcher.dispatchWithDefault(
+            request.getPortletSession().getAttribute(targetViewKey), "defaultEdit",
+            getPortletContext(), request, response);
+    }
 
-		renderDispatcher.dispatchWithDefault(
-						request.getPortletSession().getAttribute(targetViewKey), "defaultHelp",
-						getPortletContext(), request, response);
-	}
+    @Override
+    public void doHelp(RenderRequest request, RenderResponse response)
+    throws PortletException, java.io.IOException {
 
-  @Override
-	public void action(IDataWrapper data) throws PortletException, IOException {
-		actionDispatcher.dispatch(data.getRequestAttribute("action"), data);
-	}
+        renderDispatcher.dispatchWithDefault(
+            request.getPortletSession().getAttribute(targetViewKey), "defaultHelp",
+            getPortletContext(), request, response);
+    }
 
-  @Override
-	public void event(IEventWrapper event) throws PortletException, IOException {
-		eventDispatcher.dispatch(event);
-	}
+    @Override
+    public void action(IDataWrapper data) throws PortletException, IOException {
+        actionDispatcher.dispatch(data.getRequestAttribute("action"), data);
+    }
 
-	@Override
-	public void serveResource(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
-		String type = request.getParameter("as");
+    @Override
+    public void event(IEventWrapper event) throws PortletException, IOException {
+        eventDispatcher.dispatch(event);
+    }
 
-		if (type != null && type.equals("json")) {
-			jsonDispatcher.dispatch(request.getParameter("action"), request, response);
-		} else {
-			super.serveResource(request, response);
-		}
-	}
+    @Override
+    public void serveResource(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {
+        String type = request.getParameter("as");
 
-	/**
-	 * initialize a session for a user/portlet
-	 * 
-	 * @param request
-	 * @param response
-	 * @throws PortletException
-	 * @throws IOException
-	 */
-  @Override
-	public void initSession(IDataWrapper data) throws PortletException, IOException{}
+        if (type != null && type.equals("json")) {
+            jsonDispatcher.dispatch(request.getParameter("action"), request, response);
+        } else {
+            super.serveResource(request, response);
+        }
+    }
+
+    /**
+     * initialize a session for a user/portlet
+     *
+     * @param request
+     * @param response
+     * @throws PortletException
+     * @throws IOException
+     */
+    @Override
+    public void initSession(IDataWrapper data) throws PortletException, IOException {}
 }

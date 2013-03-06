@@ -24,7 +24,6 @@ package de.arago.portlet;
 
 import de.arago.data.IEventWrapper;
 
-public interface Event
-{
-  public void execute(IEventWrapper event) throws Exception;
+public interface Event {
+    public void execute(IEventWrapper event) throws Exception;
 }

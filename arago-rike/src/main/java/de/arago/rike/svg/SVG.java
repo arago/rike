@@ -38,33 +38,33 @@ import org.hibernate.criterion.Restrictions;
 
 public class SVG extends AragoPortlet {
 
-	@Override
-	public void initSession(IDataWrapper data) throws PortletException, IOException {
-		if (!SecurityHelper.isLoggedIn(data.getUser())) {
-			return;
-		}
+    @Override
+    public void initSession(IDataWrapper data) throws PortletException, IOException {
+        if (!SecurityHelper.isLoggedIn(data.getUser())) {
+            return;
+        }
 
-		if (data.getSessionAttribute("taskListFilter") == null) {
-			data.setSessionAttribute("taskListFilter", new TaskListFilter() {
+        if (data.getSessionAttribute("taskListFilter") == null) {
+            data.setSessionAttribute("taskListFilter", new TaskListFilter() {
 
-				@Override
-				public void setDefaultOptions() {
-					super.setDefaultOptions();
+                @Override
+                public void setDefaultOptions() {
+                    super.setDefaultOptions();
 
-					DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
-					List<Milestone> list = helper.list(helper.filter().add(Restrictions.and(Restrictions.isNotNull("dueDate"), Restrictions.ge("dueDate", new Date()))).setMaxResults(1));
+                    DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
+                    List<Milestone> list = helper.list(helper.filter().add(Restrictions.and(Restrictions.isNotNull("dueDate"), Restrictions.ge("dueDate", new Date()))).setMaxResults(1));
 
-					if (list.size() > 0) {
-						setIsActive(true);
-						setMilestone("milestone_" + list.get(0).getId().toString());
-					}
-				}
-			});
-		}
-	}
+                    if (list.size() > 0) {
+                        setIsActive(true);
+                        setMilestone("milestone_" + list.get(0).getId().toString());
+                    }
+                }
+            });
+        }
+    }
 
-	@Override
-	protected boolean checkViewData(IDataWrapper data){
-		return SecurityHelper.isLoggedIn(data.getUser());
-	}
+    @Override
+    protected boolean checkViewData(IDataWrapper data) {
+        return SecurityHelper.isLoggedIn(data.getUser());
+    }
 }

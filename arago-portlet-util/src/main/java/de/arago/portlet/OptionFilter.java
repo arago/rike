@@ -31,39 +31,39 @@ import java.util.Set;
  */
 public interface OptionFilter extends Serializable {
 
-	/**
-	 * set the default options, you should call this in your
-	 * constructor
-	 */
-	public void setDefaultOptions();
+    /**
+     * set the default options, you should call this in your
+     * constructor
+     */
+    public void setDefaultOptions();
 
-	/**
-	 * Get a filter option by name
-	 * @param key
-	 * @return
-	 */
-	public Object get(final String key);
+    /**
+     * Get a filter option by name
+     * @param key
+     * @return
+     */
+    public Object get(final String key);
 
-	/**
-	 * if the option is not set, alternativeValue will be returned
-	 * @param key
-	 * @param alternativeValue
-	 * @return
-	 */
-	public Object getOr(final String key, final Object alternativeValue);
+    /**
+     * if the option is not set, alternativeValue will be returned
+     * @param key
+     * @param alternativeValue
+     * @return
+     */
+    public Object getOr(final String key, final Object alternativeValue);
 
-	/**
-	 * set a filter option
-	 *
-	 * @param key name of the option
-	 * @param value value of the option
-	 * @return
-	 */
-	public void set(final String key, final Object value);
+    /**
+     * set a filter option
+     *
+     * @param key name of the option
+     * @param value value of the option
+     * @return
+     */
+    public void set(final String key, final Object value);
 
-	/**
-	 * Get all available keys configured in the filter
-	 * @return
-	 */
-	public Set<String> keySet();
+    /**
+     * Get all available keys configured in the filter
+     * @return
+     */
+    public Set<String> keySet();
 }

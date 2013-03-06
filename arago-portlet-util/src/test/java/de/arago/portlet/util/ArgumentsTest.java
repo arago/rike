@@ -35,39 +35,39 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ArgumentsTest {
-	
-	public ArgumentsTest() {
-	}
 
-	@BeforeClass
-	public static void setUpClass() throws Exception {
-	}
+    public ArgumentsTest() {
+    }
 
-	@AfterClass
-	public static void tearDownClass() throws Exception {
-	}
-	
-	@Before
-	public void setUp() {
-	}
-	
-	@After
-	public void tearDown() {
-	}
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
 
-	@Test
-	public void testGet() {
-		Map<String, String> m = new HashMap<String, String>();
-		
-		m.put("bla", "blub");
-		m.put("null", null);
-		m.put("empty", "");
-		
-		IArguments arg = new MapArguments(m);
-		
-		assertEquals("blub", arg.get("bla"));
-		assertEquals("alternative", arg.getOr("null", "alternative"));
-		assertEquals("alternative", arg.getOr("empty", "alternative"));
-	}
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
+    @Before
+    public void setUp() {
+    }
+
+    @After
+    public void tearDown() {
+    }
+
+    @Test
+    public void testGet() {
+        Map<String, String> m = new HashMap<String, String>();
+
+        m.put("bla", "blub");
+        m.put("null", null);
+        m.put("empty", "");
+
+        IArguments arg = new MapArguments(m);
+
+        assertEquals("blub", arg.get("bla"));
+        assertEquals("alternative", arg.getOr("null", "alternative"));
+        assertEquals("alternative", arg.getOr("empty", "alternative"));
+    }
 
 }

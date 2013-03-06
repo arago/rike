@@ -25,10 +25,8 @@ package de.arago.portlet.action;
 import de.arago.portlet.Action;
 import de.arago.data.IDataWrapper;
 
-public class DispatcherTestAction implements Action
-{
-	public void execute(IDataWrapper data)
-	{
-		data.setSessionAttribute("testActionExecuted", true);
-	}
+public class DispatcherTestAction implements Action {
+    public void execute(IDataWrapper data) {
+        data.setSessionAttribute("testActionExecuted", true);
+    }
 }

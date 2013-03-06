@@ -29,9 +29,9 @@ import de.arago.rike.data.Task;
 
 public class TaskUpdateNotification implements Event {
 
-  @Override
-	public void execute(IEventWrapper event) throws Exception {
-		Task task = TaskHelper.getTask(Long.valueOf((String) event.getEventAttribute("id"), 10));
+    @Override
+    public void execute(IEventWrapper event) throws Exception {
+        Task task = TaskHelper.getTask(Long.valueOf((String) event.getEventAttribute("id"), 10));
 
-	}
+    }
 }
