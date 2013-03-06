@@ -7,6 +7,7 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.lucene.analysis.Analyzer;
 
 public final class IndexFactory {
 
@@ -63,21 +64,17 @@ public final class IndexFactory {
         IndexConfig config = new IndexConfig(name);
 
         String path = settings.getProperty(prefix + name + ".path");
-        if (path == null) {
-            path = getDefaultProperties().getProperty(prefix + name + ".path");
-        }
-
         config.setPath(path == null ? "/tmp/" + prefix + name + ".index" : path);
         config.setProperties(settings);
 
         try {
             String klass = settings.getProperty(prefix + name + ".converterClass");
-            if (klass == null) {
-                klass = getDefaultProperties().getProperty(prefix + name + ".converterClass");
-            }
-
             Class<?> cl = Class.forName(klass);
             config.setConverterClass((Class<? extends Converter<?>>) cl);
+
+            String aname = settings.getProperty(prefix + name + ".analyzerClass");
+            Class<?> aclass = Class.forName(aname);
+            config.setAnalyzer((Analyzer) aclass.newInstance());
         } catch (Exception e) {
             System.err.println("error while creating index " + name);
 
@@ -97,9 +94,6 @@ public final class IndexFactory {
 
     private static <T> void fillIndex(Index<T> index) {
         String creatorKlass = settings.getProperty(prefix + index.getName() + ".creatorClass");
-        if (creatorKlass == null) {
-            creatorKlass = getDefaultProperties().getProperty(prefix + index.getName() + ".creatorClass");
-        }
         if (creatorKlass == null) {
             return;
         }

@@ -64,7 +64,7 @@ public class Index<T> {
 					IndexWriter.unlock(directory);
 				}
 
-				writer = new IndexWriter(directory, new IndexWriterConfig(Version.LUCENE_36,config.getAnalyser()));
+				writer = new IndexWriter(directory, new IndexWriterConfig(Version.LUCENE_36,config.getAnalyzer()));
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}
@@ -187,7 +187,7 @@ public class Index<T> {
 
 	public Converter<T> query(String q, int maxResults) {
 		try {
-			return query(new QueryParser(Version.LUCENE_36,Converter.FIELD_CONTENT, config.getAnalyser()).parse(q), maxResults);
+			return query(new QueryParser(Version.LUCENE_36,Converter.FIELD_CONTENT, config.getAnalyzer()).parse(q), maxResults);
 		} catch (ParseException ex) {
 			throw new RuntimeException(ex);
 		}
