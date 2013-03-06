@@ -45,11 +45,11 @@ public class IndexConfig {
 		return path;
 	}
 
-    public void setAnalyser(Analyzer a){
+    public void setAnalyzer(Analyzer a){
         analyzer = a;
     }
 
-    public Analyzer getAnalyser(){
+    public Analyzer getAnalyzer(){
         if(analyzer==null)
             analyzer = new StandardAnalyzer(Version.LUCENE_36);
         return analyzer;
