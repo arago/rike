@@ -62,15 +62,15 @@ public final class IndexFactory {
     }
 
     @SuppressWarnings("rawtypes")
-    private static Index<?> createIndex(String name, Properties p) {
+    private static Index<?> createIndex(String name, Properties settings) {
         IndexConfig config = new IndexConfig(name);
 
-        String path = p.getProperty(prefix + name + ".path");
+        String path = settings.getProperty(prefix + name + ".path");
         config.setPath(path == null ? "/tmp/" + prefix + name + ".index" : path);
-        config.setProperties(p);
+        config.setProperties(settings);
 
         try {
-            String klass = p.getProperty(prefix + name + ".converterClass");
+            String klass = settings.getProperty(prefix + name + ".converterClass");
             Class<?> cl = Class.forName(klass);
             config.setConverterClass((Class<? extends Converter<?>>) cl);
 
