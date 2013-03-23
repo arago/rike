@@ -20,8 +20,6 @@ public final class IndexFactory {
         Properties p = new Properties();
         p.put("index.marsValidierer.converterClass", "de.arago.lucene.xmlschema.MarsSchemaConverter");
         p.put("index.marsValidierer.creatorClass", "de.arago.lucene.xmlschema.MarsSchemaIndexCreator");
-        p.put("index.kiValidierer.converterClass", "de.arago.lucene.util.StringMapConverter");
-        p.put("index.kiValidierer.creatorClass", "de.arago.lucene.ki.IssueConditionIndexCreator");
         p.put("index.orga.creatorClass", "de.arago.wisdome.rike.task.TaskIndexCreator");
         p.put("index.orga.converterClass", "de.arago.wisdome.rike.task.TaskIndexConverter");
         p.put("index.mars-schema.creatorClass", "de.arago.lucene.xmlschema.MarsSchemaIndexCreator");
@@ -73,8 +71,10 @@ public final class IndexFactory {
             config.setConverterClass((Class<? extends Converter<?>>) cl);
 
             String aname = settings.getProperty(prefix + name + ".analyzerClass");
-            Class<?> aclass = Class.forName(aname);
-            config.setAnalyzer((Analyzer) aclass.newInstance());
+            if (aname != null) {
+                Class<?> aclass = Class.forName(aname);
+                config.setAnalyzer((Analyzer) aclass.newInstance());
+            }
         } catch (Exception e) {
             System.err.println("error while creating index " + name);
 
