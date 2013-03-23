@@ -30,11 +30,11 @@ import de.arago.rike.util.TaskHelper;
 
 public class TaskLog extends AragoPortlet {
 
-	@Override
-	protected boolean checkViewData(IDataWrapper data){
-		if(!SecurityHelper.isLoggedIn(data.getUser()))
-			return false;
-		data.setSessionAttribute("list", TaskHelper.getRecentTaskLogs());
-		return true;
-	}
+    @Override
+    protected boolean checkViewData(IDataWrapper data) {
+        if(!SecurityHelper.isLoggedIn(data.getUser()))
+            return false;
+        data.setSessionAttribute("list", TaskHelper.getRecentTaskLogs());
+        return true;
+    }
 }

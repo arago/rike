@@ -25,76 +25,69 @@ package de.arago.rike.data;
 
 public class TaskUser {
 
-	private long id;
-	private String email;
-	private String last_ms;
-	private long account;
-	private long yesterday;
-  private int isDeleted;
+    private long id;
+    private String email;
+    private String last_ms;
+    private long account;
+    private long yesterday;
+    private int isDeleted;
 
-	public String getLast_ms() {
-		return last_ms;
-	}
+    public String getLast_ms() {
+        return last_ms;
+    }
 
-	public void setLast_ms(String lastMs) {
-		last_ms = lastMs;
-	}
+    public void setLast_ms(String lastMs) {
+        last_ms = lastMs;
+    }
 
-	public void setId(Long what)
-	{
-		id = what;
-	}
+    public void setId(Long what) {
+        id = what;
+    }
 
-	public Long getId()
-	{
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setEmail(String what)
-	{
-		email = what;
-	}
+    public void setEmail(String what) {
+        email = what;
+    }
 
-	public String getEmail()
-	{
-		return email;
-	}
-	
-	public Long getAccount() {
-		return account;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setAccount(Long account) {
-		this.account = account;
-	}
+    public Long getAccount() {
+        return account;
+    }
 
-	public Long getYesterday() {
-		return yesterday;
-	}
+    public void setAccount(Long account) {
+        this.account = account;
+    }
 
-	public void setYesterday(Long yesterday) {
-		this.yesterday = yesterday;
-	}
+    public Long getYesterday() {
+        return yesterday;
+    }
 
-  /**
-   * @return the isDeleted
-   */
-  public int getIsDeleted()
-  {
-    return isDeleted;
-  }
+    public void setYesterday(Long yesterday) {
+        this.yesterday = yesterday;
+    }
 
-  /**
-   * @param isDeleted the isDeleted to set
-   */
-  public void setIsDeleted(int isDeleted)
-  {
-    this.isDeleted = isDeleted;
-  }
-  
-  public boolean isDeleted()
-  {
-    return isDeleted == 1;
-  }  
-	
+    /**
+     * @return the isDeleted
+     */
+    public int getIsDeleted() {
+        return isDeleted;
+    }
+
+    /**
+     * @param isDeleted the isDeleted to set
+     */
+    public void setIsDeleted(int isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted == 1;
+    }
+
 }

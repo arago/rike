@@ -35,13 +35,13 @@ import org.hibernate.criterion.Restrictions;
 
 public class CreateTask implements Action {
 
-	public void execute(IDataWrapper data) throws Exception {
-		DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
-		DataHelperRike<Milestone> stoneHelper = new DataHelperRike<Milestone>(Milestone.class);
+    public void execute(IDataWrapper data) throws Exception {
+        DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
+        DataHelperRike<Milestone> stoneHelper = new DataHelperRike<Milestone>(Milestone.class);
 
-		data.setSessionAttribute("task", new Task());
-		data.setSessionAttribute("artifacts", helper.list(helper.filter().addOrder(Order.asc("name"))));
-		data.setSessionAttribute("targetView", "viewCreate");
-		data.setSessionAttribute("milestones", stoneHelper.list(stoneHelper.filter().add(Restrictions.or(Restrictions.gt("dueDate", new Date()), Restrictions.isNull("dueDate"))).addOrder(Order.asc("dueDate")).addOrder(Order.asc("title"))));
-	}
+        data.setSessionAttribute("task", new Task());
+        data.setSessionAttribute("artifacts", helper.list(helper.filter().addOrder(Order.asc("name"))));
+        data.setSessionAttribute("targetView", "viewCreate");
+        data.setSessionAttribute("milestones", stoneHelper.list(stoneHelper.filter().add(Restrictions.or(Restrictions.gt("dueDate", new Date()), Restrictions.isNull("dueDate"))).addOrder(Order.asc("dueDate")).addOrder(Order.asc("title"))));
+    }
 }

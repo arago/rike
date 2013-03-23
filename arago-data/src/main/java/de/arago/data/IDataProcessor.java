@@ -22,9 +22,8 @@
  */
 package de.arago.data;
 
-public interface IDataProcessor
-{
-	  public void initSession(IDataWrapper data) throws Exception;
-	  public void action(IDataWrapper data) throws Exception;
-	  public void event(IEventWrapper data) throws Exception;
+public interface IDataProcessor {
+    public void initSession(IDataWrapper data) throws Exception;
+    public void action(IDataWrapper data) throws Exception;
+    public void event(IEventWrapper data) throws Exception;
 }

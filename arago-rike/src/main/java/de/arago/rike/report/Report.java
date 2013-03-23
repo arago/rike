@@ -34,27 +34,27 @@ import javax.portlet.PortletException;
 
 public class Report extends AragoPortlet {
 
-	@Override
-	public void initSession(IDataWrapper data) throws PortletException, IOException {
-		if (!SecurityHelper.isLoggedIn(data.getUser())) {
-			return;
-		}
-		String user = SecurityHelper.getUserEmail(data.getUser());
-		if(user!=null&&!user.isEmpty()){
-			TaskUser tu = TaskHelper.checkIfUserExists(user);
-			if(tu!=null){
-				String lastSelectedMilestone = tu.getLast_ms();
-				if(lastSelectedMilestone!=null&&!lastSelectedMilestone.isEmpty())
-					data.setSessionAttribute("milestone",lastSelectedMilestone);
-			}
-		}
+    @Override
+    public void initSession(IDataWrapper data) throws PortletException, IOException {
+        if (!SecurityHelper.isLoggedIn(data.getUser())) {
+            return;
+        }
+        String user = SecurityHelper.getUserEmail(data.getUser());
+        if(user!=null&&!user.isEmpty()) {
+            TaskUser tu = TaskHelper.checkIfUserExists(user);
+            if(tu!=null) {
+                String lastSelectedMilestone = tu.getLast_ms();
+                if(lastSelectedMilestone!=null&&!lastSelectedMilestone.isEmpty())
+                    data.setSessionAttribute("milestone",lastSelectedMilestone);
+            }
+        }
 
-		data.setSessionAttribute("type", getPortletConfig().getInitParameter("type"));
-		data.setSessionAttribute("typeName", getPortletConfig().getInitParameter("typeName"));
-	}
+        data.setSessionAttribute("type", getPortletConfig().getInitParameter("type"));
+        data.setSessionAttribute("typeName", getPortletConfig().getInitParameter("typeName"));
+    }
 
-	@Override
-	protected boolean checkViewData(IDataWrapper data){
-		return SecurityHelper.isLoggedIn(data.getUser());
-	}
+    @Override
+    protected boolean checkViewData(IDataWrapper data) {
+        return SecurityHelper.isLoggedIn(data.getUser());
+    }
 }

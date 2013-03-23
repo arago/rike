@@ -33,44 +33,44 @@ import net.minidev.json.JSONObject;
 import net.minidev.json.JSONValue;
 
 public class JsonDispatcher extends PortletDispatcher<JsonAction> {
-	private static final Logger logger = Logger.getLogger(JsonDispatcher.class.getName());
+    private static final Logger logger = Logger.getLogger(JsonDispatcher.class.getName());
 
-	public JsonDispatcher(Class<?> forWho) {
-		super(forWho, "json");
-	}
+    public JsonDispatcher(Class<?> forWho) {
+        super(forWho, "json");
+    }
 
-	/**
-	 * lookup and execute action,
-	 * if the action cannot be found (as a class or instance) nothing will be executed
-	 *
-	 * @param actionName the name of the action, name will be sanitized to [a-zA-Z0-9]
-	 * @param data the data passed to action
-	 */
-	
-	public void dispatch(String actionName, ResourceRequest request, ResourceResponse response) throws IOException {
-		long then = System.currentTimeMillis();
-		
-		JsonAction action = getDispatchable(actionName);
+    /**
+     * lookup and execute action,
+     * if the action cannot be found (as a class or instance) nothing will be executed
+     *
+     * @param actionName the name of the action, name will be sanitized to [a-zA-Z0-9]
+     * @param data the data passed to action
+     */
 
-		response.setContentType("text/plain; chartset=utf-8");
+    public void dispatch(String actionName, ResourceRequest request, ResourceResponse response) throws IOException {
+        long then = System.currentTimeMillis();
 
-		try {
-			if (action != null) {
-				
-				Map ret = action.execute(new PortletDataWrapper(request, response));
-        JSONValue.writeJSONString(ret, response.getWriter());
-			}
-		} catch (JsonException ex) {
-			JSONObject ret = new JSONObject();
-			ret.put("error", ex.getMessage());
-			ret.writeJSONString(response.getWriter());
-		} catch (Throwable t) {
-			logger.log(Level.SEVERE, "action " + actionName + " failed ", t);
-		}
-    
-    Performance.timing("arago.portlet.dispatch.json", System.currentTimeMillis() - then);
-    Performance.timing("arago.portlet.dispatch.json." + getNamespace() + actionName, System.currentTimeMillis() - then);
-		
-		System.err.println("{"+getClass().getName()+"} " + actionName + ": took " + (System.currentTimeMillis() - then));
-	}
+        JsonAction action = getDispatchable(actionName);
+
+        response.setContentType("text/plain; chartset=utf-8");
+
+        try {
+            if (action != null) {
+
+                Map ret = action.execute(new PortletDataWrapper(request, response));
+                JSONValue.writeJSONString(ret, response.getWriter());
+            }
+        } catch (JsonException ex) {
+            JSONObject ret = new JSONObject();
+            ret.put("error", ex.getMessage());
+            ret.writeJSONString(response.getWriter());
+        } catch (Throwable t) {
+            logger.log(Level.SEVERE, "action " + actionName + " failed ", t);
+        }
+
+        Performance.timing("arago.portlet.dispatch.json", System.currentTimeMillis() - then);
+        Performance.timing("arago.portlet.dispatch.json." + getNamespace() + actionName, System.currentTimeMillis() - then);
+
+        System.err.println("{"+getClass().getName()+"} " + actionName + ": took " + (System.currentTimeMillis() - then));
+    }
 }

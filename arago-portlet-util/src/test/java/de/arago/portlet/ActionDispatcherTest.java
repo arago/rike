@@ -33,91 +33,84 @@ import static org.junit.Assert.*;
 
 public class ActionDispatcherTest {
 
-  private static class testClass
-  {
-  }
-  
-  private static class TestDataWrapper implements IDataWrapper
-  {
-  	private Map<Object, Object> data = new HashMap<Object, Object>();
-  	
-  	public TestDataWrapper(Map<Object, Object> data)
-  	{
-  		this.data = data;
-  	}
-  	
-		public void setSessionAttribute(String key, Object value) 
-		{
-			data.put(key, value);
-		}
-		
-		public void setRequestAttribute(String key, Object value) {
-			
-			
-		}
-		
-		public void setEvent(String key, HashMap<String, Object> event) {
-			
-			
-		}
-		
-		public void removeSessionAttribute(String key) {
-			
-			
-		}
-		
-		public Enumeration<String> getSessionAttributeNames() {
-			
-			return null;
-		}
-		
-		public Object getSessionAttribute(String key) {
-			
-			return null;
-		}
-		
-		public Enumeration<String> getRequestAttributeNames() {
-			
-			return null;
-		}
-		
-		public String getRequestAttribute(String key) {
-			
-			return null;
-		}
+    private static class testClass {
+    }
 
-		public String getUser() {
-			throw new UnsupportedOperationException("Not supported yet.");
-		}
-  }
-	
-	@Test
-	public void testLoad() 
-	{
-	  ActionDispatcher a = new ActionDispatcher(testClass.class);
-	  assertEquals(a.getNamespace(), "de.arago.portlet.action.");
-	}
-	
-	@Test
-	public void testDispatchDoesNotExist() throws Exception
-	{
-	  ActionDispatcher a 					 = new ActionDispatcher(testClass.class);
-	  HashMap<Object, Object> data = new HashMap<Object, Object>();
-	  
-	  a.dispatch("testActionDoesNotExist", new TestDataWrapper(data));
-	  
-	  if (data.containsKey("testActionExecuted")) throw new Exception("action was executed");
-	}
-	
-	@Test
-	public void testDispatch() throws Exception
-	{
-	  ActionDispatcher a 					 = new ActionDispatcher(testClass.class);
-	  HashMap<Object, Object> data = new HashMap<Object, Object>();
-	  
-	  a.dispatch("dispatcherTestAction", new TestDataWrapper(data));
-	  
-	  if (!data.containsKey("testActionExecuted")) throw new Exception("action was not executed");
-	}
+    private static class TestDataWrapper implements IDataWrapper {
+        private Map<Object, Object> data = new HashMap<Object, Object>();
+
+        public TestDataWrapper(Map<Object, Object> data) {
+            this.data = data;
+        }
+
+        public void setSessionAttribute(String key, Object value) {
+            data.put(key, value);
+        }
+
+        public void setRequestAttribute(String key, Object value) {
+
+
+        }
+
+        public void setEvent(String key, HashMap<String, Object> event) {
+
+
+        }
+
+        public void removeSessionAttribute(String key) {
+
+
+        }
+
+        public Enumeration<String> getSessionAttributeNames() {
+
+            return null;
+        }
+
+        public Object getSessionAttribute(String key) {
+
+            return null;
+        }
+
+        public Enumeration<String> getRequestAttributeNames() {
+
+            return null;
+        }
+
+        public String getRequestAttribute(String key) {
+
+            return null;
+        }
+
+        public String getUser() {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+    }
+
+    @Test
+    public void testLoad() {
+        ActionDispatcher a = new ActionDispatcher(testClass.class);
+        assertEquals(a.getNamespace(), "de.arago.portlet.action.");
+    }
+
+    @Test
+    public void testDispatchDoesNotExist() throws Exception {
+        ActionDispatcher a 					 = new ActionDispatcher(testClass.class);
+        HashMap<Object, Object> data = new HashMap<Object, Object>();
+
+        a.dispatch("testActionDoesNotExist", new TestDataWrapper(data));
+
+        if (data.containsKey("testActionExecuted")) throw new Exception("action was executed");
+    }
+
+    @Test
+    public void testDispatch() throws Exception {
+        ActionDispatcher a 					 = new ActionDispatcher(testClass.class);
+        HashMap<Object, Object> data = new HashMap<Object, Object>();
+
+        a.dispatch("dispatcherTestAction", new TestDataWrapper(data));
+
+        if (!data.containsKey("testActionExecuted")) throw new Exception("action was not executed");
+    }
 
 }

@@ -26,5 +26,5 @@ import de.arago.data.IDataWrapper;
 import java.util.Map;
 
 public interface JsonAction {
-	public Map execute(IDataWrapper data) throws Exception;
+    public Map execute(IDataWrapper data) throws Exception;
 }

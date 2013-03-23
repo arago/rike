@@ -34,214 +34,204 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-public class DataHelperBase<T> 
-{
-	private static final ConcurrentMap<String, SessionFactory> factories = new ConcurrentHashMap<String, SessionFactory>();
+public class DataHelperBase<T> {
+    private static final ConcurrentMap<String, SessionFactory> factories = new ConcurrentHashMap<String, SessionFactory>();
 
-  private Stack<Transaction> transactions = new Stack<Transaction>();
-	private final Class<?> klass;
-	private Session listSession;
-  private final SessionFactory factory;
-  
-	private static SessionFactory getFactory(String datasource, Properties additional)
-	{
-		datasource						 = datasource.replaceAll("\\W+", "");
-		SessionFactory factory = factories.get(datasource);
-		
-		if (factory == null)
-		{
-			factory = ConfigHelper.makeFactory(datasource, additional);
-			
-			factories.putIfAbsent(datasource, factory);
-		}	
-		
-		return factory;
-	}		
-  
-	protected DataHelperBase(Class<?> klass, String datasource, Properties p) 
-	{
-		this.klass   = klass;
-		this.factory = getFactory(datasource, p);
-	}
+    private Stack<Transaction> transactions = new Stack<Transaction>();
+    private final Class<?> klass;
+    private Session listSession;
+    private final SessionFactory factory;
 
-	private Session session() {
-		return factory.getCurrentSession();
-	}
+    private static SessionFactory getFactory(String datasource, Properties additional) {
+        datasource						 = datasource.replaceAll("\\W+", "");
+        SessionFactory factory = factories.get(datasource);
 
-	private Session listSession() {
-		if (listSession == null) {
-			listSession = factory.openSession();
-		}
-		
-		return listSession;
-	}
+        if (factory == null) {
+            factory = ConfigHelper.makeFactory(datasource, additional);
 
-	private void begin() {
-		begin(session());
-	}
+            factories.putIfAbsent(datasource, factory);
+        }
 
-	private void begin(Session session) {
-		Transaction transaction = session.beginTransaction();
-		transaction.begin();
-		transactions.push(transaction);
-	}
+        return factory;
+    }
 
-	private void commit() {
-		if (!transactions.isEmpty()) {
-			transactions.pop().commit();
-		}
-	}
+    protected DataHelperBase(Class<?> klass, String datasource, Properties p) {
+        this.klass   = klass;
+        this.factory = getFactory(datasource, p);
+    }
 
-	private void rollback() {
-		if (!transactions.isEmpty()) {
-			transactions.pop().rollback();
-		}
-	}
+    private Session session() {
+        return factory.getCurrentSession();
+    }
 
-	public Criteria filter() {
-		return listSession().createCriteria(klass);
-	}
+    private Session listSession() {
+        if (listSession == null) {
+            listSession = factory.openSession();
+        }
 
-	public List<T> list() {
-		return list(filter());
-	}
+        return listSession;
+    }
 
-	public SQLQuery createSQLQuery(String query)
-	{
-		begin();
-		return session().createSQLQuery(query);
-	}
-	
-	public Query createQuery(String query)
-	{
-		begin();
-		return session().createQuery(query);
-	}
-  
-  public Query execute(Query query)
-  {
-    query.executeUpdate();
-    commit();
-    
-    return query;
-  }  
-	
-	public List<Object> list(Query q)
-	{
-		return q.list();
-	}				
-	
-	public void finish(Query q)
-	{
-		session().disconnect();
-	}				
-	
-	public List<T> list(Criteria crit) {
-		Session currentSession = null;
+    private void begin() {
+        begin(session());
+    }
 
-		try {
-			currentSession = listSession();
-			begin(currentSession);
-			List<T> result = crit.list();
-			commit();
+    private void begin(Session session) {
+        Transaction transaction = session.beginTransaction();
+        transaction.begin();
+        transactions.push(transaction);
+    }
 
-			return result;
-		} catch (Exception ex) {
+    private void commit() {
+        if (!transactions.isEmpty()) {
+            transactions.pop().commit();
+        }
+    }
 
-			rollback();
-			throw new RuntimeException(ex);
-		} finally {
-			listSession = null;
+    private void rollback() {
+        if (!transactions.isEmpty()) {
+            transactions.pop().rollback();
+        }
+    }
 
-			if (currentSession != null) {
-				currentSession.close();
-			}
-		}
-	}
+    public Criteria filter() {
+        return listSession().createCriteria(klass);
+    }
 
-  public T find(Criteria crit)
-  {
-    List<T> list = list(crit);
-    
-    if (list == null || list.isEmpty()) return null;
-    
-    return list.get(0);
-  }
-  
-  
-	public T find(String id) {
-		return find(Long.valueOf(id));
-	}
+    public List<T> list() {
+        return list(filter());
+    }
 
-	public T find(long id) {
-		try {
-			Object who = klass.newInstance();
+    public SQLQuery createSQLQuery(String query) {
+        begin();
+        return session().createSQLQuery(query);
+    }
 
-			begin();
+    public Query createQuery(String query) {
+        begin();
+        return session().createQuery(query);
+    }
 
-			session().load(who, id);
+    public Query execute(Query query) {
+        query.executeUpdate();
+        commit();
 
-			commit();
+        return query;
+    }
 
-			return (T) who;
-		} catch (Exception ex) {
-			rollback();
-			throw new RuntimeException(ex);
-		} finally {
-			session().disconnect();
-		}
-	}
+    public List<Object> list(Query q) {
+        return q.list();
+    }
 
-	public T save(T instance) {
-		try {
-			begin();
+    public void finish(Query q) {
+        session().disconnect();
+    }
 
-			session().saveOrUpdate(instance);
+    public List<T> list(Criteria crit) {
+        Session currentSession = null;
 
-			commit();
+        try {
+            currentSession = listSession();
+            begin(currentSession);
+            List<T> result = crit.list();
+            commit();
 
-			return instance;
-		} catch (Exception ex) {
-			rollback();
-			throw new RuntimeException(ex);
-		} finally {
-			session().disconnect();
-		}
-	}
+            return result;
+        } catch (Exception ex) {
 
-	public void kill(List<T> list) {
-		try {
-			begin();
+            rollback();
+            throw new RuntimeException(ex);
+        } finally {
+            listSession = null;
 
-			for (T instance : list) {
-				_kill(instance);
-			}
+            if (currentSession != null) {
+                currentSession.close();
+            }
+        }
+    }
 
-			commit();
-		} catch (Exception ex) {
-			rollback();
-			throw new RuntimeException(ex);
-		} finally {
-			session().disconnect();
-		}
-	}
+    public T find(Criteria crit) {
+        List<T> list = list(crit);
 
-	public void kill(T instance) {
-		try {
-			begin();
+        if (list == null || list.isEmpty()) return null;
 
-			_kill(instance);
+        return list.get(0);
+    }
 
-			commit();
-		} catch (Exception ex) {
-			rollback();
-			throw new RuntimeException(ex);
-		} finally {
-			session().disconnect();
-		}
-	}
 
-	private void _kill(T instance) {
-		session().delete(instance);
-	}
+    public T find(String id) {
+        return find(Long.valueOf(id));
+    }
+
+    public T find(long id) {
+        try {
+            Object who = klass.newInstance();
+
+            begin();
+
+            session().load(who, id);
+
+            commit();
+
+            return (T) who;
+        } catch (Exception ex) {
+            rollback();
+            throw new RuntimeException(ex);
+        } finally {
+            session().disconnect();
+        }
+    }
+
+    public T save(T instance) {
+        try {
+            begin();
+
+            session().saveOrUpdate(instance);
+
+            commit();
+
+            return instance;
+        } catch (Exception ex) {
+            rollback();
+            throw new RuntimeException(ex);
+        } finally {
+            session().disconnect();
+        }
+    }
+
+    public void kill(List<T> list) {
+        try {
+            begin();
+
+            for (T instance : list) {
+                _kill(instance);
+            }
+
+            commit();
+        } catch (Exception ex) {
+            rollback();
+            throw new RuntimeException(ex);
+        } finally {
+            session().disconnect();
+        }
+    }
+
+    public void kill(T instance) {
+        try {
+            begin();
+
+            _kill(instance);
+
+            commit();
+        } catch (Exception ex) {
+            rollback();
+            throw new RuntimeException(ex);
+        } finally {
+            session().disconnect();
+        }
+    }
+
+    private void _kill(T instance) {
+        session().delete(instance);
+    }
 }

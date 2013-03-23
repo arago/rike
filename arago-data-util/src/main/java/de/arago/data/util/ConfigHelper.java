@@ -29,55 +29,48 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 
-final class ConfigHelper
-{
-  private static final String PREFIX       = "de.arago.data.util.datasource."; 
-  private static final Pattern userPattern = Pattern.compile("user=([^&]+)");
-  private static final Pattern passPattern = Pattern.compile("password=([^&]+)");
-  
-  static SessionFactory makeFactory(String datasource, Properties p)
-  {
-    final Configuration configuration = new Configuration();
-	  configuration.configure();
+final class ConfigHelper {
+    private static final String PREFIX       = "de.arago.data.util.datasource.";
+    private static final Pattern userPattern = Pattern.compile("user=([^&]+)");
+    private static final Pattern passPattern = Pattern.compile("password=([^&]+)");
 
-    String jdbcUrl = System.getProperty(PREFIX + datasource);
-    
-    if (jdbcUrl == null || jdbcUrl.isEmpty())
-    {
-      jdbcUrl = "jdbc:mysql://127.0.0.1/rike?user=rike&password=rike&useUnicode=true&characterEncoding=UTF-8";
+    static SessionFactory makeFactory(String datasource, Properties p) {
+        final Configuration configuration = new Configuration();
+        configuration.configure();
+
+        String jdbcUrl = System.getProperty(PREFIX + datasource);
+
+        if (jdbcUrl == null || jdbcUrl.isEmpty()) {
+            jdbcUrl = "jdbc:mysql://127.0.0.1/rike?user=rike&password=rike&useUnicode=true&characterEncoding=UTF-8";
+        }
+
+        configuration.setProperty("hibernate.connection.url", jdbcUrl);
+        setCredentials(configuration, jdbcUrl);
+
+        setDebug(configuration);
+        setAdditionalProperties(configuration, p);
+
+        return configuration.buildSessionFactory();
     }
-    
-    configuration.setProperty("hibernate.connection.url", jdbcUrl);
-    setCredentials(configuration, jdbcUrl);
 
-    setDebug(configuration);
-    setAdditionalProperties(configuration, p);
+    private static void setCredentials(Configuration configuration, String jdbcUrl) {
+        Matcher user = userPattern.matcher(jdbcUrl);
+        if (user.find()) configuration.setProperty("hibernate.connection.username", user.group(1));
 
-    return configuration.buildSessionFactory();
-  } 
-  
-  private static void setCredentials(Configuration configuration, String jdbcUrl)
-  {
-    Matcher user = userPattern.matcher(jdbcUrl);
-    if (user.find()) configuration.setProperty("hibernate.connection.username", user.group(1));
-
-    Matcher pass = passPattern.matcher(jdbcUrl);
-    if (pass.find()) configuration.setProperty("hibernate.connection.password", pass.group(1));
-  }
-
-  private static void setAdditionalProperties(Configuration configuration, Properties additional)
-  {
-    if (additional == null) return;
-    
-    for(String key: additional.stringPropertyNames())
-    {
-      configuration.setProperty(key, additional.getProperty(key));
+        Matcher pass = passPattern.matcher(jdbcUrl);
+        if (pass.find()) configuration.setProperty("hibernate.connection.password", pass.group(1));
     }
-  }
 
-  private static void setDebug(Configuration configuration)
-  {
-    configuration.setProperty("hibernate.show_sql", System.getProperty("hibernate.show_sql", "false"));
-  }
-          
+    private static void setAdditionalProperties(Configuration configuration, Properties additional) {
+        if (additional == null) return;
+
+        for(String key: additional.stringPropertyNames()) {
+            configuration.setProperty(key, additional.getProperty(key));
+        }
+    }
+
+    private static void setDebug(Configuration configuration) {
+        configuration.setProperty("hibernate.show_sql", System.getProperty("hibernate.show_sql", "false"));
+    }
+
 }

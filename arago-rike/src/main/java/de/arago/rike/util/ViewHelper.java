@@ -50,205 +50,205 @@ import org.hibernate.criterion.Order;
 
 public class ViewHelper {
 
-	private static final Map<String, String> challengeNames = new HashMap<String, String>();
-	private static final List<String> challenges = new LinkedList<String>();
-	private static final Map<String, String> priorityNames = new HashMap<String, String>();
-	private static final List<String> priorities = new LinkedList<String>();
-	private static final Map<String, String> statusNames = new HashMap<String, String>();
-	private static final List<String> status = new LinkedList<String>();
-	private static final Map<String, String> statusColors = new HashMap<String, String>();
+    private static final Map<String, String> challengeNames = new HashMap<String, String>();
+    private static final List<String> challenges = new LinkedList<String>();
+    private static final Map<String, String> priorityNames = new HashMap<String, String>();
+    private static final List<String> priorities = new LinkedList<String>();
+    private static final Map<String, String> statusNames = new HashMap<String, String>();
+    private static final List<String> status = new LinkedList<String>();
+    private static final Map<String, String> statusColors = new HashMap<String, String>();
 
-	static {
-		challenges.add(Challenge.DIFFICULT.toString());
-		challenges.add(Challenge.AVERAGE.toString());
-		challenges.add(Challenge.EASY.toString());
+    static {
+        challenges.add(Challenge.DIFFICULT.toString());
+        challenges.add(Challenge.AVERAGE.toString());
+        challenges.add(Challenge.EASY.toString());
 
-		challengeNames.put(Challenge.DIFFICULT.toString(), "hard");
-		challengeNames.put(Challenge.AVERAGE.toString(), "normal");
-		challengeNames.put(Challenge.EASY.toString(), "easy");
+        challengeNames.put(Challenge.DIFFICULT.toString(), "hard");
+        challengeNames.put(Challenge.AVERAGE.toString(), "normal");
+        challengeNames.put(Challenge.EASY.toString(), "easy");
 
-		priorities.add(Priority.HIGH.toString());
-		priorities.add(Priority.NORMAL.toString());
-		priorities.add(Priority.LOW.toString());
+        priorities.add(Priority.HIGH.toString());
+        priorities.add(Priority.NORMAL.toString());
+        priorities.add(Priority.LOW.toString());
 
-		priorityNames.put(Priority.HIGH.toString(), "high");
-		priorityNames.put(Priority.NORMAL.toString(), "normal");
-		priorityNames.put(Priority.LOW.toString(), "low");
+        priorityNames.put(Priority.HIGH.toString(), "high");
+        priorityNames.put(Priority.NORMAL.toString(), "normal");
+        priorityNames.put(Priority.LOW.toString(), "low");
 
-		status.add(Status.UNKNOWN.toString());
-		status.add(Status.OPEN.toString());
-		status.add(Status.IN_PROGRESS.toString());
-		status.add(Status.DONE.toString());
+        status.add(Status.UNKNOWN.toString());
+        status.add(Status.OPEN.toString());
+        status.add(Status.IN_PROGRESS.toString());
+        status.add(Status.DONE.toString());
 
-		statusNames.put(Status.UNKNOWN.toString(), "not rated");
-		statusNames.put(Status.OPEN.toString(), "open");
-		statusNames.put(Status.IN_PROGRESS.toString(), "in progress");
-		statusNames.put(Status.DONE.toString(), "completed");
-                
-		statusColors.put(Status.UNKNOWN.toString(), "blue");
-		statusColors.put(Status.OPEN.toString(), "red");
-		statusColors.put(Status.IN_PROGRESS.toString(), "yellow");
-		statusColors.put(Status.DONE.toString(), "green");
-	}
+        statusNames.put(Status.UNKNOWN.toString(), "not rated");
+        statusNames.put(Status.OPEN.toString(), "open");
+        statusNames.put(Status.IN_PROGRESS.toString(), "in progress");
+        statusNames.put(Status.DONE.toString(), "completed");
 
-	private static String encode(String what) {
-		try {
-			return URLEncoder.encode(what, "UTF-8");
-		} catch (UnsupportedEncodingException ex) {
-			throw new RuntimeException(ex);
-		}
-	}
+        statusColors.put(Status.UNKNOWN.toString(), "blue");
+        statusColors.put(Status.OPEN.toString(), "red");
+        statusColors.put(Status.IN_PROGRESS.toString(), "yellow");
+        statusColors.put(Status.DONE.toString(), "green");
+    }
 
-	private static String escape(String what) {
-		return StringEscapeUtils.escapeHtml(what);
-	}
+    private static String encode(String what) {
+        try {
+            return URLEncoder.encode(what, "UTF-8");
+        } catch (UnsupportedEncodingException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
-	public static String formatUser(String user) {
-		if (user.contains("@")) {
-			return "<a style='color:#333; font-weight:bold' href='mailto:" + encode(user) + "'>" + escape(user.replaceAll("\\@.*$", "")) + "</a>";
-		}
+    private static String escape(String what) {
+        return StringEscapeUtils.escapeHtml(what);
+    }
 
-		return escape(user);
-	}
+    public static String formatUser(String user) {
+        if (user.contains("@")) {
+            return "<a style='color:#333; font-weight:bold' href='mailto:" + encode(user) + "'>" + escape(user.replaceAll("\\@.*$", "")) + "</a>";
+        }
 
-	public static String formatUser(Task task) {
-		String user = task.getOwner();
-		if (user == null || user.isEmpty()) return "";
-		
-		if (user.contains("@")) {
-			return "<a style='color:#333; font-weight:bold' href='mailto:" + encode(user) + "?subject=" + encode("Task " + task.getId().toString() + " " + task.getTitle()) + "'>" + escape(user.replaceAll("\\@.*$", "")) + "</a>";
-		}
+        return escape(user);
+    }
 
-		return escape(user);
-	}
+    public static String formatUser(Task task) {
+        String user = task.getOwner();
+        if (user == null || user.isEmpty()) return "";
 
-	public static String formatURL(String path) {
-		if (path == null || path.length() == 0) {
-			return "Keine URL hinterlegt";
-		}
+        if (user.contains("@")) {
+            return "<a style='color:#333; font-weight:bold' href='mailto:" + encode(user) + "?subject=" + encode("Task " + task.getId().toString() + " " + task.getTitle()) + "'>" + escape(user.replaceAll("\\@.*$", "")) + "</a>";
+        }
 
-		try {
-			URL url = new URL(path);
-			return "<a target='_blank' title='" + escape(path) + "' href='" + escape(path) + "'>" + escape(url.getHost()) + "</a>";
-		} catch (MalformedURLException ex) {
-			return "<a target='_blank' href='" + escape(path) + "'>" + escape(path) + "</a>";
-		}
-	}
+        return escape(user);
+    }
 
-	public static List<String> getChallenges() {
-		return challenges;
-	}
+    public static String formatURL(String path) {
+        if (path == null || path.length() == 0) {
+            return "Keine URL hinterlegt";
+        }
 
-	public static String getChallenge(Challenge what) {
-		return getChallenge(what.toString());
-	}
+        try {
+            URL url = new URL(path);
+            return "<a target='_blank' title='" + escape(path) + "' href='" + escape(path) + "'>" + escape(url.getHost()) + "</a>";
+        } catch (MalformedURLException ex) {
+            return "<a target='_blank' href='" + escape(path) + "'>" + escape(path) + "</a>";
+        }
+    }
 
-	public static String getChallenge(String what) {
-		return challengeNames.get(what.toUpperCase());
-	}
+    public static List<String> getChallenges() {
+        return challenges;
+    }
 
-	public static List<String> getPriorities() {
-		return priorities;
-	}
+    public static String getChallenge(Challenge what) {
+        return getChallenge(what.toString());
+    }
 
-	public static String getPriority(Priority what) {
-		return getPriority(what.toString());
-	}
+    public static String getChallenge(String what) {
+        return challengeNames.get(what.toUpperCase());
+    }
 
-	public static String getPriority(String what) {
-		return priorityNames.get(what.toUpperCase());
-	}
+    public static List<String> getPriorities() {
+        return priorities;
+    }
 
-	public static String getTaskLogColorClass(TaskLog log) {
-		switch (log.getStatusEnum()) {
-			case OPEN:
-				return "status-critical";
-			case IN_PROGRESS:
-				return "status-warning";
-			case DONE:
-				return "status-ok";
-			default:
-				return "status-unknown";
-		}
-	}
+    public static String getPriority(Priority what) {
+        return getPriority(what.toString());
+    }
 
-	public static String getTaskStatusColorClass(Task task) {
-		switch (task.getStatusEnum()) {
-			case OPEN:
-				return "status-critical";
-			case IN_PROGRESS:
-				return "status-warning";
-			case DONE:
-				return "status-ok";
-			default:
-				return "status-unknown";
-		}
-	}
+    public static String getPriority(String what) {
+        return priorityNames.get(what.toUpperCase());
+    }
 
-	public static String getTaskPriorityColorClass(Task task) {
-		return "priority-" + task.getPriority();
-	}
+    public static String getTaskLogColorClass(TaskLog log) {
+        switch (log.getStatusEnum()) {
+        case OPEN:
+            return "status-critical";
+        case IN_PROGRESS:
+            return "status-warning";
+        case DONE:
+            return "status-ok";
+        default:
+            return "status-unknown";
+        }
+    }
 
-	public static List<TaskUser> getAvailableUsers() {
-		DataHelperRike<TaskUser> helper = new DataHelperRike<TaskUser>(TaskUser.class);
-		return helper.list(helper.filter().addOrder(Order.asc("email")));
-	}
+    public static String getTaskStatusColorClass(Task task) {
+        switch (task.getStatusEnum()) {
+        case OPEN:
+            return "status-critical";
+        case IN_PROGRESS:
+            return "status-warning";
+        case DONE:
+            return "status-ok";
+        default:
+            return "status-unknown";
+        }
+    }
 
-	public static List<String> getAvailableReleases() {
-		DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
+    public static String getTaskPriorityColorClass(Task task) {
+        return "priority-" + task.getPriority();
+    }
 
-		List<String> releases = new ArrayList<String>();
+    public static List<TaskUser> getAvailableUsers() {
+        DataHelperRike<TaskUser> helper = new DataHelperRike<TaskUser>(TaskUser.class);
+        return helper.list(helper.filter().addOrder(Order.asc("email")));
+    }
 
-		for (Milestone m : helper.list()) {
-			if (m.getRelease() != null && !m.getRelease().isEmpty() && !releases.contains(m.getRelease())) {
-				releases.add(m.getRelease());
-			}
-		}
+    public static List<String> getAvailableReleases() {
+        DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
 
-		Collections.sort(releases);
+        List<String> releases = new ArrayList<String>();
 
-		return releases;
-	}
+        for (Milestone m : helper.list()) {
+            if (m.getRelease() != null && !m.getRelease().isEmpty() && !releases.contains(m.getRelease())) {
+                releases.add(m.getRelease());
+            }
+        }
 
-	public static List<String[]> getAvailableMilestones(UserService service) {
-		DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
+        Collections.sort(releases);
 
-		List<String[]> data = new ArrayList<String[]>();
+        return releases;
+    }
 
-		List<Milestone> list = helper.list(helper.filter().addOrder(Order.desc("dueDate")));
+    public static List<String[]> getAvailableMilestones(UserService service) {
+        DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
 
-		Set<String> releases = new TreeSet<String>();
+        List<String[]> data = new ArrayList<String[]>();
 
-		for (Milestone m : list) {
-			String id = m.getRelease();
-			if (!id.isEmpty()&&!releases.contains(id)) {
-				releases.add(id);
-				data.add(new String[]{"release_" + id, "[RELEASE] " + id});
-			}
-			
-			data.add(new String[]{"milestone_" + m.getId().toString(), (m.getDueDate() != null ? "[" + service.formatDate(m.getDueDate(), "dd.MM.yyyy") + "] " : "[?] ") + m.getTitle()});
-		}
-		return data;
-	}
+        List<Milestone> list = helper.list(helper.filter().addOrder(Order.desc("dueDate")));
 
-	public static List<Artifact> getAvailableArtifacts() {
-		DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
-		return helper.list(helper.filter().addOrder(Order.asc("name")));
-	}
+        Set<String> releases = new TreeSet<String>();
 
-	public static List<String> getStatus() {
-		return status;
-	}
+        for (Milestone m : list) {
+            String id = m.getRelease();
+            if (!id.isEmpty()&&!releases.contains(id)) {
+                releases.add(id);
+                data.add(new String[] {"release_" + id, "[RELEASE] " + id});
+            }
 
-	public static String getStatus(Status what) {
-		return getStatus(what.toString());
-	}
+            data.add(new String[] {"milestone_" + m.getId().toString(), (m.getDueDate() != null ? "[" + service.formatDate(m.getDueDate(), "dd.MM.yyyy") + "] " : "[?] ") + m.getTitle()});
+        }
+        return data;
+    }
 
-	public static String getStatus(String what) {
-		return statusNames.get(what.toUpperCase());
-	}
+    public static List<Artifact> getAvailableArtifacts() {
+        DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
+        return helper.list(helper.filter().addOrder(Order.asc("name")));
+    }
 
-	public static String getColor(String what) {
-		return statusColors.get(what.toUpperCase());
-	}
+    public static List<String> getStatus() {
+        return status;
+    }
+
+    public static String getStatus(Status what) {
+        return getStatus(what.toString());
+    }
+
+    public static String getStatus(String what) {
+        return statusNames.get(what.toUpperCase());
+    }
+
+    public static String getColor(String what) {
+        return statusColors.get(what.toUpperCase());
+    }
 }

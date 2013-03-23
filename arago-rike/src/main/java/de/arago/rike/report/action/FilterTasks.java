@@ -21,7 +21,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /**
- * 
+ *
  */
 package de.arago.rike.report.action;
 
@@ -30,14 +30,12 @@ import de.arago.portlet.Action;
 import de.arago.data.IDataWrapper;
 import java.util.HashMap;
 
-public class FilterTasks implements Action
-{
-  @Override
-  public void execute(IDataWrapper data) throws Exception
-  {
-    HashMap<String, Object> notificationParam = new HashMap<String, Object>();
+public class FilterTasks implements Action {
+    @Override
+    public void execute(IDataWrapper data) throws Exception {
+        HashMap<String, Object> notificationParam = new HashMap<String, Object>();
 
-    notificationParam.put("status", data.getRequestAttribute("status"));
-    data.setEvent("TaskFilterRequest", notificationParam);    
-  }
+        notificationParam.put("status", data.getRequestAttribute("status"));
+        data.setEvent("TaskFilterRequest", notificationParam);
+    }
 }

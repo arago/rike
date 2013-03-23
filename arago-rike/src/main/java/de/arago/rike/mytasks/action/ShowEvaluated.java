@@ -31,16 +31,16 @@ import de.arago.rike.util.TaskListFilter;
 import de.arago.rike.data.Task;
 
 
-public class ShowEvaluated implements Action{
+public class ShowEvaluated implements Action {
 
-	public void execute(IDataWrapper data) throws Exception {
-		TaskListFilter filter = new TaskListFilter();
+    public void execute(IDataWrapper data) throws Exception {
+        TaskListFilter filter = new TaskListFilter();
 
-		filter.setStatus(Task.Status.OPEN.toString());
-		filter.setCreator((String) data.getSessionAttribute("currentUser"));
+        filter.setStatus(Task.Status.OPEN.toString());
+        filter.setCreator((String) data.getSessionAttribute("currentUser"));
 
-		data.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
-		data.setSessionAttribute("targetView", "viewEvaluated");
-	}
+        data.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
+        data.setSessionAttribute("targetView", "viewEvaluated");
+    }
 
 }

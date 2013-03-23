@@ -31,14 +31,14 @@ import de.arago.rike.data.Task;
 
 public class TaskUpdateNotification  implements Event {
 
-	public void execute(IEventWrapper event) throws Exception {
-		TaskListFilter filter = new TaskListFilter();
+    public void execute(IEventWrapper event) throws Exception {
+        TaskListFilter filter = new TaskListFilter();
 
-		filter.setStatus(Task.Status.IN_PROGRESS.toString());
-		filter.setUser((String) event.getSessionAttribute("currentUser"));
+        filter.setStatus(Task.Status.IN_PROGRESS.toString());
+        filter.setUser((String) event.getSessionAttribute("currentUser"));
 
-		event.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
-		event.removeSessionAttribute("targetView");
-	}
+        event.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
+        event.removeSessionAttribute("targetView");
+    }
 
 }

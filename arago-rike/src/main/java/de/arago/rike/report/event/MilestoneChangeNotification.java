@@ -28,7 +28,7 @@ import de.arago.data.IEventWrapper;
 
 public class MilestoneChangeNotification implements Event {
 
-	public void execute(IEventWrapper event) throws Exception {
-		event.setSessionAttribute("milestone", event.getEventAttribute("milestone"));
-	}
+    public void execute(IEventWrapper event) throws Exception {
+        event.setSessionAttribute("milestone", event.getEventAttribute("milestone"));
+    }
 }

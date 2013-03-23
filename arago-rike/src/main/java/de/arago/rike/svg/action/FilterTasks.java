@@ -21,7 +21,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /**
- * 
+ *
  */
 package de.arago.rike.svg.action;
 
@@ -32,26 +32,26 @@ import de.arago.rike.util.TaskListFilter;
 
 public class FilterTasks implements Action {
 
-	public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) throws Exception {
 
-		// filtering happens in the view, just persist chosen options in the session
-		
-		TaskListFilter filter = (TaskListFilter) data.getSessionAttribute("taskListFilter");
+        // filtering happens in the view, just persist chosen options in the session
 
-		boolean have = false;
+        TaskListFilter filter = (TaskListFilter) data.getSessionAttribute("taskListFilter");
 
-		String milestone = data.getRequestAttribute("milestone");
-		String user = data.getRequestAttribute("user");
-		String artifact = data.getRequestAttribute("artifact");
+        boolean have = false;
 
-		if (milestone.length() > 0) have = true;
-		if (user.length() > 0) have = true;
-		if (artifact.length() > 0) have = true;
+        String milestone = data.getRequestAttribute("milestone");
+        String user = data.getRequestAttribute("user");
+        String artifact = data.getRequestAttribute("artifact");
+
+        if (milestone.length() > 0) have = true;
+        if (user.length() > 0) have = true;
+        if (artifact.length() > 0) have = true;
 
 
-		filter.setMilestone(milestone);
-		filter.setUser(user);
-		filter.setArtifact(artifact);
-		filter.setIsActive(have);
-	}
+        filter.setMilestone(milestone);
+        filter.setUser(user);
+        filter.setArtifact(artifact);
+        filter.setIsActive(have);
+    }
 }

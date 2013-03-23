@@ -29,62 +29,53 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public abstract class AbstractUserService implements UserService
-{
-  abstract public User getUser();
-  
-  @Override
-  public TimeZone getTimeZone()
-  {
-    return getUser().getTimeZone();
-  }
-  
-  @Override  
-  public Locale getLocale()
-  {
-    // TODO english for now
-    //return getUser().getLocale();
-    
-    return Locale.ENGLISH;
-  }
+public abstract class AbstractUserService implements UserService {
+    abstract public User getUser();
 
-  @Override
-  public String getEmail()
-  {
-    return getUser().getEmailAddress();
-  }
-
-  @Override
-  public String getName()
-  {
-    try
-    {  
-      return getUser().getLogin();
-    } catch(Exception e) {
-      throw new RuntimeException();
+    @Override
+    public TimeZone getTimeZone() {
+        return getUser().getTimeZone();
     }
-  }
 
-  @Override
-  public String formatDate(Date date, String format)
-  {
-    SimpleDateFormat f = new SimpleDateFormat(format, getLocale());
-    f.setTimeZone(getTimeZone());
-    
-    return f.format(date);
-  }
-  
-  @Override
-  public String formatDate(Date date)
-  {
-    return formatDate(date, "yyyy-MM-dd HH:mm:ss");
-  }  
+    @Override
+    public Locale getLocale() {
+        // TODO english for now
+        //return getUser().getLocale();
 
-  @Override
-  public String formatHumanDate(Date date)
-  {
-    PrettyTime f = new PrettyTime(getLocale());
-    
-    return f.format(date);
-  }
+        return Locale.ENGLISH;
+    }
+
+    @Override
+    public String getEmail() {
+        return getUser().getEmailAddress();
+    }
+
+    @Override
+    public String getName() {
+        try {
+            return getUser().getLogin();
+        } catch(Exception e) {
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
+    public String formatDate(Date date, String format) {
+        SimpleDateFormat f = new SimpleDateFormat(format, getLocale());
+        f.setTimeZone(getTimeZone());
+
+        return f.format(date);
+    }
+
+    @Override
+    public String formatDate(Date date) {
+        return formatDate(date, "yyyy-MM-dd HH:mm:ss");
+    }
+
+    @Override
+    public String formatHumanDate(Date date) {
+        PrettyTime f = new PrettyTime(getLocale());
+
+        return f.format(date);
+    }
 }

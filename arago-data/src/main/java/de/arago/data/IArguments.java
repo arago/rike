@@ -22,8 +22,7 @@
  */
 package de.arago.data;
 
-public interface IArguments 
-{
-	public String get(String name);
-	public String getOr(String name, String alternative);
+public interface IArguments {
+    public String get(String name);
+    public String getOr(String name, String alternative);
 }

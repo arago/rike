@@ -25,25 +25,23 @@ package de.arago.data.impl;
 import de.arago.data.IArguments;
 import java.util.Map;
 
-public class MapArguments implements IArguments
-{
-	private final Map<String, String> data;
-	
-	public MapArguments(Map<String, String> data)
-	{
-		this.data = data;
-	}					
-					
-  @Override
-	public String get(String name) {
-		return data.get(name);
-	}
+public class MapArguments implements IArguments {
+    private final Map<String, String> data;
 
-  @Override
-	public String getOr(String name, String alternative) {
-		String val = data.get(name);
-		
-		return val == null || val.isEmpty()?alternative:val;
-	}
-	
+    public MapArguments(Map<String, String> data) {
+        this.data = data;
+    }
+
+    @Override
+    public String get(String name) {
+        return data.get(name);
+    }
+
+    @Override
+    public String getOr(String name, String alternative) {
+        String val = data.get(name);
+
+        return val == null || val.isEmpty()?alternative:val;
+    }
+
 }

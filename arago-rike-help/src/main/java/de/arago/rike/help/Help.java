@@ -24,6 +24,5 @@ package de.arago.rike.help;
 
 import de.arago.portlet.AragoPortlet;
 
-public final class Help extends AragoPortlet 
-{
+public final class Help extends AragoPortlet {
 }

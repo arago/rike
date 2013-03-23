@@ -29,51 +29,51 @@ import javax.portlet.EventResponse;
 
 public class PortletEventWrapper implements IEventWrapper {
 
-	private EventRequest request;
-	private EventResponse response;
+    private EventRequest request;
+    private EventResponse response;
 
-	public PortletEventWrapper(EventRequest request, EventResponse response) {
-		this.request = request;
-		this.response = response;
-	}
+    public PortletEventWrapper(EventRequest request, EventResponse response) {
+        this.request = request;
+        this.response = response;
+    }
 
-  @Override
-	public String getName() {
-		return request.getEvent().getQName().toString();
-	}
+    @Override
+    public String getName() {
+        return request.getEvent().getQName().toString();
+    }
 
-  @Override
-	public void setName(String name) {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
+    @Override
+    public void setName(String name) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
-  @Override
-	public Object getEventAttribute(String key) {
-		return ((Map) request.getEvent().getValue()).get(key);
-	}
+    @Override
+    public Object getEventAttribute(String key) {
+        return ((Map) request.getEvent().getValue()).get(key);
+    }
 
-  @Override
-	public void setEventAttribute(String key, Object value) {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
+    @Override
+    public void setEventAttribute(String key, Object value) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
-  @Override
-	public Object getSessionAttribute(String key) {
-		return request.getPortletSession().getAttribute(key);
-	}
+    @Override
+    public Object getSessionAttribute(String key) {
+        return request.getPortletSession().getAttribute(key);
+    }
 
-  @Override
-	public void setSessionAttribute(String key, Object value) {
-		request.getPortletSession().setAttribute(key, value);
-	}
+    @Override
+    public void setSessionAttribute(String key, Object value) {
+        request.getPortletSession().setAttribute(key, value);
+    }
 
-  @Override
-	public void removeSessionAttribute(String key) {
-		request.getPortletSession().removeAttribute(key);
-	}
+    @Override
+    public void removeSessionAttribute(String key) {
+        request.getPortletSession().removeAttribute(key);
+    }
 
-  @Override
-	public String getUser() {
-		return request.getRemoteUser();
-	}
+    @Override
+    public String getUser() {
+        return request.getRemoteUser();
+    }
 }

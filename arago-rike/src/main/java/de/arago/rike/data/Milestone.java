@@ -26,84 +26,78 @@ import java.util.Date;
 
 public class Milestone {
 
-	private long id;
-	private String title;
-	private Date dueDate;
-	private String release;
-	private String url;
+    private long id;
+    private String title;
+    private Date dueDate;
+    private String release;
+    private String url;
 
-	private String creator;
-	private Date created;
+    private String creator;
+    private Date created;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setDueDate(Date what)
-	{
-		dueDate = what;
-	}
+    public void setDueDate(Date what) {
+        dueDate = what;
+    }
 
-	public Date getDueDate()
-	{
-		return dueDate;
-	}
+    public Date getDueDate() {
+        return dueDate;
+    }
 
-	/**
-	 * @return the release
-	 */
-	public String getRelease() {
-		return release;
-	}
+    /**
+     * @return the release
+     */
+    public String getRelease() {
+        return release;
+    }
 
-	/**
-	 * @param release the release to set
-	 */
-	public void setRelease(String release)
-	{
-		this.release = release;
-	}
+    /**
+     * @param release the release to set
+     */
+    public void setRelease(String release) {
+        this.release = release;
+    }
 
-	public boolean hasRelease()
-	{
-		return !getRelease().isEmpty();
-	}
+    public boolean hasRelease() {
+        return !getRelease().isEmpty();
+    }
 
-	public void setUrl(String what)
-	{
-		url = what;
-	}
+    public void setUrl(String what) {
+        url = what;
+    }
 
-	public String getUrl()
-	{
-		return url;
-	}
+    public String getUrl() {
+        return url;
+    }
 
-	public void setCreator(String creator) {
-		this.creator = creator;
-	}
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
 
-	public String getCreator() {
-		return creator;
-	}
+    public String getCreator() {
+        return creator;
+    }
 
-	public void setCreated(Date created) {
-		this.created = created;
-	}
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 
-	public Date getCreated() {
-		return created;
-	}
+    public Date getCreated() {
+        return created;
+    }
 }

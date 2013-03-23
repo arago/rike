@@ -36,37 +36,37 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 public class EndTask implements Action {
 
-  @Override
-	public void execute(IDataWrapper data) throws Exception {
+    @Override
+    public void execute(IDataWrapper data) throws Exception {
 
-		if (data.getRequestAttribute("id") != null) {
-			Task task = TaskHelper.getTask(data.getRequestAttribute("id"));
-			String user = SecurityHelper.getUserEmail(data.getUser());
+        if (data.getRequestAttribute("id") != null) {
+            Task task = TaskHelper.getTask(data.getRequestAttribute("id"));
+            String user = SecurityHelper.getUserEmail(data.getUser());
 
-			if (task.getStatusEnum() == Task.Status.IN_PROGRESS && task.getOwner().equals(user)) {
-				task.setEnd(new Date());
-				task.setSize(Integer.valueOf(data.getRequestAttribute("size"), 10));
-				int hours = Integer.valueOf(data.getRequestAttribute("hours_spent"), 10);
-				task.setHoursSpent(hours);
-				task.setStatus(Task.Status.DONE);
+            if (task.getStatusEnum() == Task.Status.IN_PROGRESS && task.getOwner().equals(user)) {
+                task.setEnd(new Date());
+                task.setSize(Integer.valueOf(data.getRequestAttribute("size"), 10));
+                int hours = Integer.valueOf(data.getRequestAttribute("hours_spent"), 10);
+                task.setHoursSpent(hours);
+                task.setStatus(Task.Status.DONE);
 
-				TaskHelper.save(task);
-				StatisticHelper.update();
-				if(task.getArtifact().getId().longValue()==TaskHelper.OTHER_ARTEFACT_ID){
-					TaskHelper.changeAccount(user, hours*50/8);
-				}
-        
-				data.setSessionAttribute("task", task);
+                TaskHelper.save(task);
+                StatisticHelper.update();
+                if(task.getArtifact().getId().longValue()==TaskHelper.OTHER_ARTEFACT_ID) {
+                    TaskHelper.changeAccount(user, hours*50/8);
+                }
 
-				HashMap<String, Object> notificationParam = new HashMap<String, Object>();
+                data.setSessionAttribute("task", task);
 
-				notificationParam.put("id", data.getRequestAttribute("id"));
-				data.setEvent("TaskUpdateNotification", notificationParam);
+                HashMap<String, Object> notificationParam = new HashMap<String, Object>();
 
-				TaskHelper.log(" completed Task #" + task.getId().toString() + 
-						" <a href=\"[selectTask:" + task.getId().toString() + "]\">" + 
-						StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task, user, data);
-			}
-		}
-	}
+                notificationParam.put("id", data.getRequestAttribute("id"));
+                data.setEvent("TaskUpdateNotification", notificationParam);
+
+                TaskHelper.log(" completed Task #" + task.getId().toString() +
+                               " <a href=\"[selectTask:" + task.getId().toString() + "]\">" +
+                               StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task, user, data);
+            }
+        }
+    }
 }

@@ -29,11 +29,10 @@ import de.arago.rike.util.TaskHelper;
 
 public class TaskSelectNotification implements Event {
 
-	public void execute(IEventWrapper event) throws Exception {
-		if (event.getEventAttribute("id") != null)
-		{
-			event.setSessionAttribute("task", TaskHelper.getTask((String) event.getEventAttribute("id")));
-			event.removeSessionAttribute("targetView");
-		}
-	}
+    public void execute(IEventWrapper event) throws Exception {
+        if (event.getEventAttribute("id") != null) {
+            event.setSessionAttribute("task", TaskHelper.getTask((String) event.getEventAttribute("id")));
+            event.removeSessionAttribute("targetView");
+        }
+    }
 }

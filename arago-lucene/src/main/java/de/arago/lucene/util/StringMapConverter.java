@@ -13,72 +13,72 @@ import org.apache.lucene.index.Term;
 public class StringMapConverter extends BaseConverter<Map<String,String>> {
 
     @Override
-	public Document toLuceneDocument(Map<String,String> cond) {
-		Document doc = new Document();
+    public Document toLuceneDocument(Map<String,String> cond) {
+        Document doc = new Document();
 
-		Object id = cond.get("id");
-		if (id == null) {
-			id = "" + cond.hashCode();
-		}
+        Object id = cond.get("id");
+        if (id == null) {
+            id = "" + cond.hashCode();
+        }
 
-		doc.add(new Field(FIELD_ID, id.toString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-		for (Object o : cond.keySet()) {
-			if (o == null || cond.get(o) == null) continue;
-			
-			if (!"id".equals(o)) {
-				doc.add(new Field(o.toString(), cond.get(o).toString(), Field.Store.YES, Field.Index.ANALYZED));
-			}
-		}
+        doc.add(new Field(FIELD_ID, id.toString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+        for (Object o : cond.keySet()) {
+            if (o == null || cond.get(o) == null) continue;
 
-		return doc;
-	}
+            if (!"id".equals(o)) {
+                doc.add(new Field(o.toString(), cond.get(o).toString(), Field.Store.YES, Field.Index.ANALYZED));
+            }
+        }
 
-	@Override
-	public List<Map<String,String>> resultToList() {
-		List<Map<String,String>> result = new ArrayList<Map<String,String>>(hits.length);
-
-		if (hits.length > 0) {
-			for (ScoreDoc hit : hits) {
-				try {
-					Document doc = searcher.doc(hit.doc);
-					result.add(getObject(doc));
-				} catch (Exception e) {
-					throw new IllegalStateException(e);
-				}
-			}
-		}
-
-		return result;
-	}
+        return doc;
+    }
 
     @Override
-	public Map<String,String> getObject(int position) {
-		try {
-			return getObject(searcher.doc(hits[position].doc));
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
+    public List<Map<String,String>> resultToList() {
+        List<Map<String,String>> result = new ArrayList<Map<String,String>>(hits.length);
 
-	private static Map<String,String> getObject(Document doc) {
-		TreeMap<String, String> result = new TreeMap<String, String>();
-		for (Object s : doc.getFields()) {
-			if (s instanceof Field) {
-				Field f = (Field) s;
-				result.put(f.name(), f.stringValue());
-			}
-		}
-		return result;
-	}
+        if (hits.length > 0) {
+            for (ScoreDoc hit : hits) {
+                try {
+                    Document doc = searcher.doc(hit.doc);
+                    result.add(getObject(doc));
+                } catch (Exception e) {
+                    throw new IllegalStateException(e);
+                }
+            }
+        }
+
+        return result;
+    }
 
     @Override
-	public Term toLuceneID(Map<String,String> cond) {
-		Object id = cond.get("id");
-		
-		if (id == null) {
-			id = "" + cond.hashCode();
-		}
+    public Map<String,String> getObject(int position) {
+        try {
+            return getObject(searcher.doc(hits[position].doc));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-		return new Term(FIELD_ID, id.toString());
-	}
+    private static Map<String,String> getObject(Document doc) {
+        TreeMap<String, String> result = new TreeMap<String, String>();
+        for (Object s : doc.getFields()) {
+            if (s instanceof Field) {
+                Field f = (Field) s;
+                result.put(f.name(), f.stringValue());
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public Term toLuceneID(Map<String,String> cond) {
+        Object id = cond.get("id");
+
+        if (id == null) {
+            id = "" + cond.hashCode();
+        }
+
+        return new Term(FIELD_ID, id.toString());
+    }
 }

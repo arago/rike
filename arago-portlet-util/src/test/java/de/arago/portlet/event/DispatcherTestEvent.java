@@ -30,12 +30,10 @@ package de.arago.portlet.event;
 import de.arago.portlet.Event;
 import de.arago.data.IEventWrapper;
 
-public class DispatcherTestEvent  implements Event
-{
+public class DispatcherTestEvent  implements Event {
 
-  @Override
-  public void execute(IEventWrapper event) throws Exception
-  {
-    event.setEventAttribute("ok", "event executed");
-  }
+    @Override
+    public void execute(IEventWrapper event) throws Exception {
+        event.setEventAttribute("ok", "event executed");
+    }
 }

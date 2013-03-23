@@ -26,62 +26,62 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class TaskLog implements Serializable {
-	private long id;
-	private String user;
-	private String content;
-	private Date created;
-	private String status;
+    private long id;
+    private String user;
+    private String content;
+    private Date created;
+    private String status;
 
-	public static enum Status {
+    public static enum Status {
 
-		UNKNOWN, OPEN, IN_PROGRESS, DONE
-	}
+        UNKNOWN, OPEN, IN_PROGRESS, DONE
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setUser(String name) {
-		this.user = name;
-	}
+    public void setUser(String name) {
+        this.user = name;
+    }
 
-	public String getUser() {
-		return user;
-	}
+    public String getUser() {
+        return user;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public void setContent(String what) {
-		content = what;
-	}
+    public void setContent(String what) {
+        content = what;
+    }
 
-	public void setCreated(Date created) {
-		this.created = created;
-	}
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 
-	public Date getCreated() {
-		return created;
-	}
+    public Date getCreated() {
+        return created;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public Status getStatusEnum() {
-		return Status.valueOf(status.toUpperCase());
-	}
+    public Status getStatusEnum() {
+        return Status.valueOf(status.toUpperCase());
+    }
 
-	public void setStatus(String what) {
-		setStatus(Status.valueOf(what.toUpperCase()));
-	}
+    public void setStatus(String what) {
+        setStatus(Status.valueOf(what.toUpperCase()));
+    }
 
-	public void setStatus(Status what) {
-		status = what.toString().toLowerCase();
-	}
+    public void setStatus(Status what) {
+        status = what.toString().toLowerCase();
+    }
 }

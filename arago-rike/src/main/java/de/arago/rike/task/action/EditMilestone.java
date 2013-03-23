@@ -21,7 +21,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /**
- * 
+ *
  */
 package de.arago.rike.task.action;
 
@@ -31,9 +31,9 @@ import de.arago.data.IDataWrapper;
 
 public class EditMilestone implements Action {
 
-	public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) throws Exception {
 
-		data.setSessionAttribute("targetView", "viewEditMilestone");
+        data.setSessionAttribute("targetView", "viewEditMilestone");
 
-	}
+    }
 }

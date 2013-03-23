@@ -26,98 +26,88 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public final class Performance
-{
-  private static final Logger log = Logger.getLogger(Performance.class.getName());
-  
-  private static final boolean enabled;
-  private static final String prefix;
-  private static final String configPrefix = "de.arago.debug.perf.";
-  
-  private static final StatsdClient client;
-  
-  static
-  {
-    final String host = System.getProperty(configPrefix + "host", "");
-    
-    if (host != null && !host.isEmpty())
-    {
-      prefix  = System.getProperty(configPrefix + "prefix", "");
-      int port = 8125;
-    
-      try
-      {
-        port = Integer.valueOf(System.getProperty(configPrefix + "port", "8125"), 10);
-      } catch(Exception e) {
-        // blank
-      }
-      
-      StatsdClient tmpClient = null;
-    
-      try 
-      {
-        tmpClient = new StatsdClient(host, port);
-      } catch (Exception ex) {
-        log.log(Level.SEVERE, null, ex);
-      }
+public final class Performance {
+    private static final Logger log = Logger.getLogger(Performance.class.getName());
 
-    
-      client  = tmpClient;
-      enabled = client != null;
-      
-      if (enabled) log.log(Level.INFO, "{Performance} statistics will be gathered on " + host + ":" + port);
-    } else {
-      client  = null;
-      enabled = false;
-      prefix  = null;
-    }  
-  }      
-  
-  /**
-   * increment a key
-   * @param key 
-   */
-  public static void increment(String key)
-  {
-    if (enabled) client.increment(prefix + key);
-  }  
-  
-  
-  /**
-   * decrement a key
-   * @param key 
-   */
-  public static void decrement(String key)
-  {
-    if (enabled) client.decrement(prefix + key);
-  }
-  
-  /**
-   * time some operation
-   * 
-   * @param key
-   * @param howLong 
-   */
-  public static void timing(String key, long howLong)
-  {
-    if (!enabled) return;
-            
-    int t;
-    
-    if (howLong < Integer.MIN_VALUE) 
-    {
-      t = Integer.MIN_VALUE;
-    } else if (howLong > Integer.MAX_VALUE) {
-      t = Integer.MAX_VALUE;
-    } else {
-      t = (int) howLong;
+    private static final boolean enabled;
+    private static final String prefix;
+    private static final String configPrefix = "de.arago.debug.perf.";
+
+    private static final StatsdClient client;
+
+    static {
+        final String host = System.getProperty(configPrefix + "host", "");
+
+        if (host != null && !host.isEmpty()) {
+            prefix  = System.getProperty(configPrefix + "prefix", "");
+            int port = 8125;
+
+            try {
+                port = Integer.valueOf(System.getProperty(configPrefix + "port", "8125"), 10);
+            } catch(Exception e) {
+                // blank
+            }
+
+            StatsdClient tmpClient = null;
+
+            try {
+                tmpClient = new StatsdClient(host, port);
+            } catch (Exception ex) {
+                log.log(Level.SEVERE, null, ex);
+            }
+
+
+            client  = tmpClient;
+            enabled = client != null;
+
+            if (enabled) log.log(Level.INFO, "{Performance} statistics will be gathered on " + host + ":" + port);
+        } else {
+            client  = null;
+            enabled = false;
+            prefix  = null;
+        }
     }
-    
-    client.timing(prefix + key, t);
-  }      
-  
-  public static boolean isEnabled()
-  {
-    return enabled;
-  }          
+
+    /**
+     * increment a key
+     * @param key
+     */
+    public static void increment(String key) {
+        if (enabled) client.increment(prefix + key);
+    }
+
+
+    /**
+     * decrement a key
+     * @param key
+     */
+    public static void decrement(String key) {
+        if (enabled) client.decrement(prefix + key);
+    }
+
+    /**
+     * time some operation
+     *
+     * @param key
+     * @param howLong
+     */
+    public static void timing(String key, long howLong) {
+        if (!enabled) return;
+
+        int t;
+
+        if (howLong < Integer.MIN_VALUE) {
+            t = Integer.MIN_VALUE;
+        } else if (howLong > Integer.MAX_VALUE) {
+            t = Integer.MAX_VALUE;
+        } else {
+            t = (int) howLong;
+        }
+
+        client.timing(prefix + key, t);
+    }
+
+    public static boolean isEnabled() {
+        return enabled;
+    }
 }

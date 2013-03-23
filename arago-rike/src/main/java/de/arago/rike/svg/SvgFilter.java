@@ -27,55 +27,54 @@ import java.util.Date;
 
 
 public class SvgFilter {
-	private String milestone;
-	private Long artifact;
-	private String user;
-	private boolean showUnknown = false;
-	private Date startDate;
+    private String milestone;
+    private Long artifact;
+    private String user;
+    private boolean showUnknown = false;
+    private Date startDate;
 
-	public String getMilestone() {
-		return milestone;
-	}
+    public String getMilestone() {
+        return milestone;
+    }
 
-	public void setMilestone(String milestone) {
-		this.milestone = milestone;
-	}
+    public void setMilestone(String milestone) {
+        this.milestone = milestone;
+    }
 
-	public Long getArtifact() {
-		return artifact;
-	}
+    public Long getArtifact() {
+        return artifact;
+    }
 
-	public void setArtifact(Long artifact) {
-		this.artifact = artifact;
-	}
+    public void setArtifact(Long artifact) {
+        this.artifact = artifact;
+    }
 
-	public String getUser() {
-		return user;
-	}
+    public String getUser() {
+        return user;
+    }
 
-	public void setUser(String user) {
-		this.user = user;
-	}
+    public void setUser(String user) {
+        this.user = user;
+    }
 
-	public boolean isShowUnknown() {
-		return showUnknown;
-	}
+    public boolean isShowUnknown() {
+        return showUnknown;
+    }
 
-	public void setShowUnknown(boolean showUnknown) {
-		this.showUnknown = showUnknown;
-	}
+    public void setShowUnknown(boolean showUnknown) {
+        this.showUnknown = showUnknown;
+    }
 
-	public Date getStartDate() {
-		return startDate;
-	}
+    public Date getStartDate() {
+        return startDate;
+    }
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
 
-	public String getId()
-	{
-		return "" + user + ":" + milestone + ":" + artifact + ":" + showUnknown + ":" + startDate;
-	}
+    public String getId() {
+        return "" + user + ":" + milestone + ":" + artifact + ":" + showUnknown + ":" + startDate;
+    }
 
 }

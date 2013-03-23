@@ -14,7 +14,6 @@ public final class IndexFactory {
     private static final ConcurrentHashMap<String, Index<?>> indices = new ConcurrentHashMap<String, Index<?>>();
     private static final String prefix = "index.";
     static final Logger logger = LogManager.getLogger(IndexFactory.class.getName());
-    private static Properties settings = new Properties();
 
     private static Properties getDefaultProperties() {
         Properties p = new Properties();
@@ -35,38 +34,43 @@ public final class IndexFactory {
         return p;
     }
 
-    public static Index<?> getIndex(String name, Properties p) {
-        // set defaults
-        settings.putAll(getDefaultProperties());
-        settings.putAll(p);
-        return getIndex(name);
-    }
-
-    public static Index<?> getIndex(String name) {
+    public static Index<?> getIndex(String name, Properties config) {
         if (!indices.containsKey(name)) {
-            indices.put(name, createIndex(name));
+            Properties p = new Properties(getDefaultProperties());
+            if (config != null) p.putAll(config);
+
+            indices.put(name, createIndex(name, p));
         }
+
         return indices.get(name);
     }
 
+    public static Index<?> getIndex(String name) {
+        return getIndex(name, null);
+    }
+
     public static Index<?> getNewIndex(String name) {
+        Properties config = null;
+
         if (indices.containsKey(name)) {
-            indices.get(name).delete();
-            indices.remove(name);
+            Index<?> index = indices.remove(name);
+            config = index.getConfig().getProperties();
+            index.delete();
         }
-        return getIndex(name);
+
+        return getIndex(name, config);
     }
 
     @SuppressWarnings("rawtypes")
-    private static Index<?> createIndex(String name) {
+    private static Index<?> createIndex(String name, Properties p) {
         IndexConfig config = new IndexConfig(name);
 
-        String path = settings.getProperty(prefix + name + ".path");
+        String path = p.getProperty(prefix + name + ".path");
         config.setPath(path == null ? "/tmp/" + prefix + name + ".index" : path);
-        config.setProperties(settings);
+        config.setProperties(p);
 
         try {
-            String klass = settings.getProperty(prefix + name + ".converterClass");
+            String klass = p.getProperty(prefix + name + ".converterClass");
             Class<?> cl = Class.forName(klass);
             config.setConverterClass((Class<? extends Converter<?>>) cl);
 
@@ -93,7 +97,8 @@ public final class IndexFactory {
     }
 
     private static <T> void fillIndex(Index<T> index) {
-        String creatorKlass = settings.getProperty(prefix + index.getName() + ".creatorClass");
+
+        String creatorKlass = index.getConfig().getProperties().getProperty(prefix + index.getName() + ".creatorClass");
         if (creatorKlass == null) {
             return;
         }
@@ -106,8 +111,7 @@ public final class IndexFactory {
             creator.fill(index);
             index.ready();
         } catch (Exception e) {
-            e.printStackTrace(System.err);
-            //throw new RuntimeException(e);
+            logger.error("could not fill index " + index.getName(), e);
         }
 
         logger.info("index filled " + index.getName());

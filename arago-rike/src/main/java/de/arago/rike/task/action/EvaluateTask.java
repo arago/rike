@@ -21,7 +21,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /**
- * 
+ *
  */
 package de.arago.rike.task.action;
 
@@ -41,37 +41,37 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 public class EvaluateTask implements Action {
 
-	public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) throws Exception {
 
-		if (data.getRequestAttribute("id") != null) {
+        if (data.getRequestAttribute("id") != null) {
 
-			Task task = TaskHelper.getTask(data.getRequestAttribute("id"));
+            Task task = TaskHelper.getTask(data.getRequestAttribute("id"));
 
-			String user = SecurityHelper.getUserEmail(data.getUser());
+            String user = SecurityHelper.getUserEmail(data.getUser());
 
-			if (task.getStatusEnum() == Task.Status.UNKNOWN || task.getStatusEnum() == Task.Status.OPEN) {
-				task.setMilestone(new DataHelperRike<Milestone>(Milestone.class).find(data.getRequestAttribute("milestone")));
-				task.setSizeEstimated(Integer.valueOf(data.getRequestAttribute("size_estimated")));
-				task.setChallenge(data.getRequestAttribute("challenge"));
-				task.setPriority(data.getRequestAttribute("priority"));
-				task.setCreated(new Date());
-				task.setCreator(user);
-				task.setStatus(Task.Status.OPEN);
+            if (task.getStatusEnum() == Task.Status.UNKNOWN || task.getStatusEnum() == Task.Status.OPEN) {
+                task.setMilestone(new DataHelperRike<Milestone>(Milestone.class).find(data.getRequestAttribute("milestone")));
+                task.setSizeEstimated(Integer.valueOf(data.getRequestAttribute("size_estimated")));
+                task.setChallenge(data.getRequestAttribute("challenge"));
+                task.setPriority(data.getRequestAttribute("priority"));
+                task.setCreated(new Date());
+                task.setCreator(user);
+                task.setStatus(Task.Status.OPEN);
 
-				TaskHelper.save(task);
-				StatisticHelper.update();
-        
-				data.setSessionAttribute("task", task);
+                TaskHelper.save(task);
+                StatisticHelper.update();
 
-				HashMap<String, Object> notificationParam = new HashMap<String, Object>();
+                data.setSessionAttribute("task", task);
 
-				notificationParam.put("id", data.getRequestAttribute("id"));
-				data.setEvent("TaskUpdateNotification", notificationParam);
+                HashMap<String, Object> notificationParam = new HashMap<String, Object>();
 
-				data.removeSessionAttribute("targetView");
+                notificationParam.put("id", data.getRequestAttribute("id"));
+                data.setEvent("TaskUpdateNotification", notificationParam);
 
-				TaskHelper.log(" rated Task #" + task.getId().toString() + " <a href=\"[selectTask:" + task.getId().toString() + "]\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task, SecurityHelper.getUserEmail(data.getUser()), data);
-			}
-		}
-	}
+                data.removeSessionAttribute("targetView");
+
+                TaskHelper.log(" rated Task #" + task.getId().toString() + " <a href=\"[selectTask:" + task.getId().toString() + "]\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task, SecurityHelper.getUserEmail(data.getUser()), data);
+            }
+        }
+    }
 }

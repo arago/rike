@@ -21,7 +21,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /**
- * 
+ *
  */
 package de.arago.rike.mytasks.action;
 
@@ -31,18 +31,17 @@ import de.arago.data.IDataWrapper;
 
 public class FilterTasks implements Action {
 
-	public void execute(IDataWrapper data) throws Exception {
-		data.setSessionAttribute("currentUser", data.getRequestAttribute("user"));
-		
-		String targetView = (String) data.getSessionAttribute("targetView");
-		
-		if (targetView == null || targetView.equals("defaultView"))
-		{
-			new ShowInProgress().execute(data);
-		}	else if (targetView.equals("viewEvaluated")) {
-		  new ShowEvaluated().execute(data);
-		} else { 
-			throw new IllegalArgumentException("unknown type");
-		}
-	}
+    public void execute(IDataWrapper data) throws Exception {
+        data.setSessionAttribute("currentUser", data.getRequestAttribute("user"));
+
+        String targetView = (String) data.getSessionAttribute("targetView");
+
+        if (targetView == null || targetView.equals("defaultView")) {
+            new ShowInProgress().execute(data);
+        }	else if (targetView.equals("viewEvaluated")) {
+            new ShowEvaluated().execute(data);
+        } else {
+            throw new IllegalArgumentException("unknown type");
+        }
+    }
 }

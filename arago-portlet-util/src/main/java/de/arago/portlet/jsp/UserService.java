@@ -26,13 +26,12 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public interface UserService extends JspService
-{
-  public TimeZone getTimeZone();
-  public String getEmail();
-  public String getName();
-  public String formatDate(Date date);
-  public String formatDate(Date date, String format);
-  public Locale getLocale();
-  public String formatHumanDate(Date date);
+public interface UserService extends JspService {
+    public TimeZone getTimeZone();
+    public String getEmail();
+    public String getName();
+    public String formatDate(Date date);
+    public String formatDate(Date date, String format);
+    public Locale getLocale();
+    public String formatHumanDate(Date date);
 }
