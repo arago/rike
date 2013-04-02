@@ -1,11 +1,11 @@
 package de.arago.lucene.api;
 
 import java.util.List;
+import net.minidev.json.JSONAware;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.ScoreDoc;
-import org.json.simple.JSONAware;
 
 public interface Converter<T> extends Iterable<T>, JSONAware
 {

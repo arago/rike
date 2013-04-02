@@ -4,27 +4,31 @@ import de.arago.lucene.api.Converter;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import net.minidev.json.JSONArray;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.ScoreDoc;
-import org.json.simple.JSONArray;
 
 public abstract class BaseConverter<T> implements Converter<T>{
 	protected IndexSearcher searcher;
 	protected ScoreDoc[] hits;
 
+  @Override
 	public float getRating(int position) {
 		return hits[position].score;
 	}
 
+  @Override
 	public int size() {
 		return hits.length;
 	}
 
+  @Override
 	public void init(IndexSearcher s) {
 		this.searcher = s;
 	}
 
+  @Override
 	public void setResult(ScoreDoc[] hits) {
 		this.hits = hits;
 	}
@@ -34,10 +38,12 @@ public abstract class BaseConverter<T> implements Converter<T>{
 		return JSONArray.toJSONString(all);
 	}
 
+  @Override
 	public Iterator<T> iterator() {
 		return Collections.unmodifiableList(resultToList()).iterator();
 	}
 
+  @Override
 	public List<T> resultToList() {
 		throw new NotImplementedException();
 	}

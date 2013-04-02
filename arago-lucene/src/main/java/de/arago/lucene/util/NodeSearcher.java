@@ -2,9 +2,10 @@ package de.arago.lucene.util;
 
 import de.arago.lucene.api.Converter;
 import de.arago.lucene.api.IndexFactory;
+import java.util.List;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONValue;
 import org.apache.lucene.queryParser.QueryParser;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONValue;
 
 
 public class NodeSearcher
@@ -16,7 +17,7 @@ public class NodeSearcher
 	 * @param maxItems
 	 * @return found ids, it will never return null, but an empty List instead
 	 */
-	public static JSONArray findNodesWithFreetextQuery(String query, int maxItems) {
+	public static List findNodesWithFreetextQuery(String query, int maxItems) {
 		Converter<?> result = IndexFactory.getIndex("mars-node").query(prepareQuery(query), maxItems);
 
 		return (JSONArray) JSONValue.parse(result.toJSONString());
