@@ -29,16 +29,16 @@ import de.arago.rike.util.TaskListFilter;
 import de.arago.rike.data.Task;
 
 
-public class ShowInProgress implements Action{
+public class ShowInProgress implements Action {
 
-	public void execute(IDataWrapper data) throws Exception {
-		TaskListFilter filter = new TaskListFilter();
+    public void execute(IDataWrapper data) throws Exception {
+        TaskListFilter filter = new TaskListFilter();
 
-		filter.setStatus(Task.Status.IN_PROGRESS.toString());
-		filter.setUser((String) data.getSessionAttribute("currentUser"));
+        filter.setStatus(Task.Status.IN_PROGRESS.toString());
+        filter.setUser((String) data.getSessionAttribute("currentUser"));
 
-		data.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
-		data.removeSessionAttribute("targetView");
-	}
+        data.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
+        data.removeSessionAttribute("targetView");
+    }
 
 }

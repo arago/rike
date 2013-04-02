@@ -21,7 +21,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /**
- * 
+ *
  */
 package de.arago.rike.task.action;
 
@@ -40,19 +40,18 @@ import org.hibernate.criterion.Restrictions;
 
 public class ViewEvaluateTask implements Action {
 
-	public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) throws Exception {
 
-		if (data.getRequestAttribute("id") != null) {
+        if (data.getRequestAttribute("id") != null) {
 
-			Task task = TaskHelper.getTask(data.getRequestAttribute("id"));
-			
-			if (task.getStatusEnum() == Task.Status.UNKNOWN || task.getStatusEnum() == Task.Status.OPEN)
-			{
-				DataHelperRike<Milestone> stoneHelper = new DataHelperRike<Milestone>(Milestone.class);
-				data.setSessionAttribute("task", task);
-				data.setSessionAttribute("targetView", "viewEvaluate");
-				data.setSessionAttribute("milestones", stoneHelper.list(stoneHelper.filter().add(Restrictions.or(Restrictions.gt("dueDate", new Date()), Restrictions.isNull("dueDate"))).addOrder(Order.asc("dueDate")).addOrder(Order.asc("title"))));
-			}
-		}
-	}
+            Task task = TaskHelper.getTask(data.getRequestAttribute("id"));
+
+            if (task.getStatusEnum() == Task.Status.UNKNOWN || task.getStatusEnum() == Task.Status.OPEN) {
+                DataHelperRike<Milestone> stoneHelper = new DataHelperRike<Milestone>(Milestone.class);
+                data.setSessionAttribute("task", task);
+                data.setSessionAttribute("targetView", "viewEvaluate");
+                data.setSessionAttribute("milestones", stoneHelper.list(stoneHelper.filter().add(Restrictions.or(Restrictions.gt("dueDate", new Date()), Restrictions.isNull("dueDate"))).addOrder(Order.asc("dueDate")).addOrder(Order.asc("title"))));
+            }
+        }
+    }
 }

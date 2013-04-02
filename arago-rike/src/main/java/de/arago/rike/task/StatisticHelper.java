@@ -33,63 +33,54 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import org.hibernate.SQLQuery;
 
-public final class StatisticHelper implements Runnable
-{
-  private static final String[] queries = new String[]
-  {
-    "UPDATE tasks SET size_adjusted=size_estimated WHERE challenge='average';",
-    "UPDATE tasks SET size_adjusted=size_estimated*2 WHERE challenge='difficult';",
-    "UPDATE tasks SET size_adjusted=size_estimated/2 WHERE challenge='easy';",
-    "DELETE FROM task_stat WHERE DATEDIFF(CURDATE( ),moment)>360 OR CURDATE( )=moment;",
-    "INSERT INTO task_stat (summe_size,count_id,milestone_id,artifact_id,task_status,moment) SELECT sum(size_adjusted),count(id),milestone_id,artifact_id,task_status,CURDATE() FROM tasks WHERE milestone_id IS NOT NULL GROUP BY milestone_id,artifact_id,task_status;",
-    
-    "DELETE FROM releases_archive;",
-    "INSERT INTO releases_archive (name,estimated_size,real_size,hours_spent,task_count,finished) SELECT milestones.release_name, sum(size_adjusted),sum(size), sum(hours_spent),count(tasks.id), max(end) FROM tasks,milestones WHERE milestone_id=milestones.id and task_status='done' GROUP BY milestones.release_name;"
-  };
-  
-  private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+public final class StatisticHelper implements Runnable {
+    private static final String[] queries = new String[] {
+        "UPDATE tasks SET size_adjusted=size_estimated WHERE challenge='average';",
+        "UPDATE tasks SET size_adjusted=size_estimated*2 WHERE challenge='difficult';",
+        "UPDATE tasks SET size_adjusted=size_estimated/2 WHERE challenge='easy';",
+        "DELETE FROM task_stat WHERE DATEDIFF(CURDATE( ),moment)>360 OR CURDATE( )=moment;",
+        "INSERT INTO task_stat (summe_size,count_id,milestone_id,artifact_id,task_status,moment) SELECT sum(size_adjusted),count(id),milestone_id,artifact_id,task_status,CURDATE() FROM tasks WHERE milestone_id IS NOT NULL GROUP BY milestone_id,artifact_id,task_status;",
 
-  static
-  {
-    scheduler.scheduleAtFixedRate(new StatisticHelper(), 1, 1, TimeUnit.HOURS);
-  }  
-  
-  private StatisticHelper() {}
-  
-  public static void update()
-  {
-    new Thread(new StatisticHelper()).start();
-  }
-  
-  @Override
-  public void finalize() throws Throwable
-  {
-    if (scheduler != null && !scheduler.isShutdown()) scheduler.shutdownNow();
-    
-    super.finalize();
-  }  
+        "DELETE FROM releases_archive;",
+        "INSERT INTO releases_archive (name,estimated_size,real_size,hours_spent,task_count,finished) SELECT milestones.release_name, sum(size_adjusted),sum(size), sum(hours_spent),count(tasks.id), max(end) FROM tasks,milestones WHERE milestone_id=milestones.id and task_status='done' GROUP BY milestones.release_name;"
+    };
 
-  @Override
-  public synchronized void run()
-  {
-    try
-    {
-      final DataHelperRike<Object> helper = new DataHelperRike<Object>(Object.class);
-      
-      for (final String query: queries)
-      {
-        SQLQuery q = null;
-        
-        try
-        {
-          q = helper.createSQLQuery(query);
-          helper.execute(q);
-        } finally {
-          helper.finish(q);  
+    private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+    static {
+        scheduler.scheduleAtFixedRate(new StatisticHelper(), 1, 1, TimeUnit.HOURS);
+    }
+
+    private StatisticHelper() {}
+
+    public static void update() {
+        new Thread(new StatisticHelper()).start();
+    }
+
+    @Override
+    public void finalize() throws Throwable {
+        if (scheduler != null && !scheduler.isShutdown()) scheduler.shutdownNow();
+
+        super.finalize();
+    }
+
+    @Override
+    public synchronized void run() {
+        try {
+            final DataHelperRike<Object> helper = new DataHelperRike<Object>(Object.class);
+
+            for (final String query: queries) {
+                SQLQuery q = null;
+
+                try {
+                    q = helper.createSQLQuery(query);
+                    helper.execute(q);
+                } finally {
+                    helper.finish(q);
+                }
+            }
+        } catch(Exception e) {
+            throw new RuntimeException(e);
         }
-      }  
-    } catch(Exception e) {
-      throw new RuntimeException(e);
-    } 
-  }
+    }
 }

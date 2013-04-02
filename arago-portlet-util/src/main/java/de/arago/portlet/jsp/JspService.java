@@ -22,7 +22,6 @@
  */
 package de.arago.portlet.jsp;
 
-public interface JspService
-{
-  
+public interface JspService {
+
 }

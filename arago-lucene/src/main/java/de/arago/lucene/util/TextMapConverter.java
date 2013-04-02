@@ -15,7 +15,7 @@ public class TextMapConverter extends BaseConverter<Map<String, String>> {
 
     @Override
     public Document toLuceneDocument(Map<String, String> cond) {
-                
+
         String id = cond.get(FIELD_ID);
         if (id == null) {
             id = "" + cond.hashCode();
@@ -23,7 +23,7 @@ public class TextMapConverter extends BaseConverter<Map<String, String>> {
 
         Document doc = new Document();
         doc.add(new Field(FIELD_ID, id, Field.Store.YES, Field.Index.NOT_ANALYZED));
-        
+
         all.setLength(0);
 
         for (String o : cond.keySet()) {
@@ -85,7 +85,7 @@ public class TextMapConverter extends BaseConverter<Map<String, String>> {
     @Override
     public Term toLuceneID(Map<String, String> cond) {
         String id = cond.get(FIELD_ID);
-        if (id == null) 
+        if (id == null)
             id = "" + cond.hashCode();
         return new Term(FIELD_ID, id);
     }

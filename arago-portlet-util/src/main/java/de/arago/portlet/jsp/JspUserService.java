@@ -28,45 +28,40 @@ import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.servlet.http.HttpServletRequest;
 
-public class JspUserService extends AbstractUserService
-{
-  private final String USER_IN_SESSION = "de.arago.user.loggedin";
-  private final RenderRequest request;
-  private final PortletSession session;
-  private final HttpServletRequest servletRequest;
+public class JspUserService extends AbstractUserService {
+    private final String USER_IN_SESSION = "de.arago.user.loggedin";
+    private final RenderRequest request;
+    private final PortletSession session;
+    private final HttpServletRequest servletRequest;
 
-  
-  public JspUserService(HttpServletRequest r)
-  {
-    servletRequest = r;
-    request = null;
-    session = null;
-  }
-  
-  public JspUserService(RenderRequest request, PortletSession session)
-  {
-    this.request = request;
-    this.session = session;
-    servletRequest = null;
-  }
-  
-  @Override
-  public User getUser()
-  {
-    if (request != null && session != null)
-    {  
-      User user = (User) session.getAttribute(USER_IN_SESSION);
-      if (user != null) return user;
 
-      user = SecurityHelper.getUser(request.getRemoteUser());
-      session.setAttribute(USER_IN_SESSION, user);
-
-      return user;
-    } else if (servletRequest != null) {
-      return SecurityHelper.getUserFromRequest(servletRequest);
-    } else {
-      return null;
+    public JspUserService(HttpServletRequest r) {
+        servletRequest = r;
+        request = null;
+        session = null;
     }
-  }
-  
+
+    public JspUserService(RenderRequest request, PortletSession session) {
+        this.request = request;
+        this.session = session;
+        servletRequest = null;
+    }
+
+    @Override
+    public User getUser() {
+        if (request != null && session != null) {
+            User user = (User) session.getAttribute(USER_IN_SESSION);
+            if (user != null) return user;
+
+            user = SecurityHelper.getUser(request.getRemoteUser());
+            session.setAttribute(USER_IN_SESSION, user);
+
+            return user;
+        } else if (servletRequest != null) {
+            return SecurityHelper.getUserFromRequest(servletRequest);
+        } else {
+            return null;
+        }
+    }
+
 }

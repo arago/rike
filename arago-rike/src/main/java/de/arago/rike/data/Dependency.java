@@ -23,31 +23,31 @@
 package de.arago.rike.data;
 
 public class Dependency {
-  private long id;
-	private long premise;
-	private long sequel;
+    private long id;
+    private long premise;
+    private long sequel;
 
-	public long getId() {
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public long getPremise() {
-		return premise;
-	}
+    public long getPremise() {
+        return premise;
+    }
 
-	public void setPremise(long premise) {
-		this.premise = premise;
-	}
+    public void setPremise(long premise) {
+        this.premise = premise;
+    }
 
-	public long getSequel() {
-		return sequel;
-	}
+    public long getSequel() {
+        return sequel;
+    }
 
-	public void setSequel(long sequel) {
-		this.sequel = sequel;
-	}
+    public void setSequel(long sequel) {
+        this.sequel = sequel;
+    }
 }

@@ -21,7 +21,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /**
- * 
+ *
  */
 package de.arago.rike.tasklog.action;
 
@@ -29,10 +29,8 @@ import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
 
-public class Reload implements Action
-{
-  public void execute(IDataWrapper data) throws Exception
-  {
-    // blank
-  }
+public class Reload implements Action {
+    public void execute(IDataWrapper data) throws Exception {
+        // blank
+    }
 }

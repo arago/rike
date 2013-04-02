@@ -21,7 +21,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /**
- * 
+ *
  */
 package de.arago.rike.overview.action;
 
@@ -32,11 +32,11 @@ import java.util.HashMap;
 
 public class CreateTask implements Action {
 
-	public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) throws Exception {
 
-		HashMap<String, Object> notificationParam = new HashMap<String, Object>();
+        HashMap<String, Object> notificationParam = new HashMap<String, Object>();
 
-		data.setEvent("TaskCreateNotification", notificationParam);
+        data.setEvent("TaskCreateNotification", notificationParam);
 
-	}
+    }
 }

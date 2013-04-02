@@ -21,7 +21,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /**
- * 
+ *
  */
 package de.arago.rike.task.action;
 
@@ -37,43 +37,40 @@ import java.util.Date;
 
 public class SaveMilestone implements Action {
 
-  @Override
-	public void execute(IDataWrapper data) throws Exception {
+    @Override
+    public void execute(IDataWrapper data) throws Exception {
 
-		DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
-		Milestone milestone = null;
+        DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
+        Milestone milestone = null;
 
-		if (data.getRequestAttribute("id") != null && !data.getRequestAttribute("id").isEmpty())
-		{
-			milestone = helper.find(data.getRequestAttribute("id"));
-		}
+        if (data.getRequestAttribute("id") != null && !data.getRequestAttribute("id").isEmpty()) {
+            milestone = helper.find(data.getRequestAttribute("id"));
+        }
 
-		if (milestone == null) milestone = new Milestone();
+        if (milestone == null) milestone = new Milestone();
 
-		try
-		{
-			SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-			milestone.setDueDate(format.parse(data.getRequestAttribute("due_date")));
-		} catch(Exception ignored) {}
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+            milestone.setDueDate(format.parse(data.getRequestAttribute("due_date")));
+        } catch(Exception ignored) {}
 
-		milestone.setTitle(data.getRequestAttribute("title"));
-		milestone.setUrl(data.getRequestAttribute("url"));
-		milestone.setCreated(new Date());
-		milestone.setCreator(SecurityHelper.getUser(data.getUser()).getEmailAddress());
+        milestone.setTitle(data.getRequestAttribute("title"));
+        milestone.setUrl(data.getRequestAttribute("url"));
+        milestone.setCreated(new Date());
+        milestone.setCreator(SecurityHelper.getUser(data.getUser()).getEmailAddress());
 
-		milestone.setRelease("");
+        milestone.setRelease("");
 
-		String release = data.getRequestAttribute("release");
+        String release = data.getRequestAttribute("release");
 
-		if (release != null && release.equals("_new_"))
-		{
-			milestone.setRelease(data.getRequestAttribute("new_release"));
-		} else if (release != null) {
-			milestone.setRelease(release);
-		}
+        if (release != null && release.equals("_new_")) {
+            milestone.setRelease(data.getRequestAttribute("new_release"));
+        } else if (release != null) {
+            milestone.setRelease(release);
+        }
 
-		helper.save(milestone);
+        helper.save(milestone);
 
-		data.removeSessionAttribute("targetView");
-	}
+        data.removeSessionAttribute("targetView");
+    }
 }

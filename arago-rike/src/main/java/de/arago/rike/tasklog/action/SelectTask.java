@@ -21,7 +21,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /**
- * 
+ *
  */
 package de.arago.rike.tasklog.action;
 
@@ -32,13 +32,13 @@ import java.util.HashMap;
 
 public class SelectTask implements Action {
 
-	public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) throws Exception {
 
-		if (data.getRequestAttribute("id") != null) {
-			HashMap<String, Object> notificationParam = new HashMap<String, Object>();
+        if (data.getRequestAttribute("id") != null) {
+            HashMap<String, Object> notificationParam = new HashMap<String, Object>();
 
-			notificationParam.put("id", data.getRequestAttribute("id"));
-			data.setEvent("TaskSelectNotification", notificationParam);
-		}
-	}
+            notificationParam.put("id", data.getRequestAttribute("id"));
+            data.setEvent("TaskSelectNotification", notificationParam);
+        }
+    }
 }

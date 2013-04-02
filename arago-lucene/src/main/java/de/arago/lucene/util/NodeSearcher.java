@@ -51,5 +51,5 @@ public class NodeSearcher
 
 	public static String escapeAndAllowWildcards(String what) {
 		return QueryParser.escape(what).replaceAll("\\\\\\*", "*").replaceAll("\\\\\\?", "?");
-	}
+	} 
 }

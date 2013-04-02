@@ -30,21 +30,18 @@ import com.liferay.portal.model.User;
 import de.arago.portlet.util.SecurityHelper;
 
 
-public final class PortraitHelper
-{
-  private PortraitHelper() {}
-  
-  public static String getUserPortraitByEmail(String email)
-  {
-    try
-    {  
-      User user = SecurityHelper.getUserByEmail(email);
-      
-      if (user == null) return "/image/user_male_portrait?img_id=0";
-      
-      return "/image/user_" + (user.isFemale() ? "female" : "male") + "_portrait?img_id=" + user.getPortraitId();
-    } catch(Exception e) {
-      throw new RuntimeException(e);
+public final class PortraitHelper {
+    private PortraitHelper() {}
+
+    public static String getUserPortraitByEmail(String email) {
+        try {
+            User user = SecurityHelper.getUserByEmail(email);
+
+            if (user == null) return "/image/user_male_portrait?img_id=0";
+
+            return "/image/user_" + (user.isFemale() ? "female" : "male") + "_portrait?img_id=" + user.getPortraitId();
+        } catch(Exception e) {
+            throw new RuntimeException(e);
+        }
     }
-  }  
 }

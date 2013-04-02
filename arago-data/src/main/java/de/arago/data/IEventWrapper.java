@@ -22,16 +22,15 @@
  */
 package de.arago.data;
 
-public interface IEventWrapper
-{
-  public String getName();
-  public void setName(String name);
+public interface IEventWrapper {
+    public String getName();
+    public void setName(String name);
 
-  public Object getEventAttribute(String key);
-  public void setEventAttribute(String key, Object value);
+    public Object getEventAttribute(String key);
+    public void setEventAttribute(String key, Object value);
 
-  public Object getSessionAttribute(String key);
-  public void setSessionAttribute(String key, Object value);
-  public void removeSessionAttribute(String key);
-	public String getUser();
+    public Object getSessionAttribute(String key);
+    public void setSessionAttribute(String key, Object value);
+    public void removeSessionAttribute(String key);
+    public String getUser();
 }

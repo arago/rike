@@ -21,7 +21,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /**
- * 
+ *
  */
 package de.arago.rike.overview.action;
 
@@ -31,9 +31,9 @@ import de.arago.data.IDataWrapper;
 
 public class Abort implements Action {
 
-	public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) throws Exception {
 
-		data.removeSessionAttribute("targetView");
+        data.removeSessionAttribute("targetView");
 
-	}
+    }
 }

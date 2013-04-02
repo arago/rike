@@ -32,25 +32,22 @@ import java.util.Map;
 import net.minidev.json.JSONObject;
 import org.hibernate.criterion.Restrictions;
 
-public class PollUpdates implements JsonAction 
-{
-  @Override
-	public Map execute(IDataWrapper data) throws Exception 
-  {
-		JSONObject result = new JSONObject();
-    
-		result.put("count", 0);
-    
-    String lastId = data.getRequestAttribute("id");
-    
-    if (lastId != null && !lastId.isEmpty())
-    {
-      final DataHelperRike<TaskLog> helper = new DataHelperRike<TaskLog>(TaskLog.class);
-      List<TaskLog> list = helper.list(helper.filter().add(Restrictions.gt("id", Long.valueOf(lastId, 10))));
-      
-      result.put("count", list.size());
-    }  
-    
-		return result;
-	}
+public class PollUpdates implements JsonAction {
+    @Override
+    public Map execute(IDataWrapper data) throws Exception {
+        JSONObject result = new JSONObject();
+
+        result.put("count", 0);
+
+        String lastId = data.getRequestAttribute("id");
+
+        if (lastId != null && !lastId.isEmpty()) {
+            final DataHelperRike<TaskLog> helper = new DataHelperRike<TaskLog>(TaskLog.class);
+            List<TaskLog> list = helper.list(helper.filter().add(Restrictions.gt("id", Long.valueOf(lastId, 10))));
+
+            result.put("count", list.size());
+        }
+
+        return result;
+    }
 }

@@ -33,25 +33,24 @@ import javax.portlet.PortletException;
 
 public class MyTasks extends AragoPortlet {
 
-	@Override
-	public void initSession(IDataWrapper data) throws PortletException, IOException {
-		if (!SecurityHelper.isLoggedIn(data.getUser())) {
-			return;
-		}
-		
-		try
-		{
-			User user = SecurityHelper.getUser(data.getUser());
-			data.setSessionAttribute("currentUser", user.getEmailAddress());
-			new ShowInProgress().execute(data);
-		} catch(Throwable t) {
-			t.printStackTrace(System.err);
-		}
-	}
+    @Override
+    public void initSession(IDataWrapper data) throws PortletException, IOException {
+        if (!SecurityHelper.isLoggedIn(data.getUser())) {
+            return;
+        }
 
-	@Override
-	protected boolean checkViewData(IDataWrapper data){
-		return SecurityHelper.isLoggedIn(data.getUser());
-	}	
+        try {
+            User user = SecurityHelper.getUser(data.getUser());
+            data.setSessionAttribute("currentUser", user.getEmailAddress());
+            new ShowInProgress().execute(data);
+        } catch(Throwable t) {
+            t.printStackTrace(System.err);
+        }
+    }
+
+    @Override
+    protected boolean checkViewData(IDataWrapper data) {
+        return SecurityHelper.isLoggedIn(data.getUser());
+    }
 
 }

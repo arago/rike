@@ -33,25 +33,25 @@ import de.arago.rike.util.TaskListFilter;
 
 public class OrderBy implements Action {
 
-	public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) throws Exception {
 
-		TaskListFilter filter = (TaskListFilter) data.getSessionAttribute("taskListFilter");
+        TaskListFilter filter = (TaskListFilter) data.getSessionAttribute("taskListFilter");
 
-		String field = data.getRequestAttribute("field");
+        String field = data.getRequestAttribute("field");
 
-		if (filter.getSortField().toString().equalsIgnoreCase(field)) {
-			if (filter.getSortDirection() == TaskListFilter.SortDirection.ASC) {
-				filter.setSortDirection(TaskListFilter.SortDirection.DESC);
-			} else {
-				filter.setSortDirection(TaskListFilter.SortDirection.ASC);
-			}
-		} else {
-			filter.setSortDirection(TaskListFilter.SortDirection.ASC);
-		}
+        if (filter.getSortField().toString().equalsIgnoreCase(field)) {
+            if (filter.getSortDirection() == TaskListFilter.SortDirection.ASC) {
+                filter.setSortDirection(TaskListFilter.SortDirection.DESC);
+            } else {
+                filter.setSortDirection(TaskListFilter.SortDirection.ASC);
+            }
+        } else {
+            filter.setSortDirection(TaskListFilter.SortDirection.ASC);
+        }
 
-		filter.setSortField(field);
+        filter.setSortField(field);
 
-		data.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
+        data.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
 
-	}
+    }
 }

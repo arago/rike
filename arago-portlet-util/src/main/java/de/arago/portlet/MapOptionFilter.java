@@ -29,43 +29,43 @@ import java.util.Set;
 
 abstract public class MapOptionFilter implements OptionFilter, Serializable {
 
-	private final Map<String, Object> data = new HashMap<String, Object>();
+    private final Map<String, Object> data = new HashMap<String, Object>();
 
-	protected MapOptionFilter() {
-		setDefaultOptions();
-	}
+    protected MapOptionFilter() {
+        setDefaultOptions();
+    }
 
-  @Override
-	public Object get(String key) {
-		if (key == null) {
-			throw new IllegalArgumentException("key cannot be null");
-		}
+    @Override
+    public Object get(String key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key cannot be null");
+        }
 
-		return data.get(key);
-	}
+        return data.get(key);
+    }
 
-  @Override
-	public Object getOr(final String key, final Object alternativeValue) {
-		if (key == null) {
-			throw new IllegalArgumentException("key cannot be null");
-		}
+    @Override
+    public Object getOr(final String key, final Object alternativeValue) {
+        if (key == null) {
+            throw new IllegalArgumentException("key cannot be null");
+        }
 
-		Object value = data.get(key);
+        Object value = data.get(key);
 
-		return value == null ? alternativeValue : value;
-	}
+        return value == null ? alternativeValue : value;
+    }
 
-  @Override
-	public void set(String key, Object value) {
-		if (key == null) {
-			throw new IllegalArgumentException("key cannot be null");
-		}
+    @Override
+    public void set(String key, Object value) {
+        if (key == null) {
+            throw new IllegalArgumentException("key cannot be null");
+        }
 
-		data.put(key, value);
-	}
+        data.put(key, value);
+    }
 
-  @Override
-	public Set<String> keySet() {
-		return data.keySet();
-	}
+    @Override
+    public Set<String> keySet() {
+        return data.keySet();
+    }
 }

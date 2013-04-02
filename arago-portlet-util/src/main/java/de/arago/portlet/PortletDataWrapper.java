@@ -38,79 +38,78 @@ import javax.portlet.ResourceResponse;
 import javax.portlet.WindowState;
 
 public class PortletDataWrapper implements IDataWrapper {
-	private PortletRequest m_request;
-	private PortletResponse m_response;
-	private ActionResponse m_actionResponse = null;
+    private PortletRequest m_request;
+    private PortletResponse m_response;
+    private ActionResponse m_actionResponse = null;
 
-	public PortletDataWrapper(ResourceRequest request, ResourceResponse response){
-		m_request = request;
-		m_response = response;
-	}
+    public PortletDataWrapper(ResourceRequest request, ResourceResponse response) {
+        m_request = request;
+        m_response = response;
+    }
 
-    
-  
-	public PortletDataWrapper(ActionRequest request, ActionResponse response){
-		m_request = request;
-		m_response = response;
-		m_actionResponse = response;
-	}
 
-	public PortletDataWrapper(RenderRequest request, RenderResponse response){
-		m_request = request;
-		m_response = response;
-	}
-	
-  public WindowState getWindowState()
-  {
-    if (m_request != null) return m_request.getWindowState();
-    if (m_actionResponse != null) return m_actionResponse.getWindowState();
-    
-    return WindowState.NORMAL;
-  }
-  
-  @Override
-	public void setSessionAttribute(String key, Object value) {
-		m_request.getPortletSession().setAttribute(key, value);
-	}
 
-  @Override
-	public Enumeration<String> getSessionAttributeNames() {
-		return m_request.getPortletSession().getAttributeNames();
-	}
+    public PortletDataWrapper(ActionRequest request, ActionResponse response) {
+        m_request = request;
+        m_response = response;
+        m_actionResponse = response;
+    }
 
-  @Override
-	public Object getSessionAttribute(String key) {
-		return m_request.getPortletSession().getAttribute(key);
-	}
+    public PortletDataWrapper(RenderRequest request, RenderResponse response) {
+        m_request = request;
+        m_response = response;
+    }
 
-  @Override
-	public void removeSessionAttribute(String key) {
-		m_request.getPortletSession().removeAttribute(key);
-	}
-  
-  @Override
-	public Enumeration<String> getRequestAttributeNames() {
-		return m_request.getParameterNames();
-	}
+    public WindowState getWindowState() {
+        if (m_request != null) return m_request.getWindowState();
+        if (m_actionResponse != null) return m_actionResponse.getWindowState();
 
-  @Override
-	public String getRequestAttribute(String key) {
-		return m_request.getParameter(key);
-	}
+        return WindowState.NORMAL;
+    }
 
-  @Override
-	public void setRequestAttribute(String key, Object value) {
-		m_request.setAttribute(key, value);
-	}
+    @Override
+    public void setSessionAttribute(String key, Object value) {
+        m_request.getPortletSession().setAttribute(key, value);
+    }
 
-  @Override
-	public void setEvent(String key, HashMap<String, Object> event) {
-		m_actionResponse.setEvent(key, event);
-	}
+    @Override
+    public Enumeration<String> getSessionAttributeNames() {
+        return m_request.getPortletSession().getAttributeNames();
+    }
 
-  @Override
-	public String getUser() {
-		return m_request.getRemoteUser();
-	}
+    @Override
+    public Object getSessionAttribute(String key) {
+        return m_request.getPortletSession().getAttribute(key);
+    }
+
+    @Override
+    public void removeSessionAttribute(String key) {
+        m_request.getPortletSession().removeAttribute(key);
+    }
+
+    @Override
+    public Enumeration<String> getRequestAttributeNames() {
+        return m_request.getParameterNames();
+    }
+
+    @Override
+    public String getRequestAttribute(String key) {
+        return m_request.getParameter(key);
+    }
+
+    @Override
+    public void setRequestAttribute(String key, Object value) {
+        m_request.setAttribute(key, value);
+    }
+
+    @Override
+    public void setEvent(String key, HashMap<String, Object> event) {
+        m_actionResponse.setEvent(key, event);
+    }
+
+    @Override
+    public String getUser() {
+        return m_request.getRemoteUser();
+    }
 
 }

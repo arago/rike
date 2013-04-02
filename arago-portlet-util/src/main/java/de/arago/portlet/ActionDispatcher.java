@@ -32,53 +32,48 @@ import java.util.logging.Logger;
  *
  * based on the class namespace the dispatcher will look for action classes
  * in [namespace].action.ActionName,
- * 
+ *
  * e.g.
- * class:  de.arago.portlet.some.ThePortlet 
+ * class:  de.arago.portlet.some.ThePortlet
  * action: testAction
- * 
+ *
  * will lead to loading the class
  * de.arago.portlet.some.action.TestAction
  * and execute it
  */
 
-public class ActionDispatcher extends PortletDispatcher<Action>
-{
-  private static final Logger logger = Logger.getLogger(ActionDispatcher.class.getName());
+public class ActionDispatcher extends PortletDispatcher<Action> {
+    private static final Logger logger = Logger.getLogger(ActionDispatcher.class.getName());
 
-	public ActionDispatcher(Class<?> forWho, String type)
-	{
-    super(forWho, type);
-	}
-
-	public ActionDispatcher(Class<?> forWho)
-	{
-    super(forWho, "action");
-	}
-	
-	/**
-	 * lookup and execute action, 
-	 * if the action cannot be found (as a class or instance) nothing will be executed
-	 * 
-	 * @param actionName the name of the action, name will be sanitized to [a-zA-Z0-9]
-	 * @param data the data passed to action 
-	 */
-	public void dispatch(String actionName, IDataWrapper data)
-	{
-		long then = System.currentTimeMillis();
-		
-		Action action = getDispatchable(actionName);
-
-    try
-    {
-      if (action != null) action.execute(data);
-    } catch(Throwable t) {
-      logger.log(Level.SEVERE, "action "+actionName+" failed ", t);
+    public ActionDispatcher(Class<?> forWho, String type) {
+        super(forWho, type);
     }
-		
-    Performance.timing("arago.portlet.dispatch.action", System.currentTimeMillis() - then);
-    Performance.timing("arago.portlet.dispatch.action." + getNamespace() + actionName, System.currentTimeMillis() - then);
-    
-		System.err.println("{"+getClass().getName()+"} " + actionName + ": took " + (System.currentTimeMillis() - then));
-	}
+
+    public ActionDispatcher(Class<?> forWho) {
+        super(forWho, "action");
+    }
+
+    /**
+     * lookup and execute action,
+     * if the action cannot be found (as a class or instance) nothing will be executed
+     *
+     * @param actionName the name of the action, name will be sanitized to [a-zA-Z0-9]
+     * @param data the data passed to action
+     */
+    public void dispatch(String actionName, IDataWrapper data) {
+        long then = System.currentTimeMillis();
+
+        Action action = getDispatchable(actionName);
+
+        try {
+            if (action != null) action.execute(data);
+        } catch(Throwable t) {
+            logger.log(Level.SEVERE, "action "+actionName+" failed ", t);
+        }
+
+        Performance.timing("arago.portlet.dispatch.action", System.currentTimeMillis() - then);
+        Performance.timing("arago.portlet.dispatch.action." + getNamespace() + actionName, System.currentTimeMillis() - then);
+
+        System.err.println("{"+getClass().getName()+"} " + actionName + ": took " + (System.currentTimeMillis() - then));
+    }
 }

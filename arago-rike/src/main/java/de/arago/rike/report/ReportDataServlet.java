@@ -38,44 +38,43 @@ import de.arago.rike.data.ChartTimeSeries;
  */
 public class ReportDataServlet extends HttpServlet {
 
-	private final int CACHE_DURATION_IN_SECONDS = 600;
-	private final long CACHE_DURATION_IN_MS = CACHE_DURATION_IN_SECONDS * 1000;
+    private final int CACHE_DURATION_IN_SECONDS = 600;
+    private final long CACHE_DURATION_IN_MS = CACHE_DURATION_IN_SECONDS * 1000;
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String action = request.getParameter("action");
-		action = action == null || action.length() == 0 ? "graph" : action;
+        String action = request.getParameter("action");
+        action = action == null || action.length() == 0 ? "graph" : action;
 
-		String milestone = request.getParameter("milestone");
-		String type			 = request.getParameter("type");
-		
-		if (action.equals("graph")) {
-			response.setContentType("text/plain; charset=utf-8");
+        String milestone = request.getParameter("milestone");
+        String type			 = request.getParameter("type");
 
-			String result = ChartTimeSeries.toPrettyJSON(type, milestone);
+        if (action.equals("graph")) {
+            response.setContentType("text/plain; charset=utf-8");
 
-			if (result == null || result.isEmpty())
-			{
-				response.sendError(400);
-			} else {
-				addExpires(response);
-				ServletOutputStream out = response.getOutputStream();
-				out.print(result);
-				out.close();
-			}
-		} else {
-			response.sendError(400);
-		}
-	}
+            String result = ChartTimeSeries.toPrettyJSON(type, milestone);
 
-	private void addExpires(HttpServletResponse response) {
-		long now = System.currentTimeMillis();
+            if (result == null || result.isEmpty()) {
+                response.sendError(400);
+            } else {
+                addExpires(response);
+                ServletOutputStream out = response.getOutputStream();
+                out.print(result);
+                out.close();
+            }
+        } else {
+            response.sendError(400);
+        }
+    }
 
-		response.addHeader("Cache-Control", "max-age=" + CACHE_DURATION_IN_SECONDS);
-		response.setDateHeader("Last-Modified", now);
-		response.setDateHeader("Expires", now + CACHE_DURATION_IN_MS);
-	}
+    private void addExpires(HttpServletResponse response) {
+        long now = System.currentTimeMillis();
 
-	
+        response.addHeader("Cache-Control", "max-age=" + CACHE_DURATION_IN_SECONDS);
+        response.setDateHeader("Last-Modified", now);
+        response.setDateHeader("Expires", now + CACHE_DURATION_IN_MS);
+    }
+
+
 }

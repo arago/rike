@@ -21,7 +21,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 /**
- * 
+ *
  */
 package de.arago.rike.task.action;
 
@@ -36,27 +36,26 @@ import java.util.Date;
 
 public class SaveArtifact implements Action {
 
-	public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) throws Exception {
 
-		DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
-		Artifact artifact = null;
+        DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
+        Artifact artifact = null;
 
-		if (data.getRequestAttribute("id") != null && !data.getRequestAttribute("id").isEmpty())
-		{
-			artifact = helper.find(data.getRequestAttribute("id"));
-		}
+        if (data.getRequestAttribute("id") != null && !data.getRequestAttribute("id").isEmpty()) {
+            artifact = helper.find(data.getRequestAttribute("id"));
+        }
 
-		if (artifact == null) artifact = new Artifact();
+        if (artifact == null) artifact = new Artifact();
 
-		artifact.setName(data.getRequestAttribute("name"));
-		artifact.setShortName(data.getRequestAttribute("short_name"));
-		artifact.setUrl(data.getRequestAttribute("url"));
-		artifact.setCreated(new Date());
-		artifact.setCreator(SecurityHelper.getUser(data.getUser()).getEmailAddress());
-		artifact.setClient("");
-		
-		helper.save(artifact);
+        artifact.setName(data.getRequestAttribute("name"));
+        artifact.setShortName(data.getRequestAttribute("short_name"));
+        artifact.setUrl(data.getRequestAttribute("url"));
+        artifact.setCreated(new Date());
+        artifact.setCreator(SecurityHelper.getUser(data.getUser()).getEmailAddress());
+        artifact.setClient("");
 
-		data.removeSessionAttribute("targetView");
-	}
+        helper.save(artifact);
+
+        data.removeSessionAttribute("targetView");
+    }
 }

@@ -1,91 +1,97 @@
 /**
  * Copyright (c) 2010 arago AG, http://www.arago.de/
  *
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
- * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 /**
- * 
+ *
  */
 package de.arago.rike.overview.action;
 
+import com.liferay.portal.model.User;
+import de.arago.data.IDataWrapper;
 import de.arago.portlet.Action;
 import de.arago.portlet.util.SecurityHelper;
-
-import de.arago.data.IDataWrapper;
-import de.arago.rike.util.TaskHelper;
-import de.arago.rike.util.TaskListFilter;
 import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.TaskUser;
-
+import de.arago.rike.util.TaskHelper;
+import de.arago.rike.util.TaskListFilter;
 import java.util.HashMap;
 import java.util.List;
-
 import org.hibernate.criterion.Restrictions;
-
-import com.liferay.portal.model.User;
 
 public class FilterTasks implements Action {
 
-	public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) throws Exception {
 
-		TaskListFilter filter = (TaskListFilter) data.getSessionAttribute("taskListFilter");
+        TaskListFilter filter = (TaskListFilter) data.getSessionAttribute("taskListFilter");
 
-		boolean have = false;
+        boolean have = false;
 
-		String milestone = data.getRequestAttribute("milestone");
-		String user = data.getRequestAttribute("user");
-		String status = data.getRequestAttribute("status");
-		String priority = data.getRequestAttribute("priority");
-		String artifact = data.getRequestAttribute("artifact");
-    String creator = data.getRequestAttribute("creator");
+        String milestone = data.getRequestAttribute("milestone");
+        String user = data.getRequestAttribute("user");
+        String status = data.getRequestAttribute("status");
+        String priority = data.getRequestAttribute("priority");
+        String artifact = data.getRequestAttribute("artifact");
+        String creator = data.getRequestAttribute("creator");
 
-		if (milestone.length() > 0) have = true;
-		if (user.length() > 0) have = true;
-		if (status.length() > 0) have = true;
-		if (priority.length() > 0) have = true;
-		if (artifact.length() > 0) have = true;
-    if (creator.length() > 0) have = true;
+        if (milestone.length() > 0) {
+            have = true;
+        }
+        if (user.length() > 0) {
+            have = true;
+        }
+        if (status.length() > 0) {
+            have = true;
+        }
+        if (priority.length() > 0) {
+            have = true;
+        }
+        if (artifact.length() > 0) {
+            have = true;
+        }
+        if (creator.length() > 0) {
+            have = true;
+        }
 
+        filter.setMilestone(milestone);
+        filter.setStatus(status);
+        filter.setUser(user);
+        filter.setArtifact(artifact);
+        filter.setPriority(priority);
+        filter.setIsActive(have);
+        filter.setCreator(creator);
 
-		filter.setMilestone(milestone);
-		filter.setStatus(status);
-		filter.setUser(user);
-		filter.setArtifact(artifact);
-		filter.setPriority(priority);
-		filter.setIsActive(have);
-    filter.setCreator(creator);
+        data.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
 
-		data.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
+        HashMap<String, Object> eventData = new HashMap<String, Object>();
+        eventData.put("milestone", milestone);
 
-		HashMap<String,Object> eventData = new HashMap<String,Object>();
-		eventData.put("milestone", milestone);
+        data.setEvent("MilestoneChangeNotification", eventData);
 
-		data.setEvent("MilestoneChangeNotification", eventData);
-
-		DataHelperRike<TaskUser> userHelper = new DataHelperRike<TaskUser>(TaskUser.class);
-		User liferay_user = SecurityHelper.getUser(data.getUser());
-		String email = liferay_user.getEmailAddress();
-		List<TaskUser> userData = userHelper.list(userHelper.filter().add(Restrictions.eq("email", email)));
-		if(userData.size()>0){
-			userData.get(0).setLast_ms(milestone);
-			userHelper.save(userData.get(0));
-		}
-	}
+        DataHelperRike<TaskUser> userHelper = new DataHelperRike<TaskUser>(TaskUser.class);
+        User liferay_user = SecurityHelper.getUser(data.getUser());
+        String email = liferay_user.getEmailAddress();
+        List<TaskUser> userData = userHelper.list(userHelper.filter().add(Restrictions.eq("email", email)));
+        if (userData.size() > 0) {
+            userData.get(0).setLast_ms(milestone);
+            userHelper.save(userData.get(0));
+        }
+    }
 }

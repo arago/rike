@@ -29,81 +29,81 @@ import java.util.Date;
 
 public class Artifact implements Serializable {
 
-	private long id;
-	private String name;
-	private String shortName;
-	private String url;
-	private String creator;
-	private String client;
-	private Date created;
+    private long id;
+    private String name;
+    private String shortName;
+    private String url;
+    private String creator;
+    private String client;
+    private Date created;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getShortName() {
-		return shortName;
-	}
+    public String getShortName() {
+        return shortName;
+    }
 
-	public void setShortName(String what) {
-		shortName = what;
-	}
+    public void setShortName(String what) {
+        shortName = what;
+    }
 
-	public void setUrl(String what) {
-		url = what;
-	}
+    public void setUrl(String what) {
+        url = what;
+    }
 
-	public String getUrl() {
-		return url;
-	}
+    public String getUrl() {
+        return url;
+    }
 
-	public URI getURI() {
-		try {
-			return new URI(url);
-		} catch (URISyntaxException ex) {
-			throw new RuntimeException(ex);
-		}
-	}
+    public URI getURI() {
+        try {
+            return new URI(url);
+        } catch (URISyntaxException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
-	public void setCreator(String creator) {
-		this.creator = creator;
-	}
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
 
-	public String getCreator() {
-		return creator;
-	}
+    public String getCreator() {
+        return creator;
+    }
 
-	public void setCreated(Date created) {
-		this.created = created;
-	}
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 
-	public Date getCreated() {
-		return created;
-	}
+    public Date getCreated() {
+        return created;
+    }
 
-	/**
-	 * @return the client
-	 */
-	public String getClient() {
-		return client;
-	}
+    /**
+     * @return the client
+     */
+    public String getClient() {
+        return client;
+    }
 
-	/**
-	 * @param client the client to set
-	 */
-	public void setClient(String client) {
-		this.client = client;
-	}
+    /**
+     * @param client the client to set
+     */
+    public void setClient(String client) {
+        this.client = client;
+    }
 }

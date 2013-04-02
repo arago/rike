@@ -24,10 +24,8 @@ package de.arago.rike.data;
 
 import de.arago.data.util.DataHelperBase;
 
-public final class DataHelperRike<T> extends DataHelperBase<T> 
-{
-	public DataHelperRike(Class<?> klass)
-	{
-		super(klass, "rike", null);
-	}
+public final class DataHelperRike<T> extends DataHelperBase<T> {
+    public DataHelperRike(Class<?> klass) {
+        super(klass, "rike", null);
+    }
 }

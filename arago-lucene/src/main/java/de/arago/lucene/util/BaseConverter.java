@@ -47,5 +47,4 @@ public abstract class BaseConverter<T> implements Converter<T>{
 	public List<T> resultToList() {
 		throw new NotImplementedException();
 	}
-	
 }

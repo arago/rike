@@ -26,18 +26,16 @@ import de.arago.portlet.Event;
 import de.arago.data.IEventWrapper;
 import de.arago.rike.util.TaskListFilter;
 
-public class SelectMilestoneRequest implements Event
-{
-  @Override
-  public void execute(IEventWrapper event) throws Exception
-  {
-    TaskListFilter filter = (TaskListFilter) event.getSessionAttribute("taskListFilter");
+public class SelectMilestoneRequest implements Event {
+    @Override
+    public void execute(IEventWrapper event) throws Exception {
+        TaskListFilter filter = (TaskListFilter) event.getSessionAttribute("taskListFilter");
 
-		String milestone = (String) event.getEventAttribute("milestone");
-		
-    filter.setDefaultOptions();
-    
-		filter.setMilestone(milestone);
-    filter.setIsActive(true);
-  }
+        String milestone = (String) event.getEventAttribute("milestone");
+
+        filter.setDefaultOptions();
+
+        filter.setMilestone(milestone);
+        filter.setIsActive(true);
+    }
 }

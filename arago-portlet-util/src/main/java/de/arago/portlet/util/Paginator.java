@@ -27,73 +27,73 @@ import java.util.List;
 
 public class Paginator {
 
-	private long items;
-	private int itemsPerPage;
-	private int currentPage = 1;
-	private int pageOffset = 2;
+    private long items;
+    private int itemsPerPage;
+    private int currentPage = 1;
+    private int pageOffset = 2;
 
-	public Paginator(long itemCount, int itemsPerPage) {
-		this.items = itemCount;
-		this.itemsPerPage = itemsPerPage;
-	}
+    public Paginator(long itemCount, int itemsPerPage) {
+        this.items = itemCount;
+        this.itemsPerPage = itemsPerPage;
+    }
 
-	public Paginator(long itemCount, int itemsPerPage, int pageOffset) {
-		this(itemCount, itemsPerPage);
-		this.pageOffset = pageOffset;
-	}
+    public Paginator(long itemCount, int itemsPerPage, int pageOffset) {
+        this(itemCount, itemsPerPage);
+        this.pageOffset = pageOffset;
+    }
 
-	public int getCurrentPage() {
-		return currentPage;
-	}
+    public int getCurrentPage() {
+        return currentPage;
+    }
 
-	public int lastPage() {
-		return (int) Math.ceil(items / (double) itemsPerPage);
-	}
+    public int lastPage() {
+        return (int) Math.ceil(items / (double) itemsPerPage);
+    }
 
-	public int firstPage() {
-		return 1;
-	}
+    public int firstPage() {
+        return 1;
+    }
 
-	public void go(int where) {
-		currentPage = where < 0 ? 0 : (where > lastPage() ? lastPage() : where);
-	}
+    public void go(int where) {
+        currentPage = where < 0 ? 0 : (where > lastPage() ? lastPage() : where);
+    }
 
-	public int nextPage() {
-		return currentPage + (currentPage >= lastPage() ? 0 : 1);
-	}
+    public int nextPage() {
+        return currentPage + (currentPage >= lastPage() ? 0 : 1);
+    }
 
-	public int prevPage() {
-		return currentPage - (currentPage > 0 ? 1 : 0);
-	}
+    public int prevPage() {
+        return currentPage - (currentPage > 0 ? 1 : 0);
+    }
 
-	public List<Object> slice(List<Object> entries) {
-		if (entries == null) 
-			return Collections.EMPTY_LIST;
+    public List<Object> slice(List<Object> entries) {
+        if (entries == null)
+            return Collections.EMPTY_LIST;
 
-		return entries.subList(getFirstItem(), getLastItem());
-	}
+        return entries.subList(getFirstItem(), getLastItem());
+    }
 
-	private int getFirstItem() {
-		return (currentPage - 1) * itemsPerPage;
-	}
+    private int getFirstItem() {
+        return (currentPage - 1) * itemsPerPage;
+    }
 
-	private int getLastItem() {
-		return (int) (currentPage == lastPage() || items < itemsPerPage ? items : (nextPage() - 1) * itemsPerPage);
-	}
+    private int getLastItem() {
+        return (int) (currentPage == lastPage() || items < itemsPerPage ? items : (nextPage() - 1) * itemsPerPage);
+    }
 
-	public boolean hasSkipToFirst() {
-		return currentPage > pageOffset + 1;
-	}
+    public boolean hasSkipToFirst() {
+        return currentPage > pageOffset + 1;
+    }
 
-	public boolean hasSkipToLast() {
-		return currentPage < this.lastPage() - pageOffset;
-	}
+    public boolean hasSkipToLast() {
+        return currentPage < this.lastPage() - pageOffset;
+    }
 
-	public int firstOffset() {
-		return currentPage - pageOffset <= 1 ? 1 : currentPage - pageOffset;
-	}
+    public int firstOffset() {
+        return currentPage - pageOffset <= 1 ? 1 : currentPage - pageOffset;
+    }
 
-	public int lastOffset() {
-		return currentPage + pageOffset >= this.lastPage() ? this.lastPage() : currentPage + pageOffset;
-	}
+    public int lastOffset() {
+        return currentPage + pageOffset >= this.lastPage() ? this.lastPage() : currentPage + pageOffset;
+    }
 }

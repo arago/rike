@@ -22,9 +22,9 @@
  */
 /**
  * Action.java
- * 
+ *
  * Interface to be implemented by all portlet-actions
- * 
+ *
  */
 
 package de.arago.portlet;
@@ -33,7 +33,6 @@ import de.arago.data.IDataWrapper;
 
 
 
-public interface Action
-{
-  public void execute(IDataWrapper data) throws Exception;
+public interface Action {
+    public void execute(IDataWrapper data) throws Exception;
 }

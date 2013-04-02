@@ -35,45 +35,39 @@ import javax.portlet.PortletException;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-public class LeaderBoard extends AragoPortlet 
-{
-	@Override
-	public void initSession(IDataWrapper data) throws PortletException, IOException 
-  {
-		if (!SecurityHelper.isLoggedIn(data.getUser())) {
-			return;
-		}
-		
-		try
-		{
-			data.setSessionAttribute("list", getData());
-      data.setSessionAttribute("listDate", new Date());
-		} catch(Throwable t) {
-			t.printStackTrace(System.err);
-		}
-	}
+public class LeaderBoard extends AragoPortlet {
+    @Override
+    public void initSession(IDataWrapper data) throws PortletException, IOException {
+        if (!SecurityHelper.isLoggedIn(data.getUser())) {
+            return;
+        }
 
-	@Override
-	protected boolean checkViewData(IDataWrapper data)
-  {
-    if (!SecurityHelper.isLoggedIn(data.getUser())) return false;
-    
-    Date then = (Date) data.getSessionAttribute("listDate");
-    
-    if (then == null || then.getTime() < System.currentTimeMillis() - 5 * 60 * 1000)
-    {
-      data.setSessionAttribute("list", getData());
-      data.setSessionAttribute("listDate", new Date());
-    }  
-    
-		return true;
-	}	
-  
-  private static List<TaskUser> getData()
-  {
-    DataHelperRike<TaskUser> helper = new DataHelperRike<TaskUser>(TaskUser.class);
-    
-    return helper.list(helper.filter().add(Restrictions.eq("isDeleted", 0)).addOrder(Order.desc("account")).addOrder(Order.asc("email")));
-  }  
+        try {
+            data.setSessionAttribute("list", getData());
+            data.setSessionAttribute("listDate", new Date());
+        } catch(Throwable t) {
+            t.printStackTrace(System.err);
+        }
+    }
+
+    @Override
+    protected boolean checkViewData(IDataWrapper data) {
+        if (!SecurityHelper.isLoggedIn(data.getUser())) return false;
+
+        Date then = (Date) data.getSessionAttribute("listDate");
+
+        if (then == null || then.getTime() < System.currentTimeMillis() - 5 * 60 * 1000) {
+            data.setSessionAttribute("list", getData());
+            data.setSessionAttribute("listDate", new Date());
+        }
+
+        return true;
+    }
+
+    private static List<TaskUser> getData() {
+        DataHelperRike<TaskUser> helper = new DataHelperRike<TaskUser>(TaskUser.class);
+
+        return helper.list(helper.filter().add(Restrictions.eq("isDeleted", 0)).addOrder(Order.desc("account")).addOrder(Order.asc("email")));
+    }
 
 }
