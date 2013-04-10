@@ -24,15 +24,12 @@ public abstract class BaseConverter<T> implements Converter<T>{
 	}
 
   @Override
-	public void init(IndexSearcher s) {
-		this.searcher = s;
-	}
-
-  @Override
-	public void setResult(ScoreDoc[] hits) {
+	public void setResult(ScoreDoc[] hits, IndexSearcher searcher) {
+    this.searcher = searcher;
 		this.hits = hits;
 	}
 	
+  @Override
 	public String toJSONString() {
 		List<T> all = resultToList();
 		return JSONArray.toJSONString(all);
