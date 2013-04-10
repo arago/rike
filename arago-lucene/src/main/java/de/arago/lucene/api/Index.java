@@ -68,7 +68,7 @@ public class Index<T> {
         return writer;
     }
 
-    private synchronized Converter<T> createConverter() {
+    private Converter<T> createConverter() {
         try {
           return (Converter<T>) config.getConverterClass().newInstance();  
         } catch (Exception e) {
