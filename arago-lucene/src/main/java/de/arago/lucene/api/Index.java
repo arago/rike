@@ -56,9 +56,6 @@ public class Index<T> {
             try {
                 FSDirectory directory = FSDirectory.open(new File(config.getPath()));
                 if (IndexWriter.isLocked(directory)) {
-                    // TODO XXX FIXME wtf
-                    System.err.println("WARNING: XXX unlocking index ... due to redeployment of portlets");
-
                     IndexWriter.unlock(directory);
                 }
 
@@ -166,6 +163,15 @@ public class Index<T> {
         }
 
     }
+    
+    public synchronized void commit()
+    {
+      try {  
+        if (writer != null) writer.commit();
+      } catch(Exception ex) {
+        throw new RuntimeException(ex);
+      }    
+    }  
 
     public synchronized void remove(T o) {
         Term remove = createConverter().toLuceneID(o);
