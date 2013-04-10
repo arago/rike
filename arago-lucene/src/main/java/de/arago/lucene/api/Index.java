@@ -19,9 +19,9 @@ import org.apache.lucene.util.Version;
 public class Index<T> {
 
     private final IndexConfig config;
-    private IndexWriter writer;
-    private IndexSearcher searcher;
-    private long indexModificationTime = 0;
+    private volatile IndexWriter writer;
+    private volatile IndexSearcher searcher;
+    private volatile long indexModificationTime = 0;
 
     public Index(IndexConfig config) {
         this.config = config;
