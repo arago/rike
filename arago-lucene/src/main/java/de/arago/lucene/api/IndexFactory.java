@@ -109,7 +109,6 @@ public final class IndexFactory {
             IndexCreator<T> creator = (IndexCreator<T>) Class.forName(creatorKlass).newInstance();
 
             creator.fill(index);
-            index.ready();
         } catch (Exception e) {
             logger.error("could not fill index " + index.getName(), e);
         }
