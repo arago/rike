@@ -68,16 +68,9 @@ public class Index<T> {
         return writer;
     }
 
-    private volatile Converter<T> c = null;
-
-    private Converter<T> createConverter() {
+    private synchronized Converter<T> createConverter() {
         try {
-            if(c==null) {
-                c = (Converter<T>) config.getConverterClass().newInstance();
-                if(this.exists())
-                    c.init(this.getSearcher());
-            }
-            return c;
+          return (Converter<T>) config.getConverterClass().newInstance();  
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -202,8 +195,9 @@ public class Index<T> {
         Converter<T> converter = createConverter();
 
         try {
-            getSearcher().search(q, collector);
-            converter.setResult(collector.topDocs().scoreDocs);
+            IndexSearcher s = getSearcher();
+            s.search(q, collector);
+            converter.setResult(collector.topDocs().scoreDocs, s);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -227,9 +221,5 @@ public class Index<T> {
 
     public IndexConfig getConfig() {
         return config;
-    }
-
-    public void ready() {
-        c = null;
     }
 }
