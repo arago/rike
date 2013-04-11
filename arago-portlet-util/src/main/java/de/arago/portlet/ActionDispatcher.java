@@ -73,7 +73,5 @@ public class ActionDispatcher extends PortletDispatcher<Action> {
 
         Performance.timing("arago.portlet.dispatch.action", System.currentTimeMillis() - then);
         Performance.timing("arago.portlet.dispatch.action." + getNamespace() + actionName, System.currentTimeMillis() - then);
-
-        System.err.println("{"+getClass().getName()+"} " + actionName + ": took " + (System.currentTimeMillis() - then));
     }
 }
