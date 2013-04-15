@@ -12,6 +12,7 @@ import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.TopDocsCollector;
 import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
@@ -181,17 +182,31 @@ public class Index<T> {
         }
     }
 
+    public Query parse(final String q)
+    {
+      try
+      {  
+        return new QueryParser(Version.LUCENE_36,Converter.FIELD_CONTENT, config.getAnalyzer()).parse(q);
+      } catch(ParseException ex) {
+        throw new RuntimeException("could not parse query " + q, ex);
+      }
+    }  
+    
     public Converter<T> query(String q, int maxResults) {
-        try {
-            return query(new QueryParser(Version.LUCENE_36,Converter.FIELD_CONTENT, config.getAnalyzer()).parse(q), maxResults);
-        } catch (ParseException ex) {
-            throw new RuntimeException(ex);
-        }
+        return query(parse(q), maxResults);
+    }
+    
+    public Converter<T> query(String q, TopDocsCollector collector, int maxResults) {
+        return query(parse(q), collector, maxResults);        
     }
 
     public Converter<T> query(Query q, int maxResults) {
 
-        TopScoreDocCollector collector = TopScoreDocCollector.create(maxResults,true);
+        return query(q, TopScoreDocCollector.create(maxResults,true), maxResults);
+    }
+    
+    public Converter<T> query(Query q, TopDocsCollector collector, int maxResults) {
+
         Converter<T> converter = createConverter();
 
         try {
