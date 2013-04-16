@@ -2,6 +2,7 @@ package de.arago.lucene.api;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.regex.Pattern;
 import org.apache.commons.io.FileUtils;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexReader;
@@ -18,6 +19,10 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
 public class Index<T> {
+
+    private static final String LUCENE_ESCAPE_CHARS = "[\\\\+\\-\\!\\(\\)\\:\\^\\]\\{\\}\\~\\*\\?]";
+    private static final Pattern ESCAPE_PATTERN = Pattern.compile(LUCENE_ESCAPE_CHARS);
+    private static final String REPLACEMENT_STRING = "\\\\$0";
 
     private final IndexConfig config;
     private volatile IndexWriter writer;
@@ -71,7 +76,7 @@ public class Index<T> {
 
     private Converter<T> createConverter() {
         try {
-          return (Converter<T>) config.getConverterClass().newInstance();  
+          return (Converter<T>) config.getConverterClass().newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -157,15 +162,15 @@ public class Index<T> {
         }
 
     }
-    
+
     public synchronized void commit()
     {
-      try {  
+      try {
         if (writer != null) writer.commit();
       } catch(Exception ex) {
         throw new RuntimeException(ex);
-      }    
-    }  
+      }
+    }
 
     public synchronized void remove(T o) {
         Term remove = createConverter().toLuceneID(o);
@@ -185,26 +190,26 @@ public class Index<T> {
     public Query parse(final String q)
     {
       try
-      {  
+      {
         return new QueryParser(Version.LUCENE_36,Converter.FIELD_CONTENT, config.getAnalyzer()).parse(q);
       } catch(ParseException ex) {
         throw new RuntimeException("could not parse query " + q, ex);
       }
-    }  
-    
+    }
+
     public Converter<T> query(String q, int maxResults) {
         return query(parse(q), maxResults);
     }
-    
+
     public Converter<T> query(String q, TopDocsCollector collector, int maxResults) {
-        return query(parse(q), collector, maxResults);        
+        return query(parse(q), collector, maxResults);
     }
 
     public Converter<T> query(Query q, int maxResults) {
 
         return query(q, TopScoreDocCollector.create(maxResults,true), maxResults);
     }
-    
+
     public Converter<T> query(Query q, TopDocsCollector collector, int maxResults) {
 
         Converter<T> converter = createConverter();
@@ -236,5 +241,10 @@ public class Index<T> {
 
     public IndexConfig getConfig() {
         return config;
+    }
+
+    public static String escape(String in)
+    {
+      return ESCAPE_PATTERN.matcher(in).replaceAll(REPLACEMENT_STRING);
     }
 }
