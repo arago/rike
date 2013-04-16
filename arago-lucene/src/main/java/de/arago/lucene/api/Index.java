@@ -2,7 +2,6 @@ package de.arago.lucene.api;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.regex.Pattern;
 import org.apache.commons.io.FileUtils;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexReader;
@@ -19,10 +18,6 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
 public class Index<T> {
-
-    private static final String LUCENE_ESCAPE_CHARS = "[\\\\+\\-\\!\\(\\)\\:\\^\\]\\{\\}\\~\\*\\?]";
-    private static final Pattern ESCAPE_PATTERN = Pattern.compile(LUCENE_ESCAPE_CHARS);
-    private static final String REPLACEMENT_STRING = "\\\\$0";
 
     private final IndexConfig config;
     private volatile IndexWriter writer;
@@ -245,6 +240,6 @@ public class Index<T> {
 
     public static String escape(String in)
     {
-      return ESCAPE_PATTERN.matcher(in).replaceAll(REPLACEMENT_STRING);
+      return QueryParser.escape(in);
     }
 }

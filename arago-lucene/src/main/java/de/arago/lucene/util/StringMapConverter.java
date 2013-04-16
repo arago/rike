@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import org.apache.lucene.document.Document;
-import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.Term;
+import org.apache.lucene.search.ScoreDoc;
 
 public class StringMapConverter extends BaseConverter<Map<String,String>> {
 
