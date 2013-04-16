@@ -84,7 +84,7 @@ public class SecurityHelper {
 
     private static User getUserFromCookies(HttpServletRequest request) throws Exception {
         // https://www.everit.biz/web/guest/everit-blog/-/blogs/getting-current-liferay-user-in-a-standalone-webapp
-        final Cookie[] cookies	= request.getCookies();
+        final Cookie[] cookies	= request.getCookies() == null?new Cookie[0]:request.getCookies();
         String userId			= null;
         String password		= null;
         String companyId	= null;
