@@ -24,20 +24,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <distributionManagement>
-        <repository>
-            <id>tabtab</id>
-            <uniqueVersion>false</uniqueVersion>
-            <name>arago Repository</name>
-            <url>scp://repo.tabtab.org:/var/www/html/maven2/</url>
-        </repository>
-        <snapshotRepository>
-            <id>tabtab</id>
-            <uniqueVersion>false</uniqueVersion>
-            <name>arago Repository</name>
-            <url>scp://repo.tabtab.org:/var/www/html/maven2/</url>
-        </snapshotRepository>
-    </distributionManagement>
+    
     <build>
         <plugins>
             <plugin>
@@ -60,8 +47,25 @@
                     </dependency> 
                 </dependencies> 
             </plugin>            
-        </plugins>
-    </build>
+      			
+      		</plugins>
+        </build>
+  
+        <distributionManagement>
+            <repository>
+                <id>tabtab</id>
+                <uniqueVersion>false</uniqueVersion>
+                <name>repo</name>
+                <url>$REPO</url>
+            </repository>
+            <snapshotRepository>
+                <id>tabtab</id>
+                <uniqueVersion>false</uniqueVersion>
+                <name>repo</name>
+                <url>$REPO</url>
+            </snapshotRepository>
+        </distributionManagement>
+        
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
