@@ -1,5 +1,6 @@
-<%@page import="org.apache.commons.lang.StringEscapeUtils"%>
+<%@page import="javax.portlet.PortletPreferences"%>
 <%@page import="java.util.List"%>
+<%@page import="org.apache.commons.lang.StringEscapeUtils"%>
 <%@ page import="java.util.Date" %>
 <%@ taglib uri="http://java.sun.com/portlet" prefix="portlet" %>
 
@@ -15,6 +16,33 @@ $.globalPortletJS
  .help-left-pane iframe {overflow:auto}
  .help-right-pane {padding:3px}
 </style>
+
+
+<%
+      PortletPreferences prefs = renderRequest.getPreferences();
+
+      if ("false".equals(prefs.getValue("de.arago.rike.help.shown", "false")))
+      {
+        //prefs.setValue("de.arago.rike.help.shown", "true");
+
+
+%>
+
+<script>
+(function()
+{
+  var div = document.createElement('div');
+  
+  div.innerHTML = '<div style="position:absolute; top:0px; left:0px; right:0px; bottom:0px; z-index:10000000000; background-color:#ccc; opacity:0.7"><img style="position:absolute; top:0px; left:0px; right:0px; bottom:0px; width:100%; height:100%;" src="<%= renderRequest.getContextPath()%>/images/helpoverlay.svg" alt="" /></div>';
+  
+  document.body.insertBefore(div, null);
+})(); 
+</script>
+  
+<%
+      }
+%>
+
 <script type="text/javascript">
   $(function()
   {
