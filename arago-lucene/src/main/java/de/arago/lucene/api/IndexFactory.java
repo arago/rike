@@ -1,6 +1,7 @@
 package de.arago.lucene.api;
 
 import de.arago.lucene.util.IndexCreator;
+import java.io.File;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Properties;
@@ -14,7 +15,23 @@ public final class IndexFactory {
     private static final ConcurrentHashMap<String, Index<?>> indices = new ConcurrentHashMap<String, Index<?>>();
     private static final String prefix = "index.";
     static final Logger logger = LogManager.getLogger(IndexFactory.class.getName());
+    private static final String defaultPath;
 
+    static
+    {
+      defaultPath = System.getProperty("de.arago.lucene.defaultPath", "/tmp/");
+      
+      try
+      {
+        final File path = new File(defaultPath);
+        
+        if (!path.exists()) path.mkdirs();
+        if (!path.exists() || !path.isDirectory() || !path.canWrite()) throw new IllegalStateException("cannot use index path " + defaultPath);
+      } catch(Exception ex) {
+        throw new ExceptionInInitializerError(ex);
+      } 
+    }
+    
     private static Properties getDefaultProperties() {
         Properties p = new Properties();
         p.put("index.marsValidierer.converterClass", "de.arago.lucene.xmlschema.MarsSchemaConverter");
@@ -66,7 +83,7 @@ public final class IndexFactory {
         IndexConfig config = new IndexConfig(name);
 
         String path = settings.getProperty(prefix + name + ".path");
-        config.setPath(path == null ? "/tmp/" + prefix + name + ".index" : path);
+        config.setPath(path == null ? defaultPath + prefix + name + ".index" : path);
         config.setProperties(settings);
 
         try {
