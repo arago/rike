@@ -20,18 +20,18 @@ public final class IndexFactory {
     static
     {
       defaultPath = System.getProperty("de.arago.lucene.defaultPath", "/tmp/");
-      
+
       try
       {
         final File path = new File(defaultPath);
-        
+
         if (!path.exists()) path.mkdirs();
         if (!path.exists() || !path.isDirectory() || !path.canWrite()) throw new IllegalStateException("cannot use index path " + defaultPath);
       } catch(Exception ex) {
         throw new ExceptionInInitializerError(ex);
-      } 
+      }
     }
-    
+
     private static Properties getDefaultProperties() {
         Properties p = new Properties();
         p.put("index.marsValidierer.converterClass", "de.arago.lucene.xmlschema.MarsSchemaConverter");
@@ -74,6 +74,12 @@ public final class IndexFactory {
             config = index.getConfig().getProperties();
             index.delete();
         }
+
+        return getIndex(name, config);
+    }
+
+    public static Index<?> getNewIndex(String name, Properties config) {
+        indices.remove(name);
 
         return getIndex(name, config);
     }
