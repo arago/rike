@@ -15,6 +15,7 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.search.TopDocsCollector;
 import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.store.NIOFSDirectory;
 import org.apache.lucene.util.Version;
 
 public class Index<T> {
@@ -39,7 +40,7 @@ public class Index<T> {
             closeSearcher();
         if(searcher == null) {
             try {
-                FSDirectory directory = FSDirectory.open(new File(config.getPath()));
+                FSDirectory directory = NIOFSDirectory.open(new File(config.getPath()));
                 //searcher = new IndexSearcher(directory);
                 IndexReader reader = IndexReader.open(directory);
                 searcher = new IndexSearcher(reader);
