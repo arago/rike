@@ -102,17 +102,16 @@ public final class IndexFactory {
             String aname = settings.getProperty(prefix + name + ".analyzerClass");
             if (aname != null) {
                 Class<?> aclass = Class.forName(aname);
-                
+
                 if (AnalyzerFactory.class.isAssignableFrom(aclass))
-                {  
+                {
                   config.setAnalyzer(((AnalyzerFactory) aclass.newInstance()).create(settings));
                 } else {
                   config.setAnalyzer((Analyzer) aclass.newInstance());
                 }
             }
         } catch (Exception e) {
-            System.err.println("error while creating index " + name);
-
+            logger.log(Level.SEVERE, "could not create index " + name, e);
             throw new ExceptionInInitializerError(e);
         }
 
