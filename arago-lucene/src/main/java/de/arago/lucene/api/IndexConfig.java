@@ -11,7 +11,7 @@ public class IndexConfig {
     private Class<? extends Converter<?>> converterClass;
     private String path;
     private Analyzer analyzer = null;
-    private Properties properties = new Properties();
+    private final Properties properties = new Properties();
 
     public Properties getProperties() {
         return properties;
