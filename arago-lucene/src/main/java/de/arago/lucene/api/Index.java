@@ -56,7 +56,7 @@ public class Index<T> {
     protected IndexWriter getWriter() {
         if (writer == null) {
             try {
-                FSDirectory directory = FSDirectory.open(new File(config.getPath()));
+                FSDirectory directory = NIOFSDirectory.open(new File(config.getPath()));
                 if (IndexWriter.isLocked(directory)) {
                     IndexWriter.unlock(directory);
                 }
