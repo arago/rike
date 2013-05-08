@@ -6,15 +6,15 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.lucene.analysis.Analyzer;
 
 public final class IndexFactory {
 
     private static final ConcurrentHashMap<String, Index<?>> indices = new ConcurrentHashMap<String, Index<?>>();
     private static final String prefix = "index.";
-    static final Logger logger = LogManager.getLogger(IndexFactory.class.getName());
+    static final Logger logger = Logger.getLogger(IndexFactory.class.getName());
     private static final String defaultPath;
 
     static
@@ -53,7 +53,9 @@ public final class IndexFactory {
 
     public static Index<?> getIndex(String name, Properties config) {
         if (!indices.containsKey(name)) {
-            Properties p = new Properties(getDefaultProperties());
+            Properties p = new Properties();
+
+            p.putAll(getDefaultProperties());
             if (config != null) p.putAll(config);
 
             indices.put(name, createIndex(name, p));
@@ -100,7 +102,13 @@ public final class IndexFactory {
             String aname = settings.getProperty(prefix + name + ".analyzerClass");
             if (aname != null) {
                 Class<?> aclass = Class.forName(aname);
-                config.setAnalyzer((Analyzer) aclass.newInstance());
+                
+                if (AnalyzerFactory.class.isAssignableFrom(aclass))
+                {  
+                  config.setAnalyzer(((AnalyzerFactory) aclass.newInstance()).create(settings));
+                } else {
+                  config.setAnalyzer((Analyzer) aclass.newInstance());
+                }
             }
         } catch (Exception e) {
             System.err.println("error while creating index " + name);
@@ -123,6 +131,7 @@ public final class IndexFactory {
 
         String creatorKlass = index.getConfig().getProperties().getProperty(prefix + index.getName() + ".creatorClass");
         if (creatorKlass == null) {
+            logger.log(Level.WARNING, "no creator class specified for index " + index.getName());
             return;
         }
 
@@ -133,7 +142,7 @@ public final class IndexFactory {
 
             creator.fill(index);
         } catch (Exception e) {
-            logger.error("could not fill index " + index.getName(), e);
+            logger.log(Level.WARNING, "could not fill index " + index.getName(), e);
         }
 
         logger.info("index filled " + index.getName());
