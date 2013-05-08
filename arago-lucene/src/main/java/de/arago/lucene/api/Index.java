@@ -14,6 +14,7 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.TopDocsCollector;
 import org.apache.lucene.search.TopScoreDocCollector;
+import org.apache.lucene.search.TotalHitCountCollector;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.NIOFSDirectory;
 import org.apache.lucene.util.Version;
@@ -206,6 +207,20 @@ public class Index<T> {
         return query(q, TopScoreDocCollector.create(maxResults,true), maxResults);
     }
 
+    public long count(Query q)
+    {
+        TotalHitCountCollector collector = new TotalHitCountCollector();
+        
+        try {
+            IndexSearcher s = getSearcher();
+            s.search(q, collector);
+            
+            return collector.getTotalHits();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }  
+    
     public Converter<T> query(Query q, TopDocsCollector collector, int maxResults) {
 
         Converter<T> converter = createConverter();
