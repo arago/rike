@@ -36,6 +36,7 @@ import java.util.Date;
 
 public class SaveArtifact implements Action {
 
+    @Override
     public void execute(IDataWrapper data) throws Exception {
 
         DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
@@ -48,7 +49,6 @@ public class SaveArtifact implements Action {
         if (artifact == null) artifact = new Artifact();
 
         artifact.setName(data.getRequestAttribute("name"));
-        artifact.setShortName(data.getRequestAttribute("short_name"));
         artifact.setUrl(data.getRequestAttribute("url"));
         artifact.setCreated(new Date());
         artifact.setCreator(SecurityHelper.getUser(data.getUser()).getEmailAddress());

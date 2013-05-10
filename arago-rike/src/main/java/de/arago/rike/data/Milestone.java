@@ -34,6 +34,7 @@ public class Milestone {
 
     private String creator;
     private Date created;
+  private Integer performance;
 
     public void setId(Long id) {
         this.id = id;
@@ -100,4 +101,14 @@ public class Milestone {
     public Date getCreated() {
         return created;
     }
+
+  public void setPerformance(Integer what)
+  {
+    this.performance = what;
+  }
+  
+  public int getPerformance()
+  {
+    return performance;
+  }  
 }

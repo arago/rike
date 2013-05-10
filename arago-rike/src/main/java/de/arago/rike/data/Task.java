@@ -37,13 +37,16 @@ public class Task implements Serializable {
     private String creator;
     private Date created;
     private Integer sizeEstimated;
-    private Integer size;
     private Integer hoursSpent;
     private Milestone milestone;
     private Artifact artifact;
     private String priority;
     private String challenge;
     private String status;
+    private Date rated;
+    private String ratedBy;
+
+  
 
     public static enum Status {
 
@@ -131,13 +134,30 @@ public class Task implements Serializable {
     public String getCreator() {
         return creator;
     }
+    
+    public String getRatedBy() {
+        return ratedBy;
+    }
+    
+    public void setRatedBy(String user)
+    {
+      this.ratedBy = user;
+    }
 
     public void setCreated(Date created) {
         this.created = created;
     }
+    
+    public void setRated(Date rated) {
+        this.rated = rated;
+    }
 
     public Date getCreated() {
         return created;
+    }
+    
+    public Date getRated() {
+        return rated;
     }
 
     public Integer getSizeEstimated() {
@@ -146,14 +166,6 @@ public class Task implements Serializable {
 
     public void setSizeEstimated(Integer sizeEstimated) {
         this.sizeEstimated = sizeEstimated;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
     }
 
     public Integer getHoursSpent() {

@@ -167,7 +167,9 @@ public class TaskHelper {
     }
 
     public static boolean canDoTask(String user, Task task) {
-        if (!task.getCreator().equals(user)) return true;
+        if (task.getStatusEnum() != Task.Status.OPEN) return false;
+      
+        if (!task.getRatedBy().equals(user)) return true;
 
         if (task.getCreated().getTime() < (System.currentTimeMillis() - 24 * 60 * 60 * 1000)) return true;
 

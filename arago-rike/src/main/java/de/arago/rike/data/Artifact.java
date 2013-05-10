@@ -31,7 +31,6 @@ public class Artifact implements Serializable {
 
     private long id;
     private String name;
-    private String shortName;
     private String url;
     private String creator;
     private String client;
@@ -51,14 +50,6 @@ public class Artifact implements Serializable {
 
     public String getName() {
         return name;
-    }
-
-    public String getShortName() {
-        return shortName;
-    }
-
-    public void setShortName(String what) {
-        shortName = what;
     }
 
     public void setUrl(String what) {

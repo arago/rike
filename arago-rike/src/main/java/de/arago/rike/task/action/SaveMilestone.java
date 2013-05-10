@@ -50,7 +50,7 @@ public class SaveMilestone implements Action {
         if (milestone == null) milestone = new Milestone();
 
         try {
-            SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             milestone.setDueDate(format.parse(data.getRequestAttribute("due_date")));
         } catch(Exception ignored) {}
 
@@ -58,7 +58,12 @@ public class SaveMilestone implements Action {
         milestone.setUrl(data.getRequestAttribute("url"));
         milestone.setCreated(new Date());
         milestone.setCreator(SecurityHelper.getUser(data.getUser()).getEmailAddress());
-
+        
+        try
+        {
+          milestone.setPerformance(Integer.valueOf(data.getRequestAttribute("performance"), 10));
+        } catch(Exception ignored) {} 
+        
         milestone.setRelease("");
 
         String release = data.getRequestAttribute("release");

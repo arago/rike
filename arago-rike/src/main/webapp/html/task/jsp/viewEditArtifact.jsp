@@ -46,17 +46,12 @@
 
               <tr>
                 <th class="shrink">Name:</th>
-                <td class="shrink"><input type="text" name="name" value="<%= StringEscapeUtils.escapeHtml(artifact == null ? "" : artifact.getName())%>" /></td>
-              </tr>
-
-              <tr>
-                <th class="shrink">Short Name:</th>
-                <td class="shrink"><input type="text" name="short_name" value="<%= StringEscapeUtils.escapeHtml(artifact == null ? "" : artifact.getShortName())%>" /></td>
+                <td class="shrink"><input class="rike-input" placeholder="name of the artifact" type="text" name="name" value="<%= StringEscapeUtils.escapeHtml(artifact == null ? "" : artifact.getName())%>" /></td>
               </tr>
 
               <tr>
                 <th class="shrink">URL:</th>
-                <td class="shrink"><input type="text" name="url" value="<%= StringEscapeUtils.escapeHtml(artifact == null ? "" : artifact.getUrl())%>"/></td>
+                <td class="shrink"><input class="rike-input" placeholder="URL of the artifact" type="text" name="url" value="<%= StringEscapeUtils.escapeHtml(artifact == null ? "" : artifact.getUrl())%>"/></td>
               </tr>
 
 
@@ -78,7 +73,7 @@
               {
                 var ok = true;
 						
-                $([$("input[name=name]", this), $("input[name=short_name]", this), $("input[name=url]", this)]).each(function()
+                $([$("input[name=name]", this), $("input[name=url]", this)]).each(function()
                 {
                   if (!this.val())
                   {
@@ -92,7 +87,7 @@
 
                 return ok;
               } catch(e) {
-                alert(e);
+                // blank
               };
 
               return false;

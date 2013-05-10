@@ -35,8 +35,6 @@ public class Task extends AragoPortlet {
 
     @Override
     public void init(PortletConfig config) throws PortletException {
-        StatisticHelper.update();
-
         super.init(config);
     }
 

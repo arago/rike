@@ -30,6 +30,7 @@ import java.util.Date;
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
+import de.arago.rike.data.Artifact;
 import de.arago.rike.util.TaskHelper;
 import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.Milestone;
@@ -48,8 +49,10 @@ public class ViewEvaluateTask implements Action {
 
             if (task.getStatusEnum() == Task.Status.UNKNOWN || task.getStatusEnum() == Task.Status.OPEN) {
                 DataHelperRike<Milestone> stoneHelper = new DataHelperRike<Milestone>(Milestone.class);
+                DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
                 data.setSessionAttribute("task", task);
                 data.setSessionAttribute("targetView", "viewEvaluate");
+                data.setSessionAttribute("artifacts", helper.list(helper.filter().addOrder(Order.asc("name"))));
                 data.setSessionAttribute("milestones", stoneHelper.list(stoneHelper.filter().add(Restrictions.or(Restrictions.gt("dueDate", new Date()), Restrictions.isNull("dueDate"))).addOrder(Order.asc("dueDate")).addOrder(Order.asc("title"))));
             }
         }

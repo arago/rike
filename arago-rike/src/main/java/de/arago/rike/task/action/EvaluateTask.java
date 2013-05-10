@@ -29,6 +29,7 @@ import de.arago.portlet.Action;
 import de.arago.portlet.util.SecurityHelper;
 
 import de.arago.data.IDataWrapper;
+import de.arago.rike.data.Artifact;
 import de.arago.rike.util.TaskHelper;
 import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.Milestone;
@@ -41,6 +42,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 public class EvaluateTask implements Action {
 
+    @Override
     public void execute(IDataWrapper data) throws Exception {
 
         if (data.getRequestAttribute("id") != null) {
@@ -51,11 +53,19 @@ public class EvaluateTask implements Action {
 
             if (task.getStatusEnum() == Task.Status.UNKNOWN || task.getStatusEnum() == Task.Status.OPEN) {
                 task.setMilestone(new DataHelperRike<Milestone>(Milestone.class).find(data.getRequestAttribute("milestone")));
-                task.setSizeEstimated(Integer.valueOf(data.getRequestAttribute("size_estimated")));
+                task.setArtifact(new DataHelperRike<Artifact>(Artifact.class).find(data.getRequestAttribute("artifact")));
+         
+                try {
+                    task.setSizeEstimated(Integer.valueOf(data.getRequestAttribute("size_estimated"), 10));
+                } catch (Exception ignored) {
+                }
+                
+                task.setTitle(data.getRequestAttribute("title"));
+                task.setUrl(data.getRequestAttribute("url"));
                 task.setChallenge(data.getRequestAttribute("challenge"));
                 task.setPriority(data.getRequestAttribute("priority"));
-                task.setCreated(new Date());
-                task.setCreator(user);
+                task.setRated(new Date());
+                task.setRatedBy(user);
                 task.setStatus(Task.Status.OPEN);
 
                 TaskHelper.save(task);

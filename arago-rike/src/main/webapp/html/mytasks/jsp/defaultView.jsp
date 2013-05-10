@@ -93,7 +93,7 @@
           }
         %>
 
-        Size of my tasks: <%= size%>
+        Time of my tasks: <%= size%>
       </div>  
     </div>
   </div>

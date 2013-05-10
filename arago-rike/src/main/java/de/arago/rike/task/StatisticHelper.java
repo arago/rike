@@ -28,9 +28,6 @@ package de.arago.rike.task;
 
 import de.arago.rike.data.DataHelperRike;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import org.hibernate.SQLQuery;
 
 public final class StatisticHelper implements Runnable {
@@ -42,26 +39,13 @@ public final class StatisticHelper implements Runnable {
         "INSERT INTO task_stat (summe_size,count_id,milestone_id,artifact_id,task_status,moment) SELECT sum(size_adjusted),count(id),milestone_id,artifact_id,task_status,CURDATE() FROM tasks WHERE milestone_id IS NOT NULL GROUP BY milestone_id,artifact_id,task_status;",
 
         "DELETE FROM releases_archive;",
-        "INSERT INTO releases_archive (name,estimated_size,real_size,hours_spent,task_count,finished) SELECT milestones.release_name, sum(size_adjusted),sum(size), sum(hours_spent),count(tasks.id), max(end) FROM tasks,milestones WHERE milestone_id=milestones.id and task_status='done' GROUP BY milestones.release_name;"
+        "INSERT INTO releases_archive (name,estimated_size,hours_spent,task_count,finished) SELECT milestones.release_name, sum(size_adjusted), sum(hours_spent),count(tasks.id), max(end) FROM tasks,milestones WHERE milestone_id=milestones.id and task_status='done' GROUP BY milestones.release_name;"
     };
 
-    private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
-    static {
-        scheduler.scheduleAtFixedRate(new StatisticHelper(), 1, 1, TimeUnit.HOURS);
-    }
-
-    private StatisticHelper() {}
+    public StatisticHelper() {}
 
     public static void update() {
         new Thread(new StatisticHelper()).start();
-    }
-
-    @Override
-    public void finalize() throws Throwable {
-        if (scheduler != null && !scheduler.isShutdown()) scheduler.shutdownNow();
-
-        super.finalize();
     }
 
     @Override
@@ -80,7 +64,7 @@ public final class StatisticHelper implements Runnable {
                 }
             }
         } catch(Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace(System.err);
         }
     }
 }

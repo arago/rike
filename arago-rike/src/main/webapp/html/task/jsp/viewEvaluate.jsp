@@ -1,3 +1,4 @@
+<%@page import="de.arago.rike.data.Artifact"%>
 <%@page import="de.arago.portlet.jsp.UserService"%>
 <%@page import="de.arago.portlet.jsp.JspUserService"%>
 <%@page import="de.arago.rike.data.Milestone"%>
@@ -19,6 +20,7 @@
     UserService service = new JspUserService(renderRequest, portletSession);
     Task task = (Task) portletSession.getAttribute("task");
     List<Milestone> milestones = (List<Milestone>) portletSession.getAttribute("milestones");
+    List<Artifact> artifacts = (List<Artifact>) portletSession.getAttribute("artifacts");
 %>
 
 
@@ -45,13 +47,32 @@
       </h1>
     </div>
     <div class="content nofooter nohead">
-        <form method="post" action="<portlet:actionURL portletMode="view" />" id="<portlet:namespace/>Form">
+        <form method="post" action="<portlet:actionURL portletMode="view" />" id="<portlet:namespace/>form">
           <div>
             <input type="hidden" name="id" value="<%= task.getId()%>" />
             <input type="hidden" name="action" value="evaluateTask" />
           </div>
           <table>
             <tbody>
+              
+              <tr>
+                <th class="shrink">Title:</th>
+                <td class="shrink"><input class="rike-input" placeholder="Title of the task" type="text" name="title" value="<%= StringEscapeUtils.escapeHtml(task.getTitle())%>"></td>
+              </tr>
+
+            <tr>
+              <th class="shrink">URL:</th>
+              <td class="shrink"><input class="rike-input" placeholder="URL of the task" type="text" name="url" value="<%= StringEscapeUtils.escapeHtml(task.getUrl())%>" /></td>
+            </tr>
+            
+            <tr>
+                <th class="shrink">Time:</th>
+                <td class="shrink">
+                  <input type="number" min="1" class="rike-input" placeholder="Estimated hours to finish" name="size_estimated" value="<%= task.getSizeEstimated() == null ? 8 : task.getSizeEstimated()%>" />
+                </td>
+              </tr>
+              
+              
               <tr>
                 <th class="shrink">Milestone:</th>
                 <td class="shrink">
@@ -62,6 +83,18 @@
                   </select>
                 </td>
               </tr>
+              
+              
+              <tr>
+              <th class="shrink">Artifact:</th>
+              <td class="shrink">
+                <select name="artifact" style="width:150px">
+                  <% for (Artifact artifact: artifacts) {%>
+                  <option <%= task.getArtifact()!= null && task.getArtifact().getId().equals(artifact.getId()) ? "selected='selected'" : ""%> value="<%= artifact.getId()%>"><%= StringEscapeUtils.escapeHtml(artifact.getName())%></option>
+                  <% }%>
+                </select>
+              </td>
+            </tr>
 
               <tr>
                 <th class="shrink">Challenge:</th>
@@ -86,13 +119,6 @@
               </tr>
 
               <tr>
-                <th class="shrink">Size:</th>
-                <td class="shrink">
-                  <input type="text" class="positive-integer" name="size_estimated" value="<%= task.getSizeEstimated() == null ? 100 : task.getSizeEstimated()%>" />
-                </td>
-              </tr>
-
-              <tr>
                 <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abortEvaluate';"/></td>
                 <td class="shrink" style="text-align:right"><input type="submit" value="Rate" /></td>
               </tr>
@@ -100,22 +126,35 @@
           </table>
         </form>
         <script type="text/javascript">
-          $(function()
+          
+          (function()
+        {
+          $('.<portlet:namespace />form').submit(function()
           {
-            var normalize = function()
+            try
             {
-              if (!this.value.length) return;
+              var ok = true;
+						
+              $([$("input[name=title]", this), $("input[name=url]", this), $("select[name=artifact]", this)]).each(function()
+              {
+                if (!this.val())
+                {
+                  this.get(0).style.borderColor = 'red';
+                  ok = false;
+                } else {
+                  this.get(0).style.borderColor = '';
+                };
+              });
 
-              this.value = this.value.replace(/\D+/g, "");
+
+              return ok;
+            } catch(e) {
+              alert(e);
             };
 
-            $('#<portlet:namespace/>Form .positive-integer').keydown(normalize)
-            .keyup(normalize)
-            .change(normalize)
-            .blur(normalize)
-            .focus(normalize);
-
+            return false;
           });
+        })();
 
         </script>
     </div>

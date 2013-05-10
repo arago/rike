@@ -50,17 +50,22 @@
 
               <tr>
                 <th class="shrink">Title:</th>
-                <td class="shrink"><input type="text" name="title" value="<%= StringEscapeUtils.escapeHtml(milestone == null ? "" : milestone.getTitle())%>" /></td>
+                <td class="shrink"><input class="rike-input" placeholder="title of the milestone" type="text" name="title" value="<%= StringEscapeUtils.escapeHtml(milestone == null ? "" : milestone.getTitle())%>" /></td>
               </tr>
 
               <tr>
                 <th class="shrink">URL:</th>
-                <td class="shrink"><input type="text" name="url" value="<%= StringEscapeUtils.escapeHtml(milestone == null ? "" : milestone.getUrl())%>"/></td>
+                <td class="shrink"><input class="rike-input" placeholder="URL of the milestone, if any" type="text" name="url" value="<%= StringEscapeUtils.escapeHtml(milestone == null ? "" : milestone.getUrl())%>"/></td>
               </tr>
 
               <tr>
                 <th class="shrink">Date:</th>
-                <td class="shrink"><input type="text" name="due_date" value="<%= StringEscapeUtils.escapeHtml(milestone == null || milestone.getDueDate() == null ? "" : service.formatDate(milestone.getDueDate(), "dd.MM.yyyy"))%>"/> <span style="font-size:0.9em; color:#666">DD.MM.YYYY</span></td>
+                <td class="shrink"><input class="rike-input" placeholder="due date of the milestone, YYYY-MM-DD" type="text" name="due_date" value="<%= StringEscapeUtils.escapeHtml(milestone == null || milestone.getDueDate() == null ? "" : service.formatDate(milestone.getDueDate(), "yyyy-MM-dd"))%>"/></td>
+              </tr>
+              
+              <tr>
+                <th class="shrink">Performance:</th>
+                <td class="shrink"><input class="rike-input" placeholder="capacity per week in hours" type="text" name="performance" value=""/></td>
               </tr>
 
               <tr>
@@ -73,7 +78,7 @@
                     <% }%>
                     <option value="_new_">[New Release]</option>
                   </select>
-                  <input type="text" name="new_release" style="display:none" id="<portlet:namespace />NewRelease" />
+                  <input placeholder="name of the release" type="text" name="new_release" style="display:none" id="<portlet:namespace />NewRelease" />
 
                   <script type="text/javascript">
                     $(function()
