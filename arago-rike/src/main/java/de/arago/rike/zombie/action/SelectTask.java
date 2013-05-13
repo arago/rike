@@ -20,43 +20,29 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.arago.rike.zombie;
+/**
+ *
+ */
+package de.arago.rike.zombie.action;
 
-import de.arago.portlet.AragoPortlet;
-import de.arago.portlet.util.SecurityHelper;
+import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
+import de.arago.rike.util.TaskHelper;
 
-import java.io.IOException;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletException;
+import java.util.HashMap;
 
-public class Zombies extends AragoPortlet {
-
-    @Override
-    public void init(PortletConfig config) throws PortletException {
-
-        super.init(config);
-    }
+public class SelectTask implements Action {
 
     @Override
-    public void initSession(IDataWrapper data) throws PortletException, IOException {
-        
-    }
+    public void execute(IDataWrapper data) throws Exception {
 
-    @Override
-    protected boolean checkViewData(IDataWrapper data) {
-        data.setSessionAttribute("userEmail", SecurityHelper.getUserEmail(data.getUser()));
-        
-        if (!SecurityHelper.isLoggedIn(data.getUser()))
-        {
-          return false;
+        if (data.getRequestAttribute("id") != null) {
+            HashMap<String, Object> notificationParam = new HashMap<String, Object>();
+
+            notificationParam.put("id", data.getRequestAttribute("id"));
+            data.setEvent("TaskSelectNotification", notificationParam);
+            data.setSessionAttribute("task", TaskHelper.getTask(data.getRequestAttribute("id")));
         }
-        
-        
-        data.setSessionAttribute("overdue-milestones", ZombieHelper.getOverdueMilestones());
-        data.setSessionAttribute("overdue-tasks", ZombieHelper.getOverdueTasks());
-        
-        return true;
     }
 }

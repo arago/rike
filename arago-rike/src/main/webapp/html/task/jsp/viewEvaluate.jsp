@@ -72,6 +72,11 @@
                 </td>
               </tr>
               
+              <tr>
+                <th class="shrink">Date:</th>
+                <td class="shrink"><input class="rike-input" placeholder="due date of the task, YYYY-MM-DD" type="text" name="due_date" value="<%= StringEscapeUtils.escapeHtml(task == null || task.getDueDate() == null ? "" : service.formatDate(task.getDueDate(), "yyyy-MM-dd"))%>"/></td>
+              </tr>
+              
               
               <tr>
                 <th class="shrink">Milestone:</th>
@@ -97,22 +102,11 @@
             </tr>
 
               <tr>
-                <th class="shrink">Challenge:</th>
-                <td class="shrink">
-                  <select name="challenge">
-                    <% for (String challenge: ViewHelper.getChallenges()) {%>
-                    <option <%= challenge.equalsIgnoreCase("average") ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(challenge)%>"><%= StringEscapeUtils.escapeHtml(ViewHelper.getChallenge(challenge))%></option>
-                    <% }%>
-                  </select>
-                </td>
-              </tr>
-
-              <tr>
                 <th class="shrink">Priority:</th>
                 <td class="shrink">
                   <select name="priority">
                     <% for (String priority: ViewHelper.getPriorities()) {%>
-                    <option <%= priority.equalsIgnoreCase("normal") ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(priority)%>"><%= StringEscapeUtils.escapeHtml(ViewHelper.getPriority(priority))%></option>
+                    <option <%= priority.equals(task.getPriority() + "") ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(priority)%>"><%= StringEscapeUtils.escapeHtml(ViewHelper.getPriority(priority))%></option>
                     <% }%>
                   </select>
                 </td>

@@ -55,24 +55,6 @@ public class StartTask implements Action {
                 TaskHelper.save(task);
                 StatisticHelper.update();
 
-                if(task.getArtifact().getId().longValue()!=TaskHelper.OTHER_ARTEFACT_ID) {
-                    long price = task.getSizeEstimated();
-
-                    if(task.getChallengeEnum()==Task.Challenge.DIFFICULT)
-                        price *= 2;
-                    else if(task.getChallengeEnum()==Task.Challenge.EASY)
-                        price /= 2;
-
-                    if(task.getPriorityEnum()==Task.Priority.HIGH)
-                        price*=2;
-                    else if(task.getPriorityEnum()==Task.Priority.LOW)
-                        price /=2;
-
-                    System.err.println("{task} " + user + " started task #" + task.getId() + " (calculated price is "+price+")");
-
-                    TaskHelper.changeAccount(user, price);
-                    TaskHelper.changeAccount(task.getCreator(), -price);
-                }
 
                 data.setSessionAttribute("task", task);
 

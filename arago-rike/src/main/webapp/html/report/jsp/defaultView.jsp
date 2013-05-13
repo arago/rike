@@ -69,7 +69,7 @@
 
                         poll = function(noRepoll)
                         {
-                            $("#<portlet:namespace />chart").width($('#<portlet:namespace />PortletContent').width() - 10).height($("div.portletbox").height()-40).show();
+                            $("#<portlet:namespace />chart").width($('#<portlet:namespace />PortletContent').width() - 20).height($("div.portletbox").height()-40).show();
                             var placeholder = $("#<portlet:namespace />chart");            
                             try
                             {

@@ -20,43 +20,21 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.arago.rike.zombie;
+/**
+ *
+ */
+package de.arago.rike.zombie.action;
 
-import de.arago.portlet.AragoPortlet;
-import de.arago.portlet.util.SecurityHelper;
+import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
 
-import java.io.IOException;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletException;
-
-public class Zombies extends AragoPortlet {
+public class ShowTasks implements Action {
 
     @Override
-    public void init(PortletConfig config) throws PortletException {
+    public void execute(IDataWrapper data) throws Exception {
 
-        super.init(config);
-    }
+        data.setSessionAttribute("targetView", "viewTasks");
 
-    @Override
-    public void initSession(IDataWrapper data) throws PortletException, IOException {
-        
-    }
-
-    @Override
-    protected boolean checkViewData(IDataWrapper data) {
-        data.setSessionAttribute("userEmail", SecurityHelper.getUserEmail(data.getUser()));
-        
-        if (!SecurityHelper.isLoggedIn(data.getUser()))
-        {
-          return false;
-        }
-        
-        
-        data.setSessionAttribute("overdue-milestones", ZombieHelper.getOverdueMilestones());
-        data.setSessionAttribute("overdue-tasks", ZombieHelper.getOverdueTasks());
-        
-        return true;
     }
 }

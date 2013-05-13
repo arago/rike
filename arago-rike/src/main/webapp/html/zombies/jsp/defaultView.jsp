@@ -1,3 +1,4 @@
+<%@page import="de.arago.rike.data.Milestone"%>
 <%@page import="de.arago.rike.util.TaskHelper"%>
 <%@page import="de.arago.portlet.jsp.UserService"%>
 <%@page import="de.arago.portlet.jsp.JspUserService"%>
@@ -20,6 +21,7 @@
 <%
   try {
     UserService service = new JspUserService(renderRequest, portletSession);
+    List<Milestone> milestones = (List) portletSession.getAttribute("overdue-milestones");
 %>
 
 <div class="portlet big <%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "maximized" : ""%>" style="" id="<portlet:namespace />Portlet">
@@ -28,7 +30,7 @@
     <div class="head">
       <h1>
         
-        <span>Zombies</span>
+        <span>Exceeded date</span>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.zombies');" title="Help"><span class="icon">S</span></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
@@ -39,30 +41,24 @@
         </span>
       </h1>
       <div class="inner">
-        <form id="<portlet:namespace/>Form" class="dropDown" method="post" action="<portlet:actionURL portletMode="view"/>" style="display:none; ">
-          <div>
-            <input type="hidden" name="action" value="endTask" />
-            <input type="hidden" name="id" value="" />
-          </div>
-          <table>
-            <tbody>
-              <tr>
-                <td>Hours spent:</td>
-                <td><input type="number" min="1" class="rike-input" name="hours_spent" value="1" /></td>
-              </tr>
-              <tr>
-                <td><input type="reset" value="Abort" onclick="$(this.form).hide();"/></td>
-                <td style="text-align:right"><input type="submit" value="Close Task" /></td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
+        <div class="left">
+          
+        <ul class="tabbar">
+          <li class="selected"><a href="#">Graph</a></li>
+          <li><a href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones</a></li>
+          <li><a href="<portlet:actionURL portletMode="view"/>&action=showTasks">Tasks</a></li>
+        </ul>
+        </div>
       </div>
+        
+      
     </div>
     <div class="content">
 
-         <svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" >
-<g transform="scale(2)">
+      TODO svg
+      
+       <svg version="1.1" id="Ebene_1xdasdfasdsdf" xmlns="http://www.w3.org/2000/svg" >
+<g transform="scale(1)">
   <line fill="none" stroke="#404041" stroke-linejoin="round" x1="114.667" y1="232.881" x2="407.823" y2="232.881"/>
   <line fill="none" stroke="#231F20" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" x1="114" y1="233.376" x2="114" y2="95.495"/>
   <polygon fill="#404041" points="406.364,237.867 414.999,232.881 406.364,227.895 "/>

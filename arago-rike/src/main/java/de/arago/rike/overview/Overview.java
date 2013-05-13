@@ -48,7 +48,7 @@ public class Overview extends AragoPortlet {
   {
     super.init();
     
-    scheduler.scheduleAtFixedRate(new StatisticHelper(), 15, 15, TimeUnit.MINUTES);
+    scheduler.scheduleAtFixedRate(new StatisticHelper(), 1, 1, TimeUnit.HOURS);
     StatisticHelper.update();
   }
   

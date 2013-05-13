@@ -176,7 +176,7 @@
             <tr style="<%= currentTask != null && currentTask.getId().equals(task.getId()) ? "font-weight:bold" : ""%>" class="task-<%= task.getId()%>">
               <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getId().toString())%></td>
               <td class="shrink <%= ViewHelper.getTaskStatusColorClass(task)%>"></td>
-              <td class="shrink <%= ViewHelper.getTaskPriorityColorClass(task)%>"></td>
+              <td class="shrink"><%= task.getPriority()%></td>
               <td class="last shrink"><a href="<portlet:actionURL portletMode="view" />&action=selectTask&id=<%= URLEncoder.encode(task.getId().toString(), "UTF-8")%>"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></a>
                 <% if (task.getOwner() != null && !task.getOwner().isEmpty()) {%>
                 <br />

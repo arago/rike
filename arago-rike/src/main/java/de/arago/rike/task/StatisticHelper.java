@@ -32,9 +32,7 @@ import org.hibernate.SQLQuery;
 
 public final class StatisticHelper implements Runnable {
     private static final String[] queries = new String[] {
-        "UPDATE tasks SET size_adjusted=size_estimated WHERE challenge='average';",
-        "UPDATE tasks SET size_adjusted=size_estimated*2 WHERE challenge='difficult';",
-        "UPDATE tasks SET size_adjusted=size_estimated/2 WHERE challenge='easy';",
+        "UPDATE tasks SET size_adjusted=size_estimated ",
         "DELETE FROM task_stat WHERE DATEDIFF(CURDATE( ),moment)>360 OR CURDATE( )=moment;",
         "INSERT INTO task_stat (summe_size,count_id,milestone_id,artifact_id,task_status,moment) SELECT sum(size_adjusted),count(id),milestone_id,artifact_id,task_status,CURDATE() FROM tasks WHERE milestone_id IS NOT NULL GROUP BY milestone_id,artifact_id,task_status;",
 
@@ -63,8 +61,8 @@ public final class StatisticHelper implements Runnable {
                     helper.finish(q);
                 }
             }
-        } catch(Exception e) {
-            e.printStackTrace(System.err);
+        } catch(Throwable t) {
+            t.printStackTrace(System.err);
         }
     }
 }

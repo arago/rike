@@ -45,6 +45,18 @@ public class TaskHelper {
     private static final String POST_HOOK = System.getProperty(TaskHelper.class.getName() + ".postLogHook", "").trim();
     public static final long OTHER_ARTEFACT_ID = 18;
 
+    private static final int hourOffsetToStartTask;
+    
+    static 
+    {
+      try
+      {
+        hourOffsetToStartTask = Integer.valueOf(System.getProperty("de.arago.rike.timeOffset", "0"), 10) * 60 * 60 * 1000;
+      } catch(Exception ex) {
+        throw new ExceptionInInitializerError(ex);
+      } 
+    }
+    
     private static DataHelperRike<Task> taskHelper() {
         return new DataHelperRike<Task>(Task.class);
     }
@@ -171,7 +183,7 @@ public class TaskHelper {
       
         if (!task.getRatedBy().equals(user)) return true;
 
-        if (task.getCreated().getTime() < (System.currentTimeMillis() - 24 * 60 * 60 * 1000)) return true;
+        if (task.getCreated().getTime() < (System.currentTimeMillis() - hourOffsetToStartTask)) return true;
 
         return false;
     }

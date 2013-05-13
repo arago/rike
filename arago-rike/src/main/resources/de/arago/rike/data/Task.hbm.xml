@@ -17,8 +17,8 @@
     <property column="task_status" name="status"/>
     <property column="size_estimated" name="sizeEstimated"/>
     <property column="hours_spent" name="hoursSpent"/>
-    <property name="challenge"/>
     <property name="priority"/>
+    <property column="due_date" name="dueDate"/>
     <many-to-one class="de.arago.rike.data.Milestone" column="milestone_id" name="milestone" not-null="false"/>
     <many-to-one class="de.arago.rike.data.Artifact" column="artifact_id" name="artifact" not-null="false"/>
     <!--

@@ -139,14 +139,9 @@
 
             <tr> 
               <th class="shrink">Priority:</th>
-              <td class="shrink"><%= ViewHelper.getPriority(task.getPriorityEnum())%></td>
+              <td class="shrink"><%= ViewHelper.getPriority(task.getPriority())%></td>
             </tr>
 
-            <tr>
-              <th class="shrink">Challenge:</th>
-              <td class="shrink"><%= ViewHelper.getChallenge(task.getChallengeEnum())%></td>
-            </tr>
-            
             <tr>
               <th class="shrink">Rated:</th>
               <td class="shrink">on <%= StringEscapeUtils.escapeHtml(service.formatDate(task.getRated()))%> by <%= ViewHelper.formatUser(task.getRatedBy())%></td>
