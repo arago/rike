@@ -9,7 +9,6 @@
     <property name="creator"/>
     <property name="created"/>
     <property name="client"/>
-    <property column="short_name" name="shortName"/>
     <property name="url" not-null="false"/>
   </class>
 </hibernate-mapping>

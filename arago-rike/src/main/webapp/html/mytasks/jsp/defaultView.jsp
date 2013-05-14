@@ -83,7 +83,7 @@
           </tbody>
         </table>
     </div>     
-          
+
     <div class="footer">
       <div class="inner">
         <%
@@ -93,7 +93,7 @@
           }
         %>
 
-        Size of my tasks: <%= size%>
+        Time of my tasks: <%= size%>
       </div>  
     </div>
   </div>

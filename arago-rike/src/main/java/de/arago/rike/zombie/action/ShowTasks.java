@@ -23,39 +23,18 @@
 /**
  *
  */
-package de.arago.rike.task.action;
+package de.arago.rike.zombie.action;
 
 import de.arago.portlet.Action;
-import de.arago.portlet.util.SecurityHelper;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.data.Artifact;
-import de.arago.rike.data.DataHelperRike;
 
-import java.util.Date;
-
-public class SaveArtifact implements Action {
+public class ShowTasks implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
 
-        DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
-        Artifact artifact = null;
+        data.setSessionAttribute("targetView", "viewTasks");
 
-        if (data.getRequestAttribute("id") != null && !data.getRequestAttribute("id").isEmpty()) {
-            artifact = helper.find(data.getRequestAttribute("id"));
-        }
-
-        if (artifact == null) artifact = new Artifact();
-
-        artifact.setName(data.getRequestAttribute("name"));
-        artifact.setUrl(data.getRequestAttribute("url"));
-        artifact.setCreated(new Date());
-        artifact.setCreator(SecurityHelper.getUser(data.getUser()).getEmailAddress());
-        artifact.setClient("");
-
-        helper.save(artifact);
-
-        data.removeSessionAttribute("targetView");
     }
 }

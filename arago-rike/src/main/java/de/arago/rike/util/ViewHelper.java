@@ -29,8 +29,6 @@ import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
 import de.arago.rike.data.TaskLog;
 import de.arago.rike.data.TaskUser;
-import de.arago.rike.data.Task.Challenge;
-import de.arago.rike.data.Task.Priority;
 import de.arago.rike.data.Task.Status;
 
 import java.io.UnsupportedEncodingException;
@@ -43,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -50,8 +49,7 @@ import org.hibernate.criterion.Order;
 
 public class ViewHelper {
 
-    private static final Map<String, String> challengeNames = new HashMap<String, String>();
-    private static final List<String> challenges = new LinkedList<String>();
+
     private static final Map<String, String> priorityNames = new HashMap<String, String>();
     private static final List<String> priorities = new LinkedList<String>();
     private static final Map<String, String> statusNames = new HashMap<String, String>();
@@ -59,21 +57,11 @@ public class ViewHelper {
     private static final Map<String, String> statusColors = new HashMap<String, String>();
 
     static {
-        challenges.add(Challenge.DIFFICULT.toString());
-        challenges.add(Challenge.AVERAGE.toString());
-        challenges.add(Challenge.EASY.toString());
-
-        challengeNames.put(Challenge.DIFFICULT.toString(), "hard");
-        challengeNames.put(Challenge.AVERAGE.toString(), "normal");
-        challengeNames.put(Challenge.EASY.toString(), "easy");
-
-        priorities.add(Priority.HIGH.toString());
-        priorities.add(Priority.NORMAL.toString());
-        priorities.add(Priority.LOW.toString());
-
-        priorityNames.put(Priority.HIGH.toString(), "high");
-        priorityNames.put(Priority.NORMAL.toString(), "normal");
-        priorityNames.put(Priority.LOW.toString(), "low");
+      for (int i = 0; i < 10; ++i)
+      {
+        priorities.add(i + "");
+        priorityNames.put(i + "", i + "");
+      }  
 
         status.add(Status.UNKNOWN.toString());
         status.add(Status.OPEN.toString());
@@ -134,29 +122,18 @@ public class ViewHelper {
             return "<a target='_blank' href='" + escape(path) + "'>" + escape(path) + "</a>";
         }
     }
-
-    public static List<String> getChallenges() {
-        return challenges;
-    }
-
-    public static String getChallenge(Challenge what) {
-        return getChallenge(what.toString());
-    }
-
-    public static String getChallenge(String what) {
-        return challengeNames.get(what.toUpperCase());
-    }
-
+ 
     public static List<String> getPriorities() {
         return priorities;
     }
-
-    public static String getPriority(Priority what) {
-        return getPriority(what.toString());
+    
+    
+    public static String getPriority(int what) {
+        return priorityNames.get(what + "");
     }
 
     public static String getPriority(String what) {
-        return priorityNames.get(what.toUpperCase());
+        return priorityNames.get(what);
     }
 
     public static String getTaskLogColorClass(TaskLog log) {
@@ -186,7 +163,17 @@ public class ViewHelper {
     }
 
     public static String getTaskPriorityColorClass(Task task) {
-        return "priority-" + task.getPriority();
+      
+      int p = task.getPriority();
+      
+      if (p <= 3)
+      {
+        return "priority-high";
+      } else if (p >= 4 && p < 7) {
+        return "priority-normal";
+      } else {
+        return "priority-low";
+      }
     }
 
     public static List<TaskUser> getAvailableUsers() {
@@ -231,6 +218,11 @@ public class ViewHelper {
         return data;
     }
 
+    public static int getDayDifference(Date date)
+    {
+      return (int)( (new Date().getTime() - date.getTime()) / (1000 * 60 * 60 * 24) );
+    }  
+    
     public static List<Artifact> getAvailableArtifacts() {
         DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
         return helper.list(helper.filter().addOrder(Order.asc("name")));

@@ -31,6 +31,7 @@ import de.arago.data.IDataWrapper;
 
 public class AbortCreate implements Action {
 
+    @Override
     public void execute(IDataWrapper data) throws Exception {
         data.removeSessionAttribute("targetView");
         data.removeSessionAttribute("task");

@@ -31,6 +31,7 @@ import de.arago.data.IDataWrapper;
 
 public class EditMilestone implements Action {
 
+    @Override
     public void execute(IDataWrapper data) throws Exception {
 
         data.setSessionAttribute("targetView", "viewEditMilestone");

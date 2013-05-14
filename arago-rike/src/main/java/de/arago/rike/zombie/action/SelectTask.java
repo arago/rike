@@ -23,39 +23,26 @@
 /**
  *
  */
-package de.arago.rike.task.action;
+package de.arago.rike.zombie.action;
 
 import de.arago.portlet.Action;
-import de.arago.portlet.util.SecurityHelper;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.data.Artifact;
-import de.arago.rike.data.DataHelperRike;
+import de.arago.rike.util.TaskHelper;
 
-import java.util.Date;
+import java.util.HashMap;
 
-public class SaveArtifact implements Action {
+public class SelectTask implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
 
-        DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
-        Artifact artifact = null;
+        if (data.getRequestAttribute("id") != null) {
+            HashMap<String, Object> notificationParam = new HashMap<String, Object>();
 
-        if (data.getRequestAttribute("id") != null && !data.getRequestAttribute("id").isEmpty()) {
-            artifact = helper.find(data.getRequestAttribute("id"));
+            notificationParam.put("id", data.getRequestAttribute("id"));
+            data.setEvent("TaskSelectNotification", notificationParam);
+            data.setSessionAttribute("task", TaskHelper.getTask(data.getRequestAttribute("id")));
         }
-
-        if (artifact == null) artifact = new Artifact();
-
-        artifact.setName(data.getRequestAttribute("name"));
-        artifact.setUrl(data.getRequestAttribute("url"));
-        artifact.setCreated(new Date());
-        artifact.setCreator(SecurityHelper.getUser(data.getUser()).getEmailAddress());
-        artifact.setClient("");
-
-        helper.save(artifact);
-
-        data.removeSessionAttribute("targetView");
     }
 }

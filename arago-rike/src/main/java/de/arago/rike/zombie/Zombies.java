@@ -20,42 +20,43 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-/**
- *
- */
-package de.arago.rike.task.action;
+package de.arago.rike.zombie;
 
-import de.arago.portlet.Action;
+import de.arago.portlet.AragoPortlet;
 import de.arago.portlet.util.SecurityHelper;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.data.Artifact;
-import de.arago.rike.data.DataHelperRike;
 
-import java.util.Date;
+import java.io.IOException;
+import javax.portlet.PortletConfig;
+import javax.portlet.PortletException;
 
-public class SaveArtifact implements Action {
+public class Zombies extends AragoPortlet {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void init(PortletConfig config) throws PortletException {
 
-        DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
-        Artifact artifact = null;
+        super.init(config);
+    }
 
-        if (data.getRequestAttribute("id") != null && !data.getRequestAttribute("id").isEmpty()) {
-            artifact = helper.find(data.getRequestAttribute("id"));
+    @Override
+    public void initSession(IDataWrapper data) throws PortletException, IOException {
+        
+    }
+
+    @Override
+    protected boolean checkViewData(IDataWrapper data) {
+        data.setSessionAttribute("userEmail", SecurityHelper.getUserEmail(data.getUser()));
+        
+        if (!SecurityHelper.isLoggedIn(data.getUser()))
+        {
+          return false;
         }
-
-        if (artifact == null) artifact = new Artifact();
-
-        artifact.setName(data.getRequestAttribute("name"));
-        artifact.setUrl(data.getRequestAttribute("url"));
-        artifact.setCreated(new Date());
-        artifact.setCreator(SecurityHelper.getUser(data.getUser()).getEmailAddress());
-        artifact.setClient("");
-
-        helper.save(artifact);
-
-        data.removeSessionAttribute("targetView");
+        
+        
+        data.setSessionAttribute("overdue-milestones", ZombieHelper.getOverdueMilestones());
+        data.setSessionAttribute("overdue-tasks", ZombieHelper.getOverdueTasks());
+        
+        return true;
     }
 }

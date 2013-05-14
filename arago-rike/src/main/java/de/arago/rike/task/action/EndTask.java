@@ -45,7 +45,6 @@ public class EndTask implements Action {
 
             if (task.getStatusEnum() == Task.Status.IN_PROGRESS && task.getOwner().equals(user)) {
                 task.setEnd(new Date());
-                task.setSize(Integer.valueOf(data.getRequestAttribute("size"), 10));
                 int hours = Integer.valueOf(data.getRequestAttribute("hours_spent"), 10);
                 task.setHoursSpent(hours);
                 task.setStatus(Task.Status.DONE);

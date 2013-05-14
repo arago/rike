@@ -34,9 +34,30 @@ import java.io.IOException;
 import javax.portlet.PortletException;
 
 import de.arago.portlet.util.SecurityHelper;
+import de.arago.rike.task.StatisticHelper;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Overview extends AragoPortlet {
 
+  private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+  
+  @Override
+  public void init() throws PortletException
+  {
+    super.init();
+    
+    scheduler.scheduleAtFixedRate(new StatisticHelper(), 1, 1, TimeUnit.HOURS);
+    StatisticHelper.update();
+  }
+  
+  @Override
+  public void destroy()
+  {
+    scheduler.shutdownNow();
+  }
+  
     @Override
     public void initSession(IDataWrapper data) throws PortletException, IOException {
         if (!SecurityHelper.isLoggedIn(data.getUser())) {

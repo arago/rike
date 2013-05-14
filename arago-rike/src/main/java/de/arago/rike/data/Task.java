@@ -37,27 +37,20 @@ public class Task implements Serializable {
     private String creator;
     private Date created;
     private Integer sizeEstimated;
-    private Integer size;
     private Integer hoursSpent;
     private Milestone milestone;
     private Artifact artifact;
-    private String priority;
-    private String challenge;
+    private Integer priority;
     private String status;
+    private Date rated;
+    private String ratedBy;
+    private Date dueDate;
+
+  
 
     public static enum Status {
 
         UNKNOWN, OPEN, IN_PROGRESS, DONE
-    }
-
-    public static enum Challenge {
-
-        DIFFICULT, AVERAGE, EASY
-    }
-
-    public static enum Priority {
-
-        HIGH, NORMAL, LOW
     }
 
     public void setId(Long id) {
@@ -131,13 +124,30 @@ public class Task implements Serializable {
     public String getCreator() {
         return creator;
     }
+    
+    public String getRatedBy() {
+        return ratedBy;
+    }
+    
+    public void setRatedBy(String user)
+    {
+      this.ratedBy = user;
+    }
 
     public void setCreated(Date created) {
         this.created = created;
     }
+    
+    public void setRated(Date rated) {
+        this.rated = rated;
+    }
 
     public Date getCreated() {
         return created;
+    }
+    
+    public Date getRated() {
+        return rated;
     }
 
     public Integer getSizeEstimated() {
@@ -146,14 +156,6 @@ public class Task implements Serializable {
 
     public void setSizeEstimated(Integer sizeEstimated) {
         this.sizeEstimated = sizeEstimated;
-    }
-
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
     }
 
     public Integer getHoursSpent() {
@@ -172,37 +174,14 @@ public class Task implements Serializable {
         this.milestone = milestone;
     }
 
-    public String getPriority() {
+    public int getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
-        setPriority(Priority.valueOf(priority.toUpperCase()));
+    public void setPriority(Integer priority) {
+        this.priority = priority;
     }
 
-    public String getChallenge() {
-        return challenge;
-    }
-
-    public Challenge getChallengeEnum() {
-        return Challenge.valueOf(challenge.toUpperCase());
-    }
-
-    public void setChallenge(String challenge) {
-        setChallenge(Challenge.valueOf(challenge.toUpperCase()));
-    }
-
-    public void setChallenge(Challenge s) {
-        challenge = s.toString().toLowerCase();
-    }
-
-    public void setPriority(Priority p) {
-        priority = p.toString().toLowerCase();
-    }
-
-    public Priority getPriorityEnum() {
-        return Priority.valueOf(priority.toUpperCase());
-    }
 
     public void setArtifact(Artifact what) {
         artifact = what;
@@ -211,4 +190,15 @@ public class Task implements Serializable {
     public Artifact getArtifact() {
         return artifact;
     }
+    
+    public void setDueDate(Date when)
+    {
+      dueDate = when;
+    }
+    
+    public Date getDueDate()
+    {
+      return dueDate;
+    }
+
 }

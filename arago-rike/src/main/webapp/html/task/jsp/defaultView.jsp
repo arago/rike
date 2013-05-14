@@ -64,11 +64,7 @@
             <tbody>
               <tr>
                 <td>Hours spent:</td>
-                <td><input type="text" class="positive-integer" name="hours_spent" value="1" /></td>
-              </tr>
-              <tr>
-                <td>Size:</td>
-                <td><input type="text"  class="positive-integer" name="size" value="<%= StringEscapeUtils.escapeHtml(task.getSizeEstimated().toString())%>" /></td>
+                <td><input type="number" min="1" class="rike-input" name="hours_spent" value="1" /></td>
               </tr>
               <tr>
                 <td><input type="reset" value="Abort" onclick="$(this.form).hide();"/></td>
@@ -77,25 +73,6 @@
             </tbody>
           </table>
         </form>
-        <script type="text/javascript">
-          $(function()
-          {
-            var normalize = function()
-            {
-              if (!this.value.length) return;
-
-              this.value = this.value.replace(/\D+/g, "");
-                  };
-
-            $('#<portlet:namespace/>Form .positive-integer').keydown(normalize)
-            .keyup(normalize)
-            .change(normalize)
-            .blur(normalize)
-            .focus(normalize);
-
-          });
-
-        </script>
         <% } %>
       </div>
     </div>
@@ -106,26 +83,7 @@
         <table>
           <tbody>
             <tr>
-              <th class="shrink">URL</th>
-              <td class="shrink"><%= ViewHelper.formatURL(task.getUrl())%></td>
-            </tr>
-
-            <tr>
-              <th class="shrink">Artifact</th>
-              <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getArtifact().getName())%></td>
-            </tr>
-
-            <% if (task.getMilestone() != null) {%>
-
-            <tr>
-              <th class="shrink">Milestone</th>
-              <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getMilestone().getTitle())%></td>
-            </tr>
-
-            <%  }%>
-
-            <tr>
-              <th class="shrink">Status</th>
+              <th class="shrink">Status:</th>
               <td class="shrink">
                 <%
                   switch (task.getStatusEnum()) {
@@ -149,6 +107,15 @@
 
               </td>
             </tr>
+            
+            <tr>
+              <th class="shrink">URL:</th>
+              <td class="shrink"><%= ViewHelper.formatURL(task.getUrl())%></td>
+            </tr>
+
+            
+
+            
 
             <% if (task.getStatusEnum() != Task.Status.UNKNOWN) {%>
 
@@ -156,33 +123,45 @@
             <% if (task.getStatusEnum() == Status.DONE) {%>
 
             <tr>
-              <th class="shrink">Hours spent:</th>
-              <td class="shrink"><%= task.getHoursSpent()%></td>
+              <th class="shrink">Time:</th>
+              <td class="shrink"><%= task.getSizeEstimated()%> hours estimated, <%= task.getHoursSpent()%> hours spent</td>
             </tr>
 
+            <% } else {%>
+            
             <tr>
-              <th class="shrink">Size:</th>
-              <td class="shrink"><%= task.getSize()%></td>
+              <th class="shrink">Estimated time:</th>
+              <td class="shrink"><%= task.getSizeEstimated()%> hours</td>
             </tr>
-
-            <% }%>
-
-            <tr>
-              <th class="shrink">Estimated Size:</th>
-              <td class="shrink"><%= task.getSizeEstimated()%></td>
-            </tr>
+            
+            <% } %>
+            
 
             <tr> 
               <th class="shrink">Priority:</th>
-              <td class="shrink"><%= ViewHelper.getPriority(task.getPriorityEnum())%></td>
+              <td class="shrink"><%= ViewHelper.getPriority(task.getPriority())%></td>
             </tr>
 
             <tr>
-              <th class="shrink">Challenge:</th>
-              <td class="shrink"><%= ViewHelper.getChallenge(task.getChallengeEnum())%></td>
+              <th class="shrink">Rated:</th>
+              <td class="shrink">on <%= StringEscapeUtils.escapeHtml(service.formatDate(task.getRated()))%> by <%= ViewHelper.formatUser(task.getRatedBy())%></td>
             </tr>
 
             <% }%>
+            
+            <tr>
+              <th class="shrink">Artifact:</th>
+              <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getArtifact().getName())%></td>
+            </tr>
+
+            <% if (task.getMilestone() != null) {%>
+
+            <tr>
+              <th class="shrink">Milestone:</th>
+              <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getMilestone().getTitle())%></td>
+            </tr>
+
+            <%  }%>
 
             <tr>
               <th class="shrink">Created:</th>

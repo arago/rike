@@ -10,6 +10,7 @@
     <property name="url"/>
     <property name="creator"/>
     <property name="created"/>
+    <property name="performance" />
     <property column="due_date" name="dueDate"/>
   </class>
 </hibernate-mapping>

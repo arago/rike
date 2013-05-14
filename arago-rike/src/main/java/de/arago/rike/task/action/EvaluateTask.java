@@ -29,11 +29,13 @@ import de.arago.portlet.Action;
 import de.arago.portlet.util.SecurityHelper;
 
 import de.arago.data.IDataWrapper;
+import de.arago.rike.data.Artifact;
 import de.arago.rike.util.TaskHelper;
 import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
 import de.arago.rike.task.StatisticHelper;
+import java.text.SimpleDateFormat;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -41,6 +43,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 
 public class EvaluateTask implements Action {
 
+    @Override
     public void execute(IDataWrapper data) throws Exception {
 
         if (data.getRequestAttribute("id") != null) {
@@ -51,14 +54,34 @@ public class EvaluateTask implements Action {
 
             if (task.getStatusEnum() == Task.Status.UNKNOWN || task.getStatusEnum() == Task.Status.OPEN) {
                 task.setMilestone(new DataHelperRike<Milestone>(Milestone.class).find(data.getRequestAttribute("milestone")));
-                task.setSizeEstimated(Integer.valueOf(data.getRequestAttribute("size_estimated")));
-                task.setChallenge(data.getRequestAttribute("challenge"));
-                task.setPriority(data.getRequestAttribute("priority"));
-                task.setCreated(new Date());
-                task.setCreator(user);
+                task.setArtifact(new DataHelperRike<Artifact>(Artifact.class).find(data.getRequestAttribute("artifact")));
+         
+                try {
+                    task.setSizeEstimated(Integer.valueOf(data.getRequestAttribute("size_estimated"), 10));
+                } catch (Exception ignored) {
+                }
+                
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                    task.setDueDate(format.parse(data.getRequestAttribute("due_date")));
+                } catch(Exception ignored) {}
+                
+                task.setTitle(data.getRequestAttribute("title"));
+                task.setUrl(data.getRequestAttribute("url"));
+                int priority = 5;
+        
+                try {
+                    priority = Integer.valueOf(data.getRequestAttribute("priority"), 10);
+                } catch (Exception ignored) {
+                }
+
+                task.setPriority(priority);
+                task.setRated(new Date());
+                task.setRatedBy(user);
                 task.setStatus(Task.Status.OPEN);
 
                 TaskHelper.save(task);
+                
                 StatisticHelper.update();
 
                 data.setSessionAttribute("task", task);
