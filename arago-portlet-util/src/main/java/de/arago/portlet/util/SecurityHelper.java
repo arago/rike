@@ -84,7 +84,7 @@ public class SecurityHelper {
 
     private static User getUserFromCookies(HttpServletRequest request) throws Exception {
         // https://www.everit.biz/web/guest/everit-blog/-/blogs/getting-current-liferay-user-in-a-standalone-webapp
-        final Cookie[] cookies	= request.getCookies();
+        final Cookie[] cookies	= request.getCookies() == null?new Cookie[0]:request.getCookies();
         String userId			= null;
         String password		= null;
         String companyId	= null;
@@ -208,12 +208,12 @@ public class SecurityHelper {
         return user != null && user.length() > 0;
     }
 
-    public static String[] getUserGroups(String user) {
-        if (user == null || user.isEmpty()) return new String[0];
+    public static String[] getUserGroups(String userId) {
+        if (userId == null || userId.isEmpty()) return new String[0];
         ArrayList<String> result = new ArrayList<String>();
 
         try {
-            List<UserGroup> groups = UserGroupLocalServiceUtil.getUserUserGroups(Long.valueOf(user,10));
+            List<UserGroup> groups = UserGroupLocalServiceUtil.getUserUserGroups(Long.valueOf(userId,10));
             for(UserGroup g: groups) {
                 result.add(g.getName());
             }

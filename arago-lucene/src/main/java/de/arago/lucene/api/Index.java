@@ -12,16 +12,19 @@ import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.TopDocsCollector;
 import org.apache.lucene.search.TopScoreDocCollector;
+import org.apache.lucene.search.TotalHitCountCollector;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.store.NIOFSDirectory;
 import org.apache.lucene.util.Version;
 
 public class Index<T> {
 
     private final IndexConfig config;
-    private IndexWriter writer;
-    private IndexSearcher searcher;
-    private long indexModificationTime = 0;
+    private volatile IndexWriter writer;
+    private volatile IndexSearcher searcher;
+    private volatile long indexModificationTime = 0;
 
     public Index(IndexConfig config) {
         this.config = config;
@@ -38,7 +41,7 @@ public class Index<T> {
             closeSearcher();
         if(searcher == null) {
             try {
-                FSDirectory directory = FSDirectory.open(new File(config.getPath()));
+                FSDirectory directory = NIOFSDirectory.open(new File(config.getPath()));
                 //searcher = new IndexSearcher(directory);
                 IndexReader reader = IndexReader.open(directory);
                 searcher = new IndexSearcher(reader);
@@ -54,11 +57,8 @@ public class Index<T> {
     protected IndexWriter getWriter() {
         if (writer == null) {
             try {
-                FSDirectory directory = FSDirectory.open(new File(config.getPath()));
+                FSDirectory directory = NIOFSDirectory.open(new File(config.getPath()));
                 if (IndexWriter.isLocked(directory)) {
-                    // TODO XXX FIXME wtf
-                    System.err.println("WARNING: XXX unlocking index ... due to redeployment of portlets");
-
                     IndexWriter.unlock(directory);
                 }
 
@@ -71,16 +71,9 @@ public class Index<T> {
         return writer;
     }
 
-    private volatile Converter<T> c = null;
-
     private Converter<T> createConverter() {
         try {
-            if(c==null) {
-                c = (Converter<T>) config.getConverterClass().newInstance();
-                if(this.exists())
-                    c.init(this.getSearcher());
-            }
-            return c;
+          return (Converter<T>) config.getConverterClass().newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -167,6 +160,15 @@ public class Index<T> {
 
     }
 
+    public synchronized void commit()
+    {
+      try {
+        if (writer != null) writer.commit();
+      } catch(Exception ex) {
+        throw new RuntimeException(ex);
+      }
+    }
+
     public synchronized void remove(T o) {
         Term remove = createConverter().toLuceneID(o);
 
@@ -182,22 +184,51 @@ public class Index<T> {
         }
     }
 
+    public Query parse(final String q)
+    {
+      try
+      {
+        return new QueryParser(Version.LUCENE_36,Converter.FIELD_CONTENT, config.getAnalyzer()).parse(q);
+      } catch(ParseException ex) {
+        throw new RuntimeException("could not parse query " + q, ex);
+      }
+    }
+
     public Converter<T> query(String q, int maxResults) {
-        try {
-            return query(new QueryParser(Version.LUCENE_36,Converter.FIELD_CONTENT, config.getAnalyzer()).parse(q), maxResults);
-        } catch (ParseException ex) {
-            throw new RuntimeException(ex);
-        }
+        return query(parse(q), maxResults);
+    }
+
+    public Converter<T> query(String q, TopDocsCollector collector, int maxResults) {
+        return query(parse(q), collector, maxResults);
     }
 
     public Converter<T> query(Query q, int maxResults) {
 
-        TopScoreDocCollector collector = TopScoreDocCollector.create(maxResults,true);
+        return query(q, TopScoreDocCollector.create(maxResults,true), maxResults);
+    }
+
+    public long count(Query q)
+    {
+        TotalHitCountCollector collector = new TotalHitCountCollector();
+        
+        try {
+            IndexSearcher s = getSearcher();
+            s.search(q, collector);
+            
+            return collector.getTotalHits();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }  
+    
+    public Converter<T> query(Query q, TopDocsCollector collector, int maxResults) {
+
         Converter<T> converter = createConverter();
 
         try {
-            getSearcher().search(q, collector);
-            converter.setResult(collector.topDocs().scoreDocs);
+            IndexSearcher s = getSearcher();
+            s.search(q, collector);
+            converter.setResult(collector.topDocs().scoreDocs, s);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -223,7 +254,8 @@ public class Index<T> {
         return config;
     }
 
-    public void ready() {
-        c = null;
+    public static String escape(String in)
+    {
+      return QueryParser.escape(in);
     }
 }

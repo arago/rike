@@ -86,8 +86,6 @@ public class RenderDispatcher {
 
         Performance.timing("arago.portlet.dispatch.render", System.currentTimeMillis() - then);
         Performance.timing("arago.portlet.dispatch.render." + className + viewName, System.currentTimeMillis() - then);
-
-        System.err.println("{"+getClass().getName()+"} " + className + viewName + ": took " + (System.currentTimeMillis() - then));
     }
 
     /**

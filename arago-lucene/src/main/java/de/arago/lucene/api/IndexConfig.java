@@ -11,7 +11,7 @@ public class IndexConfig {
     private Class<? extends Converter<?>> converterClass;
     private String path;
     private Analyzer analyzer = null;
-    private Properties properties = new Properties();
+    private final Properties properties = new Properties();
 
     public Properties getProperties() {
         return properties;
@@ -30,6 +30,7 @@ public class IndexConfig {
     }
 
     public void setPath(String path) {
+        if (path == null || path.isEmpty()) throw new IllegalArgumentException("path cannot be empty");
         this.path = path;
     }
 
@@ -38,10 +39,6 @@ public class IndexConfig {
     }
 
     public String getPath() {
-        if (path == null) {
-            setPath("/tmp/index." + name + ".index");
-        }
-
         return path;
     }
 

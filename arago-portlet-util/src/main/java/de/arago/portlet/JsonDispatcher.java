@@ -70,7 +70,5 @@ public class JsonDispatcher extends PortletDispatcher<JsonAction> {
 
         Performance.timing("arago.portlet.dispatch.json", System.currentTimeMillis() - then);
         Performance.timing("arago.portlet.dispatch.json." + getNamespace() + actionName, System.currentTimeMillis() - then);
-
-        System.err.println("{"+getClass().getName()+"} " + actionName + ": took " + (System.currentTimeMillis() - then));
     }
 }

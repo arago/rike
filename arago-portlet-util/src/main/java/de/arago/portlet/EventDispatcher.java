@@ -87,7 +87,5 @@ public class EventDispatcher extends PortletDispatcher<Event> {
 
         Performance.timing("arago.portlet.dispatch.event", System.currentTimeMillis() - then);
         Performance.timing("arago.portlet.dispatch.event." + getNamespace() + name, System.currentTimeMillis() - then);
-
-        System.err.println("{"+getClass().getName()+"} " + name + ": took " + (System.currentTimeMillis() - then));
     }
 }
