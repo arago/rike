@@ -220,7 +220,7 @@ public class ViewHelper {
 
     public static int getDayDifference(Date date)
     {
-      return (int)( (new Date().getTime() - date.getTime()) / (1000 * 60 * 60 * 24) );
+      return (int) Math.ceil((date.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) ;
     }  
     
     public static List<Artifact> getAvailableArtifacts() {

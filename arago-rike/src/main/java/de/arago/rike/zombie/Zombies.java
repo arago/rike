@@ -53,7 +53,6 @@ public class Zombies extends AragoPortlet {
           return false;
         }
         
-        
         data.setSessionAttribute("overdue-milestones", ZombieHelper.getOverdueMilestones());
         data.setSessionAttribute("overdue-tasks", ZombieHelper.getOverdueTasks());
         
