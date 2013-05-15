@@ -61,6 +61,7 @@ CREATE TABLE `milestones` (
   `created` datetime NOT NULL,
   `creator` varchar(255) NOT NULL,
   `release_name` varchar(50) NOT NULL,
+  `performance` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `due_date` (`due_date`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
@@ -154,12 +155,15 @@ CREATE TABLE `tasks` (
   `size_estimated` int(11) DEFAULT '0',
   `task_status` set('unknown','open','in_progress','done') NOT NULL DEFAULT 'unknown',
   `challenge` set('difficult','average','easy') NOT NULL DEFAULT 'average',
-  `priority` set('high','normal','low') NOT NULL DEFAULT 'normal',
+  `priority` int(11) DEFAULT '5',
   `artifact_id` bigint(20) DEFAULT '18',
   `milestone_id` bigint(20) DEFAULT NULL,
   `creator` varchar(255) NOT NULL,
   `created` datetime NOT NULL,
   `size_adjusted` int(11) DEFAULT NULL,
+  `due_date` date DEFAULT NULL,
+  `rated_by` varchar(255) DEFAULT NULL,
+  `rated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
