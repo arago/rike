@@ -69,27 +69,23 @@
           
           <% for (OverdueMilestone o: milestones) { 
             Milestone stone = o.getMilestone();
-            int workPerWeek = (int) Math.ceil(stone.getPerformance() / 7.);
-          
-            int dueDaysLeft = ViewHelper.getDayDifference(stone.getDueDate());
-            int workLeftInDays = (int) Math.ceil(o.getHoursLeft() / 7.);
           %>
           
           <tr>
             <td>  
               <%=
-                service.formatDate(new Date(new Date().getTime() + ((workLeftInDays + 1) * 24 * 60 * 60 * 1000)), "yyyy-MM-dd")
+                service.formatDate(o.getEstimatedDoneDate(), "yyyy-MM-dd")
               %>
             </td>
             <td>
-              done in <%= workLeftInDays %> day(s)<br />
-              due in <%= dueDaysLeft %> day(s)<br /> 
-              <% if (dueDaysLeft > 0 && dueDaysLeft >= workLeftInDays) { %>
+              work left <%= o.getWorkLeftInHours()%>h<br />
+              time left <%= o.getDaysLeft() %>d<br />
+              work done in <%= o.getWorkDoneInDays() %>d<br />
+               
+              <% if (o.getDaysLeft() > 0 && o.getDaysLeft() >= o.getWorkDoneInDays()) { %>
                 <span style="color:green">in time</span>
-              <% } else if (dueDaysLeft <= 0) { %>
-                <span style="color:red">past due date</span>
-              <% } else if (dueDaysLeft < workLeftInDays) { %>
-                <span style="color:orange"><%= workLeftInDays - dueDaysLeft %> days late</span>
+              <% } else { %>
+                <span style="color:red"><%= o.getWorkDoneInDays() - o.getDaysLeft() %> days late</span>
               <% } %>
               </td>
             <td><%= StringEscapeUtils.escapeHtml(stone.getTitle()) %></td>
