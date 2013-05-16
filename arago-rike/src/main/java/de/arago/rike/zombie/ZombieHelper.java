@@ -45,17 +45,44 @@ public class ZombieHelper
     
     return ret;
   }  
-  
-  public static List<Task> getOverdueTasks()
-  {
-    DataHelperRike<Task> helper = new DataHelperRike<Task>(Task.class);
-    Criteria crit = helper.filter()
-                          .add(Restrictions.isNotNull("dueDate"))
-                          .add(Restrictions.lt("dueDate", new Date()))
-                          .add(Restrictions.ne("status", Task.Status.DONE.toString().toLowerCase()))
-                          .addOrder(Order.asc("dueDate"));
+/*=======
+public class ZombieHelper {
+
+    public static List<Milestone> getOverdueMilestones() {
+        DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
+
+        String str = "select id, (select sum(size_estimated) from tasks t where t.milestone_id = m.id and t.task_status != 'done') as hours_left from milestones m group by m.id having hours_left is not null;";
+
+        System.err.println("querying");
+        List<Milestone> list = helper.list();
+        List<Milestone> result = new ArrayList<Milestone>();
+
+        for (final Milestone o : list) {
+            System.err.println(o.getTitle()+" "+o.getDays());
+            if(o.getDays()>0)
+                result.add(o);
+        }
+        /*Criteria crit = helper.filter()
+         .add(Restrictions.isNotNull("dueDate"))
+         .add(Restrictions.lt("dueDate", new Date()))
+         .add(Restrictions.ne("status", Task.Status.DONE.toString().toLowerCase()))
+         .addOrder(Order.asc("dueDate"));
+>>>>>>> f2f509ff655c01c16e72d669cdb9c35b7799b66c
     
-    
-    return helper.list(crit);
-  }  
+         return helper.list(crit);
+
+        return result;
+    }*/
+
+    public static List<Task> getOverdueTasks() {
+        DataHelperRike<Task> helper = new DataHelperRike<Task>(Task.class);
+        Criteria crit = helper.filter()
+                .add(Restrictions.isNotNull("dueDate"))
+                .add(Restrictions.lt("dueDate", new Date()))
+                .add(Restrictions.ne("status", Task.Status.DONE.toString().toLowerCase()))
+                .addOrder(Order.asc("dueDate"));
+
+
+        return helper.list(crit);
+    }
 }
