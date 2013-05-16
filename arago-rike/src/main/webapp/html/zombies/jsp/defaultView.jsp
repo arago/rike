@@ -1,3 +1,4 @@
+<%@page import="de.arago.rike.zombie.OverdueMilestone"%>
 <%@page import="de.arago.rike.data.Milestone"%>
 <%@page import="de.arago.rike.util.TaskHelper"%>
 <%@page import="de.arago.portlet.jsp.UserService"%>
@@ -21,7 +22,7 @@
 <%
     try {
         UserService service = new JspUserService(renderRequest, portletSession);
-        List<Milestone> milestones = (List) portletSession.getAttribute("overdue-milestones");
+        List<OverdueMilestone> milestones = (List) portletSession.getAttribute("overdue-milestones");
 %>
 
 <div class="portlet big <%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "maximized" : ""%>" style="" id="<portlet:namespace />Portlet">
@@ -58,7 +59,9 @@
       <svg version="1.1" id="Ebene_1xdasdfasdsdf" xmlns="http://www.w3.org/2000/svg" >
         <g>
           <% int y = 10; %>     
-          <% for (Milestone stone : milestones) {%>
+          <% for (OverdueMilestone o : milestones) {
+            Milestone stone = o.getMilestone();
+          %>
           <text x="0" y="<%= y+10 %>"><%= stone.getTitle() %></text>
           <rect x="<%= 150 %>" y="<%= y %>" fill="#009736" width="<%= stone.getDays() %>" height="20"/>
           <% y += 25; %>     

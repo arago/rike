@@ -61,9 +61,7 @@
             <th>?</th>
             <th>Title</th>
             <th>Due Date</th>
-            <th></th>
             <th>Days overdue</th>
-            
           </tr>
           
         </thead>
@@ -77,9 +75,7 @@
             <td class="shrink <%= ViewHelper.getTaskStatusColorClass(task)%>"></td>
             <td><a href="<portlet:actionURL portletMode="view" />&action=selectTask&id=<%= URLEncoder.encode(task.getId().toString(), "UTF-8")%>"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></td>
             <td><%= service.formatDate(task.getDueDate(), "yyyy-MM-dd") %></td>
-            <td></td>
-            <td>+<%= ViewHelper.getDayDifference(task.getDueDate()) %></td>
-            
+            <td><%= Math.abs(ViewHelper.getDayDifference(task.getDueDate())) %></td>  
           </tr>
           
           <% } %>

@@ -1,3 +1,4 @@
+<%@page import="de.arago.rike.zombie.OverdueMilestone"%>
 <%@page import="de.arago.rike.data.Milestone"%>
 <%@page import="de.arago.rike.util.TaskHelper"%>
 <%@page import="de.arago.portlet.jsp.UserService"%>
@@ -21,7 +22,7 @@
 <%
   try {
     UserService service = new JspUserService(renderRequest, portletSession);
-    List<Milestone> milestones = (List) portletSession.getAttribute("overdue-milestones");
+    List<OverdueMilestone> milestones = (List) portletSession.getAttribute("overdue-milestones");
 %>
 
 <div class="portlet big <%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "maximized" : ""%>" style="" id="<portlet:namespace />Portlet">
@@ -58,8 +59,7 @@
         <thead>
           <tr>
             <th>ETA</th>
-            <th></th>
-            <th>Days</th>
+            <th>Status</th>
             <th>Name</th>
           </tr>
           
@@ -67,14 +67,30 @@
         
         <tbody>
           
-          <% for (Milestone stone: milestones) { %>
+          <% for (OverdueMilestone o: milestones) { 
+            Milestone stone = o.getMilestone();
+          %>
           
           <tr>
-            <td><%= service.formatDate(stone.getDueDate()) %></td>
-            <td></td>
-            <td><%= 0 %></td>
+            <td>  
+              <%=
+                service.formatDate(o.getEstimatedDoneDate(), "yyyy-MM-dd")
+              %>
+            </td>
+            <td>
+              work left <%= o.getWorkLeftInHours()%>h<br />
+              time left <%= o.getDaysLeft() %>d<br />
+              work done in <%= o.getWorkDoneInDays() %>d<br />
+               
+              <% if (o.getDaysLeft() > 0 && o.getDaysLeft() >= o.getWorkDoneInDays()) { %>
+                <span style="color:green">in time</span>
+              <% } else { %>
+                <span style="color:red"><%= o.getWorkDoneInDays() - o.getDaysLeft() %> days late</span>
+              <% } %>
+              </td>
             <td><%= StringEscapeUtils.escapeHtml(stone.getTitle()) %></td>
           </tr>
+          
           
           <% } %>
           
