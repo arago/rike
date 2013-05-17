@@ -10,6 +10,7 @@ import de.arago.rike.data.Task;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -68,7 +69,7 @@ public class ZombieHelper
         helper.find(a[3].toString()))
       );
     }
-    
+    Collections.sort(ret, new EtaSorter());
     return ret;
   }  
 /*=======
@@ -110,5 +111,13 @@ public class ZombieHelper {
 
 
         return helper.list(crit);
+    }
+
+    private static class EtaSorter implements Comparator<OverdueMilestone>{
+
+        @Override
+        public int compare(OverdueMilestone t, OverdueMilestone t1) {
+            return t1.getLate()-t.getLate();
+        }
     }
 }
