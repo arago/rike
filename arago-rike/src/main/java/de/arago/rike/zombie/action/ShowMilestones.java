@@ -28,14 +28,12 @@ package de.arago.rike.zombie.action;
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.zombie.ZombieHelper;
 
 public class ShowMilestones implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
 
-        //data.setSessionAttribute("overdue-milestones", ZombieHelper.getOverdueMilestones());
         data.setSessionAttribute("targetView", "viewMilestones");
 
     }

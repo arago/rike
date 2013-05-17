@@ -28,6 +28,7 @@
   try {
     UserService service = new JspUserService(renderRequest, portletSession);
     List<OverdueMilestone> milestones = (List) portletSession.getAttribute("overdue-milestones");
+    List<Task> tasks = (List) portletSession.getAttribute("overdue-tasks");
 %>
 
 <div class="portlet big <%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "maximized" : ""%>" style="" id="<portlet:namespace />Portlet">
@@ -36,7 +37,7 @@
     <div class="head">
       <h1>
 
-        <span>Exceeded date</span>
+        <span>Exceeded date (<span style="color:<%= milestones.isEmpty() && tasks.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() + tasks.size() %></span>)</span>
         <span class="right">
           <a id="<portlet:namespace />whole" href="javascript:;">whole period</a>
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.zombies');" title="Help"><span class="icon">S</span></a> 
@@ -52,8 +53,8 @@
 
           <ul class="tabbar">
             <li class="selected"><a href="#">Graph</a></li>
-            <li><a href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones</a></li>
-            <li><a href="<portlet:actionURL portletMode="view"/>&action=showTasks">Tasks</a></li>
+            <li><a href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones (<span style="color:<%= milestones.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() %></span>)</a></li>
+            <li><a href="<portlet:actionURL portletMode="view"/>&action=showTasks">Tasks (<span style="color:<%= tasks.isEmpty()?"#000":"#cc0000" %>"><%= tasks.size() %></span>)</a></li>
           </ul>
         </div>
       </div>
@@ -92,9 +93,9 @@
         overdue.put("data", new ArrayList());
         long now = new Date().getTime();
 
-        int i = isMaximized?milestones.size():1;
-        long farInTheFuture = 0;
-        long farInThePast   = Long.MAX_VALUE;
+        int i = 1;
+        long farInTheFuture = System.currentTimeMillis();
+        long farInThePast   = System.currentTimeMillis();
 
         for (OverdueMilestone o : milestones) {
           Milestone stone = o.getMilestone();
@@ -130,7 +131,7 @@
             farInThePast = stone.getCreated().getTime();
           }  
 
-          i += isMaximized?-1:1;
+          ++i;
         }
 
         farInThePast   -= (14 * 24 * 60 * 60 * 1000l);
