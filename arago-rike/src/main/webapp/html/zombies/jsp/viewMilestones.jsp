@@ -82,10 +82,10 @@
               time left <%= o.getDaysLeft() %>d<br />
               work done in <%= o.getWorkDoneInDays() %>d<br />
                
-              <% if (o.getDaysLeft() > 0 && o.getDaysLeft() >= o.getWorkDoneInDays()) { %>
+              <% if (o.getLate()<=0) { %>
                 <span style="color:green">in time</span>
               <% } else { %>
-                <span style="color:red"><%= o.getWorkDoneInDays() - o.getDaysLeft() %> days late</span>
+                <span style="color:red"><%= o.getLate() %> days late</span>
               <% } %>
               </td>
             <td><%= StringEscapeUtils.escapeHtml(stone.getTitle()) %></td>
