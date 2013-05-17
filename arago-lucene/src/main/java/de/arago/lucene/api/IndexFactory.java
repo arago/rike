@@ -17,19 +17,17 @@ public final class IndexFactory {
     static final Logger logger = Logger.getLogger(IndexFactory.class.getName());
     private static final String defaultPath;
 
-    static
-    {
-      defaultPath = System.getProperty("de.arago.lucene.defaultPath", "/tmp/");
+    static {
+        defaultPath = System.getProperty("de.arago.lucene.defaultPath", "/tmp/");
 
-      try
-      {
-        final File path = new File(defaultPath);
+        try {
+            final File path = new File(defaultPath);
 
-        if (!path.exists()) path.mkdirs();
-        if (!path.exists() || !path.isDirectory() || !path.canWrite()) throw new IllegalStateException("cannot use index path " + defaultPath);
-      } catch(Exception ex) {
-        throw new ExceptionInInitializerError(ex);
-      }
+            if (!path.exists()) path.mkdirs();
+            if (!path.exists() || !path.isDirectory() || !path.canWrite()) throw new IllegalStateException("cannot use index path " + defaultPath);
+        } catch(Exception ex) {
+            throw new ExceptionInInitializerError(ex);
+        }
     }
 
     private static Properties getDefaultProperties() {
@@ -103,11 +101,10 @@ public final class IndexFactory {
             if (aname != null) {
                 Class<?> aclass = Class.forName(aname);
 
-                if (AnalyzerFactory.class.isAssignableFrom(aclass))
-                {
-                  config.setAnalyzer(((AnalyzerFactory) aclass.newInstance()).create(settings));
+                if (AnalyzerFactory.class.isAssignableFrom(aclass)) {
+                    config.setAnalyzer(((AnalyzerFactory) aclass.newInstance()).create(settings));
                 } else {
-                  config.setAnalyzer((Analyzer) aclass.newInstance());
+                    config.setAnalyzer((Analyzer) aclass.newInstance());
                 }
             }
         } catch (Exception e) {

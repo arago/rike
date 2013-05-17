@@ -34,9 +34,9 @@ public class ShowMilestones implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
-      
-      //data.setSessionAttribute("overdue-milestones", ZombieHelper.getOverdueMilestones());
-      data.setSessionAttribute("targetView", "viewMilestones");
+
+        //data.setSessionAttribute("overdue-milestones", ZombieHelper.getOverdueMilestones());
+        data.setSessionAttribute("targetView", "viewMilestones");
 
     }
 }

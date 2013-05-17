@@ -72,12 +72,12 @@
           %>
           
           <tr>
-            <td>  
+            <td style="white-space:nowrap">  
               <%=
                 service.formatDate(o.getEstimatedDoneDate(), "yyyy-MM-dd")
               %>
             </td>
-            <td>
+            <td style="white-space:nowrap">
               work left <%= o.getWorkLeftInHours()%>h<br />
               time left <%= o.getDaysLeft() %>d<br />
               work done in <%= o.getWorkDoneInDays() %>d<br />

@@ -102,7 +102,7 @@ public class Milestone {
     public int getPerformance() {
         return performance;
     }
-    
+
     public long getDays() {
         long d = 0;
         if(getDueDate()!=null)

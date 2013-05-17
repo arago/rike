@@ -67,6 +67,8 @@
     <header-portlet-javascript>/js/flot/jquery.flot.navigate.min.js</header-portlet-javascript>
     <header-portlet-javascript>/js/flot/jquery.flot.fillbetween.min.js</header-portlet-javascript>
     <header-portlet-javascript>/js/flot/jquery.flot.selection.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/flot/jquery.flot.jum.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/flot/jquery.flot.gantt.js</header-portlet-javascript>
 
   </portlet>
 

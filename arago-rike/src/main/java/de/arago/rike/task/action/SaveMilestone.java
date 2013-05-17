@@ -58,12 +58,11 @@ public class SaveMilestone implements Action {
         milestone.setUrl(data.getRequestAttribute("url"));
         milestone.setCreated(new Date());
         milestone.setCreator(SecurityHelper.getUser(data.getUser()).getEmailAddress());
-        
-        try
-        {
-          milestone.setPerformance(Integer.valueOf(data.getRequestAttribute("performance"), 10));
-        } catch(Exception ignored) {} 
-        
+
+        try {
+            milestone.setPerformance(Integer.valueOf(data.getRequestAttribute("performance"), 10));
+        } catch(Exception ignored) {}
+
         milestone.setRelease("");
 
         String release = data.getRequestAttribute("release");

@@ -57,11 +57,10 @@ public class ViewHelper {
     private static final Map<String, String> statusColors = new HashMap<String, String>();
 
     static {
-      for (int i = 0; i < 10; ++i)
-      {
-        priorities.add(i + "");
-        priorityNames.put(i + "", i + "");
-      }  
+        for (int i = 0; i < 10; ++i) {
+            priorities.add(i + "");
+            priorityNames.put(i + "", i + "");
+        }
 
         status.add(Status.UNKNOWN.toString());
         status.add(Status.OPEN.toString());
@@ -122,12 +121,12 @@ public class ViewHelper {
             return "<a target='_blank' href='" + escape(path) + "'>" + escape(path) + "</a>";
         }
     }
- 
+
     public static List<String> getPriorities() {
         return priorities;
     }
-    
-    
+
+
     public static String getPriority(int what) {
         return priorityNames.get(what + "");
     }
@@ -163,17 +162,16 @@ public class ViewHelper {
     }
 
     public static String getTaskPriorityColorClass(Task task) {
-      
-      int p = task.getPriority();
-      
-      if (p <= 3)
-      {
-        return "priority-high";
-      } else if (p >= 4 && p < 7) {
-        return "priority-normal";
-      } else {
-        return "priority-low";
-      }
+
+        int p = task.getPriority();
+
+        if (p <= 3) {
+            return "priority-high";
+        } else if (p >= 4 && p < 7) {
+            return "priority-normal";
+        } else {
+            return "priority-low";
+        }
     }
 
     public static List<TaskUser> getAvailableUsers() {
@@ -218,11 +216,10 @@ public class ViewHelper {
         return data;
     }
 
-    public static int getDayDifference(Date date)
-    {
-      return (int) Math.ceil((date.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) ;
-    }  
-    
+    public static int getDayDifference(Date date) {
+        return (int) Math.ceil((date.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) ;
+    }
+
     public static List<Artifact> getAvailableArtifacts() {
         DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
         return helper.list(helper.filter().addOrder(Order.asc("name")));

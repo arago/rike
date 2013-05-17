@@ -56,7 +56,7 @@ public class SaveTask implements Action {
         task.setArtifact(artifact);
         task.setCreated(new Date());
         task.setCreator(user);
-        
+
         task.setStatus(Status.UNKNOWN);
         task.setMilestone(new DataHelperRike<Milestone>(Milestone.class).find(data.getRequestAttribute("milestone")));
 
@@ -64,11 +64,11 @@ public class SaveTask implements Action {
             task.setSizeEstimated(Integer.valueOf(data.getRequestAttribute("size_estimated"), 10));
         } catch (Exception ignored) {
         }
-        
+
         int priority = 5;
-        
+
         task.setPriority(priority);
-        
+
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             task.setDueDate(format.parse(data.getRequestAttribute("due_date")));
