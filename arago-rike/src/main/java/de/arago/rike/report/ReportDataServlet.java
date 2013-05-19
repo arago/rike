@@ -45,12 +45,12 @@ public class ReportDataServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-      /*if (SecurityHelper.getUserFromRequest(request) == null)
-      {
-        response.setStatus(403);
-        return;
-      } */
-      
+        /*if (SecurityHelper.getUserFromRequest(request) == null)
+        {
+          response.setStatus(403);
+          return;
+        } */
+
         String action = request.getParameter("action");
         action = action == null || action.length() == 0 ? "graph" : action;
 

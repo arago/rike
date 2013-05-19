@@ -46,17 +46,15 @@ public class TaskHelper {
     public static final long OTHER_ARTEFACT_ID = 18;
 
     private static final int hourOffsetToStartTask;
-    
-    static 
-    {
-      try
-      {
-        hourOffsetToStartTask = Integer.valueOf(System.getProperty("de.arago.rike.timeOffset", "0"), 10) * 60 * 60 * 1000;
-      } catch(Exception ex) {
-        throw new ExceptionInInitializerError(ex);
-      } 
+
+    static {
+        try {
+            hourOffsetToStartTask = Integer.valueOf(System.getProperty("de.arago.rike.timeOffset", "0"), 10) * 60 * 60 * 1000;
+        } catch(Exception ex) {
+            throw new ExceptionInInitializerError(ex);
+        }
     }
-    
+
     private static DataHelperRike<Task> taskHelper() {
         return new DataHelperRike<Task>(Task.class);
     }
@@ -180,7 +178,7 @@ public class TaskHelper {
 
     public static boolean canDoTask(String user, Task task) {
         if (task.getStatusEnum() != Task.Status.OPEN) return false;
-      
+
         if (!task.getRatedBy().equals(user)) return true;
 
         if (task.getCreated().getTime() < (System.currentTimeMillis() - hourOffsetToStartTask)) return true;

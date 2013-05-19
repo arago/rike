@@ -41,21 +41,20 @@ public class Zombies extends AragoPortlet {
 
     @Override
     public void initSession(IDataWrapper data) throws PortletException, IOException {
-        
+
     }
 
     @Override
     protected boolean checkViewData(IDataWrapper data) {
         data.setSessionAttribute("userEmail", SecurityHelper.getUserEmail(data.getUser()));
-        
-        if (!SecurityHelper.isLoggedIn(data.getUser()))
-        {
-          return false;
+
+        if (!SecurityHelper.isLoggedIn(data.getUser())) {
+            return false;
         }
-        
+
         data.setSessionAttribute("overdue-milestones", ZombieHelper.getOverdueMilestones());
         data.setSessionAttribute("overdue-tasks", ZombieHelper.getOverdueTasks());
-        
+
         return true;
     }
 }

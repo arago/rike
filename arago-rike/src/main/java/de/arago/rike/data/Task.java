@@ -46,7 +46,7 @@ public class Task implements Serializable {
     private String ratedBy;
     private Date dueDate;
 
-  
+
 
     public static enum Status {
 
@@ -124,20 +124,19 @@ public class Task implements Serializable {
     public String getCreator() {
         return creator;
     }
-    
+
     public String getRatedBy() {
         return ratedBy;
     }
-    
-    public void setRatedBy(String user)
-    {
-      this.ratedBy = user;
+
+    public void setRatedBy(String user) {
+        this.ratedBy = user;
     }
 
     public void setCreated(Date created) {
         this.created = created;
     }
-    
+
     public void setRated(Date rated) {
         this.rated = rated;
     }
@@ -145,7 +144,7 @@ public class Task implements Serializable {
     public Date getCreated() {
         return created;
     }
-    
+
     public Date getRated() {
         return rated;
     }
@@ -190,15 +189,13 @@ public class Task implements Serializable {
     public Artifact getArtifact() {
         return artifact;
     }
-    
-    public void setDueDate(Date when)
-    {
-      dueDate = when;
+
+    public void setDueDate(Date when) {
+        dueDate = when;
     }
-    
-    public Date getDueDate()
-    {
-      return dueDate;
+
+    public Date getDueDate() {
+        return dueDate;
     }
 
 }

@@ -1,3 +1,4 @@
+<%@page import="de.arago.rike.zombie.OverdueMilestone"%>
 <%@page import="de.arago.rike.data.Milestone"%>
 <%@page import="de.arago.rike.util.TaskHelper"%>
 <%@page import="de.arago.portlet.jsp.UserService"%>
@@ -21,6 +22,7 @@
 <%
   try {
     UserService service = new JspUserService(renderRequest, portletSession);
+    List<OverdueMilestone> milestones = (List) portletSession.getAttribute("overdue-milestones");
     List<Task> tasks = (List) portletSession.getAttribute("overdue-tasks");
 %>
 
@@ -30,7 +32,7 @@
     <div class="head">
       <h1>
         
-        <span>Exceeded date</span>
+        <span>Exceeded date (<span style="color:<%= milestones.isEmpty() && tasks.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() + tasks.size() %></span>)</span>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.zombies');" title="Help"><span class="icon">S</span></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
@@ -44,8 +46,8 @@
         <div class="left">
         <ul class="tabbar">
           <li><a href="<portlet:actionURL portletMode="view"/>&action=showGraph">Graph</a></li>
-          <li><a href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones</a></li>
-          <li class="selected"><a href="#">Tasks</a></li>
+          <li><a href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones  (<span style="color:<%= milestones.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() %></span>)</a></li>
+          <li class="selected"><a href="#">Tasks  (<span style="color:<%= tasks.isEmpty()?"#000":"#cc0000" %>"><%= tasks.size() %></span>)</a></li>
         </ul>
         </div>
       </div>

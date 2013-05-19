@@ -50,6 +50,7 @@ public class ChartTimeSeries {
         + "WHERE milestone_id = milestones.id "
         + "AND task_status != 'done' "
         + "AND due_date IS NOT NULL "
+        + "and milestones.id = ? "
         + "GROUP BY milestones.title, moment "
         + "ORDER BY due_date, moment";
     public static String allBurndown =
@@ -224,7 +225,7 @@ public class ChartTimeSeries {
             if (milestone.startsWith("release_")) {
                 list = toBurndownJSON(releaseBurndown, new Object[] {milestone.substring(8)});
             } else if (milestone.startsWith("milestone_")) {
-                list = toBurndownJSON(milestoneBurndown, null);
+                list = toBurndownJSON(milestoneBurndown, new Object[] {milestone.substring(10)});
             } else {
                 list = toBurndownJSON(allBurndown, null);
             }

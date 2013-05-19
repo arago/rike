@@ -73,7 +73,7 @@ public class Index<T> {
 
     private Converter<T> createConverter() {
         try {
-          return (Converter<T>) config.getConverterClass().newInstance();
+            return (Converter<T>) config.getConverterClass().newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -160,13 +160,12 @@ public class Index<T> {
 
     }
 
-    public synchronized void commit()
-    {
-      try {
-        if (writer != null) writer.commit();
-      } catch(Exception ex) {
-        throw new RuntimeException(ex);
-      }
+    public synchronized void commit() {
+        try {
+            if (writer != null) writer.commit();
+        } catch(Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     public synchronized void remove(T o) {
@@ -184,14 +183,12 @@ public class Index<T> {
         }
     }
 
-    public Query parse(final String q)
-    {
-      try
-      {
-        return new QueryParser(Version.LUCENE_36,Converter.FIELD_CONTENT, config.getAnalyzer()).parse(q);
-      } catch(ParseException ex) {
-        throw new RuntimeException("could not parse query " + q, ex);
-      }
+    public Query parse(final String q) {
+        try {
+            return new QueryParser(Version.LUCENE_36,Converter.FIELD_CONTENT, config.getAnalyzer()).parse(q);
+        } catch(ParseException ex) {
+            throw new RuntimeException("could not parse query " + q, ex);
+        }
     }
 
     public Converter<T> query(String q, int maxResults) {
@@ -207,20 +204,19 @@ public class Index<T> {
         return query(q, TopScoreDocCollector.create(maxResults,true), maxResults);
     }
 
-    public long count(Query q)
-    {
+    public long count(Query q) {
         TotalHitCountCollector collector = new TotalHitCountCollector();
-        
+
         try {
             IndexSearcher s = getSearcher();
             s.search(q, collector);
-            
+
             return collector.getTotalHits();
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-    }  
-    
+    }
+
     public Converter<T> query(Query q, TopDocsCollector collector, int maxResults) {
 
         Converter<T> converter = createConverter();
@@ -254,8 +250,7 @@ public class Index<T> {
         return config;
     }
 
-    public static String escape(String in)
-    {
-      return QueryParser.escape(in);
+    public static String escape(String in) {
+        return QueryParser.escape(in);
     }
 }

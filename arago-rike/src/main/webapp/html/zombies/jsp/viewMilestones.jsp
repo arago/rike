@@ -23,6 +23,7 @@
   try {
     UserService service = new JspUserService(renderRequest, portletSession);
     List<OverdueMilestone> milestones = (List) portletSession.getAttribute("overdue-milestones");
+    List<Task> tasks = (List) portletSession.getAttribute("overdue-tasks");
 %>
 
 <div class="portlet big <%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "maximized" : ""%>" style="" id="<portlet:namespace />Portlet">
@@ -31,7 +32,7 @@
     <div class="head">
       <h1>
         
-        <span>Exceeded date</span>
+        <span>Exceeded date (<span style="color:<%= milestones.isEmpty() && tasks.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() + tasks.size() %></span>)</span>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.zombies');" title="Help"><span class="icon">S</span></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
@@ -45,8 +46,8 @@
         <div class="left">
         <ul class="tabbar">
           <li><a href="<portlet:actionURL portletMode="view"/>&action=showGraph">Graph</a></li>
-          <li class="selected"><a href="#">Milestones</a></li>
-          <li><a href="<portlet:actionURL portletMode="view"/>&action=showTasks">Tasks</a></li>
+          <li class="selected"><a href="#">Milestones  (<span style="color:<%= milestones.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() %></span>)</a></li>
+          <li><a href="<portlet:actionURL portletMode="view"/>&action=showTasks">Tasks (<span style="color:<%= tasks.isEmpty()?"#000":"#cc0000" %>"><%= tasks.size() %></span>)</a></li>
         </ul>
         </div>
       </div>
@@ -72,12 +73,12 @@
           %>
           
           <tr>
-            <td>  
+            <td style="white-space:nowrap">  
               <%=
                 service.formatDate(o.getEstimatedDoneDate(), "yyyy-MM-dd")
               %>
             </td>
-            <td>
+            <td style="white-space:nowrap">
               work left <%= o.getWorkLeftInHours()%>h<br />
               time left <%= o.getDaysLeft() %>d<br />
               work done in <%= o.getWorkDoneInDays() %>d<br />

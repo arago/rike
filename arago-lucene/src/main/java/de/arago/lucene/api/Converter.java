@@ -15,7 +15,7 @@ public interface Converter<T> extends Iterable<T>, JSONAware {
     public void setResult(ScoreDoc[] hits, IndexSearcher searcher);
 
     public Document toLuceneDocument(T o);
-    
+
     public T getObject(int position);
     public float getRating(int position);
     public int size();

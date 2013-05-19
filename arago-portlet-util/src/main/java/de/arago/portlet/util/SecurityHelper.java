@@ -142,7 +142,7 @@ public class SecurityHelper {
     public static User getUserFromRequest(HttpServletRequest request) {
         try {
             User user = getUserFromLiferay(request);
-              
+
             if (user == null) user = getUserFromAuthHeader(request);
             if (user == null) user = getUserFromCookies(request);
 
@@ -243,14 +243,13 @@ public class SecurityHelper {
         return result;
     }
 
-  private static User getUserFromLiferay(HttpServletRequest request)
-  {
-      try {
-        return PortalUtil.getUser(request);
-      } catch (PortalException ex) {
-        return null;
-      } catch (SystemException ex) {
-        return null;
-      }
-  }
+    private static User getUserFromLiferay(HttpServletRequest request) {
+        try {
+            return PortalUtil.getUser(request);
+        } catch (PortalException ex) {
+            return null;
+        } catch (SystemException ex) {
+            return null;
+        }
+    }
 }

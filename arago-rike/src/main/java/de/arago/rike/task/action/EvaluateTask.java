@@ -55,21 +55,21 @@ public class EvaluateTask implements Action {
             if (task.getStatusEnum() == Task.Status.UNKNOWN || task.getStatusEnum() == Task.Status.OPEN) {
                 task.setMilestone(new DataHelperRike<Milestone>(Milestone.class).find(data.getRequestAttribute("milestone")));
                 task.setArtifact(new DataHelperRike<Artifact>(Artifact.class).find(data.getRequestAttribute("artifact")));
-         
+
                 try {
                     task.setSizeEstimated(Integer.valueOf(data.getRequestAttribute("size_estimated"), 10));
                 } catch (Exception ignored) {
                 }
-                
+
                 try {
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                     task.setDueDate(format.parse(data.getRequestAttribute("due_date")));
                 } catch(Exception ignored) {}
-                
+
                 task.setTitle(data.getRequestAttribute("title"));
                 task.setUrl(data.getRequestAttribute("url"));
                 int priority = 5;
-        
+
                 try {
                     priority = Integer.valueOf(data.getRequestAttribute("priority"), 10);
                 } catch (Exception ignored) {
@@ -81,7 +81,7 @@ public class EvaluateTask implements Action {
                 task.setStatus(Task.Status.OPEN);
 
                 TaskHelper.save(task);
-                
+
                 StatisticHelper.update();
 
                 data.setSessionAttribute("task", task);

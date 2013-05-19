@@ -28,14 +28,12 @@ package de.arago.rike.zombie.action;
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.zombie.ZombieHelper;
 
 public class ShowTasks implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
 
-        //data.setSessionAttribute("overdue-tasks", ZombieHelper.getOverdueTasks());
         data.setSessionAttribute("targetView", "viewTasks");
 
     }

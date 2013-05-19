@@ -229,7 +229,7 @@
           var svgNode = $('svg', doc).get(0);
 
           var outer_width = $('#<portlet:namespace/>Portlet').width() - 12;
-          var outer_height = $('#<portlet:namespace/>Portlet').height() - 56;
+          var outer_height = $('#<portlet:namespace/>Portlet').height() - 60;
 
           $("#<portlet:namespace />SVG").width(outer_width).height(outer_height);
           $('#<portlet:namespace/>PortletContent').show();
