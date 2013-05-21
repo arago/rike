@@ -21,7 +21,7 @@ $.globalPortletJS
 <%
       PortletPreferences prefs = renderRequest.getPreferences();
 
-      if ("false".equals(prefs.getValue("de.arago.rike.help.shown", "false")))
+      if ("false".equals(prefs.getValue("de.arago.rike.help.shown", "false")) && false)
       {
         //prefs.setValue("de.arago.rike.help.shown", "true");
 
