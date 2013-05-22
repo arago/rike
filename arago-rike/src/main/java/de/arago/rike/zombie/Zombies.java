@@ -28,6 +28,7 @@ import de.arago.portlet.util.SecurityHelper;
 import de.arago.data.IDataWrapper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
 
@@ -54,6 +55,9 @@ public class Zombies extends AragoPortlet {
 
         data.setSessionAttribute("overdue-milestones", ZombieHelper.getOverdueMilestones());
         data.setSessionAttribute("overdue-tasks", ZombieHelper.getOverdueTasks());
+        ArrayList names = new ArrayList();
+        data.setSessionAttribute("overdue-json", ZombieHelper.toPrettyJSON(names));
+        data.setSessionAttribute("overdue-ms-names", names);
 
         return true;
     }
