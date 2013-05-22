@@ -22,4 +22,14 @@
 		<url-pattern>/report/json</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>MilestoneDataServlet</servlet-name>
+		<servlet-class>de.arago.rike.zombie.MilestoneDataServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MilestoneDataServlet</servlet-name>
+		<url-pattern>/zombie/json</url-pattern>
+	</servlet-mapping>
+
 </web-app>

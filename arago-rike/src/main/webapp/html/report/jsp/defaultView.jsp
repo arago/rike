@@ -107,7 +107,7 @@
                                             },
                                             grid:{hoverable:true,clickable:true},
                                             xaxis: { mode:"time"},
-                                            yaxis: { min:null,tickFormatter:function(m,n){return(m/1000)+"k LOC"}},
+                                            yaxis: { min:null,tickFormatter:function(m,n){return m +" hrs"}},
                                             selection: { mode: "x" }
                                         };                     
 
@@ -174,7 +174,7 @@
                                                     y = item.datapoint[1];
 
                                                     showTooltip(item.pageX, item.pageY,
-                                                    (item.series.label || '') + "  " + x + " = " + (y / 1000) + "k");
+                                                    (item.series.label || '') + "  " + x + " = " + y + " hrs");
                                                 }
                                             }
                                             else {
