@@ -46,6 +46,72 @@
         </span>
       </h1>
       <div class="inner">
+			  <div class="left" id="<portlet:namespace/>Searchbox">
+				  <label for="Sucheingabe">
+					  <input type="text" name="SearchString" value="Search..." class="searchbox" onclick="if (this.value === 'Search...') this.value = '';" onblur="" id="<portlet:namespace/>search" />
+				  </label>
+        </div>
+		<script type="text/javascript">
+			$(function()
+			{
+				var statusColors =
+					{
+					OPEN: "status-critical",
+					IN_PROGRESS: "status-warning",
+					DONE: "status-ok",
+					UNKNOWN: "status-unknown"
+				};
+
+				$("#<portlet:namespace/>search").autocomplete("<portlet:resourceURL />&as=json&action=findTask",
+				{
+					max: 10,
+					minChars: 1,
+					dataType: 'json',
+					delay: 50,
+					width: '250px',
+					selectFirst: false,
+					widthNode: document.getElementById('<portlet:namespace/>Searchbox'),
+					offsetRight: 148,
+					onstart: function()
+					{
+						$('#<portlet:namespace/>SearchboxButton').get(0).style.backgroundImage = 'url(/wisdome-theme/pix/ajax-loader.gif)';
+					},
+					onend: function()
+					{
+						$('#<portlet:namespace/>SearchboxButton').get(0).style.backgroundImage = '';
+					},
+					onResult: function(item)
+					{
+						window.location = '<portlet:actionURL portletMode="view"/>&action=selectTask&id=' + encodeURIComponent(item.value);
+
+						return false;
+					},
+					parse: function(text)
+					{
+						var parsed = [];
+
+						for (var i = 0; i< text.items.length; ++i)
+						{
+							var item = text.items[i];
+							parsed[parsed.length] = {
+								data: '<span class="'+statusColors[item.status]+'">&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="priority-' + item.priority.toLowerCase()+'">&nbsp;</span> <span style="font-style: italic;">#' + item.id + ' ' + item.name + '</span> <br /><span style="color:#666">'+ (item.owner?'completed by '+item.owner:'not completed') +'</span>',
+								value: text.items[i].id,
+								result: text.items[i].id
+							};
+						};
+
+						return parsed;
+					},
+					formatItem: function(row)
+					{
+						return row;
+					}
+
+				});
+			});
+
+		</script>
+
         <div class="right">
           <a href="javascript:void(0);" onclick="$('#<portlet:namespace/>New').toggle()"><span class="icon">+</span> New</a></a>
           <div style="display:none;" class="dropDown" id="<portlet:namespace/>New" style="margin-left:-40px">
