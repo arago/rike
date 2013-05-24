@@ -23,7 +23,11 @@
     <!-- head -->
     <div class="head">
       <h1>
-        New Artifact
+         <% if (artifact ==  null) { %>
+          New Artifact
+        <% } else { %>
+          Artifact #<%= artifact.getId() %>
+        <% } %>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
@@ -57,8 +61,8 @@
 
 
               <tr>
-                <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abort';"/></td>
-                <td class="shrink" style="text-align:right"><input type="submit" value="Create" /></td>
+                <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abortEditArtifact';"/></td>
+                <td class="shrink" style="text-align:right"><input type="submit" value="Save" /></td>
               </tr>
             </tbody>
           </table>

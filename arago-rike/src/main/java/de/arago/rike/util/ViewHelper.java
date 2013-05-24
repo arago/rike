@@ -111,7 +111,7 @@ public class ViewHelper {
 
     public static String formatURL(String path) {
         if (path == null || path.length() == 0) {
-            return "Keine URL hinterlegt";
+            return "";
         }
 
         try {

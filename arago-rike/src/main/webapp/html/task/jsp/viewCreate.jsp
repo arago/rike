@@ -57,16 +57,23 @@
             </tr>
             
             <tr>
+              <th class="shrink">Description:</th>
+              <td class="shrink">
+                <textarea placeholder="Optional description of the task" class="rike-input"></textarea>
+              </td>
+            </tr>
+            
+            <tr>
               <th class="shrink">Time:</th>
               <td class="shrink">
                 <input type="number" min="1" placeholder="Estimated hours to finish" class="rike-input" name="size_estimated" value="" />
               </td>
             </tr>
             
-            <tr>
+            <!--<tr>
                 <th class="shrink">Date:</th>
                 <td class="shrink"><input class="rike-input" placeholder="due date of the task, YYYY-MM-DD" type="text" name="due_date" value=""/></td>
-              </tr>
+              </tr>-->
 
             <tr>
               <th class="shrink">Artifact:</th>

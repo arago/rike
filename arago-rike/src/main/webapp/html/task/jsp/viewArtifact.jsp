@@ -23,77 +23,52 @@
     <!-- head -->
     <div class="head">
       <h1>
-        New Artifact
+
+        Artifact #<%= artifact.getId()%>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
-          <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
-            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
-          <% } else { %>
-            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
-          <% } %>
+          <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
+          <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+          <% } else {%>
+          <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+          <% }%>
         </span>
       </h1>
+      <div class="inner">
+        <div class="left">
+          <ul class="tabbar">
+            <li><a href="<portlet:actionURL portletMode="view"/>&action=showTask">Task</a></li>
+            <li ><a href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones</a></li>
+            <li class="selected"><a href="<portlet:actionURL portletMode="view"/>&action=showArtifacts">Artifacts</a></li>
+          </ul>
+        </div>      
+      </div>
     </div>
-    <div class="content nohead nofooter">
+    <div class="content">
 
-        <form method="post" class="<portlet:namespace />form" action="<portlet:actionURL portletMode="view" />">
-          <div>
-            <input type="hidden" name="action" value="saveArtifact" />
-            <input type="hidden" name="id" value="<%= StringEscapeUtils.escapeHtml(artifact == null || artifact.getId() == null ? "" : artifact.getId().toString())%>" />
-          </div>
-          <table>
-            <tbody>
+      <table>
 
-              <tr>
-                <th class="shrink">Name:</th>
-                <td class="shrink"><input class="rike-input" placeholder="name of the artifact" type="text" name="name" value="<%= StringEscapeUtils.escapeHtml(artifact == null ? "" : artifact.getName())%>" /></td>
-              </tr>
+        <tr>
+          <th class="shrink">Title:</th>
+          <td class="shrink"><%= StringEscapeUtils.escapeHtml(artifact.getName())%></td>
+        </tr>
 
-              <tr>
-                <th class="shrink">URL:</th>
-                <td class="shrink"><input class="rike-input" placeholder="URL of the artifact" type="text" name="url" value="<%= StringEscapeUtils.escapeHtml(artifact == null ? "" : artifact.getUrl())%>"/></td>
-              </tr>
+        <tr>
+          <th class="shrink">URL:</th>
+          <td class="shrink"><%= ViewHelper.formatURL(artifact.getUrl())%></td>
+        </tr>
 
+        <!--<tr>
+          <td class="shrink" colspan="2"><a href="<%= renderRequest.getContextPath()%>?artifact=<%= artifact.getId()%>">link to this artifact</a></td>
+        </tr>-->
 
+      </table>
+    </div>
 
-              <tr>
-                <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abort';"/></td>
-                <td class="shrink" style="text-align:right"><input type="submit" value="Create" /></td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
-
-        <script type="text/javascript">
-          (function()
-          {
-            $('.<portlet:namespace />form').submit(function()
-            {
-              try
-              {
-                var ok = true;
-						
-                $([$("input[name=name]", this), $("input[name=url]", this)]).each(function()
-                {
-                  if (!this.val())
-                  {
-                    this.get(0).style.borderColor = 'red';
-                    ok = false;
-                  } else {
-                    this.get(0).style.borderColor = '';
-                  };
-                });
-
-
-                return ok;
-              } catch(e) {
-                // blank
-              };
-
-              return false;
-            });
-          })();
-        </script>
+    <div class="footer">
+      <div class="inner">
+        <a href="<portlet:actionURL portletMode="view"/>&action=editArtifact&id=<%= URLEncoder.encode(artifact.getId().toString(), "UTF-8")%>">edit</a>
+      </div>
 
     </div>
   </div>

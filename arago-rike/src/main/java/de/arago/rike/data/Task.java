@@ -45,7 +45,7 @@ public class Task implements Serializable {
     private Date rated;
     private String ratedBy;
     private Date dueDate;
-
+    private String description;
 
 
     public static enum Status {
@@ -158,7 +158,7 @@ public class Task implements Serializable {
     }
 
     public Integer getHoursSpent() {
-        return hoursSpent;
+        return hoursSpent == null?0:hoursSpent;
     }
 
     public void setHoursSpent(Integer spent) {
@@ -196,6 +196,14 @@ public class Task implements Serializable {
 
     public Date getDueDate() {
         return dueDate;
+    }
+
+    public String getDescription() {
+        return description == null?"":description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null?"":description;
     }
 
 }

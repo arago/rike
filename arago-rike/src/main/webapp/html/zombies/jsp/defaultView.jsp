@@ -64,7 +64,7 @@
 
 
     </div>
-    <div class="content">
+    <div class="content nofooter">
 
       <div class="inner" id="<portlet:namespace />PortletContent">
         <div id="<portlet:namespace />chart"></div>
@@ -78,7 +78,7 @@
 
               try
               {
-                $("#<portlet:namespace />chart").width($('#<portlet:namespace />PortletContent').width() - 20).height($("div.portletbox").height() - 100).show();
+                $("#<portlet:namespace />chart").width($('#<portlet:namespace />PortletContent').width() - 20).height($("div.portletbox").height() - 80).show();
                 var placeholder = $("#<portlet:namespace />chart");
                 var result = <%= data%>;
 
@@ -121,13 +121,7 @@
     </div>
 
 
-    <div class="footer">
-      <div class="inner">
-
       </div>
-
-    </div>
-  </div>
 </div>
 <% } catch (Throwable t) {
 

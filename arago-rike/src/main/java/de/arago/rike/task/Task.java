@@ -22,14 +22,20 @@
  */
 package de.arago.rike.task;
 
+import com.liferay.portal.util.PortalUtil;
 import de.arago.portlet.AragoPortlet;
 import de.arago.portlet.util.SecurityHelper;
 
 import de.arago.data.IDataWrapper;
+import de.arago.portlet.PortletDataWrapper;
+import de.arago.rike.data.Milestone;
+import de.arago.rike.util.MilestoneHelper;
 
 import java.io.IOException;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
 public class Task extends AragoPortlet {
 
@@ -45,9 +51,39 @@ public class Task extends AragoPortlet {
         }
     }
 
+
+    @Override
+    public void doView(RenderRequest request, RenderResponse response)
+    throws PortletException, IOException {
+        checkForMilestone(request, new PortletDataWrapper(request, response));
+
+        super.doView(request, response);
+    }
+
     @Override
     protected boolean checkViewData(IDataWrapper data) {
         data.setSessionAttribute("userEmail", SecurityHelper.getUserEmail(data.getUser()));
         return SecurityHelper.isLoggedIn(data.getUser());
+    }
+
+    private void checkForMilestone(RenderRequest request, IDataWrapper data) {
+        try {
+            String id = PortalUtil.getOriginalServletRequest(PortalUtil.getHttpServletRequest(request)).getParameter("perm_milestone");
+
+            System.err.println("have id " + id);
+
+            if (id != null && !id.isEmpty()) {
+                Milestone milestone = MilestoneHelper.getMilestone(id);
+
+                if (milestone != null) {
+                    System.err.println("setting milestone");
+                    data.setSessionAttribute("milestone", milestone);
+
+                    data.setSessionAttribute("targetView", "viewMilestone");
+                }
+            }
+        } catch(Throwable ignored) {
+            // blank
+        }
     }
 }

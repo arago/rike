@@ -26,13 +26,10 @@
 package de.arago.rike.zombie.action;
 
 import de.arago.portlet.Action;
-
 import de.arago.data.IDataWrapper;
-import de.arago.rike.util.TaskHelper;
-
 import java.util.HashMap;
 
-public class SelectTask implements Action {
+public class SelectMilestone implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
@@ -41,8 +38,7 @@ public class SelectTask implements Action {
             HashMap<String, Object> notificationParam = new HashMap<String, Object>();
 
             notificationParam.put("id", data.getRequestAttribute("id"));
-            data.setEvent("TaskSelectNotification", notificationParam);
-            data.setSessionAttribute("task", TaskHelper.getTask(data.getRequestAttribute("id")));
+            data.setEvent("MilestoneSelectNotification", notificationParam);
         }
     }
 }

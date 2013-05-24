@@ -30,19 +30,16 @@ import org.hibernate.criterion.Order;
 /**
  *
  */
-public final class MilestoneHelper
-{
-  public static List<Milestone> list()
-  {
-    DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
+public final class MilestoneHelper {
+    public static List<Milestone> list() {
+        DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
 
-    return helper.list(helper.filter().addOrder(Order.asc("id")));
-  }  
-  
-  public static Milestone getMilestone(String id)
-  {
-    if (id == null || id.isEmpty()) return null;
-    
-    return new DataHelperRike<Milestone>(Milestone.class).find(id);
-  }  
+        return helper.list(helper.filter().addOrder(Order.asc("id")));
+    }
+
+    public static Milestone getMilestone(String id) {
+        if (id == null || id.isEmpty()) return null;
+
+        return new DataHelperRike<Milestone>(Milestone.class).find(id);
+    }
 }

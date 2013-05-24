@@ -46,16 +46,18 @@
         </span>
       </h1>
       <div class="inner">
-        <div class="right">
-          <a href="javascript:void(0);" onclick="$('#<portlet:namespace/>New').toggle()"><span class="icon">+</span> New</a></a>
-          <div style="display:none;" class="dropDown" id="<portlet:namespace/>New" style="margin-left:-40px">
-            <a href="<portlet:actionURL portletMode="view" />&action=createTask">Task</a> <br />
-            <a href="<portlet:actionURL portletMode="view" />&action=editMilestone">Milestone</a><br />
-            <a href="<portlet:actionURL portletMode="view" />&action=editArtifact">Artifact</a>
+        <div class="left">
+            <ul class="tabbar">
+              <li class="selected"><a href="#">Task</a></li>
+              <li><a href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones</a></li>
+              <li><a href="<portlet:actionURL portletMode="view"/>&action=showArtifacts">Artifacts</a></li>
+            </ul>
           </div>
+        <div class="right">
+          <a href="<portlet:actionURL portletMode="view" />&action=createTask">New</a>
         </div>
         <% if (task != null && user.equals(task.getOwner())) {%>  
-        <form id="<portlet:namespace/>Form" class="dropDown" method="post" action="<portlet:actionURL portletMode="view"/>" style="display:none; ">
+        <form id="<portlet:namespace/>Form1" class="dropDown" method="post" action="<portlet:actionURL portletMode="view"/>" style="display:none; ">
           <div>
             <input type="hidden" name="action" value="endTask" />
             <input type="hidden" name="id" value="<%= StringEscapeUtils.escapeHtml(task.getId().toString())%>" />
@@ -64,11 +66,30 @@
             <tbody>
               <tr>
                 <td>Hours spent:</td>
-                <td><input type="number" min="1" class="rike-input" name="hours_spent" value="1" /></td>
+                <td><input type="number" min="1" class="rike-input" name="hours_spent" value="<%= task.getHoursSpent() %>" /></td>
               </tr>
               <tr>
                 <td><input type="reset" value="Abort" onclick="$(this.form).hide();"/></td>
                 <td style="text-align:right"><input type="submit" value="Close Task" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+          
+        <form id="<portlet:namespace/>Form2" class="dropDown" method="post" action="<portlet:actionURL portletMode="view"/>" style="display:none; ">
+          <div>
+            <input type="hidden" name="action" value="addHoursToTask" />
+            <input type="hidden" name="id" value="<%= StringEscapeUtils.escapeHtml(task.getId().toString())%>" />
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <td>Hours spent:</td>
+                <td><input type="number" min="1" class="rike-input" name="hours_spent" value="<%= task.getHoursSpent() %>" /></td>
+              </tr>
+              <tr>
+                <td><input type="reset" value="Abort" onclick="$(this.form).hide();"/></td>
+                <td style="text-align:right"><input type="submit" value="Add" /></td>
               </tr>
             </tbody>
           </table>
@@ -120,21 +141,10 @@
             <% if (task.getStatusEnum() != Task.Status.UNKNOWN) {%>
 
 
-            <% if (task.getStatusEnum() == Status.DONE) {%>
-
             <tr>
               <th class="shrink">Time:</th>
               <td class="shrink"><%= task.getSizeEstimated()%> hours estimated, <%= task.getHoursSpent()%> hours spent</td>
             </tr>
-
-            <% } else {%>
-            
-            <tr>
-              <th class="shrink">Estimated time:</th>
-              <td class="shrink"><%= task.getSizeEstimated()%> hours</td>
-            </tr>
-            
-            <% } %>
             
 
             <tr> 
@@ -189,7 +199,9 @@
         <% } else if (task.getStatusEnum() == Status.IN_PROGRESS) {%>
 
         <% if (user.equals(task.getOwner())) {%>
-        <a href="javascript:void(0)" onclick="$('#<portlet:namespace/>Form').toggle(); ">finish</a>
+        <a href="javascript:void(0)" onclick="$('#<portlet:namespace/>Form1').hide(); $('#<portlet:namespace/>Form2').toggle(); ">add hours</a>
+        or 
+        <a href="javascript:void(0)" onclick="$('#<portlet:namespace/>Form2').hide(); $('#<portlet:namespace/>Form1').toggle(); ">finish</a>
         
 
         <% } else {%>

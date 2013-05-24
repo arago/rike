@@ -30,19 +30,16 @@ import org.hibernate.criterion.Order;
 /**
  *
  */
-public final class ArtifactHelper
-{
-  public static List<Artifact> list()
-  {
-    DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
+public final class ArtifactHelper {
+    public static List<Artifact> list() {
+        DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
 
-    return helper.list(helper.filter().addOrder(Order.asc("id")));
-  }  
-  
-  public static Artifact getArtifact(String id)
-  {
-    if (id == null || id.isEmpty()) return null;
-    
-    return new DataHelperRike<Artifact>(Artifact.class).find(id);
-  }  
+        return helper.list(helper.filter().addOrder(Order.asc("id")));
+    }
+
+    public static Artifact getArtifact(String id) {
+        if (id == null || id.isEmpty()) return null;
+
+        return new DataHelperRike<Artifact>(Artifact.class).find(id);
+    }
 }

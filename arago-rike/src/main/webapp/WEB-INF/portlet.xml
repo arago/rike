@@ -180,6 +180,9 @@
 		<supported-processing-event>
 			<qname>TaskSelectNotification</qname>
 		</supported-processing-event>
+    <supported-processing-event>
+			<qname>MilestoneSelectNotification</qname>
+		</supported-processing-event>
 		<supported-processing-event>
 			<qname>TaskUpdateNotification</qname>
 		</supported-processing-event>
@@ -552,6 +555,10 @@
   </event-definition>
   <event-definition>
     <qname>TaskFilterRequest</qname>
+    <value-type>java.util.HashMap</value-type>
+  </event-definition>
+  <event-definition>
+    <qname>MilestoneSelectNotification</qname>
     <value-type>java.util.HashMap</value-type>
   </event-definition>
   <event-definition>

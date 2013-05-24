@@ -29,9 +29,10 @@ import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
 
-public class Abort implements Action {
+public class AbortEditArtifact implements Action {
 
+    @Override
     public void execute(IDataWrapper data) throws Exception {
-        data.removeSessionAttribute("targetView");
+        data.setSessionAttribute("targetView", "viewArtifact");
     }
 }

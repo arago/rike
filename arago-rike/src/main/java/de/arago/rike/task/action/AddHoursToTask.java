@@ -30,11 +30,9 @@ import de.arago.rike.util.TaskHelper;
 import de.arago.rike.data.Task;
 import de.arago.rike.task.StatisticHelper;
 
-import java.util.Date;
 import java.util.HashMap;
-import org.apache.commons.lang.StringEscapeUtils;
 
-public class EndTask implements Action {
+public class AddHoursToTask implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
@@ -44,10 +42,9 @@ public class EndTask implements Action {
             String user = SecurityHelper.getUserEmail(data.getUser());
 
             if (task.getStatusEnum() == Task.Status.IN_PROGRESS && task.getOwner().equals(user)) {
-                task.setEnd(new Date());
+
                 int hours = Integer.valueOf(data.getRequestAttribute("hours_spent"), 10);
                 task.setHoursSpent(hours);
-                task.setStatus(Task.Status.DONE);
 
                 TaskHelper.save(task);
                 StatisticHelper.update();
@@ -61,10 +58,6 @@ public class EndTask implements Action {
 
                 notificationParam.put("id", data.getRequestAttribute("id"));
                 data.setEvent("TaskUpdateNotification", notificationParam);
-
-                TaskHelper.log(" completed Task #" + task.getId().toString() +
-                               " <a href=\"[selectTask:" + task.getId().toString() + "]\">" +
-                               StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task, user, data);
             }
         }
     }

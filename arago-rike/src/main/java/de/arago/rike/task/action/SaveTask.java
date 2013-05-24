@@ -56,6 +56,7 @@ public class SaveTask implements Action {
         task.setArtifact(artifact);
         task.setCreated(new Date());
         task.setCreator(user);
+        task.setDescription(data.getRequestAttribute("description"));
 
         task.setStatus(Status.UNKNOWN);
         task.setMilestone(new DataHelperRike<Milestone>(Milestone.class).find(data.getRequestAttribute("milestone")));

@@ -29,12 +29,12 @@ import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
 
-public class EditMilestone implements Action {
+public class ShowTask implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
 
-        data.setSessionAttribute("targetView", "viewEditMilestone");
+        data.setSessionAttribute("targetView", "defaultView");
 
     }
 }

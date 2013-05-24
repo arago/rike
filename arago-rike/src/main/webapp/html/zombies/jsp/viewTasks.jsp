@@ -86,13 +86,7 @@
       </table>
 
 
-    </div>
-    <div class="footer">
-      <div class="inner">
-        
-      </div>
-
-    </div>
+    </div>    
   </div>
 </div>
 <% } catch (Throwable t) {

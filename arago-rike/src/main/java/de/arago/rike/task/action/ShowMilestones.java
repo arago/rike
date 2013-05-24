@@ -28,13 +28,15 @@ package de.arago.rike.task.action;
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
+import de.arago.rike.util.MilestoneHelper;
 
-public class EditMilestone implements Action {
+public class ShowMilestones implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
 
-        data.setSessionAttribute("targetView", "viewEditMilestone");
+        data.setSessionAttribute("milestones", MilestoneHelper.list());
+        data.setSessionAttribute("targetView", "viewMilestones");
 
     }
 }
