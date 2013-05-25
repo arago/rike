@@ -70,15 +70,12 @@ public class Task extends AragoPortlet {
         try {
             String id = PortalUtil.getOriginalServletRequest(PortalUtil.getHttpServletRequest(request)).getParameter("perm_milestone");
 
-            System.err.println("have id " + id);
-
             if (id != null && !id.isEmpty()) {
                 Milestone milestone = MilestoneHelper.getMilestone(id);
 
                 if (milestone != null) {
-                    System.err.println("setting milestone");
                     data.setSessionAttribute("milestone", milestone);
-
+                  
                     data.setSessionAttribute("targetView", "viewMilestone");
                 }
             }
