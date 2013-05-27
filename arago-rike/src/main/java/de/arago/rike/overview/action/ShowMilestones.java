@@ -23,21 +23,20 @@
 /**
  *
  */
-package de.arago.rike.task.action;
+package de.arago.rike.overview.action;
 
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
 import de.arago.rike.util.MilestoneHelper;
 
-public class ShowMilestone implements Action {
+public class ShowMilestones implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
 
-        data.setSessionAttribute("milestone", MilestoneHelper.getMilestone(data.getRequestAttribute("id")));
-
-        data.setSessionAttribute("targetView", "viewMilestone");
+        data.setSessionAttribute("milestones", MilestoneHelper.list());
+        data.setSessionAttribute("targetView", "viewMilestones");
 
     }
 }

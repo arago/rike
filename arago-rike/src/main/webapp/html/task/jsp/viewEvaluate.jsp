@@ -79,10 +79,10 @@
                 </td>
               </tr>
               
-             <tr>
+            <!-- <tr>
                 <th class="shrink">Date:</th>
                 <td class="shrink"><input class="rike-input" placeholder="optional due date of the task, YYYY-MM-DD" type="text" name="due_date" value="<%= StringEscapeUtils.escapeHtml(task == null || task.getDueDate() == null ? "" : service.formatDate(task.getDueDate(), "yyyy-MM-dd"))%>"/></td>
-              </tr>
+              </tr>-->
              
               
               <tr>

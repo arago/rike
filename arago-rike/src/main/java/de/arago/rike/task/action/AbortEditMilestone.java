@@ -33,6 +33,6 @@ public class AbortEditMilestone implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
-        data.setSessionAttribute("targetView", "viewMilestone");
+        data.removeSessionAttribute("targetView");
     }
 }

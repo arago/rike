@@ -37,17 +37,9 @@
           <% }%>
         </span>
       </h1>
-      <div class="inner">
-        <div class="left">
-          <ul class="tabbar">
-            <li><a href="<portlet:actionURL portletMode="view"/>&action=showTask">Task</a></li>
-            <li class="selected"><a href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones</a></li>
-            <li><a href="<portlet:actionURL portletMode="view"/>&action=showArtifacts">Artifacts</a></li>
-          </ul>
-        </div>
-      </div>
+      
     </div>
-    <div class="content">
+    <div class="content nohead">
 
       <table>
 

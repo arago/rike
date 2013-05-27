@@ -28,15 +28,21 @@ package de.arago.rike.overview.action;
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
-import java.util.HashMap;
+import de.arago.rike.util.TaskHelper;
+import de.arago.rike.util.TaskListFilter;
 
-public class CreateTask implements Action {
+public class ShowTasks implements Action {
 
+    @Override
     public void execute(IDataWrapper data) throws Exception {
 
-        HashMap<String, Object> notificationParam = new HashMap<String, Object>();
+         Object taskListFilterObject = data.getSessionAttribute("taskListFilter");
 
-        data.setEvent("TaskCreateNotification", notificationParam);
+        if (taskListFilterObject != null) {
+            data.setSessionAttribute("list", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
+        }
+        
+        data.setSessionAttribute("targetView", "defaultView");
 
     }
 }

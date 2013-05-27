@@ -56,6 +56,7 @@ public class SaveArtifact implements Action {
 
         helper.save(artifact);
 
-        data.removeSessionAttribute("targetView");
+        data.setSessionAttribute("artifact", artifact);
+        data.setSessionAttribute("targetView", "viewArtifact");
     }
 }

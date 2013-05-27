@@ -1,4 +1,3 @@
-<%@page import="de.arago.rike.data.Artifact"%>
 <%@page import="de.arago.rike.data.Milestone"%>
 <%@page import="de.arago.rike.util.TaskHelper"%>
 <%@page import="de.arago.portlet.jsp.UserService"%>
@@ -23,7 +22,7 @@
   try {
     UserService service = new JspUserService(renderRequest, portletSession);
     String user = (String) portletSession.getAttribute("userEmail");
-    List<Artifact> artifacts = (List) portletSession.getAttribute("artifacts");
+    List<Milestone> milestones = (List) portletSession.getAttribute("milestones");
 %>
 
 <div class="portlet big <%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "maximized" : ""%>" style="" id="<portlet:namespace />Portlet">
@@ -31,7 +30,7 @@
     <!-- head -->
     <div class="head">
       <h1>
-        Artifacts
+        Overview: Milestones
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
           <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
@@ -44,13 +43,10 @@
       <div class="inner">
         <div class="left">
           <ul class="tabbar">
-            <li><a href="<portlet:actionURL portletMode="view"/>&action=showTask">Task</a></li>
-            <li ><a href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones</a></li>
-            <li class="selected"><a href="#">Artifacts</a></li>
+            <li><a href="<portlet:actionURL portletMode="view"/>&action=showTasks">Tasks</a></li>
+            <li class="selected"><a href="#">Milestones</a></li>
+            <li><a href="<portlet:actionURL portletMode="view"/>&action=showArtifacts">Artifacts</a></li>
           </ul>
-        </div>
-        <div class="right">
-          <a href="<portlet:actionURL portletMode="view" />&action=editArtifact">New</a>
         </div>
 
       </div>
@@ -58,18 +54,25 @@
     <div class="content nofooter">
 
       <table>
-        <thead></thead>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>URL</th>
+          </tr>
+        </thead>
         <tbody>
-          <% for (Artifact a : artifacts) {%>
+          <% for (Milestone stone : milestones) {%>
 
 
           <tr>
-            <td><%=a.getId()%></td>
-            <td><a href="<portlet:actionURL portletMode="view" />&action=showArtifact&id=<%= a.getId()%>"><%=StringEscapeUtils.escapeHtml(a.getName())%></a></td>
-            <td><%= ViewHelper.formatURL(a.getUrl())%></td>
+            <td><%=stone.getId()%></td>
+            <td><a href="?perm_milestone=<%= stone.getId()%>"><%=StringEscapeUtils.escapeHtml(stone.getTitle())%></a></td>
+            <td><%= ViewHelper.formatURL(stone.getUrl())%></td>
           </tr>
 
           <% }%>
+
 
 
         </tbody>

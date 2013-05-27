@@ -59,6 +59,8 @@ public class SaveMilestone implements Action {
         milestone.setCreated(new Date());
         milestone.setCreator(SecurityHelper.getUser(data.getUser()).getEmailAddress());
 
+        milestone.setPerformance(0);
+        
         try {
             milestone.setPerformance(Integer.valueOf(data.getRequestAttribute("performance"), 10));
         } catch(Exception ignored) {}
@@ -74,7 +76,8 @@ public class SaveMilestone implements Action {
         }
 
         helper.save(milestone);
-
-        data.removeSessionAttribute("targetView");
+        
+        data.setSessionAttribute("milestone", milestone);
+        data.setSessionAttribute("targetView", "viewMilestone");
     }
 }

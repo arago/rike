@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.util.PortalUtil"%>
 <%@page import="de.arago.portlet.jsp.UserService"%>
 <%@page import="de.arago.portlet.jsp.JspUserService"%>
 <%@page import="de.arago.rike.data.Artifact"%>
@@ -107,6 +108,13 @@
       </div>
     </div>
     <script type="text/javascript">
+
+    top.openRikeTask = function(id)
+    {
+      window.location = (top.document.location + '').replace(/\?.*$/, '') + '?perm_task=' + (id * 1);
+      return false;
+    };
+
 
       window.onload = <portlet:namespace />enrichSVG;
 

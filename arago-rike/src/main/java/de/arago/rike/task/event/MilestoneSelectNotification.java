@@ -31,7 +31,6 @@ public class MilestoneSelectNotification implements Event {
 
     @Override
     public void execute(IEventWrapper event) throws Exception {
-        System.err.println("milestoneselect");
         if (event.getEventAttribute("id") != null) {
             event.setSessionAttribute("milestone", MilestoneHelper.getMilestone((String) event.getEventAttribute("id")));
             event.setSessionAttribute("targetView", "viewMilestone");

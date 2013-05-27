@@ -45,7 +45,7 @@
     <!-- Headline -->
     <div class="head">
       <h1>
-        Task Log <a id="<portlet:namespace />NewUpdates" href="<portlet:actionURL />&action=reload" style="display:none; color:#cc0000"></a>
+        Activity Log <a id="<portlet:namespace />NewUpdates" href="<portlet:actionURL />&action=reload" style="display:none; color:#cc0000"></a>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.tasklog');" title="Help"><span class="icon">S</span></a>
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>

@@ -23,7 +23,7 @@
 /**
  *
  */
-package de.arago.rike.task.action;
+package de.arago.rike.overview.action;
 
 import de.arago.portlet.Action;
 

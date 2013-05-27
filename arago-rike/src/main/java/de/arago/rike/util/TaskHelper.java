@@ -102,7 +102,7 @@ public class TaskHelper {
         }
 
         if (filter.getPriority().length() > 0) {
-            crit.add(Restrictions.eq("priority", filter.getPriority()));
+            crit.add(Restrictions.eq("priority", Integer.valueOf(filter.getPriority(), 10)));
         }
     }
 

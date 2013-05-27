@@ -115,7 +115,7 @@ public class TaskListFilter extends MapOptionFilter {
     }
 
     public void setPriority(String what) {
-        set("priority", what.toLowerCase());
+        set("priority", what);
     }
 
     public void setIsActive(boolean b) {

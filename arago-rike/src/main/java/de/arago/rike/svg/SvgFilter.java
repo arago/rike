@@ -31,8 +31,8 @@ public class SvgFilter {
     private Long artifact;
     private String user;
     private boolean showUnknown = false;
-    private Date startDate;
-
+    private Date startDate; 
+    
     public String getMilestone() {
         return milestone;
     }

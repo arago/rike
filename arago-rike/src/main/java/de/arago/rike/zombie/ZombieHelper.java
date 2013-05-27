@@ -143,7 +143,7 @@ public class ZombieHelper {
 
             final List tick = new ArrayList();
             tick.add(i);
-            tick.add(StringEscapeUtils.escapeHtml(stone.getTitle()));
+            tick.add("<a href='?perm_milestone="+stone.getId()+"'>"+StringEscapeUtils.escapeHtml(stone.getTitle()) + "</a>");
             ticks.add(tick);
 
             GregorianCalendar c = new GregorianCalendar();
@@ -162,6 +162,7 @@ public class ZombieHelper {
             item.add("");
             openData.add(item);
 
+            
             item = new ArrayList();
             item.add(time2);
             item.add(i);

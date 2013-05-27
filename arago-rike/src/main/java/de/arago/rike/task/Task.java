@@ -30,6 +30,7 @@ import de.arago.data.IDataWrapper;
 import de.arago.portlet.PortletDataWrapper;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.util.MilestoneHelper;
+import de.arago.rike.util.TaskHelper;
 
 import java.io.IOException;
 import javax.portlet.PortletConfig;
@@ -55,7 +56,9 @@ public class Task extends AragoPortlet {
     @Override
     public void doView(RenderRequest request, RenderResponse response)
     throws PortletException, IOException {
-        checkForMilestone(request, new PortletDataWrapper(request, response));
+      PortletDataWrapper data = new PortletDataWrapper(request, response);
+        checkForMilestone(request, data);
+        checkForTask(request, data);
 
         super.doView(request, response);
     }
@@ -77,6 +80,24 @@ public class Task extends AragoPortlet {
                     data.setSessionAttribute("milestone", milestone);
                   
                     data.setSessionAttribute("targetView", "viewMilestone");
+                }
+            }
+        } catch(Throwable ignored) {
+            // blank
+        }
+    }
+    
+    private void checkForTask(RenderRequest request, IDataWrapper data) {
+        try {
+            String id = PortalUtil.getOriginalServletRequest(PortalUtil.getHttpServletRequest(request)).getParameter("perm_task");
+
+            if (id != null && !id.isEmpty()) {
+                de.arago.rike.data.Task task = TaskHelper.getTask(id);
+
+                if (task != null) {
+                    data.setSessionAttribute("task", task);
+                  
+                    data.setSessionAttribute("targetView", "defaultView");
                 }
             }
         } catch(Throwable ignored) {

@@ -13,5 +13,6 @@ public class FindTask implements JsonAction {
 		result.put("items", TaskFinder.findTasksWithFreetextQuery(data.getRequestAttribute("q"), 10));
 
 		return result;
+      
 	}
 }
