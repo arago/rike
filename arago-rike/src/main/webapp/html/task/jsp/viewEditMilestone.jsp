@@ -28,7 +28,11 @@
     <!-- head -->
     <div class="head">
       <h1>
-        New Milestone
+        <% if (milestone ==  null) { %>
+          New Milestone
+        <% } else { %>
+          Milestone: #<%= milestone.getId() %>
+        <% } %>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
@@ -74,7 +78,7 @@
                   <select name="release" id="<portlet:namespace />Release">
                     <option value="">[No Release]</option>
                     <% for (String r: ViewHelper.getAvailableReleases()) {%>
-                    <option value="<%= StringEscapeUtils.escapeHtml(r)%>"><%= StringEscapeUtils.escapeHtml(r)%></option>
+                    <option value="<%= StringEscapeUtils.escapeHtml(r)%>" <%= milestone != null && r.equals(milestone.getRelease())?"selected='selected'":"" %>><%= StringEscapeUtils.escapeHtml(r)%></option>
                     <% }%>
                     <option value="_new_">[New Release]</option>
                   </select>
@@ -98,8 +102,8 @@
               </tr>
 
               <tr>
-                <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abort';"/></td>
-                <td class="shrink" style="text-align:right"><input type="submit" value="Create" /></td>
+                <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abortEditMilestone';"/></td>
+                <td class="shrink" style="text-align:right"><input type="submit" value="Save" /></td>
               </tr>
             </tbody>
           </table>
@@ -114,7 +118,7 @@
               {
                 var ok = true;
 						
-                $([$("input[name=title]", this), $("input[name=url]", this)]).each(function()
+                $([$("input[name=title]", this)]).each(function()
                 {
                   if (!this.val())
                   {

@@ -22,14 +22,21 @@
  */
 package de.arago.rike.task;
 
+import com.liferay.portal.util.PortalUtil;
 import de.arago.portlet.AragoPortlet;
 import de.arago.portlet.util.SecurityHelper;
 
 import de.arago.data.IDataWrapper;
+import de.arago.portlet.PortletDataWrapper;
+import de.arago.rike.data.Milestone;
+import de.arago.rike.util.MilestoneHelper;
+import de.arago.rike.util.TaskHelper;
 
 import java.io.IOException;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
 public class Task extends AragoPortlet {
 
@@ -45,9 +52,56 @@ public class Task extends AragoPortlet {
         }
     }
 
+
+    @Override
+    public void doView(RenderRequest request, RenderResponse response)
+    throws PortletException, IOException {
+      PortletDataWrapper data = new PortletDataWrapper(request, response);
+        checkForMilestone(request, data);
+        checkForTask(request, data);
+
+        super.doView(request, response);
+    }
+
     @Override
     protected boolean checkViewData(IDataWrapper data) {
         data.setSessionAttribute("userEmail", SecurityHelper.getUserEmail(data.getUser()));
         return SecurityHelper.isLoggedIn(data.getUser());
+    }
+
+    private void checkForMilestone(RenderRequest request, IDataWrapper data) {
+        try {
+            String id = PortalUtil.getOriginalServletRequest(PortalUtil.getHttpServletRequest(request)).getParameter("perm_milestone");
+
+            if (id != null && !id.isEmpty()) {
+                Milestone milestone = MilestoneHelper.getMilestone(id);
+
+                if (milestone != null) {
+                    data.setSessionAttribute("milestone", milestone);
+                  
+                    data.setSessionAttribute("targetView", "viewMilestone");
+                }
+            }
+        } catch(Throwable ignored) {
+            // blank
+        }
+    }
+    
+    private void checkForTask(RenderRequest request, IDataWrapper data) {
+        try {
+            String id = PortalUtil.getOriginalServletRequest(PortalUtil.getHttpServletRequest(request)).getParameter("perm_task");
+
+            if (id != null && !id.isEmpty()) {
+                de.arago.rike.data.Task task = TaskHelper.getTask(id);
+
+                if (task != null) {
+                    data.setSessionAttribute("task", task);
+                  
+                    data.setSessionAttribute("targetView", "defaultView");
+                }
+            }
+        } catch(Throwable ignored) {
+            // blank
+        }
     }
 }

@@ -22,7 +22,6 @@
  */
 package de.arago.rike.svg;
 
-import de.arago.portlet.util.SecurityHelper;
 import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.Dependency;
 

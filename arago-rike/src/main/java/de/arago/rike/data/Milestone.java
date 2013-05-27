@@ -99,7 +99,7 @@ public class Milestone {
         this.performance = what;
     }
 
-    public int getPerformance() {
+    public Integer getPerformance() {
         return performance;
     }
 

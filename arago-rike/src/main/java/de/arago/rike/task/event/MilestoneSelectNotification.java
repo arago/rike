@@ -20,22 +20,20 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-/**
- *
- */
-package de.arago.rike.task.action;
 
-import de.arago.portlet.Action;
+package de.arago.rike.task.event;
 
-import de.arago.data.IDataWrapper;
-import de.arago.rike.util.ArtifactHelper;
+import de.arago.portlet.Event;
+import de.arago.data.IEventWrapper;
+import de.arago.rike.util.MilestoneHelper;
 
-public class EditArtifact implements Action {
+public class MilestoneSelectNotification implements Event {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
-        data.setSessionAttribute("artifact", ArtifactHelper.getArtifact(data.getRequestAttribute("id")));
-        data.setSessionAttribute("targetView", "viewEditArtifact");
-
+    public void execute(IEventWrapper event) throws Exception {
+        if (event.getEventAttribute("id") != null) {
+            event.setSessionAttribute("milestone", MilestoneHelper.getMilestone((String) event.getEventAttribute("id")));
+            event.setSessionAttribute("targetView", "viewMilestone");
+        }
     }
 }

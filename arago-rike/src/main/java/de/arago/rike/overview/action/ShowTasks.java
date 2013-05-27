@@ -23,19 +23,26 @@
 /**
  *
  */
-package de.arago.rike.task.action;
+package de.arago.rike.overview.action;
 
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.util.ArtifactHelper;
+import de.arago.rike.util.TaskHelper;
+import de.arago.rike.util.TaskListFilter;
 
-public class EditArtifact implements Action {
+public class ShowTasks implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
-        data.setSessionAttribute("artifact", ArtifactHelper.getArtifact(data.getRequestAttribute("id")));
-        data.setSessionAttribute("targetView", "viewEditArtifact");
+
+         Object taskListFilterObject = data.getSessionAttribute("taskListFilter");
+
+        if (taskListFilterObject != null) {
+            data.setSessionAttribute("list", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
+        }
+        
+        data.setSessionAttribute("targetView", "defaultView");
 
     }
 }

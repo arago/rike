@@ -38,81 +38,85 @@
         <% }%>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
-          <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
-            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
-          <% } else { %>
-            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
-          <% } %>
+          <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
+          <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+          <% } else {%>
+          <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+          <% }%>
         </span>
       </h1>
       <div class="inner">
-			  <div class="left" id="<portlet:namespace/>Searchbox">
-				  <label for="Sucheingabe">
-					  <input type="text" name="SearchString" value="Search..." class="searchbox" onclick="if (this.value === 'Search...') this.value = '';" onblur="" id="<portlet:namespace/>search" />
-				  </label>
-        </div>
-		<script type="text/javascript">
-			$(function()
-			{
-				var statusColors =
-					{
-					OPEN: "status-critical",
-					IN_PROGRESS: "status-warning",
-					DONE: "status-ok",
-					UNKNOWN: "status-unknown"
-				};
+        <div class="left">
+          <div class="left" id="<portlet:namespace/>Searchbox">
+            <label for="SearchString">
+              <input type="text" name="SearchString" value="Search..." class="searchbox" onclick="if (this.value === 'Search...')
+                this.value = '';" onblur="" id="<portlet:namespace/>search" />
+            </label>
+          </div>
 
-				$("#<portlet:namespace/>search").autocomplete("<portlet:resourceURL />&as=json&action=findTask",
-				{
-					max: 10,
-					minChars: 1,
-					dataType: 'json',
-					delay: 50,
-					width: '250px',
-					selectFirst: false,
-					widthNode: document.getElementById('<portlet:namespace/>Searchbox'),
-					offsetRight: 148,
-					onstart: function()
-					{
-						$('#<portlet:namespace/>SearchboxButton').get(0).style.backgroundImage = 'url(/wisdome-theme/pix/ajax-loader.gif)';
-					},
-					onend: function()
-					{
-						$('#<portlet:namespace/>SearchboxButton').get(0).style.backgroundImage = '';
-					},
-					onResult: function(item)
-					{
-						window.location = '<portlet:actionURL portletMode="view"/>&action=selectTask&id=' + encodeURIComponent(item.value);
+          <script type="text/javascript">
+            $(function()
+            {
+              var statusColors =
+                      {
+                        OPEN: "status-critical",
+                        IN_PROGRESS: "status-warning",
+                        DONE: "status-ok",
+                        UNKNOWN: "status-unknown"
+                      };
 
-						return false;
-					},
-					parse: function(text)
-					{
-						var parsed = [];
+              $("#<portlet:namespace/>search").autocomplete("<portlet:resourceURL />&as=json&action=findTask",
+                      {
+                        max: 10,
+                        minChars: 1,
+                        dataType: 'json',
+                        delay: 50,
+                        width: '250px',
+                        selectFirst: false,
+                        widthNode: document.getElementById('<portlet:namespace/>Searchbox'),
+                        offsetRight: 148,
+                        onstart: function()
+                        {
+                          //$('#<portlet:namespace/>SearchboxButton').get(0).style.backgroundImage = 'url(/wisdome-theme/pix/ajax-loader.gif)';
+                        },
+                        onend: function()
+                        {
+                          //$('#<portlet:namespace/>SearchboxButton').get(0).style.backgroundImage = '';
+                        },
+                        onResult: function(item)
+                        {
+                          window.location = '<portlet:actionURL portletMode="view"/>&action=selectTask&id=' + encodeURIComponent(item.value);
 
-						for (var i = 0; i< text.items.length; ++i)
-						{
-							var item = text.items[i];
-							parsed[parsed.length] = {
-								data: '<span class="'+statusColors[item.status]+'">&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="priority-' + item.priority.toLowerCase()+'">&nbsp;</span> <span style="font-style: italic;">#' + item.id + ' ' + item.name + '</span> <br /><span style="color:#666">'+ (item.owner?'completed by '+item.owner:'not completed') +'</span>',
-								value: text.items[i].id,
-								result: text.items[i].id
-							};
-						};
+                          return false;
+                        },
+                        parse: function(text)
+                        {
+                          var parsed = [];
 
-						return parsed;
-					},
-					formatItem: function(row)
-					{
-						return row;
-					}
+                          for (var i = 0; i < text.items.length; ++i)
+                          {
+                            var item = text.items[i];
+                            parsed[parsed.length] = {
+                              data: '<span class="' + statusColors[item.status] + '">&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="priority-' + item.priority.toLowerCase() + '">&nbsp;</span> <span style="font-style: italic;">#' + item.id + ' ' + item.name + '</span> <br /><span style="color:#666">' + (item.owner ? 'completed by ' + item.owner : 'not completed') + '</span>',
+                              value: text.items[i].id,
+                              result: text.items[i].id
+                            };
+                          }
+                          ;
 
-				});
-			});
+                          return parsed;
+                        },
+                        formatItem: function(row)
+                        {
+                          return row;
+                        }
 
-		</script>
+                      });
+            });
 
-        <div class="right">
+          </script>
+
+          <div class="right">
           <a href="javascript:void(0);" onclick="$('#<portlet:namespace/>New').toggle()"><span class="icon">+</span> New</a></a>
           <div style="display:none;" class="dropDown" id="<portlet:namespace/>New" style="margin-left:-40px">
             <a href="<portlet:actionURL portletMode="view" />&action=createTask">Task</a> <br />
@@ -120,128 +124,137 @@
             <a href="<portlet:actionURL portletMode="view" />&action=editArtifact">Artifact</a>
           </div>
         </div>
-        <% if (task != null && user.equals(task.getOwner())) {%>  
-        <form id="<portlet:namespace/>Form" class="dropDown" method="post" action="<portlet:actionURL portletMode="view"/>" style="display:none; ">
-          <div>
-            <input type="hidden" name="action" value="endTask" />
-            <input type="hidden" name="id" value="<%= StringEscapeUtils.escapeHtml(task.getId().toString())%>" />
-          </div>
-          <table>
-            <tbody>
-              <tr>
-                <td>Hours spent:</td>
-                <td><input type="number" min="1" class="rike-input" name="hours_spent" value="1" /></td>
-              </tr>
-              <tr>
-                <td><input type="reset" value="Abort" onclick="$(this.form).hide();"/></td>
-                <td style="text-align:right"><input type="submit" value="Close Task" /></td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
-        <% } %>
+          <% if (task != null && user.equals(task.getOwner())) {%>  
+          <form id="<portlet:namespace/>Form1" class="dropDown" method="post" action="<portlet:actionURL portletMode="view"/>" style="display:none; ">
+            <div>
+              <input type="hidden" name="action" value="endTask" />
+              <input type="hidden" name="id" value="<%= StringEscapeUtils.escapeHtml(task.getId().toString())%>" />
+            </div>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Hours spent:</td>
+                  <td><input type="number" min="1" class="rike-input" name="hours_spent" value="<%= task.getHoursSpent()%>" /></td>
+                </tr>
+                <tr>
+                  <td><input type="reset" value="Abort" onclick="$(this.form).hide();"/></td>
+                  <td style="text-align:right"><input type="submit" value="Close Task" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+
+          <form id="<portlet:namespace/>Form2" class="dropDown" method="post" action="<portlet:actionURL portletMode="view"/>" style="display:none; ">
+            <div>
+              <input type="hidden" name="action" value="addHoursToTask" />
+              <input type="hidden" name="id" value="<%= StringEscapeUtils.escapeHtml(task.getId().toString())%>" />
+            </div>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Hours spent:</td>
+                  <td><input type="number" min="1" class="rike-input" name="hours_spent" value="<%= task.getHoursSpent()%>" /></td>
+                </tr>
+                <tr>
+                  <td><input type="reset" value="Abort" onclick="$(this.form).hide();"/></td>
+                  <td style="text-align:right"><input type="submit" value="Add" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+          <% }%>
+        </div>
       </div>
     </div>
     <div class="content">
 
-        <% if (task != null) {%>
+      <% if (task != null) {%>
 
-        <table>
-          <tbody>
-            <tr>
-              <th class="shrink">Status:</th>
-              <td class="shrink">
-                <%
-                  switch (task.getStatusEnum()) {
-                    case DONE:
-                      out.print("completed on " + service.formatDate(task.getEnd()) + " by " + ViewHelper.formatUser(task));
-                      break;
+      <table>
+        <tbody>
+          <tr>
+            <th class="shrink">Status:</th>
+            <td class="shrink">
+              <%
+                switch (task.getStatusEnum()) {
+                  case DONE:
+                    out.print("completed on " + service.formatDate(task.getEnd()) + " by " + ViewHelper.formatUser(task));
+                    break;
 
-                    case IN_PROGRESS:
-                      out.print("in progress " + service.formatDate(task.getStart()) + " by " + ViewHelper.formatUser(task));
-                      break;
+                  case IN_PROGRESS:
+                    out.print("in progress " + service.formatDate(task.getStart()) + " by " + ViewHelper.formatUser(task));
+                    break;
 
-                    case OPEN:
-                      out.print("open");
-                      break;
+                  case OPEN:
+                    out.print("open");
+                    break;
 
-                    case UNKNOWN:
-                      out.print("not rated");
-                      break;
-                  }
-                %>
+                  case UNKNOWN:
+                    out.print("not rated");
+                    break;
+                }
+              %>
 
-              </td>
-            </tr>
-            
-            <tr>
-              <th class="shrink">URL:</th>
-              <td class="shrink"><%= ViewHelper.formatURL(task.getUrl())%></td>
-            </tr>
+            </td>
+          </tr>
 
-            
-
-            
-
-            <% if (task.getStatusEnum() != Task.Status.UNKNOWN) {%>
+          <tr>
+            <th class="shrink">URL:</th>
+            <td class="shrink"><%= ViewHelper.formatURL(task.getUrl())%></td>
+          </tr>
 
 
-            <% if (task.getStatusEnum() == Status.DONE) {%>
 
-            <tr>
-              <th class="shrink">Time:</th>
-              <td class="shrink"><%= task.getSizeEstimated()%> hours estimated, <%= task.getHoursSpent()%> hours spent</td>
-            </tr>
 
-            <% } else {%>
-            
-            <tr>
-              <th class="shrink">Estimated time:</th>
-              <td class="shrink"><%= task.getSizeEstimated()%> hours</td>
-            </tr>
-            
-            <% } %>
-            
 
-            <tr> 
-              <th class="shrink">Priority:</th>
-              <td class="shrink"><%= ViewHelper.getPriority(task.getPriority())%></td>
-            </tr>
+          <% if (task.getStatusEnum() != Task.Status.UNKNOWN) {%>
 
-            <tr>
-              <th class="shrink">Rated:</th>
-              <td class="shrink">on <%= StringEscapeUtils.escapeHtml(service.formatDate(task.getRated()))%> by <%= ViewHelper.formatUser(task.getRatedBy())%></td>
-            </tr>
 
-            <% }%>
-            
-            <tr>
-              <th class="shrink">Artifact:</th>
-              <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getArtifact().getName())%></td>
-            </tr>
+          <tr>
+            <th class="shrink">Time:</th>
+            <td class="shrink"><%= task.getSizeEstimated()%> hours estimated, <%= task.getHoursSpent()%> hours spent</td>
+          </tr>
 
-            <% if (task.getMilestone() != null) {%>
 
-            <tr>
-              <th class="shrink">Milestone:</th>
-              <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getMilestone().getTitle())%></td>
-            </tr>
+          <tr> 
+            <th class="shrink">Priority:</th>
+            <td class="shrink"><%= ViewHelper.getPriority(task.getPriority())%></td>
+          </tr>
 
-            <%  }%>
+          <tr>
+            <th class="shrink">Rated:</th>
+            <td class="shrink">on <%= StringEscapeUtils.escapeHtml(service.formatDate(task.getRated()))%> by <%= ViewHelper.formatUser(task.getRatedBy())%></td>
+          </tr>
 
-            <tr>
-              <th class="shrink">Created:</th>
-              <td class="shrink">on <%= StringEscapeUtils.escapeHtml(service.formatDate(task.getCreated()))%> by <%= ViewHelper.formatUser(task.getCreator())%></td>
-            </tr>
-          </tbody>
-        </table>
-        <% } %>
+          <% }%>
+
+          <tr>
+            <th class="shrink">Artifact:</th>
+            <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getArtifact().getName())%></td>
+          </tr>
+
+          <% if (task.getMilestone() != null) {%>
+
+          <tr>
+            <th class="shrink">Milestone:</th>
+            <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getMilestone().getTitle())%></td>
+          </tr>
+
+          <%  }%>
+
+          <tr>
+            <th class="shrink">Created:</th>
+            <td class="shrink">on <%= StringEscapeUtils.escapeHtml(service.formatDate(task.getCreated()))%> by <%= ViewHelper.formatUser(task.getCreator())%></td>
+          </tr>
+        </tbody>
+      </table>
+      <% }%>
 
 
     </div>
     <div class="footer">
       <div class="inner">
-        <% if (task != null) { %>
+        <% if (task != null) {%>
         <% if (task.getStatusEnum() == Status.UNKNOWN) {%>
         <a href="<portlet:actionURL portletMode="view"/>&action=viewEvaluateTask&id=<%= URLEncoder.encode(task.getId().toString(), "UTF-8")%>">rate</a>
         <% } else if (task.getStatusEnum() == Status.OPEN) {%>
@@ -255,8 +268,12 @@
         <% } else if (task.getStatusEnum() == Status.IN_PROGRESS) {%>
 
         <% if (user.equals(task.getOwner())) {%>
-        <a href="javascript:void(0)" onclick="$('#<portlet:namespace/>Form').toggle(); ">finish</a>
-        
+        <a href="javascript:void(0)" onclick="$('#<portlet:namespace/>Form1').hide();
+              $('#<portlet:namespace/>Form2').toggle();">add hours</a>
+        or 
+        <a href="javascript:void(0)" onclick="$('#<portlet:namespace/>Form2').hide();
+              $('#<portlet:namespace/>Form1').toggle();">finish</a>
+
 
         <% } else {%>
         In progress (<%= ViewHelper.formatUser(task)%>)
@@ -266,6 +283,7 @@
         Done on <%= service.formatDate(task.getEnd())%> (<%= ViewHelper.formatUser(task.getOwner())%>)
 
         <% }%>
+        | <a href="?perm_task=<%= task.getId()%>">permalink</a>
         <% } else {%>
         <p>No Task selected</p>
         <% }%>
@@ -273,10 +291,11 @@
 
     </div>
   </div>
+
 </div>
 <% } catch (Throwable t) {
-  
+
     out.write("Please Reload");
     t.printStackTrace(System.err);
-    throw(t);
+    throw (t);
   }%>

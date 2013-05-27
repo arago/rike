@@ -54,14 +54,15 @@
         
       
     </div>
-    <div class="content">
+    <div class="content nofooter">
 
       <table>
         <thead>
-          <tr>
+          <tr>  
+            <th>#</th>
+            <th>Title</th>
+            <th>Summary</th>
             <th>ETA</th>
-            <th>Status</th>
-            <th>Name</th>
           </tr>
           
         </thead>
@@ -73,11 +74,8 @@
           %>
           
           <tr>
-            <td style="white-space:nowrap">  
-              <%=
-                service.formatDate(o.getEstimatedDoneDate(), "yyyy-MM-dd")
-              %>
-            </td>
+            <td><%= stone.getId() %> </td>
+            <td><a href="?perm_milestone=<%= stone.getId() %>"><%= StringEscapeUtils.escapeHtml(stone.getTitle()) %></a></td>
             <td style="white-space:nowrap">
               work left <%= o.getWorkLeftInHours()%>h<br />
               time left <%= o.getDaysLeft() %>d<br />
@@ -89,7 +87,11 @@
                 <span style="color:red"><%= o.getLate() %> days late</span>
               <% } %>
               </td>
-            <td><%= StringEscapeUtils.escapeHtml(stone.getTitle()) %></td>
+              <td style="white-space:nowrap">  
+              <%=
+                service.formatDate(o.getEstimatedDoneDate(), "yyyy-MM-dd")
+              %>
+              </td>
           </tr>
           
           
@@ -100,12 +102,7 @@
 
 
     </div>
-    <div class="footer">
-      <div class="inner">
-        
-      </div>
-
-    </div>
+    
   </div>
 </div>
 <% } catch (Throwable t) {

@@ -180,6 +180,12 @@
 		<supported-processing-event>
 			<qname>TaskSelectNotification</qname>
 		</supported-processing-event>
+    <supported-processing-event>
+			<qname>MilestoneSelectNotification</qname>
+		</supported-processing-event>
+    <supported-processing-event>
+			<qname>ArtifactSelectNotification</qname>
+		</supported-processing-event>
 		<supported-processing-event>
 			<qname>TaskUpdateNotification</qname>
 		</supported-processing-event>
@@ -204,9 +210,9 @@
 		</supported-publishing-event>
 	</portlet>
 	<portlet>
-		<description>Task Log</description>
+		<description>Activity Log</description>
 		<portlet-name>arago-rike-tasklog</portlet-name>
-		<display-name>Task Log</display-name>
+		<display-name>Activity Log</display-name>
 		<portlet-class>de.arago.rike.tasklog.TaskLog</portlet-class>
 		<expiration-cache>0</expiration-cache>
 		<supports>
@@ -216,8 +222,8 @@
 			<portlet-mode>HELP</portlet-mode>
 		</supports>
 		<portlet-info>
-			<title>Task Log</title>
-			<short-title>Task Log</short-title>
+			<title>Activity Log</title>
+			<short-title>Activity Log</short-title>
 			<keywords></keywords>
 		</portlet-info>
 		<portlet-preferences>
@@ -552,6 +558,15 @@
   </event-definition>
   <event-definition>
     <qname>TaskFilterRequest</qname>
+    <value-type>java.util.HashMap</value-type>
+  </event-definition>
+  <event-definition>
+    <qname>MilestoneSelectNotification</qname>
+    <value-type>java.util.HashMap</value-type>
+  </event-definition>
+
+  <event-definition>
+    <qname>ArtifactSelectNotification</qname>
     <value-type>java.util.HashMap</value-type>
   </event-definition>
   <event-definition>

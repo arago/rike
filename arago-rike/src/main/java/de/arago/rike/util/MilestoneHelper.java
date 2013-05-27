@@ -20,22 +20,26 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package de.arago.rike.util;
+
+import de.arago.rike.data.DataHelperRike;
+import de.arago.rike.data.Milestone;
+import java.util.List;
+import org.hibernate.criterion.Order;
+
 /**
  *
  */
-package de.arago.rike.task.action;
+public final class MilestoneHelper {
+    public static List<Milestone> list() {
+        DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
 
-import de.arago.portlet.Action;
+        return helper.list(helper.filter().addOrder(Order.asc("id")));
+    }
 
-import de.arago.data.IDataWrapper;
-import de.arago.rike.util.ArtifactHelper;
+    public static Milestone getMilestone(String id) {
+        if (id == null || id.isEmpty()) return null;
 
-public class EditArtifact implements Action {
-
-    @Override
-    public void execute(IDataWrapper data) throws Exception {
-        data.setSessionAttribute("artifact", ArtifactHelper.getArtifact(data.getRequestAttribute("id")));
-        data.setSessionAttribute("targetView", "viewEditArtifact");
-
+        return new DataHelperRike<Milestone>(Milestone.class).find(id);
     }
 }

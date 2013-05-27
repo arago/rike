@@ -12,6 +12,7 @@
     <property name="end"/>
     <property name="creator"/>
     <property name="created"/>
+    <property name="description"/>
     <property column="rated_by" name="ratedBy"/>
     <property name="rated"/>
     <property column="task_status" name="status"/>

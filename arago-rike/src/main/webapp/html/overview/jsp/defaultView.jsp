@@ -29,7 +29,7 @@
     <!-- head -->
     <div class="head">
       <h1>
-        All Tasks
+        Overview: Tasks
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.overview');" title="Help"><span class="icon">S</span></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
@@ -40,7 +40,7 @@
         </span>
       </h1>
         <div class="inner">
-        <a href="javascript:void(0);" onclick="$('#<portlet:namespace />Filter').toggle();"><span class="icon">S</span> Filter: <%= StringEscapeUtils.escapeHtml(filter.getInfo(service))%></a> <br />
+        <a href="javascript:void(0);" onclick="$('#<portlet:namespace />Filter').toggle();"><span class="icon">S</span> Filter <%= filter.isActive() ? "(active)" : ""%></a> <br />
         <div id="<portlet:namespace />Filter" class="dropDown" style="display:none;">
           <form method="post" action="<portlet:actionURL portletMode="view"/>">
             <input type="hidden" name="action" value="filterTasks" />
@@ -153,6 +153,18 @@
           </form>
 
         </div>
+                  
+                  
+                  
+        <div class="left">
+          <ul class="tabbar" style="left:80px">
+            <li class="selected"><a href="#">Tasks</a></li>
+            <li ><a href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones</a></li>
+            <li><a href="<portlet:actionURL portletMode="view"/>&action=showArtifacts">Artifacts</a></li>
+          </ul>
+        </div>
+
+                  
         </div>
     </div>
     <!-- content -->

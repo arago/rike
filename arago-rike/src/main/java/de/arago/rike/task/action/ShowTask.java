@@ -28,14 +28,13 @@ package de.arago.rike.task.action;
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.util.ArtifactHelper;
 
-public class EditArtifact implements Action {
+public class ShowTask implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
-        data.setSessionAttribute("artifact", ArtifactHelper.getArtifact(data.getRequestAttribute("id")));
-        data.setSessionAttribute("targetView", "viewEditArtifact");
+
+        data.setSessionAttribute("targetView", "defaultView");
 
     }
 }

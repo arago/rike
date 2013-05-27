@@ -139,8 +139,8 @@ public class SVGGraphCreator {
 
             String name = formatName(task.getTitle());
 
-            content.append(String.format("  %1$d [label=\"%2$s\",target=\"_blank\",URL=\"%3$s\",style=filled,shape=note,fillcolor=%4$s]\n",
-                                         task.getId(), name, task.getUrl(), color));
+            content.append(String.format("  %1$d [label=\"%2$s\",target=_parent,URL=\"%3$s\",style=filled,shape=note,fillcolor=%4$s]\n",
+                                         task.getId(), name, "javascript:top.openRikeTask(" + task.getId() + ")", color));
             String start = "NEXT";
             if (task.getStart() != null) {
                 start = String.format("%1$tY-%1$tm-%1$td", task.getStart());

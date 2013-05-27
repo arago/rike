@@ -28,13 +28,16 @@ package de.arago.rike.task.action;
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
+import de.arago.rike.util.MilestoneHelper;
 
 public class EditMilestone implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
 
-        data.setSessionAttribute("targetView", "viewEditMilestone");
+        data.setSessionAttribute("milestone", MilestoneHelper.getMilestone(data.getRequestAttribute("id")));
 
+        data.setSessionAttribute("targetView", "viewEditMilestone");
+        
     }
 }

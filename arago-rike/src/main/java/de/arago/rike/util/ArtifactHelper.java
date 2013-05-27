@@ -20,23 +20,26 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package de.arago.rike.util;
+
+import de.arago.rike.data.Artifact;
+import de.arago.rike.data.DataHelperRike;
+import java.util.List;
+import org.hibernate.criterion.Order;
+
 /**
  *
  */
-package de.arago.rike.overview.action;
+public final class ArtifactHelper {
+    public static List<Artifact> list() {
+        DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
 
-import de.arago.portlet.Action;
+        return helper.list(helper.filter().addOrder(Order.asc("id")));
+    }
 
-import de.arago.data.IDataWrapper;
-import java.util.HashMap;
+    public static Artifact getArtifact(String id) {
+        if (id == null || id.isEmpty()) return null;
 
-public class CreateTask implements Action {
-
-    public void execute(IDataWrapper data) throws Exception {
-
-        HashMap<String, Object> notificationParam = new HashMap<String, Object>();
-
-        data.setEvent("TaskCreateNotification", notificationParam);
-
+        return new DataHelperRike<Artifact>(Artifact.class).find(id);
     }
 }

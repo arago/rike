@@ -66,17 +66,24 @@
             </tr>
             
             <tr>
+              <th class="shrink">Description:</th>
+              <td class="shrink">
+                <textarea placeholder="Optional description of the task" class="rike-input" ><%= StringEscapeUtils.escapeHtml(task.getDescription())%></textarea>
+              </td>
+            </tr>
+            
+            <tr>
                 <th class="shrink">Time:</th>
                 <td class="shrink">
                   <input type="number" min="1" class="rike-input" placeholder="Estimated hours to finish" name="size_estimated" value="<%= task.getSizeEstimated() == null ? 8 : task.getSizeEstimated()%>" />
                 </td>
               </tr>
               
-              <tr>
+            <!-- <tr>
                 <th class="shrink">Date:</th>
-                <td class="shrink"><input class="rike-input" placeholder="due date of the task, YYYY-MM-DD" type="text" name="due_date" value="<%= StringEscapeUtils.escapeHtml(task == null || task.getDueDate() == null ? "" : service.formatDate(task.getDueDate(), "yyyy-MM-dd"))%>"/></td>
-              </tr>
-              
+                <td class="shrink"><input class="rike-input" placeholder="optional due date of the task, YYYY-MM-DD" type="text" name="due_date" value="<%= StringEscapeUtils.escapeHtml(task == null || task.getDueDate() == null ? "" : service.formatDate(task.getDueDate(), "yyyy-MM-dd"))%>"/></td>
+              </tr>-->
+             
               
               <tr>
                 <th class="shrink">Milestone:</th>

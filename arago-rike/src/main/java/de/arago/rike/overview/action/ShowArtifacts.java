@@ -23,19 +23,20 @@
 /**
  *
  */
-package de.arago.rike.task.action;
+package de.arago.rike.overview.action;
 
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
 import de.arago.rike.util.ArtifactHelper;
 
-public class EditArtifact implements Action {
+public class ShowArtifacts implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
-        data.setSessionAttribute("artifact", ArtifactHelper.getArtifact(data.getRequestAttribute("id")));
-        data.setSessionAttribute("targetView", "viewEditArtifact");
+
+        data.setSessionAttribute("artifacts", ArtifactHelper.list());
+        data.setSessionAttribute("targetView", "viewArtifacts");
 
     }
 }

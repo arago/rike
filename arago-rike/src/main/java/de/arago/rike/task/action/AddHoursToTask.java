@@ -20,22 +20,45 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-/**
- *
- */
 package de.arago.rike.task.action;
 
 import de.arago.portlet.Action;
+import de.arago.portlet.util.SecurityHelper;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.util.ArtifactHelper;
+import de.arago.rike.util.TaskHelper;
+import de.arago.rike.data.Task;
+import de.arago.rike.task.StatisticHelper;
 
-public class EditArtifact implements Action {
+import java.util.HashMap;
+
+public class AddHoursToTask implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
-        data.setSessionAttribute("artifact", ArtifactHelper.getArtifact(data.getRequestAttribute("id")));
-        data.setSessionAttribute("targetView", "viewEditArtifact");
 
+        if (data.getRequestAttribute("id") != null) {
+            Task task = TaskHelper.getTask(data.getRequestAttribute("id"));
+            String user = SecurityHelper.getUserEmail(data.getUser());
+
+            if (task.getStatusEnum() == Task.Status.IN_PROGRESS && task.getOwner().equals(user)) {
+
+                int hours = Integer.valueOf(data.getRequestAttribute("hours_spent"), 10);
+                task.setHoursSpent(hours);
+
+                TaskHelper.save(task);
+                StatisticHelper.update();
+                if(task.getArtifact().getId().longValue()==TaskHelper.OTHER_ARTEFACT_ID) {
+                    TaskHelper.changeAccount(user, hours*50/8);
+                }
+
+                data.setSessionAttribute("task", task);
+
+                HashMap<String, Object> notificationParam = new HashMap<String, Object>();
+
+                notificationParam.put("id", data.getRequestAttribute("id"));
+                data.setEvent("TaskUpdateNotification", notificationParam);
+            }
+        }
     }
 }

@@ -23,19 +23,23 @@
 /**
  *
  */
-package de.arago.rike.task.action;
+package de.arago.rike.overview.action;
 
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.util.ArtifactHelper;
+import java.util.HashMap;
 
-public class EditArtifact implements Action {
+public class ShowMilestone implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
-        data.setSessionAttribute("artifact", ArtifactHelper.getArtifact(data.getRequestAttribute("id")));
-        data.setSessionAttribute("targetView", "viewEditArtifact");
 
+      if (data.getRequestAttribute("id") != null) {
+            HashMap<String, Object> notificationParam = new HashMap<String, Object>();
+
+            notificationParam.put("id", data.getRequestAttribute("id"));
+            data.setEvent("MilestoneSelectNotification", notificationParam);
+        }
     }
 }

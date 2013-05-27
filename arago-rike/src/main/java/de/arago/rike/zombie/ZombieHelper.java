@@ -62,7 +62,7 @@ public class ZombieHelper {
 
         return (Integer) o;
     }
-    
+
     public static List<OverdueMilestone> getOverdueMilestones(boolean getAll) {
         DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
 
@@ -79,11 +79,11 @@ public class ZombieHelper {
         for (final Object o: list) {
             Object[] a = (Object[]) o;
             OverdueMilestone ms = new OverdueMilestone
-                                     (
-                                         asInt(a[0]),
-                                         asInt(a[1]),
-                                         asInt(a[2]),
-                                         helper.find(a[3].toString()));
+            (
+                asInt(a[0]),
+                asInt(a[1]),
+                asInt(a[2]),
+                helper.find(a[3].toString()));
             if(ms.getLate()>0||getAll)
                 ret.add(ms);
         }
@@ -115,7 +115,7 @@ public class ZombieHelper {
         final Map open = new HashMap();
         final Map in_progress = new HashMap();
         final Map done = new HashMap();
-        
+
         data.add(open);
         data.add(in_progress);
         data.add(done);
@@ -139,48 +139,49 @@ public class ZombieHelper {
         int i = 1;
 
         for (OverdueMilestone o : milestones) {
-          Milestone stone = o.getMilestone();
+            Milestone stone = o.getMilestone();
 
-          final List tick = new ArrayList();
-          tick.add(i);
-          tick.add(StringEscapeUtils.escapeHtml(stone.getTitle()));
-          ticks.add(tick);
+            final List tick = new ArrayList();
+            tick.add(i);
+            tick.add("<a href='?perm_milestone="+stone.getId()+"'>"+StringEscapeUtils.escapeHtml(stone.getTitle()) + "</a>");
+            ticks.add(tick);
 
-          GregorianCalendar c = new GregorianCalendar();
-          c.setTime(stone.getDueDate());
-          c.add(Calendar.HOUR_OF_DAY, -(o.getWorkLeftInHours() * 7 * 24) / stone.getPerformance());
-          long time1 = c.getTimeInMillis();
-          c.add(Calendar.HOUR_OF_DAY, -(o.getWorkInProgressInHours() * 7 * 24) / stone.getPerformance());
-          long time2 = c.getTimeInMillis();
-          c.add(Calendar.HOUR_OF_DAY, -(o.getWorkDoneInHours() * 7 * 24) / stone.getPerformance());
-          long time3 = c.getTimeInMillis();
+            GregorianCalendar c = new GregorianCalendar();
+            c.setTime(stone.getDueDate());
+            c.add(Calendar.HOUR_OF_DAY, -(o.getWorkLeftInHours() * 7 * 24) / stone.getPerformance());
+            long time1 = c.getTimeInMillis();
+            c.add(Calendar.HOUR_OF_DAY, -(o.getWorkInProgressInHours() * 7 * 24) / stone.getPerformance());
+            long time2 = c.getTimeInMillis();
+            c.add(Calendar.HOUR_OF_DAY, -(o.getWorkDoneInHours() * 7 * 24) / stone.getPerformance());
+            long time3 = c.getTimeInMillis();
 
-          List item = new ArrayList();
-          item.add(time1);
-          item.add(i);
-          item.add(stone.getDueDate().getTime());
-          item.add("");
-          openData.add(item);
+            List item = new ArrayList();
+            item.add(time1);
+            item.add(i);
+            item.add(stone.getDueDate().getTime());
+            item.add("");
+            openData.add(item);
 
-          item = new ArrayList();
-          item.add(time2);
-          item.add(i);
-          item.add(time1);
-          item.add("");
-          in_progressData.add(item);
+            
+            item = new ArrayList();
+            item.add(time2);
+            item.add(i);
+            item.add(time1);
+            item.add("");
+            in_progressData.add(item);
 
-          item = new ArrayList();
-          item.add(time3);
-          item.add(i);
-          item.add(time2);
-          item.add("");
-          doneData.add(item);
+            item = new ArrayList();
+            item.add(time3);
+            item.add(i);
+            item.add(time2);
+            item.add("");
+            doneData.add(item);
 
-          ++i;
+            ++i;
         }
 
         return JSONArray.toJSONString(data);
-     }
+    }
 
     private static class EtaSorter implements Comparator<OverdueMilestone> {
 
