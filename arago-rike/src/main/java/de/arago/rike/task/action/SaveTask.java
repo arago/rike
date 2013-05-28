@@ -87,12 +87,5 @@ public class SaveTask implements Action {
         data.setEvent("TaskSelectNotification", notificationParam);
 
         ActivityLogHelper.log(" created Task #" + task.getId().toString() + " <a href=\"?perm_task=" + task.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a>", task.getStatus(), user, data);
-        
-        Milestone milestone = task.getMilestone();
-        
-        if (MilestoneHelper.isMilestoneDone(milestone))
-        {
-          ActivityLogHelper.log(" finished Milestone #" + milestone.getId() + " <a href=\"?perm_milestone=" + task.getId() + "\">" + StringEscapeUtils.escapeHtml(milestone.getTitle()) + "</a>", "done", user, data);
-        }  
     }
 }

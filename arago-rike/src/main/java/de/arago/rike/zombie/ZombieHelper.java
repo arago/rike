@@ -44,7 +44,7 @@ import org.hibernate.criterion.Restrictions;
  *
  */
 public class ZombieHelper {
-    
+
 
     public static List<OverdueMilestone> getOverdueMilestones(boolean getAll) {
         DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
@@ -55,6 +55,7 @@ public class ZombieHelper {
                      + "(select sum(size_estimated) from tasks t where t.milestone_id = m.id and t.task_status = 'done') as hours_done, "
                      + "id "
                      + " from milestones m where m.due_date is not null and m.performance > 0 group by m.id having hours_left > 0;";
+
 
         List<OverdueMilestone> ret = new ArrayList<OverdueMilestone>();
         List<Object> list          = helper.list(helper.createSQLQuery(str));
@@ -145,7 +146,7 @@ public class ZombieHelper {
             item.add("");
             openData.add(item);
 
-            
+
             item = new ArrayList();
             item.add(time2);
             item.add(i);

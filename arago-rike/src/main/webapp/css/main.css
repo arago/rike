@@ -677,22 +677,22 @@ background-image: -webkit-gradient(
 	background:#f5cccc!important;
 	color:#c00!important;
 }
-.place-up, .status-ok {
+.place-up, .status-ok, .rike-activity-done{
 	background-image:url(/arago-rike/pix/icon-ampel-gruen.png);
 	background-repeat:no-repeat;
 	background-position:center center;
 }
-.place-unchanged, .status-warning {
+.place-unchanged, .status-warning, .rike-activity-in_progress, .rike-activity-modified {
 	background-image:url(/arago-rike/pix/icon-ampel-orange.png);
 	background-repeat:no-repeat;
 	background-position:center center;
 }
-.place-down, .status-critical {
+.place-down, .status-critical, .rike-activity-open {
 	background-image:url(/arago-rike/pix/icon-ampel-rot.png);
 	background-repeat:no-repeat;
 	background-position:center center;
 }
-.status-unknown {
+.status-unknown, .rike-activity-unknown, .rike-activity-new {
 	background-image:url(/arago-rike/pix/icon-ampel-blau.png);
 	background-repeat:no-repeat;
 	background-position:center center;

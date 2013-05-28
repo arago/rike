@@ -23,7 +23,6 @@
 package de.arago.rike.util;
 
 import de.arago.portlet.jsp.UserService;
-import de.arago.rike.data.ActivityLog;
 import de.arago.rike.data.Artifact;
 import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.Milestone;
@@ -32,6 +31,7 @@ import de.arago.rike.data.Task.Status;
 import de.arago.rike.data.TaskUser;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -240,9 +240,13 @@ public class ViewHelper {
     public static String getColor(String what) {
         return statusColors.get(what.toUpperCase());
     }
-    
+
     public static int asInt(Object o) {
         if (o == null) return 0;
+
+        if (o instanceof BigInteger) {
+            return ((BigInteger) o).intValue();
+        }
 
         if (o instanceof BigDecimal) {
             return ((BigDecimal) o).intValue();

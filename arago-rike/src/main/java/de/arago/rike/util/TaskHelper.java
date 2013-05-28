@@ -148,9 +148,9 @@ public class TaskHelper {
             newUser.setLast_ms("");
 
             helper.save(newUser);
-            
+
             ActivityLogHelper.log(" joined", "new", user, null);
-            
+
             return newUser;
         } else
             return list.get(0);
