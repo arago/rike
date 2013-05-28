@@ -29,7 +29,7 @@
     <mapping resource="de/arago/rike/data/Milestone.hbm.xml"/>
     <mapping resource="de/arago/rike/data/Artifact.hbm.xml"/>
     <mapping resource="de/arago/rike/data/TaskUser.hbm.xml"/>
-    <mapping resource="de/arago/rike/data/TaskLog.hbm.xml"/>
+    <mapping resource="de/arago/rike/data/ActivityLog.hbm.xml"/>
     <mapping resource="de/arago/rike/data/Dependency.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

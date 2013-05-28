@@ -20,25 +20,17 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-/**
- *
- */
-package de.arago.rike.tasklog.action;
+package de.arago.rike.activitylog.event;
 
-import de.arago.portlet.Action;
+import de.arago.data.IEventWrapper;
+import de.arago.portlet.Event;
+import de.arago.rike.util.TaskHelper;
 
-import de.arago.data.IDataWrapper;
-import java.util.HashMap;
 
-public class SelectTask implements Action {
+public class ActivityLogNotification  implements Event {
 
-    public void execute(IDataWrapper data) throws Exception {
-
-        if (data.getRequestAttribute("id") != null) {
-            HashMap<String, Object> notificationParam = new HashMap<String, Object>();
-
-            notificationParam.put("id", data.getRequestAttribute("id"));
-            data.setEvent("TaskSelectNotification", notificationParam);
-        }
+    public void execute(IEventWrapper event) throws Exception {
+        event.setSessionAttribute("list", TaskHelper.getRecentActivityLogs());
     }
+
 }

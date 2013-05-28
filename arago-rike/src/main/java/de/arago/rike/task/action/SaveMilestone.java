@@ -31,9 +31,11 @@ import de.arago.portlet.util.SecurityHelper;
 import de.arago.data.IDataWrapper;
 import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.Milestone;
+import de.arago.rike.util.ActivityLogHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.apache.commons.lang.StringEscapeUtils;
 
 public class SaveMilestone implements Action {
 
@@ -60,7 +62,7 @@ public class SaveMilestone implements Action {
         milestone.setCreator(SecurityHelper.getUser(data.getUser()).getEmailAddress());
 
         milestone.setPerformance(0);
-        
+
         try {
             milestone.setPerformance(Integer.valueOf(data.getRequestAttribute("performance"), 10));
         } catch(Exception ignored) {}
@@ -76,8 +78,10 @@ public class SaveMilestone implements Action {
         }
 
         helper.save(milestone);
-        
+
         data.setSessionAttribute("milestone", milestone);
         data.setSessionAttribute("targetView", "viewMilestone");
+
+        ActivityLogHelper.log(" created Milestone #" + milestone.getId().toString() + " <a href=\"?perm_milestone=" + milestone.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(milestone.getTitle()) + "</a>", "", milestone.getCreator(), data);
     }
 }

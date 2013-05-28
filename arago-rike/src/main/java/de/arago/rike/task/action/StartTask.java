@@ -29,6 +29,7 @@ import de.arago.data.IDataWrapper;
 import de.arago.rike.util.TaskHelper;
 import de.arago.rike.data.Task;
 import de.arago.rike.task.StatisticHelper;
+import de.arago.rike.util.ActivityLogHelper;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -63,7 +64,7 @@ public class StartTask implements Action {
                 notificationParam.put("id", task.getId().toString());
                 data.setEvent("TaskUpdateNotification", notificationParam);
 
-                TaskHelper.log(" started Task #" + task.getId().toString() + " <a href=\"[selectTask:" + task.getId().toString() + "]\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task, user, data);
+                ActivityLogHelper.log(" started Task #" + task.getId().toString() + " <a href=\"?perm_task=" + task.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), user, data);
             }
         }
     }

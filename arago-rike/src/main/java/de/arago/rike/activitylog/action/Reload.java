@@ -20,21 +20,17 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.arago.rike.tasklog;
+/**
+ *
+ */
+package de.arago.rike.activitylog.action;
 
-import de.arago.portlet.AragoPortlet;
-import de.arago.portlet.util.SecurityHelper;
+import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.util.TaskHelper;
 
-public class TaskLog extends AragoPortlet {
-
-    @Override
-    protected boolean checkViewData(IDataWrapper data) {
-        if(!SecurityHelper.isLoggedIn(data.getUser()))
-            return false;
-        data.setSessionAttribute("list", TaskHelper.getRecentTaskLogs());
-        return true;
+public class Reload implements Action {
+    public void execute(IDataWrapper data) throws Exception {
+        // blank
     }
 }
