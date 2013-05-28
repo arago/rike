@@ -20,27 +20,12 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.arago.rike.task.action;
+package de.arago.rike.data;
 
-import de.arago.portlet.Action;
-import de.arago.data.IDataWrapper;
-import de.arago.rike.data.Artifact;
-import de.arago.rike.data.DataHelperRike;
-import de.arago.rike.data.Milestone;
-import de.arago.rike.data.Task;
-import de.arago.rike.util.MilestoneHelper;
-import org.hibernate.criterion.Order;
-
-public class CreateTask implements Action {
-
-    @Override
-    public void execute(IDataWrapper data) throws Exception {
-        DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
-        DataHelperRike<Milestone> stoneHelper = new DataHelperRike<Milestone>(Milestone.class);
-
-        data.setSessionAttribute("task", new Task());
-        data.setSessionAttribute("artifacts", helper.list(helper.filter().addOrder(Order.asc("name"))));
-        data.setSessionAttribute("targetView", "viewCreate");
-        data.setSessionAttribute("milestones", MilestoneHelper.listNotExpired());
-    }
+public class GlobalConfig {
+    public static int PRIORITY_MAXIMAL_NUMBER = 3;
+    public static int PRIORITY_NORMAL = 2;
+    public static String WORKFLOW_TYPE = "arago Technologies";
+    public static int WORKFLOW_DAYS_TO_FINISH_TASK = 5;
+    public static int WORKFLOW_DAYS_TOP_PRIO_TASK = 7;
 }

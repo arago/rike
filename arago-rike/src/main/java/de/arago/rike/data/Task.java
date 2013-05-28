@@ -178,6 +178,10 @@ public class Task implements Serializable {
     }
 
     public void setPriority(Integer priority) {
+        if(priority<=0)
+            priority = 1;
+        if(priority>GlobalConfig.PRIORITY_MAXIMAL_NUMBER)
+            priority = GlobalConfig.PRIORITY_MAXIMAL_NUMBER;
         this.priority = priority;
     }
 

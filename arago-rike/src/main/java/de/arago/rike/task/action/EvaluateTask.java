@@ -32,12 +32,15 @@ import de.arago.data.IDataWrapper;
 import de.arago.rike.data.Artifact;
 import de.arago.rike.util.TaskHelper;
 import de.arago.rike.data.DataHelperRike;
+import de.arago.rike.data.GlobalConfig;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
 import de.arago.rike.task.StatisticHelper;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import org.apache.commons.lang.StringEscapeUtils;
 
@@ -68,7 +71,7 @@ public class EvaluateTask implements Action {
 
                 task.setTitle(data.getRequestAttribute("title"));
                 task.setUrl(data.getRequestAttribute("url"));
-                int priority = 5;
+                int priority = GlobalConfig.PRIORITY_NORMAL;
 
                 try {
                     priority = Integer.valueOf(data.getRequestAttribute("priority"), 10);
@@ -79,6 +82,12 @@ public class EvaluateTask implements Action {
                 task.setRated(new Date());
                 task.setRatedBy(user);
                 task.setStatus(Task.Status.OPEN);
+                if(GlobalConfig.WORKFLOW_TYPE.equalsIgnoreCase("arago Technologies")&&priority==1){
+                    GregorianCalendar c = new GregorianCalendar();
+                    c.setTime(task.getRated());
+                    c.add(Calendar.HOUR_OF_DAY, GlobalConfig.WORKFLOW_DAYS_TOP_PRIO_TASK);              
+                    task.setDueDate(c.getTime());
+                }
 
                 TaskHelper.save(task);
 
