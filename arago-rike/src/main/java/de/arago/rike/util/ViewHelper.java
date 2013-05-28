@@ -25,6 +25,7 @@ package de.arago.rike.util;
 import de.arago.portlet.jsp.UserService;
 import de.arago.rike.data.Artifact;
 import de.arago.rike.data.DataHelperRike;
+import de.arago.rike.data.GlobalConfig;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
 import de.arago.rike.data.Task.Status;
@@ -57,7 +58,7 @@ public class ViewHelper {
     private static final Map<String, String> statusColors = new HashMap<String, String>();
 
     static {
-        for (int i = 0; i < 10; ++i) {
+        for (int i = 1; i <= GlobalConfig.PRIORITY_MAXIMAL_NUMBER; ++i) {
             priorities.add(i + "");
             priorityNames.put(i + "", i + "");
         }
@@ -165,9 +166,9 @@ public class ViewHelper {
 
         int p = task.getPriority();
 
-        if (p <= 3) {
+        if (p==1) {
             return "priority-high";
-        } else if (p >= 4 && p < 7) {
+        } else if (p <= GlobalConfig.PRIORITY_NORMAL) {
             return "priority-normal";
         } else {
             return "priority-low";
@@ -196,11 +197,9 @@ public class ViewHelper {
     }
 
     public static List<String[]> getAvailableMilestones(UserService service) {
-        DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
-
         List<String[]> data = new ArrayList<String[]>();
 
-        List<Milestone> list = helper.list(helper.filter().addOrder(Order.desc("dueDate")));
+        List<Milestone> list = MilestoneHelper.list();
 
         Set<String> releases = new TreeSet<String>();
 

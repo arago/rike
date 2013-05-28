@@ -69,7 +69,7 @@ public abstract class AbstractUserService implements UserService {
 
     @Override
     public String formatDate(Date date) {
-        return formatDate(date, "yyyy-MM-dd HH:mm:ss");
+        return formatDate(date, "yyyy-MM-dd");
     }
 
     @Override

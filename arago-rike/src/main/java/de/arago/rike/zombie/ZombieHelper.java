@@ -132,7 +132,7 @@ public class ZombieHelper {
 
             GregorianCalendar c = new GregorianCalendar();
             c.setTime(stone.getDueDate());
-            c.add(Calendar.HOUR_OF_DAY, -(o.getWorkLeftInHours() * 7 * 24) / stone.getPerformance());
+            c.add(Calendar.HOUR_OF_DAY, -((o.getWorkLeftInHours()-o.getWorkInProgressInHours()) * 7 * 24) / stone.getPerformance());
             long time1 = c.getTimeInMillis();
             c.add(Calendar.HOUR_OF_DAY, -(o.getWorkInProgressInHours() * 7 * 24) / stone.getPerformance());
             long time2 = c.getTimeInMillis();

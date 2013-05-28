@@ -202,6 +202,11 @@
             <th class="shrink">URL:</th>
             <td class="shrink"><%= ViewHelper.formatURL(task.getUrl())%></td>
           </tr>
+          
+          <tr>
+            <th class="shrink">Description:</th>
+            <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getDescription()) %></td>
+          </tr>
 
 
 
