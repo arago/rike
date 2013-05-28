@@ -35,6 +35,7 @@ import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
 import de.arago.rike.task.StatisticHelper;
+import de.arago.rike.util.ActivityLogHelper;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
@@ -93,7 +94,7 @@ public class EvaluateTask implements Action {
 
                 data.removeSessionAttribute("targetView");
 
-                TaskHelper.log(" rated Task #" + task.getId().toString() + " <a href=\"[selectTask:" + task.getId().toString() + "]\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task, SecurityHelper.getUserEmail(data.getUser()), data);
+                ActivityLogHelper.log(" rated Task #" + task.getId().toString() + " <a href=\"?perm_task=" + task.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), SecurityHelper.getUserEmail(data.getUser()), data);
             }
         }
     }

@@ -20,17 +20,20 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.arago.rike.tasklog.event;
+package de.arago.rike.activitylog;
 
-import de.arago.portlet.Event;
-import de.arago.data.IEventWrapper;
+import de.arago.data.IDataWrapper;
+import de.arago.portlet.AragoPortlet;
+import de.arago.portlet.util.SecurityHelper;
 import de.arago.rike.util.TaskHelper;
 
+public class ActivityLog extends AragoPortlet {
 
-public class TaskLogNotification  implements Event {
-
-    public void execute(IEventWrapper event) throws Exception {
-        event.setSessionAttribute("list", TaskHelper.getRecentTaskLogs());
+    @Override
+    protected boolean checkViewData(IDataWrapper data) {
+        if(!SecurityHelper.isLoggedIn(data.getUser()))
+            return false;
+        data.setSessionAttribute("list", TaskHelper.getRecentActivityLogs());
+        return true;
     }
-
 }

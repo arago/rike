@@ -20,17 +20,55 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-/**
- *
- */
-package de.arago.rike.tasklog.action;
+package de.arago.rike.data;
 
-import de.arago.portlet.Action;
+import java.io.Serializable;
+import java.util.Date;
 
-import de.arago.data.IDataWrapper;
+public class ActivityLog implements Serializable {
+    private long id;
+    private String log_user;
+    private String content;
+    private Date created;
+    private String icon;
 
-public class Reload implements Action {
-    public void execute(IDataWrapper data) throws Exception {
-        // blank
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setUser(String name) {
+        this.log_user = name;
+    }
+
+    public String getUser() {
+        return log_user;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String what) {
+        content = what;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String what) {
+        icon = what;
     }
 }

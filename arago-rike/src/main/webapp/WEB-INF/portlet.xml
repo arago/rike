@@ -54,7 +54,7 @@
 			<qname>TaskCreateNotification</qname>
 		</supported-processing-event>
 		<supported-processing-event>
-			<qname>TaskLogNotification</qname>
+			<qname>ActivityLogNotification</qname>
 		</supported-processing-event>
 
 		<supported-publishing-event>
@@ -73,7 +73,7 @@
 			<qname>TaskCreateNotification</qname>
 		</supported-publishing-event>
 		<supported-publishing-event>
-			<qname>TaskLogNotification</qname>
+			<qname>ActivityLogNotification</qname>
 		</supported-publishing-event>
 	</portlet>
 	<portlet>
@@ -123,7 +123,7 @@
 			<qname>TaskCreateNotification</qname>
 		</supported-processing-event>
 		<supported-processing-event>
-			<qname>TaskLogNotification</qname>
+			<qname>ActivityLogNotification</qname>
 		</supported-processing-event>
 		<supported-publishing-event>
 			<qname>TaskSelectNotification</qname>
@@ -135,7 +135,7 @@
 			<qname>TaskCreateNotification</qname>
 		</supported-publishing-event>
 		<supported-publishing-event>
-			<qname>TaskLogNotification</qname>
+			<qname>ActivityLogNotification</qname>
 		</supported-publishing-event>
 
 	</portlet>
@@ -193,7 +193,7 @@
 			<qname>TaskCreateNotification</qname>
 		</supported-processing-event>
 		<supported-processing-event>
-			<qname>TaskLogNotification</qname>
+			<qname>ActivityLogNotification</qname>
 		</supported-processing-event>
 
 		<supported-publishing-event>
@@ -206,14 +206,14 @@
 			<qname>TaskCreateNotification</qname>
 		</supported-publishing-event>
 		<supported-publishing-event>
-			<qname>TaskLogNotification</qname>
+			<qname>ActivityLogNotification</qname>
 		</supported-publishing-event>
 	</portlet>
 	<portlet>
 		<description>Activity Log</description>
-		<portlet-name>arago-rike-tasklog</portlet-name>
+		<portlet-name>arago-rike-activitylog</portlet-name>
 		<display-name>Activity Log</display-name>
-		<portlet-class>de.arago.rike.tasklog.TaskLog</portlet-class>
+		<portlet-class>de.arago.rike.activitylog.ActivityLog</portlet-class>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
@@ -256,7 +256,7 @@
 			<qname>TaskCreateNotification</qname>
 		</supported-processing-event>
 		<supported-processing-event>
-			<qname>TaskLogNotification</qname>
+			<qname>ActivityLogNotification</qname>
 		</supported-processing-event>
 
 		<supported-publishing-event>
@@ -269,7 +269,7 @@
 			<qname>TaskCreateNotification</qname>
 		</supported-publishing-event>
 		<supported-publishing-event>
-			<qname>TaskLogNotification</qname>
+			<qname>ActivityLogNotification</qname>
 		</supported-publishing-event>
 
 	</portlet>
@@ -461,7 +461,7 @@
       <qname>TaskCreateNotification</qname>
     </supported-processing-event>
     <supported-processing-event>
-      <qname>TaskLogNotification</qname>
+      <qname>ActivityLogNotification</qname>
     </supported-processing-event>
 
     <supported-publishing-event>
@@ -474,7 +474,7 @@
       <qname>TaskCreateNotification</qname>
     </supported-publishing-event>
     <supported-publishing-event>
-      <qname>TaskLogNotification</qname>
+      <qname>ActivityLogNotification</qname>
     </supported-publishing-event>
   </portlet>
 
@@ -549,7 +549,7 @@
     <value-type>java.util.HashMap</value-type>
   </event-definition>
   <event-definition>
-    <qname>TaskLogNotification</qname>
+    <qname>ActivityLogNotification</qname>
     <value-type>java.util.HashMap</value-type>
   </event-definition>
   <event-definition>

@@ -31,8 +31,10 @@ import de.arago.portlet.util.SecurityHelper;
 import de.arago.data.IDataWrapper;
 import de.arago.rike.data.Artifact;
 import de.arago.rike.data.DataHelperRike;
+import de.arago.rike.util.ActivityLogHelper;
 
 import java.util.Date;
+import org.apache.commons.lang.StringEscapeUtils;
 
 public class SaveArtifact implements Action {
 
@@ -58,5 +60,7 @@ public class SaveArtifact implements Action {
 
         data.setSessionAttribute("artifact", artifact);
         data.setSessionAttribute("targetView", "viewArtifact");
+
+        ActivityLogHelper.log(" created Artifact #" + artifact.getId().toString() + " <a href=\"?perm_artifact=" + artifact.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(artifact.getName()) + "</a>", "", artifact.getCreator(), data);
     }
 }

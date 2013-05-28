@@ -23,25 +23,24 @@
 package de.arago.rike.util;
 
 import de.arago.portlet.jsp.UserService;
+import de.arago.rike.data.ActivityLog;
 import de.arago.rike.data.Artifact;
 import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
-import de.arago.rike.data.TaskLog;
-import de.arago.rike.data.TaskUser;
 import de.arago.rike.data.Task.Status;
-
+import de.arago.rike.data.TaskUser;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -135,7 +134,7 @@ public class ViewHelper {
         return priorityNames.get(what);
     }
 
-    public static String getTaskLogColorClass(TaskLog log) {
+    /*public static String getTaskLogColorClass(ActivityLog log) {
         switch (log.getStatusEnum()) {
         case OPEN:
             return "status-critical";
@@ -146,7 +145,7 @@ public class ViewHelper {
         default:
             return "status-unknown";
         }
-    }
+    }*/
 
     public static String getTaskStatusColorClass(Task task) {
         switch (task.getStatusEnum()) {

@@ -47,7 +47,7 @@
   </portlet>
 
   <portlet>
-    <portlet-name>arago-rike-tasklog</portlet-name>
+    <portlet-name>arago-rike-activitylog</portlet-name>
     <use-default-template>true</use-default-template>
     <instanceable>false</instanceable>
     <header-portlet-css>/css/main.css</header-portlet-css>
