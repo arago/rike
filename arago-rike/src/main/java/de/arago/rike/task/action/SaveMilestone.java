@@ -44,12 +44,16 @@ public class SaveMilestone implements Action {
 
         DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
         Milestone milestone = null;
+        boolean newMilestoneCreated = false;
 
         if (data.getRequestAttribute("id") != null && !data.getRequestAttribute("id").isEmpty()) {
             milestone = helper.find(data.getRequestAttribute("id"));
         }
 
-        if (milestone == null) milestone = new Milestone();
+        if (milestone == null) {
+            newMilestoneCreated = true;
+            milestone = new Milestone();
+        }
 
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -82,6 +86,11 @@ public class SaveMilestone implements Action {
         data.setSessionAttribute("milestone", milestone);
         data.setSessionAttribute("targetView", "viewMilestone");
 
-        ActivityLogHelper.log(" created Milestone #" + milestone.getId().toString() + " <a href=\"?perm_milestone=" + milestone.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(milestone.getTitle()) + "</a>", "", milestone.getCreator(), data);
+        String message = " changed Milestone #";
+        if (newMilestoneCreated) {
+            message = " created Milestone #";
+        }
+
+        ActivityLogHelper.log(message + milestone.getId().toString() + " <a href=\"?perm_milestone=" + milestone.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(milestone.getTitle()) + "</a>", "", milestone.getCreator(), data);
     }
 }
