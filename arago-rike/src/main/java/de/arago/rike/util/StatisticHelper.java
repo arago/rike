@@ -24,7 +24,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.arago.rike.task;
+package de.arago.rike.util;
 
 import de.arago.rike.data.DataHelperRike;
 

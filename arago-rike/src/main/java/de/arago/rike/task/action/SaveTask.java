@@ -35,8 +35,9 @@ import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
 import de.arago.rike.data.Task.Status;
-import de.arago.rike.task.StatisticHelper;
+import de.arago.rike.util.StatisticHelper;
 import de.arago.rike.util.ActivityLogHelper;
+import de.arago.rike.util.MilestoneHelper;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
@@ -86,5 +87,12 @@ public class SaveTask implements Action {
         data.setEvent("TaskSelectNotification", notificationParam);
 
         ActivityLogHelper.log(" created Task #" + task.getId().toString() + " <a href=\"?perm_task=" + task.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a>", task.getStatus(), user, data);
+        
+        Milestone milestone = task.getMilestone();
+        
+        if (MilestoneHelper.isMilestoneDone(milestone))
+        {
+          ActivityLogHelper.log(" finished Milestone #" + milestone.getId() + " <a href=\"?perm_milestone=" + task.getId() + "\">" + StringEscapeUtils.escapeHtml(milestone.getTitle()) + "</a>", "done", user, data);
+        }  
     }
 }

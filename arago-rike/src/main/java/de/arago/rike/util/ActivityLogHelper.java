@@ -43,13 +43,13 @@ public class ActivityLogHelper {
         log.setContent(content);
         log.setUser(user);
         log.setCreated(new Date());
-        log.setIcon(icon);
+        log.setIcon(icon.toLowerCase());
 
         new DataHelperRike<ActivityLog>(ActivityLog.class).save(log);
 
         HashMap<String, Object> notificationParam = new HashMap<String, Object>();
 
-        data.setEvent("ActivityLogNotification", notificationParam);
+        if (data != null) data.setEvent("ActivityLogNotification", notificationParam);
 
         runPostHook(log);
     }

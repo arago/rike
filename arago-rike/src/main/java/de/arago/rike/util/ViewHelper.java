@@ -31,6 +31,7 @@ import de.arago.rike.data.Task;
 import de.arago.rike.data.Task.Status;
 import de.arago.rike.data.TaskUser;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -238,5 +239,23 @@ public class ViewHelper {
 
     public static String getColor(String what) {
         return statusColors.get(what.toUpperCase());
+    }
+    
+    public static int asInt(Object o) {
+        if (o == null) return 0;
+
+        if (o instanceof BigDecimal) {
+            return ((BigDecimal) o).intValue();
+        }
+
+        if (o instanceof String) {
+            try {
+                return Integer.valueOf(o.toString(), 10);
+            } catch(NumberFormatException ignored) {
+                return 0;
+            }
+        }
+
+        return (Integer) o;
     }
 }

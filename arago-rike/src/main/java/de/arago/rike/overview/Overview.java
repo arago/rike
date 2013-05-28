@@ -34,7 +34,7 @@ import java.io.IOException;
 import javax.portlet.PortletException;
 
 import de.arago.portlet.util.SecurityHelper;
-import de.arago.rike.task.StatisticHelper;
+import de.arago.rike.util.StatisticHelper;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;

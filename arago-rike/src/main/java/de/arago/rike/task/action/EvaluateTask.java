@@ -34,7 +34,7 @@ import de.arago.rike.util.TaskHelper;
 import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
-import de.arago.rike.task.StatisticHelper;
+import de.arago.rike.util.StatisticHelper;
 import de.arago.rike.util.ActivityLogHelper;
 import java.text.SimpleDateFormat;
 

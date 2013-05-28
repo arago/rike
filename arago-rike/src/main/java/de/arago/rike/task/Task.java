@@ -57,6 +57,7 @@ public class Task extends AragoPortlet {
     public void doView(RenderRequest request, RenderResponse response)
     throws PortletException, IOException {
       PortletDataWrapper data = new PortletDataWrapper(request, response);
+        checkForArtifact(request, data);
         checkForMilestone(request, data);
         checkForTask(request, data);
 
@@ -98,6 +99,24 @@ public class Task extends AragoPortlet {
                     data.setSessionAttribute("task", task);
                   
                     data.setSessionAttribute("targetView", "defaultView");
+                }
+            }
+        } catch(Throwable ignored) {
+            // blank
+        }
+    }
+    
+    private void checkForArtifact(RenderRequest request, IDataWrapper data) {
+        try {
+            String id = PortalUtil.getOriginalServletRequest(PortalUtil.getHttpServletRequest(request)).getParameter("perm_artifact");
+
+            if (id != null && !id.isEmpty()) {
+                Milestone milestone = MilestoneHelper.getMilestone(id);
+
+                if (milestone != null) {
+                    data.setSessionAttribute("artifact", milestone);
+                  
+                    data.setSessionAttribute("targetView", "viewArtifact");
                 }
             }
         } catch(Throwable ignored) {
