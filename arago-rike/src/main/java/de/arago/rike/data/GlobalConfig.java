@@ -20,26 +20,12 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-/**
- *
- */
-package de.arago.rike.overview.action;
+package de.arago.rike.data;
 
-import de.arago.portlet.Action;
-
-import de.arago.data.IDataWrapper;
-import java.util.HashMap;
-
-public class ShowMilestone implements Action {
-
-    @Override
-    public void execute(IDataWrapper data) throws Exception {
-
-        if (data.getRequestAttribute("id") != null) {
-            HashMap<String, Object> notificationParam = new HashMap<String, Object>();
-
-            notificationParam.put("id", data.getRequestAttribute("id"));
-            data.setEvent("MilestoneSelectNotification", notificationParam);
-        }
-    }
+public class GlobalConfig {
+    public static int PRIORITY_MAXIMAL_NUMBER = 3;
+    public static int PRIORITY_NORMAL = 2;
+    public static String WORKFLOW_TYPE = "arago Technologies";
+    public static int WORKFLOW_DAYS_TO_FINISH_TASK = 5;
+    public static int WORKFLOW_DAYS_TOP_PRIO_TASK = 7;
 }

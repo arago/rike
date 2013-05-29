@@ -56,7 +56,8 @@ public class Task extends AragoPortlet {
     @Override
     public void doView(RenderRequest request, RenderResponse response)
     throws PortletException, IOException {
-      PortletDataWrapper data = new PortletDataWrapper(request, response);
+        PortletDataWrapper data = new PortletDataWrapper(request, response);
+        checkForArtifact(request, data);
         checkForMilestone(request, data);
         checkForTask(request, data);
 
@@ -78,7 +79,7 @@ public class Task extends AragoPortlet {
 
                 if (milestone != null) {
                     data.setSessionAttribute("milestone", milestone);
-                  
+
                     data.setSessionAttribute("targetView", "viewMilestone");
                 }
             }
@@ -86,7 +87,7 @@ public class Task extends AragoPortlet {
             // blank
         }
     }
-    
+
     private void checkForTask(RenderRequest request, IDataWrapper data) {
         try {
             String id = PortalUtil.getOriginalServletRequest(PortalUtil.getHttpServletRequest(request)).getParameter("perm_task");
@@ -96,8 +97,26 @@ public class Task extends AragoPortlet {
 
                 if (task != null) {
                     data.setSessionAttribute("task", task);
-                  
+
                     data.setSessionAttribute("targetView", "defaultView");
+                }
+            }
+        } catch(Throwable ignored) {
+            // blank
+        }
+    }
+
+    private void checkForArtifact(RenderRequest request, IDataWrapper data) {
+        try {
+            String id = PortalUtil.getOriginalServletRequest(PortalUtil.getHttpServletRequest(request)).getParameter("perm_artifact");
+
+            if (id != null && !id.isEmpty()) {
+                Milestone milestone = MilestoneHelper.getMilestone(id);
+
+                if (milestone != null) {
+                    data.setSessionAttribute("artifact", milestone);
+
+                    data.setSessionAttribute("targetView", "viewArtifact");
                 }
             }
         } catch(Throwable ignored) {
