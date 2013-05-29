@@ -6,7 +6,7 @@
     <portlet id="arago-rike-overview" />
     <portlet id="arago-rike-mytasks" />
     <portlet id="arago-rike-task" />
-    <portlet id="arago-rike-tasklog" />
+    <portlet id="arago-rike-activitylog" />
     <portlet id="arago-rike-svg" />
     <portlet id="arago-rike-report" />
     <portlet id="arago-rike-report2" />

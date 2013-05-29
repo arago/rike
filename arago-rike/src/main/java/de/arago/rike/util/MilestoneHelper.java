@@ -50,4 +50,16 @@ public final class MilestoneHelper {
 
         return new DataHelperRike<Milestone>(Milestone.class).find(id);
     }
+
+    public static boolean isMilestoneDone(Milestone milestone) {
+        DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
+
+        String query = "select count(*) as items_left from tasks where milestone_id = "+milestone.getId()+" and task_status != 'done'";
+
+        for (final Object o: helper.list(helper.createSQLQuery(query))) {
+            if (o != null && ViewHelper.asInt(o) == 0) return true;
+        }
+
+        return false;
+    }
 }

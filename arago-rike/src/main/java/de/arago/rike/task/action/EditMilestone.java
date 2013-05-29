@@ -38,6 +38,6 @@ public class EditMilestone implements Action {
         data.setSessionAttribute("milestone", MilestoneHelper.getMilestone(data.getRequestAttribute("id")));
 
         data.setSessionAttribute("targetView", "viewEditMilestone");
-        
+
     }
 }

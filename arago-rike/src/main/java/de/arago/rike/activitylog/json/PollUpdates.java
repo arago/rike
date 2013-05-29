@@ -20,26 +20,34 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-/**
- *
- */
-package de.arago.rike.overview.action;
+package de.arago.rike.activitylog.json;
 
-import de.arago.portlet.Action;
-
+import de.arago.portlet.JsonAction;
 import de.arago.data.IDataWrapper;
-import java.util.HashMap;
+import de.arago.rike.data.DataHelperRike;
+import de.arago.rike.data.ActivityLog;
 
-public class ShowMilestone implements Action {
+import java.util.List;
+import java.util.Map;
+import net.minidev.json.JSONObject;
+import org.hibernate.criterion.Restrictions;
 
+public class PollUpdates implements JsonAction {
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public Map execute(IDataWrapper data) throws Exception {
+        JSONObject result = new JSONObject();
 
-        if (data.getRequestAttribute("id") != null) {
-            HashMap<String, Object> notificationParam = new HashMap<String, Object>();
+        result.put("count", 0);
 
-            notificationParam.put("id", data.getRequestAttribute("id"));
-            data.setEvent("MilestoneSelectNotification", notificationParam);
+        String lastId = data.getRequestAttribute("id");
+
+        if (lastId != null && !lastId.isEmpty()) {
+            final DataHelperRike<ActivityLog> helper = new DataHelperRike<ActivityLog>(ActivityLog.class);
+            List<ActivityLog> list = helper.list(helper.filter().add(Restrictions.gt("id", Long.valueOf(lastId, 10))));
+
+            result.put("count", list.size());
         }
+
+        return result;
     }
 }

@@ -36,7 +36,8 @@ import de.arago.rike.data.GlobalConfig;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
 import de.arago.rike.data.Task.Status;
-import de.arago.rike.task.StatisticHelper;
+import de.arago.rike.util.StatisticHelper;
+import de.arago.rike.util.ActivityLogHelper;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
@@ -85,6 +86,6 @@ public class SaveTask implements Action {
         data.setEvent("TaskUpdateNotification", notificationParam);
         data.setEvent("TaskSelectNotification", notificationParam);
 
-        TaskHelper.log(" created Task #" + task.getId().toString() + " <a href=\"[selectTask:" + task.getId().toString() + "]\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a>", task, user, data);
+        ActivityLogHelper.log(" created Task #" + task.getId().toString() + " <a href=\"?perm_task=" + task.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a>", task.getStatus(), user, data);
     }
 }

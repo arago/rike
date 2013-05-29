@@ -1,6 +1,6 @@
 <%@page import="de.arago.rike.util.PortraitHelper"%>
 <%@page import="javax.portlet.RenderResponse"%>
-<%@page import="de.arago.rike.data.TaskLog"%>
+<%@page import="de.arago.rike.data.ActivityLog"%>
 <%@page import="de.arago.rike.util.TaskListFilter"%>
 <%@page import="de.arago.portlet.util.SecurityHelper"%>
 <%@page import="de.arago.rike.data.TaskUser"%>
@@ -12,7 +12,7 @@
 <%@page import="java.util.List"%>
 <%@ page import="java.util.Date" %>
 <%@ taglib uri="http://java.sun.com/portlet" prefix="portlet" %>
-<%@ page contentType="text/html; charset=UTF-8" %> 
+<%@ page contentType="text/html; charset=UTF-8" %>
 <portlet:defineObjects />
 
 <%
@@ -26,16 +26,16 @@ try {
 	<!-- Headline -->
 	<h1>
 		<span class="leftalign">
-				Leaderboard 
+				Leaderboard
 		</span>
 		<span class="rightalign">
-      
+
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
             <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
           <% } else { %>
             <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
           <% } %>
-      
+
 		</span>
 		<span class="clear"></span>
 	</h1>
@@ -59,19 +59,19 @@ try {
               int i = 1;
 							for (TaskUser user : list) {
                 if(i%2!=k){
-              
+
                 String klass = "";
                 long sum      = user.getAccount() - user.getYesterday();
-                
+
                 if (sum <= -50)
                 {
-                  klass = "place-down";  
+                  klass = "place-down";
                 } else if (sum >= 50) {
                   klass = "place-up";
                 } else {
                   klass = "place-unchanged";
                 }
-                
+
 					%>
 					<tr style="border-bottom: 1px solid black;">
             <td style="width:70px">
@@ -104,8 +104,8 @@ try {
 				$('#<portlet:namespace/>TableScroll').height($('#<portlet:namespace />Portlet').height() - 36).show();
 			});
       </script>
-        
-		
+
+
 	</div>
 </div>
 <% } catch (Throwable t) {

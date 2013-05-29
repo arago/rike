@@ -36,12 +36,12 @@ public class ShowTasks implements Action {
     @Override
     public void execute(IDataWrapper data) throws Exception {
 
-         Object taskListFilterObject = data.getSessionAttribute("taskListFilter");
+        Object taskListFilterObject = data.getSessionAttribute("taskListFilter");
 
         if (taskListFilterObject != null) {
             data.setSessionAttribute("list", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
         }
-        
+
         data.setSessionAttribute("targetView", "defaultView");
 
     }

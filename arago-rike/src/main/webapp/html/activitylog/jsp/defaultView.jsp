@@ -3,7 +3,7 @@
 <%@page import="de.arago.portlet.jsp.JspUserService"%>
 <%@page import="java.util.Locale"%>
 <%@page import="javax.portlet.RenderResponse"%>
-<%@page import="de.arago.rike.data.TaskLog"%>
+<%@page import="de.arago.rike.data.ActivityLog"%>
 <%@page import="de.arago.rike.util.TaskListFilter"%>
 <%@page import="com.liferay.portal.model.User"%>
 <%@page import="de.arago.portlet.util.SecurityHelper"%>
@@ -17,26 +17,16 @@
 <%@page import="java.util.List"%>
 <%@ page import="java.util.Date" %>
 <%@ taglib uri="http://java.sun.com/portlet" prefix="portlet" %>
-<%@ page contentType="text/html; charset=UTF-8" %> 
+<%@ page contentType="text/html; charset=UTF-8" %>
 <portlet:defineObjects />
 
 <%
   try {
     UserService service = new JspUserService(renderRequest, portletSession);
-    List<TaskLog> logs = (List<TaskLog>) portletSession.getAttribute("list");
+    List<ActivityLog> logs = (List<ActivityLog>) portletSession.getAttribute("list");
     User user = SecurityHelper.getUser(renderRequest.getRemoteUser());
 
-    class ContentFormatter
-    {
- 
-      public String format(TaskLog log, RenderResponse renderResponse)
-      {
-        String content = log.getContent();
-        return content.replaceAll("\\[selectTask:(\\d+)\\]", renderResponse.createActionURL().toString() + "&action=selectTask&id=$1");
-      }
-    }
-
-    TaskLog first = logs.isEmpty() ? null : logs.get(0);
+    ActivityLog first = logs.isEmpty() ? null : logs.get(0);
 %>
 
 
@@ -47,7 +37,7 @@
       <h1>
         Activity Log <a id="<portlet:namespace />NewUpdates" href="<portlet:actionURL />&action=reload" style="display:none; color:#cc0000"></a>
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.tasklog');" title="Help"><span class="icon">S</span></a>
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.activitylog');" title="Help"><span class="icon">S</span></a>
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
             <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
           <% } else { %>
@@ -64,15 +54,15 @@
             <tbody>
               <%
 
-                for (TaskLog log: logs) {
+                for (ActivityLog log: logs) {
 
               %>
               <tr>
-                <td class="<%= ViewHelper.getTaskLogColorClass(log)%>" style="width:10px"></td>
+                <td class="rike-activity-<%= log.getIcon() %>" style="width:10px"></td>
                 <td>
                   <%= ViewHelper.formatUser(log.getUser())%>
                   <%-- the content has been escaped before putting it into the model --%>
-                  <%= new ContentFormatter().format(log, renderResponse)%> <br />
+                  <%= log.getContent() %> <br />
                   <span style="color:#999; font-size:0.9em"><%= service.formatHumanDate(log.getCreated())%></span>
                 </td>
               </tr>
@@ -90,7 +80,7 @@
           {
             $('#<portlet:namespace/>TableScroll').height($('#<portlet:namespace />Portlet').height() - 36).show();
           });
-      
+
           <% if (first != null) {%>
             $(function()
             {
@@ -103,15 +93,15 @@
                   success: function(data)
                   {
                     if (data.error) return alert(data.error);
-              
+
                 if     (data.count)
                     {
                       $('#<portlet:namespace />NewUpdates').text('('+data.count + ' update'+(data.count == 1?'':'s')+')').show();
-                    };  
+                    };
                   }
                 });
               };
-        
+
               window.setInterval(check, 60 * 1e3);
             });
           <% }%>

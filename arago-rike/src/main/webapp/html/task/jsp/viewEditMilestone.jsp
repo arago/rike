@@ -75,7 +75,7 @@
               <tr>
                 <th class="shrink">Release:</th>
                 <td class="shrink">
-                  <select name="release" id="<portlet:namespace />Release">
+                  <select name="release" id="<portlet:namespace />Release" class="rike-select">
                     <option value="">[No Release]</option>
                     <% for (String r: ViewHelper.getAvailableReleases()) {%>
                     <option value="<%= StringEscapeUtils.escapeHtml(r)%>" <%= milestone != null && r.equals(milestone.getRelease())?"selected='selected'":"" %>><%= StringEscapeUtils.escapeHtml(r)%></option>

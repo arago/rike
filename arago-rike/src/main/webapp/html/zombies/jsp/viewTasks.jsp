@@ -54,7 +54,7 @@
         
       
     </div>
-    <div class="content">
+    <div class="content nofooter">
 
          <table>
         <thead>

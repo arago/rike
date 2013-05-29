@@ -39,7 +39,7 @@
         <div class="right">
           <form method="post" action="<portlet:actionURL portletMode="view" />">
             <input type="hidden" name="action" value="filterTasks" />
-            <select name="user" onchange="this.form.submit();" style="width:60px;">
+            <select name="user" onchange="this.form.submit();" style="width:60px">
               <% for (TaskUser taskUser: ViewHelper.getAvailableUsers()) {%>
               <option <%= taskUser.getEmail().equals(currentUser) ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(taskUser.getEmail())%>"><%= service.getEmail().equals(taskUser.getEmail()) ? "Me" : StringEscapeUtils.escapeHtml(taskUser.getEmail())%></option>
               <% }%>

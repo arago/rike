@@ -35,7 +35,8 @@ import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.GlobalConfig;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
-import de.arago.rike.task.StatisticHelper;
+import de.arago.rike.util.StatisticHelper;
+import de.arago.rike.util.ActivityLogHelper;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -58,6 +59,8 @@ public class EvaluateTask implements Action {
             if (task.getStatusEnum() == Task.Status.UNKNOWN || task.getStatusEnum() == Task.Status.OPEN) {
                 task.setMilestone(new DataHelperRike<Milestone>(Milestone.class).find(data.getRequestAttribute("milestone")));
                 task.setArtifact(new DataHelperRike<Artifact>(Artifact.class).find(data.getRequestAttribute("artifact")));
+
+                task.setDescription(data.getRequestAttribute("description"));
 
                 try {
                     task.setSizeEstimated(Integer.valueOf(data.getRequestAttribute("size_estimated"), 10));
@@ -82,10 +85,10 @@ public class EvaluateTask implements Action {
                 task.setRated(new Date());
                 task.setRatedBy(user);
                 task.setStatus(Task.Status.OPEN);
-                if(GlobalConfig.WORKFLOW_TYPE.equalsIgnoreCase("arago Technologies")&&priority==1){
+                if(GlobalConfig.WORKFLOW_TYPE.equalsIgnoreCase("arago Technologies")&&priority==1) {
                     GregorianCalendar c = new GregorianCalendar();
                     c.setTime(task.getRated());
-                    c.add(Calendar.HOUR_OF_DAY, GlobalConfig.WORKFLOW_DAYS_TOP_PRIO_TASK);              
+                    c.add(Calendar.HOUR_OF_DAY, GlobalConfig.WORKFLOW_DAYS_TOP_PRIO_TASK);
                     task.setDueDate(c.getTime());
                 }
 
@@ -102,7 +105,7 @@ public class EvaluateTask implements Action {
 
                 data.removeSessionAttribute("targetView");
 
-                TaskHelper.log(" rated Task #" + task.getId().toString() + " <a href=\"[selectTask:" + task.getId().toString() + "]\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task, SecurityHelper.getUserEmail(data.getUser()), data);
+                ActivityLogHelper.log(" rated Task #" + task.getId().toString() + " <a href=\"?perm_task=" + task.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), SecurityHelper.getUserEmail(data.getUser()), data);
             }
         }
     }

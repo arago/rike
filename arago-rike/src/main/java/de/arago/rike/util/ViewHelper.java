@@ -28,21 +28,21 @@ import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.GlobalConfig;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
-import de.arago.rike.data.TaskLog;
-import de.arago.rike.data.TaskUser;
 import de.arago.rike.data.Task.Status;
-
+import de.arago.rike.data.TaskUser;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -136,7 +136,7 @@ public class ViewHelper {
         return priorityNames.get(what);
     }
 
-    public static String getTaskLogColorClass(TaskLog log) {
+    /*public static String getTaskLogColorClass(ActivityLog log) {
         switch (log.getStatusEnum()) {
         case OPEN:
             return "status-critical";
@@ -147,7 +147,7 @@ public class ViewHelper {
         default:
             return "status-unknown";
         }
-    }
+    }*/
 
     public static String getTaskStatusColorClass(Task task) {
         switch (task.getStatusEnum()) {
@@ -238,5 +238,27 @@ public class ViewHelper {
 
     public static String getColor(String what) {
         return statusColors.get(what.toUpperCase());
+    }
+
+    public static int asInt(Object o) {
+        if (o == null) return 0;
+
+        if (o instanceof BigInteger) {
+            return ((BigInteger) o).intValue();
+        }
+
+        if (o instanceof BigDecimal) {
+            return ((BigDecimal) o).intValue();
+        }
+
+        if (o instanceof String) {
+            try {
+                return Integer.valueOf(o.toString(), 10);
+            } catch(NumberFormatException ignored) {
+                return 0;
+            }
+        }
+
+        return (Integer) o;
     }
 }

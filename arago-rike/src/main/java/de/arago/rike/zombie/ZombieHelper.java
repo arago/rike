@@ -25,7 +25,7 @@ package de.arago.rike.zombie;
 import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
-import java.math.BigDecimal;
+import de.arago.rike.util.ViewHelper;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -40,28 +40,11 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-
 /**
  *
  */
 public class ZombieHelper {
-    private static int asInt(Object o) {
-        if (o == null) return 0;
 
-        if (o instanceof BigDecimal) {
-            return ((BigDecimal) o).intValue();
-        }
-
-        if (o instanceof String) {
-            try {
-                return Integer.valueOf(o.toString(), 10);
-            } catch(NumberFormatException ignored) {
-                return 0;
-            }
-        }
-
-        return (Integer) o;
-    }
 
     public static List<OverdueMilestone> getOverdueMilestones(boolean getAll) {
         DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
@@ -73,6 +56,7 @@ public class ZombieHelper {
                      + "id "
                      + " from milestones m where m.due_date is not null and m.performance > 0 group by m.id having hours_left > 0;";
 
+
         List<OverdueMilestone> ret = new ArrayList<OverdueMilestone>();
         List<Object> list          = helper.list(helper.createSQLQuery(str));
 
@@ -80,9 +64,9 @@ public class ZombieHelper {
             Object[] a = (Object[]) o;
             OverdueMilestone ms = new OverdueMilestone
             (
-                asInt(a[0]),
-                asInt(a[1]),
-                asInt(a[2]),
+                ViewHelper.asInt(a[0]),
+                ViewHelper.asInt(a[1]),
+                ViewHelper.asInt(a[2]),
                 helper.find(a[3].toString()));
             if(ms.getLate()>0||getAll)
                 ret.add(ms);
@@ -162,7 +146,7 @@ public class ZombieHelper {
             item.add("");
             openData.add(item);
 
-            
+
             item = new ArrayList();
             item.add(time2);
             item.add(i);
