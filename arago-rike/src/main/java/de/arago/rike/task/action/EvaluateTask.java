@@ -59,9 +59,9 @@ public class EvaluateTask implements Action {
             if (task.getStatusEnum() == Task.Status.UNKNOWN || task.getStatusEnum() == Task.Status.OPEN) {
                 task.setMilestone(new DataHelperRike<Milestone>(Milestone.class).find(data.getRequestAttribute("milestone")));
                 task.setArtifact(new DataHelperRike<Artifact>(Artifact.class).find(data.getRequestAttribute("artifact")));
-                
+
                 task.setDescription(data.getRequestAttribute("description"));
-                
+
                 try {
                     task.setSizeEstimated(Integer.valueOf(data.getRequestAttribute("size_estimated"), 10));
                 } catch (Exception ignored) {
@@ -85,10 +85,10 @@ public class EvaluateTask implements Action {
                 task.setRated(new Date());
                 task.setRatedBy(user);
                 task.setStatus(Task.Status.OPEN);
-                if(GlobalConfig.WORKFLOW_TYPE.equalsIgnoreCase("arago Technologies")&&priority==1){
+                if(GlobalConfig.WORKFLOW_TYPE.equalsIgnoreCase("arago Technologies")&&priority==1) {
                     GregorianCalendar c = new GregorianCalendar();
                     c.setTime(task.getRated());
-                    c.add(Calendar.HOUR_OF_DAY, GlobalConfig.WORKFLOW_DAYS_TOP_PRIO_TASK);              
+                    c.add(Calendar.HOUR_OF_DAY, GlobalConfig.WORKFLOW_DAYS_TOP_PRIO_TASK);
                     task.setDueDate(c.getTime());
                 }
 

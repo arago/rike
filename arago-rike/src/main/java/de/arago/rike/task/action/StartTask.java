@@ -54,10 +54,10 @@ public class StartTask implements Action {
                 task.setOwner(user);
                 task.setStart(new Date());
                 task.setStatus(Task.Status.IN_PROGRESS);
-                if(GlobalConfig.WORKFLOW_TYPE.equalsIgnoreCase("arago Technologies")){
+                if(GlobalConfig.WORKFLOW_TYPE.equalsIgnoreCase("arago Technologies")) {
                     GregorianCalendar c = new GregorianCalendar();
                     c.setTime(task.getStart());
-                    c.add(Calendar.HOUR_OF_DAY, GlobalConfig.WORKFLOW_DAYS_TO_FINISH_TASK);              
+                    c.add(Calendar.HOUR_OF_DAY, GlobalConfig.WORKFLOW_DAYS_TO_FINISH_TASK);
                     task.setDueDate(c.getTime());
                 }
 
