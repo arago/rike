@@ -31,6 +31,7 @@ public class ActivityLog implements Serializable {
     private String content;
     private Date created;
     private String icon;
+    private String json_data;
 
     public void setId(Long id) {
         this.id = id;
@@ -70,5 +71,13 @@ public class ActivityLog implements Serializable {
 
     public void setIcon(String what) {
         icon = what;
+    }
+
+    public String getJson_data() {
+        return json_data;
+    }
+
+    public void setJson_data(String json_data) {
+        this.json_data = json_data;
     }
 }

@@ -70,6 +70,6 @@ public class SaveArtifact implements Action {
             message = " created Artifact #";
         }
 
-        ActivityLogHelper.log(message + artifact.getId().toString() + " <a href=\"?perm_artifact=" + artifact.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(artifact.getName()) + "</a>", "modified", artifact.getCreator(), data);
+        ActivityLogHelper.log(message + artifact.getId().toString() + " <a href=\"?perm_artifact=" + artifact.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(artifact.getName()) + "</a>", "", artifact.getCreator(), data, artifact.toMap());
     }
 }

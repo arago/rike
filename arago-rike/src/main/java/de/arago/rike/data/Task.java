@@ -24,6 +24,8 @@ package de.arago.rike.data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Task implements Serializable {
@@ -210,4 +212,47 @@ public class Task implements Serializable {
         this.description = description == null?"":description;
     }
 
+    public Map toMap() {
+        Map map = new HashMap();
+
+        map.put("id", getId().toString());
+        map.put("title", title);
+        map.put("url", url);
+        map.put("owner", owner);
+        if (start != null) {
+            map.put("start", start.getTime() + "");
+        }
+        if (end != null) {
+            map.put("end", end.getTime() + "");
+        }
+        map.put("creator", creator);
+        if (created != null) {
+            map.put("created", created.getTime() + "");
+        }
+
+        map.put("sizeEstimated", sizeEstimated);
+        map.put("hoursSpent", hoursSpent);
+
+        if (milestone != null) {
+            map.put("milestoneId", milestone.getId());
+        }
+        if (artifact != null) {
+            map.put("artifact", artifact.getId().toString());
+        }
+
+        map.put("priority", priority);
+        map.put("status", status);
+
+        if (rated != null) {
+            map.put("rated", rated.getTime() + "");
+        }
+
+        map.put("ratedBy", ratedBy);
+        if (dueDate != null) {
+            map.put("dueDate", dueDate.getTime() + "");
+        }
+        map.put("description", description);
+
+        return map;
+    }
 }

@@ -105,7 +105,7 @@ public class EvaluateTask implements Action {
 
                 data.removeSessionAttribute("targetView");
 
-                ActivityLogHelper.log(" rated Task #" + task.getId().toString() + " <a href=\"?perm_task=" + task.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), SecurityHelper.getUserEmail(data.getUser()), data);
+                ActivityLogHelper.log(" rated Task #" + task.getId().toString() + " <a href=\"?perm_task=" + task.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), SecurityHelper.getUserEmail(data.getUser()), data, task.toMap());
             }
         }
     }
