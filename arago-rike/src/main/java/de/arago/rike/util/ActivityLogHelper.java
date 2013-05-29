@@ -33,17 +33,24 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import net.minidev.json.JSONValue;
 
 public class ActivityLogHelper {
     private static final String POST_HOOK = System.getProperty(TaskHelper.class.getName() + ".postLogHook", "").trim();
 
-    public static void log(String content, String icon, String user, IDataWrapper data) {
+    public static void log(String content, String icon, String user, IDataWrapper data, Map objectState) {
         final ActivityLog log = new ActivityLog();
 
         log.setContent(content);
         log.setUser(user);
         log.setCreated(new Date());
-        log.setIcon(icon.toLowerCase());
+        log.setIcon(icon);
+
+        objectState.put("log_content", content);
+        objectState.put("log_user", user);
+        objectState.put("log_time", log.getCreated().getTime() + "");
+        log.setJson_data(JSONValue.toJSONString(objectState));
 
         new DataHelperRike<ActivityLog>(ActivityLog.class).save(log);
 
