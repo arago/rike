@@ -43,12 +43,17 @@ public class SaveArtifact implements Action {
 
         DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
         Artifact artifact = null;
+        boolean newArtifactCreated = false;
 
         if (data.getRequestAttribute("id") != null && !data.getRequestAttribute("id").isEmpty()) {
             artifact = helper.find(data.getRequestAttribute("id"));
         }
 
-        if (artifact == null) artifact = new Artifact();
+        if (artifact == null)
+        {
+            newArtifactCreated = true;
+            artifact = new Artifact();
+        }
 
         artifact.setName(data.getRequestAttribute("name"));
         artifact.setUrl(data.getRequestAttribute("url"));
@@ -61,6 +66,11 @@ public class SaveArtifact implements Action {
         data.setSessionAttribute("artifact", artifact);
         data.setSessionAttribute("targetView", "viewArtifact");
 
-        ActivityLogHelper.log(" created Artifact #" + artifact.getId().toString() + " <a href=\"?perm_artifact=" + artifact.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(artifact.getName()) + "</a>", "", artifact.getCreator(), data);
+        String message = " changed Artifact #";
+        if (newArtifactCreated) {
+            message = " created Artifact #";
+        }
+
+        ActivityLogHelper.log(message + artifact.getId().toString() + " <a href=\"?perm_artifact=" + artifact.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(artifact.getName()) + "</a>", "", artifact.getCreator(), data);
     }
 }
