@@ -9,16 +9,16 @@ import de.arago.rike.data.Task;
 public class TaskIndexCreator extends IndexCreator<Task> {
 
     @Override
-	public void fill(Index<Task> index) {
-		synchronized (index) {
-			index.delete();
+    public void fill(Index<Task> index) {
+        synchronized (index) {
+            index.delete();
 
-			DataHelperRike<Task> helper = new DataHelperRike<Task>(Task.class);
-			
-			for (Task task: helper.list())
-				index.update(task);
+            DataHelperRike<Task> helper = new DataHelperRike<Task>(Task.class);
 
-			index.close();
-		}
-	}
+            for (Task task: helper.list())
+                index.update(task);
+
+            index.close();
+        }
+    }
 }

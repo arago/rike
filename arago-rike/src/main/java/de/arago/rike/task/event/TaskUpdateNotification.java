@@ -34,7 +34,7 @@ public class TaskUpdateNotification implements Event {
     @Override
     public void execute(IEventWrapper event) throws Exception {
         Task task = TaskHelper.getTask(Long.valueOf((String) event.getEventAttribute("id"), 10));
-		if (task != null)
-			((Index<Task>) IndexFactory.getIndex("rike-tasks")).replace(task);
+        if (task != null)
+            ((Index<Task>) IndexFactory.getIndex("rike-tasks")).replace(task);
     }
 }

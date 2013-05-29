@@ -51,8 +51,8 @@ public class SVG extends AragoPortlet {
 
     @Override
     protected boolean checkViewData(IDataWrapper data) {
-      
-      if (data.getSessionAttribute("taskListFilter") == null) {
+
+        if (data.getSessionAttribute("taskListFilter") == null) {
             data.setSessionAttribute("taskListFilter", new TaskListFilter() {
 
                 @Override
@@ -69,7 +69,7 @@ public class SVG extends AragoPortlet {
                 }
             });
         }
-      
+
         return SecurityHelper.isLoggedIn(data.getUser());
     }
 

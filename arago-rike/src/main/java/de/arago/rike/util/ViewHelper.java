@@ -23,14 +23,16 @@
 package de.arago.rike.util;
 
 import de.arago.portlet.jsp.UserService;
-import de.arago.rike.data.ActivityLog;
 import de.arago.rike.data.Artifact;
 import de.arago.rike.data.DataHelperRike;
+import de.arago.rike.data.GlobalConfig;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
 import de.arago.rike.data.Task.Status;
 import de.arago.rike.data.TaskUser;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -56,7 +58,7 @@ public class ViewHelper {
     private static final Map<String, String> statusColors = new HashMap<String, String>();
 
     static {
-        for (int i = 0; i < 10; ++i) {
+        for (int i = 1; i <= GlobalConfig.PRIORITY_MAXIMAL_NUMBER; ++i) {
             priorities.add(i + "");
             priorityNames.put(i + "", i + "");
         }
@@ -164,9 +166,9 @@ public class ViewHelper {
 
         int p = task.getPriority();
 
-        if (p <= 3) {
+        if (p==1) {
             return "priority-high";
-        } else if (p >= 4 && p < 7) {
+        } else if (p <= GlobalConfig.PRIORITY_NORMAL) {
             return "priority-normal";
         } else {
             return "priority-low";
@@ -195,11 +197,9 @@ public class ViewHelper {
     }
 
     public static List<String[]> getAvailableMilestones(UserService service) {
-        DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
-
         List<String[]> data = new ArrayList<String[]>();
 
-        List<Milestone> list = helper.list(helper.filter().addOrder(Order.desc("dueDate")));
+        List<Milestone> list = MilestoneHelper.list();
 
         Set<String> releases = new TreeSet<String>();
 
@@ -238,5 +238,27 @@ public class ViewHelper {
 
     public static String getColor(String what) {
         return statusColors.get(what.toUpperCase());
+    }
+
+    public static int asInt(Object o) {
+        if (o == null) return 0;
+
+        if (o instanceof BigInteger) {
+            return ((BigInteger) o).intValue();
+        }
+
+        if (o instanceof BigDecimal) {
+            return ((BigDecimal) o).intValue();
+        }
+
+        if (o instanceof String) {
+            try {
+                return Integer.valueOf(o.toString(), 10);
+            } catch(NumberFormatException ignored) {
+                return 0;
+            }
+        }
+
+        return (Integer) o;
     }
 }

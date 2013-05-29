@@ -6,52 +6,51 @@ import org.apache.lucene.queryParser.QueryParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
 
-public class TaskFinder
-{
-	/**
-	 * find tasks in a freetext index
-	 *
-	 * @param query
-	 * @param maxItems
-	 * @return found ids, it will never return null, but an empty List instead
-	 */
-	public static JSONArray findTasksWithFreetextQuery(String query, int maxItems) {
+public class TaskFinder {
+    /**
+     * find tasks in a freetext index
+     *
+     * @param query
+     * @param maxItems
+     * @return found ids, it will never return null, but an empty List instead
+     */
+    public static JSONArray findTasksWithFreetextQuery(String query, int maxItems) {
         Converter<?> result = IndexFactory.getIndex("rike-tasks").query(prepareQuery(query), maxItems);
-		
-		return (JSONArray) JSONValue.parse(result.toJSONString());
-	}
 
-	private static boolean isJustANumber(String what) {
-		return what.trim().matches("^\\d+$");
-	}
+        return (JSONArray) JSONValue.parse(result.toJSONString());
+    }
 
-	private static String prepareQuery(String query) {
-		StringBuilder q = new StringBuilder();
+    private static boolean isJustANumber(String what) {
+        return what.trim().matches("^\\d+$");
+    }
 
-		for (String part : query.trim().replaceAll("[\\:\\.]", " ").replaceAll("\\ \\ +", " ").split("\\ ")) {
-			if (part == null || part.trim().length() == 0) {
-				continue;
-			}
+    private static String prepareQuery(String query) {
+        StringBuilder q = new StringBuilder();
 
-			q.append("+content:(");
-			q.append(escapeAndAllowWildcards(part.trim()));
+        for (String part : query.trim().replaceAll("[\\:\\.]", " ").replaceAll("\\ \\ +", " ").split("\\ ")) {
+            if (part == null || part.trim().length() == 0) {
+                continue;
+            }
 
-			// we do not wildcard numbers, due to lucene throwing exceptions
-			q.append(isJustANumber(part) ? "" : "*");
-			q.append(") AND ");
-		}
+            q.append("+content:(");
+            q.append(escapeAndAllowWildcards(part.trim()));
 
-		query = q.toString();
+            // we do not wildcard numbers, due to lucene throwing exceptions
+            q.append(isJustANumber(part) ? "" : "*");
+            q.append(") AND ");
+        }
 
-		// cut off the last AND
-		return query.substring(0, query.length() - 5);
-	}
+        query = q.toString();
 
-	public static String escape(String what) {
-		return QueryParser.escape(what);
-	}
+        // cut off the last AND
+        return query.substring(0, query.length() - 5);
+    }
 
-	public static String escapeAndAllowWildcards(String what) {
-		return QueryParser.escape(what).replaceAll("\\\\\\*", "*").replaceAll("\\\\\\?", "?");
-	}
+    public static String escape(String what) {
+        return QueryParser.escape(what);
+    }
+
+    public static String escapeAndAllowWildcards(String what) {
+        return QueryParser.escape(what).replaceAll("\\\\\\*", "*").replaceAll("\\\\\\?", "?");
+    }
 }
