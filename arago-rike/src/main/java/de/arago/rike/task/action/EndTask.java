@@ -65,7 +65,7 @@ public class EndTask implements Action {
 
                 ActivityLogHelper.log(" completed Task #" + task.getId().toString() +
                                " <a href=\"?perm_task=" + task.getId().toString() + "\">" +
-                               StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), user, data);
+                               StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), user, data, task.toMap());
             }
         }
     }
