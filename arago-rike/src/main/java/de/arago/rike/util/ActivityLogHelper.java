@@ -46,7 +46,6 @@ public class ActivityLogHelper {
         log.setUser(user);
         log.setCreated(new Date());
         log.setIcon(icon);
-        System.err.println("ICON: " + icon);
 
         objectState.put("log_content", content);
         objectState.put("log_user", user);
@@ -57,7 +56,7 @@ public class ActivityLogHelper {
 
         HashMap<String, Object> notificationParam = new HashMap<String, Object>();
 
-        data.setEvent("ActivityLogNotification", notificationParam);
+        if (data != null) data.setEvent("ActivityLogNotification", notificationParam);
 
         runPostHook(log);
     }

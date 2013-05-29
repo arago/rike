@@ -49,7 +49,7 @@
                 <tr>
                   <td>User:</td>
                   <td>
-                    <select name="user" style="width:150px">
+                    <select name="user"  class="rike-select">
                       <option <%= filter.getUser().length() == 0 ? "selected='selected'" : ""%> value="">Any</option>
                       <% for (TaskUser user: ViewHelper.getAvailableUsers()) {%>
 
@@ -65,7 +65,7 @@
                 <tr>
                   <td>Creator:</td>
                   <td>
-                    <select name="creator" style="width:150px">
+                    <select name="creator"  class="rike-select">
                       <option <%= filter.getCreator().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
                       <% for (TaskUser user: ViewHelper.getAvailableUsers()) {%>
 
@@ -81,7 +81,7 @@
                 <tr>
                   <td>Status:</td>
                   <td>
-                    <select name="status" style="width:150px">
+                    <select name="status"  class="rike-select">
                       <option <%= filter.getStatus().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
                       <% for (String status: ViewHelper.getStatus()) {%>
 
@@ -97,7 +97,7 @@
                 <tr>
                   <td>Priority:</td>
                   <td>
-                    <select name="priority" style="width:150px">
+                    <select name="priority"  class="rike-select">
                       <option <%= filter.getStatus().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
                       <% for (String priority: ViewHelper.getPriorities()) {%>
 
@@ -113,7 +113,7 @@
                 <tr>
                   <td>Milestone:</td>
                   <td>
-                    <select name="milestone" style="width:150px">
+                    <select name="milestone"  class="rike-select">
                       <option <%= filter.getMilestone().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
                       <% for (String[] data: ViewHelper.getAvailableMilestones(service)) {%>
 
@@ -129,7 +129,7 @@
                 <tr>
                   <td>Artifact:</td>
                   <td>
-                    <select name="artifact" style="width:150px">
+                    <select name="artifact" class="rike-select">
                       <option <%= filter.getMilestone().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
                       <% for (Artifact artifact: ViewHelper.getAvailableArtifacts()) {%>
 

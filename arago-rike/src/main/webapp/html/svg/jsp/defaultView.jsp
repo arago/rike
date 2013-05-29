@@ -49,7 +49,7 @@
                 <tr>
                   <td>User:</td>
                   <td>
-                    <select name="user" style="width:150px">
+                    <select name="user"  class="rike-select">
                       <option <%= filter.getUser().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
                       <% for (TaskUser user: ViewHelper.getAvailableUsers()) {%>
 
@@ -65,7 +65,7 @@
                 <tr>
                   <td>Milestone:</td>
                   <td>
-                    <select name="milestone" style="width:150px">
+                    <select name="milestone"  class="rike-select">
                       <% for (String[] data: ViewHelper.getAvailableMilestones(service)) {%>
 
                       <option <%= filter.getMilestone().equals(data[0]) ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(data[0])%>"><%= StringEscapeUtils.escapeHtml(data[1])%></option>
@@ -80,7 +80,7 @@
                 <tr>
                   <td>Artifact:</td>
                   <td>
-                    <select name="artifact" style="width:150px">
+                    <select name="artifact"  class="rike-select">
                       <option <%= filter.getMilestone().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
                       <% for (Artifact artifact: ViewHelper.getAvailableArtifacts()) {%>
 

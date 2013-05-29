@@ -24,8 +24,10 @@ package de.arago.rike.util;
 
 import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.Milestone;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -34,12 +36,30 @@ public final class MilestoneHelper {
     public static List<Milestone> list() {
         DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
 
-        return helper.list(helper.filter().addOrder(Order.asc("id")));
+        return helper.list(helper.filter().addOrder(Order.desc("dueDate")).addOrder(Order.asc("title")));
+    }
+
+    public static List<Milestone> listNotExpired() {
+        DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
+
+        return helper.list(helper.filter().add(Restrictions.or(Restrictions.gt("dueDate", new Date()), Restrictions.isNull("dueDate"))).addOrder(Order.asc("dueDate")).addOrder(Order.asc("title")));
     }
 
     public static Milestone getMilestone(String id) {
         if (id == null || id.isEmpty()) return null;
 
         return new DataHelperRike<Milestone>(Milestone.class).find(id);
+    }
+
+    public static boolean isMilestoneDone(Milestone milestone) {
+        DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
+
+        String query = "select count(*) as items_left from tasks where milestone_id = "+milestone.getId()+" and task_status != 'done'";
+
+        for (final Object o: helper.list(helper.createSQLQuery(query))) {
+            if (o != null && ViewHelper.asInt(o) == 0) return true;
+        }
+
+        return false;
     }
 }

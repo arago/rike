@@ -26,10 +26,12 @@ import de.arago.portlet.Action;
 import de.arago.portlet.util.SecurityHelper;
 
 import de.arago.data.IDataWrapper;
+import de.arago.rike.data.Milestone;
 import de.arago.rike.util.TaskHelper;
 import de.arago.rike.data.Task;
-import de.arago.rike.task.StatisticHelper;
+import de.arago.rike.util.StatisticHelper;
 import de.arago.rike.util.ActivityLogHelper;
+import de.arago.rike.util.MilestoneHelper;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -66,6 +68,12 @@ public class EndTask implements Action {
                 ActivityLogHelper.log(" completed Task #" + task.getId().toString() +
                                " <a href=\"?perm_task=" + task.getId().toString() + "\">" +
                                StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), user, data, task.toMap());
+
+
+                Milestone milestone = task.getMilestone();
+                if (MilestoneHelper.isMilestoneDone(milestone)) {
+                    ActivityLogHelper.log(" finished Milestone #" + milestone.getId() + " <a href=\"?perm_milestone=" + task.getId() + "\">" + StringEscapeUtils.escapeHtml(milestone.getTitle()) + "</a>", "done", user, data, milestone.toMap());
+                }
             }
         }
     }

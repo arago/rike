@@ -28,6 +28,7 @@ import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
 import de.arago.rike.data.ActivityLog;
 import de.arago.rike.data.TaskUser;
+import java.util.HashMap;
 
 import java.util.List;
 import org.hibernate.Criteria;
@@ -147,6 +148,9 @@ public class TaskHelper {
             newUser.setLast_ms("");
 
             helper.save(newUser);
+
+            ActivityLogHelper.log(" joined", "new", user, null, new HashMap());
+
             return newUser;
         } else
             return list.get(0);

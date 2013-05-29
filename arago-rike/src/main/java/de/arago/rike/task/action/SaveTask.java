@@ -32,10 +32,11 @@ import de.arago.data.IDataWrapper;
 import de.arago.rike.util.TaskHelper;
 import de.arago.rike.data.Artifact;
 import de.arago.rike.data.DataHelperRike;
+import de.arago.rike.data.GlobalConfig;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
 import de.arago.rike.data.Task.Status;
-import de.arago.rike.task.StatisticHelper;
+import de.arago.rike.util.StatisticHelper;
 import de.arago.rike.util.ActivityLogHelper;
 import java.text.SimpleDateFormat;
 
@@ -67,7 +68,7 @@ public class SaveTask implements Action {
         } catch (Exception ignored) {
         }
 
-        int priority = 5;
+        int priority = GlobalConfig.PRIORITY_NORMAL;
 
         task.setPriority(priority);
 

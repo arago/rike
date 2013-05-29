@@ -49,8 +49,7 @@ public class SaveArtifact implements Action {
             artifact = helper.find(data.getRequestAttribute("id"));
         }
 
-        if (artifact == null)
-        {
+        if (artifact == null) {
             newArtifactCreated = true;
             artifact = new Artifact();
         }

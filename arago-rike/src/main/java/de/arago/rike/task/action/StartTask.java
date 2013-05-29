@@ -26,12 +26,14 @@ import de.arago.portlet.Action;
 import de.arago.portlet.util.SecurityHelper;
 
 import de.arago.data.IDataWrapper;
+import de.arago.rike.data.GlobalConfig;
 import de.arago.rike.util.TaskHelper;
 import de.arago.rike.data.Task;
-import de.arago.rike.task.StatisticHelper;
 import de.arago.rike.util.ActivityLogHelper;
-
+import de.arago.rike.util.StatisticHelper;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import org.apache.commons.lang.StringEscapeUtils;
 
@@ -52,6 +54,12 @@ public class StartTask implements Action {
                 task.setOwner(user);
                 task.setStart(new Date());
                 task.setStatus(Task.Status.IN_PROGRESS);
+                if(GlobalConfig.WORKFLOW_TYPE.equalsIgnoreCase("arago Technologies")) {
+                    GregorianCalendar c = new GregorianCalendar();
+                    c.setTime(task.getStart());
+                    c.add(Calendar.HOUR_OF_DAY, GlobalConfig.WORKFLOW_DAYS_TO_FINISH_TASK);
+                    task.setDueDate(c.getTime());
+                }
 
                 TaskHelper.save(task);
                 StatisticHelper.update();
