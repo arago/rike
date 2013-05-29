@@ -68,7 +68,7 @@
             <tr>
               <th class="shrink">Description:</th>
               <td class="shrink">
-                <textarea placeholder="Optional description of the task" class="rike-input" ><%= StringEscapeUtils.escapeHtml(task.getDescription())%></textarea>
+                <textarea placeholder="Optional description of the task" class="rike-textarea" ><%= StringEscapeUtils.escapeHtml(task.getDescription())%></textarea>
               </td>
             </tr>
             
@@ -88,7 +88,7 @@
               <tr>
                 <th class="shrink">Milestone:</th>
                 <td class="shrink">
-                  <select name="milestone" style="max-width:150px">
+                  <select name="milestone"  class="rike-select">
                     <% for (Milestone milestone: milestones) {%>
                     <option <%= task.getMilestone() != null && task.getMilestone().getId().equals(milestone.getId()) ? "selected='selected'" : ""%> value="<%= milestone.getId()%>">[<%= milestone.getDueDate() == null ? "?" : service.formatDate(milestone.getDueDate(), "dd.MM.yyyy")%>] <%= StringEscapeUtils.escapeHtml(milestone.getTitle())%></option>
                     <% }%>
@@ -100,7 +100,7 @@
               <tr>
               <th class="shrink">Artifact:</th>
               <td class="shrink">
-                <select name="artifact" style="width:150px">
+                <select name="artifact"  class="rike-select">
                   <% for (Artifact artifact: artifacts) {%>
                   <option <%= task.getArtifact()!= null && task.getArtifact().getId().equals(artifact.getId()) ? "selected='selected'" : ""%> value="<%= artifact.getId()%>"><%= StringEscapeUtils.escapeHtml(artifact.getName())%></option>
                   <% }%>
@@ -111,7 +111,7 @@
               <tr>
                 <th class="shrink">Priority:</th>
                 <td class="shrink">
-                  <select name="priority">
+                  <select name="priority" class="rike-select">
                     <% for (String priority: ViewHelper.getPriorities()) {%>
                     <option <%= priority.equals(task.getPriority() + "") ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(priority)%>"><%= StringEscapeUtils.escapeHtml(ViewHelper.getPriority(priority))%></option>
                     <% }%>

@@ -59,7 +59,7 @@
             <tr>
               <th class="shrink">Description:</th>
               <td class="shrink">
-                <textarea placeholder="Optional description of the task" class="rike-input"></textarea>
+                <textarea placeholder="Optional description of the task" class="rike-textarea"></textarea>
               </td>
             </tr>
             
@@ -78,7 +78,7 @@
             <tr>
               <th class="shrink">Artifact:</th>
               <td class="shrink">
-                <select name="artifact" style="width:150px">
+                <select name="artifact" class="rike-select">
                   <% for (Artifact artifact: artifacts) {%>
                   <option value="<%= artifact.getId()%>"><%= StringEscapeUtils.escapeHtml(artifact.getName())%></option>
                   <% }%>
@@ -90,7 +90,7 @@
               <th class="shrink">Milestone:</th>
               <td class="shrink">
                 <% boolean haveMilestone = false;%>
-                <select name="milestone" style="max-width:150px">
+                <select name="milestone" class="rike-select">
                   <% for (Milestone milestone: milestones) {%>
                   <option <% if (milestone.getDueDate() != null && !haveMilestone) {
                       out.print("selected='selected'");
