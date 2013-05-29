@@ -28,13 +28,12 @@ import de.arago.rike.data.Artifact;
 import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
-
-import java.util.Date;
+import de.arago.rike.util.MilestoneHelper;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 
 public class CreateTask implements Action {
 
+    @Override
     public void execute(IDataWrapper data) throws Exception {
         DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
         DataHelperRike<Milestone> stoneHelper = new DataHelperRike<Milestone>(Milestone.class);
@@ -42,6 +41,6 @@ public class CreateTask implements Action {
         data.setSessionAttribute("task", new Task());
         data.setSessionAttribute("artifacts", helper.list(helper.filter().addOrder(Order.asc("name"))));
         data.setSessionAttribute("targetView", "viewCreate");
-        data.setSessionAttribute("milestones", stoneHelper.list(stoneHelper.filter().add(Restrictions.or(Restrictions.gt("dueDate", new Date()), Restrictions.isNull("dueDate"))).addOrder(Order.asc("dueDate")).addOrder(Order.asc("title"))));
+        data.setSessionAttribute("milestones", MilestoneHelper.listNotExpired());
     }
 }

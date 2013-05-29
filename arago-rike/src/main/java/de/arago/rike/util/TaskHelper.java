@@ -30,6 +30,7 @@ import de.arago.rike.data.ActivityLog;
 import de.arago.rike.data.TaskUser;
 
 import java.util.List;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -147,6 +148,9 @@ public class TaskHelper {
             newUser.setLast_ms("");
 
             helper.save(newUser);
+
+            ActivityLogHelper.log(" joined", "new", user, null);
+
             return newUser;
         } else
             return list.get(0);

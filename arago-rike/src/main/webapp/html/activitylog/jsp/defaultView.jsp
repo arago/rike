@@ -26,16 +26,6 @@
     List<ActivityLog> logs = (List<ActivityLog>) portletSession.getAttribute("list");
     User user = SecurityHelper.getUser(renderRequest.getRemoteUser());
 
-    class ContentFormatter
-    {
-
-      public String format(ActivityLog log, RenderResponse renderResponse)
-      {
-        String content = log.getContent();
-        return content.replaceAll("\\[selectTask:(\\d+)\\]", renderResponse.createActionURL().toString() + "&action=selectTask&id=$1");
-      }
-    }
-
     ActivityLog first = logs.isEmpty() ? null : logs.get(0);
 %>
 
@@ -68,11 +58,11 @@
 
               %>
               <tr>
-                <td class="<%= log.getIcon() %>" style="width:10px"></td>
+                <td class="rike-activity-<%= log.getIcon() %>" style="width:10px"></td>
                 <td>
                   <%= ViewHelper.formatUser(log.getUser())%>
                   <%-- the content has been escaped before putting it into the model --%>
-                  <%= new ContentFormatter().format(log, renderResponse)%> <br />
+                  <%= log.getContent() %> <br />
                   <span style="color:#999; font-size:0.9em"><%= service.formatHumanDate(log.getCreated())%></span>
                 </td>
               </tr>
