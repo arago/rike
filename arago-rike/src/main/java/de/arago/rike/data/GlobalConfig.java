@@ -28,4 +28,5 @@ public class GlobalConfig {
     public static String WORKFLOW_TYPE = "arago Technologies";
     public static int WORKFLOW_DAYS_TO_FINISH_TASK = 5;
     public static int WORKFLOW_DAYS_TOP_PRIO_TASK = 7;
+    public static int WORKFLOW_WIP_LIMIT = 3;
 }
