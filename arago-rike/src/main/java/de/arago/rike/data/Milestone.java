@@ -17,6 +17,8 @@
 package de.arago.rike.data;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Milestone {
 
@@ -108,6 +110,29 @@ public class Milestone {
         if(getDueDate()!=null)
             d = getDueDate().getTime();
         return (d-System.currentTimeMillis())/(1000*60*60);
+    }
+
+    public Map toMap() {
+        Map map = new HashMap();
+
+        map.put("id", getId().toString());
+        map.put("title", title);
+
+        if (dueDate != null) {
+            map.put("dueDate", dueDate.getTime() + "");
+        }
+
+        map.put("release", release);
+        map.put("url", url);
+        map.put("creator", creator);
+
+        if (created != null) {
+            map.put("created", created.getTime() + "");
+        }
+
+        map.put("performance", performance);
+
+        return map;
     }
 
 }

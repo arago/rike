@@ -86,6 +86,6 @@ public class SaveTask implements Action {
         data.setEvent("TaskUpdateNotification", notificationParam);
         data.setEvent("TaskSelectNotification", notificationParam);
 
-        ActivityLogHelper.log(" created Task #" + task.getId().toString() + " <a href=\"?perm_task=" + task.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a>", task.getStatus(), user, data);
+        ActivityLogHelper.log(" created Task #" + task.getId().toString() + " <a href=\"?perm_task=" + task.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a>", task.getStatus(), user, data, task.toMap());
     }
 }

@@ -28,9 +28,9 @@ import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
 import de.arago.rike.data.ActivityLog;
 import de.arago.rike.data.TaskUser;
+import java.util.HashMap;
 
 import java.util.List;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -149,7 +149,7 @@ public class TaskHelper {
 
             helper.save(newUser);
 
-            ActivityLogHelper.log(" joined", "new", user, null);
+            ActivityLogHelper.log(" joined", "new", user, null, new HashMap());
 
             return newUser;
         } else
