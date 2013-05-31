@@ -88,7 +88,7 @@ public class EvaluateTask implements Action {
                 if(GlobalConfig.WORKFLOW_TYPE.equalsIgnoreCase("arago Technologies")&&priority==1) {
                     GregorianCalendar c = new GregorianCalendar();
                     c.setTime(task.getRated());
-                    c.add(Calendar.HOUR_OF_DAY, GlobalConfig.WORKFLOW_DAYS_TOP_PRIO_TASK);
+                    c.add(Calendar.DAY_OF_MONTH, GlobalConfig.WORKFLOW_DAYS_TOP_PRIO_TASK);
                     task.setDueDate(c.getTime());
                 }
 

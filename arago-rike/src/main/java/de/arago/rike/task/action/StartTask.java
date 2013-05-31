@@ -44,7 +44,7 @@ public class StartTask implements Action {
         if (data.getRequestAttribute("id") != null) {
             String user = SecurityHelper.getUserEmail(data.getUser());
 
-            if (TaskHelper.getTasksInProgressForUser(user).size() < 3) {
+            if (TaskHelper.getTasksInProgressForUser(user).size() < GlobalConfig.WORKFLOW_WIP_LIMIT) {
                 Task task = TaskHelper.getTask(data.getRequestAttribute("id"));
 
                 if (!TaskHelper.canDoTask(user, task) || task.getStatusEnum() != Task.Status.OPEN) {
@@ -57,7 +57,7 @@ public class StartTask implements Action {
                 if(GlobalConfig.WORKFLOW_TYPE.equalsIgnoreCase("arago Technologies")) {
                     GregorianCalendar c = new GregorianCalendar();
                     c.setTime(task.getStart());
-                    c.add(Calendar.HOUR_OF_DAY, GlobalConfig.WORKFLOW_DAYS_TO_FINISH_TASK);
+                    c.add(Calendar.DAY_OF_MONTH, GlobalConfig.WORKFLOW_DAYS_TO_FINISH_TASK);
                     task.setDueDate(c.getTime());
                 }
 
