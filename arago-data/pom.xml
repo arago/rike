@@ -4,7 +4,7 @@
 	<packaging>jar</packaging>
 	<name>${project.artifactId}</name>
     <groupId>de.arago</groupId>
-    <version>4.1-SNAPSHOT</version>
+    <version>4.1</version>
     <distributionManagement>
         <repository>
             <id>tabtab</id>
