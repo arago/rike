@@ -127,7 +127,7 @@ public class ZombieHelper {
 
             final List tick = new ArrayList();
             tick.add(i);
-            tick.add("<a href='?perm_milestone="+stone.getId()+"'>"+StringEscapeUtils.escapeHtml(stone.getTitle()) + "</a>");
+            tick.add("<a href='/web/guest/rike/-/show/milestone/"+stone.getId()+"'>"+StringEscapeUtils.escapeHtml(stone.getTitle()) + "</a>");
             ticks.add(tick);
 
             GregorianCalendar c = new GregorianCalendar();

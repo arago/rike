@@ -26,7 +26,7 @@
          <% if (artifact ==  null) { %>
           New Artifact
         <% } else { %>
-          Artifact #<%= artifact.getId() %>
+          Artifact #<%= artifact.getId() %> <%= StringEscapeUtils.escapeHtml(artifact.getName())%>
         <% } %>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 

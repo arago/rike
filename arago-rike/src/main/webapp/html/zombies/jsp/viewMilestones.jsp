@@ -75,7 +75,7 @@
           
           <tr>
             <td><%= stone.getId() %> </td>
-            <td><a href="?perm_milestone=<%= stone.getId() %>"><%= StringEscapeUtils.escapeHtml(stone.getTitle()) %></a></td>
+            <td><a href="/web/guest/rike/-/show/milestone/<%= stone.getId() %>"><%= StringEscapeUtils.escapeHtml(stone.getTitle()) %></a></td>
             <td style="white-space:nowrap">
               work left <%= o.getWorkLeftInHours()%>h<br />
               time left <%= o.getDaysLeft() %>d<br />
