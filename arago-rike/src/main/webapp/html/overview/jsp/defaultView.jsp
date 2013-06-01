@@ -18,7 +18,7 @@
 <%
   try {
     UserService service = new JspUserService(renderRequest, portletSession);
-    List<Task> tasks = (List<Task>) portletSession.getAttribute("list");
+    List<Task> tasks = (List<Task>) portletSession.getAttribute("taskList");
     TaskListFilter filter = (TaskListFilter) portletSession.getAttribute("taskListFilter");
     Task currentTask = (Task) portletSession.getAttribute("task");
 %>
@@ -185,7 +185,7 @@
               for (Task task: tasks) {
 
             %>
-            <tr style="<%= currentTask != null && currentTask.getId().equals(task.getId()) ? "font-weight:bold" : ""%>" class="task-<%= task.getId()%>">
+            <tr<%= currentTask != null && currentTask.getId().equals(task.getId()) ? " class=\"active\"" : ""%>>
               <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getId().toString())%></td>
               <td class="shrink <%= ViewHelper.getTaskStatusColorClass(task)%>"></td>
               <td class="shrink"><%= task.getPriority()%></td>
@@ -203,14 +203,13 @@
           </tbody>
         </table>
 
-
       </div>
 
       <script type="text/javascript">
         <% if (currentTask != null) {%>
           $(function()
           {
-            var el = $('#<portlet:namespace />TableScroll .task-<%= currentTask.getId()%>').get(0);
+            var el = $('#<portlet:namespace />TableScroll .active').get(0);
 
             try
             {
@@ -218,12 +217,6 @@
             } catch(e) { ; };
           });
         <% }%>
-
-			
-         /* $(function()
-          {
-            $('#<portlet:namespace/>TableScroll').height($('#<portlet:namespace />Portlet').height() - 56);
-          });*/
       </script>
     </div>
   </div>

@@ -6,6 +6,10 @@
 		<portlet-name>arago-rike-overview</portlet-name>
 		<display-name>Overview</display-name>
 		<portlet-class>de.arago.rike.overview.Overview</portlet-class>
+    <init-param>
+      <name>check-auth-token</name>
+      <value>false</value>
+    </init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
@@ -56,6 +60,12 @@
 		<supported-processing-event>
 			<qname>ActivityLogNotification</qname>
 		</supported-processing-event>
+		<supported-processing-event>
+			<qname>MilestoneSelectNotification</qname>
+		</supported-processing-event>
+		<supported-processing-event>
+			<qname>ArtifactSelectNotification</qname>
+		</supported-processing-event>
 
 		<supported-publishing-event>
 			<qname>MilestoneChangeNotification</qname>
@@ -74,6 +84,12 @@
 		</supported-publishing-event>
 		<supported-publishing-event>
 			<qname>ActivityLogNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>MilestoneSelectNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>ArtifactSelectNotification</qname>
 		</supported-publishing-event>
 	</portlet>
 	<portlet>
@@ -350,10 +366,10 @@
       <role-name>user</role-name>
     </security-role-ref>
     <supported-processing-event>
-      <qname>SelectMilestoneRequest</qname>
+      <qname>MilestoneSelectNotification</qname>
     </supported-processing-event>
     <supported-publishing-event>
-      <qname>SelectMilestoneRequest</qname>
+      <qname>MilestoneSelectNotification</qname>
     </supported-publishing-event>
   </portlet>
   <portlet>
@@ -524,13 +540,13 @@
     </security-role-ref>
 
     <supported-processing-event>
-      <qname>SelectMilestoneRequest</qname>
+      <qname>MilestoneSelectNotification</qname>
     </supported-processing-event>
     <supported-processing-event>
       <qname>MilestoneChangeNotification</qname>
     </supported-processing-event>
     <supported-publishing-event>
-      <qname>SelectMilestoneRequest</qname>
+      <qname>MilestoneSelectNotification</qname>
     </supported-publishing-event>
     <supported-publishing-event>
       <qname>MilestoneChangeNotification</qname>
@@ -564,13 +580,8 @@
     <qname>MilestoneSelectNotification</qname>
     <value-type>java.util.HashMap</value-type>
   </event-definition>
-
   <event-definition>
     <qname>ArtifactSelectNotification</qname>
-    <value-type>java.util.HashMap</value-type>
-  </event-definition>
-  <event-definition>
-    <qname>SelectMilestoneRequest</qname>
     <value-type>java.util.HashMap</value-type>
   </event-definition>
 </portlet-app>

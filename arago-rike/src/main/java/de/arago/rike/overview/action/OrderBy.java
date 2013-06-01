@@ -33,6 +33,7 @@ import de.arago.rike.util.TaskListFilter;
 
 public class OrderBy implements Action {
 
+    @Override
     public void execute(IDataWrapper data) throws Exception {
 
         TaskListFilter filter = (TaskListFilter) data.getSessionAttribute("taskListFilter");
@@ -51,7 +52,7 @@ public class OrderBy implements Action {
 
         filter.setSortField(field);
 
-        data.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
+        data.setSessionAttribute("taskList", TaskHelper.getAllTasks(filter));
 
     }
 }

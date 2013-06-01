@@ -20,32 +20,23 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-/**
- *
- */
-package de.arago.rike.report.action;
+package de.arago.rike.svg.event;
 
-import de.arago.portlet.Action;
+import de.arago.portlet.Event;
+import de.arago.data.IEventWrapper;
+import de.arago.rike.util.TaskListFilter;
 
-import de.arago.data.IDataWrapper;
-import de.arago.rike.data.DataHelperRike;
-import de.arago.rike.data.Milestone;
-import java.util.HashMap;
-import org.hibernate.criterion.Restrictions;
+public class MilestoneSelectNotification implements Event {
 
-public class SelectMilestone implements Action {
     @Override
-    public void execute(IDataWrapper data) throws Exception {
-        HashMap<String, Object> notificationParam = new HashMap<String, Object>();
+    public void execute(IEventWrapper event) throws Exception {
+        TaskListFilter filter = (TaskListFilter) event.getSessionAttribute("taskListFilter");
 
-        String milestone = data.getRequestAttribute("milestone");
+        String milestone = (String) event.getEventAttribute("id");
 
-        DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
-        Milestone m                      = helper.find(helper.filter().add(Restrictions.eq("title", milestone)));
+        filter.setDefaultOptions();
 
-        if (m != null) {
-            notificationParam.put("id", "" + m.getId());
-            data.setEvent("MilestoneSelectNotification", notificationParam);
-        }
+        filter.setMilestone("milestone_" + milestone);
+        filter.setIsActive(true);
     }
 }
