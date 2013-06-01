@@ -4,6 +4,9 @@
 <liferay-portlet-app>
   <portlet>
     <portlet-name>arago-rike-overview</portlet-name>
+    <friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper</friendly-url-mapper-class>  
+    <friendly-url-mapping>show</friendly-url-mapping>  
+    <friendly-url-routes>de/arago/rike/urlmapping/friendly-url-router.xml</friendly-url-routes>  
     <use-default-template>true</use-default-template>
     <instanceable>false</instanceable>
     <header-portlet-css>/css/main.css</header-portlet-css>

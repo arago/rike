@@ -92,7 +92,7 @@ public class SaveMilestone implements Action {
         }
 
 
-        ActivityLogHelper.log(message + milestone.getId().toString() + " <a href=\"?perm_milestone=" + milestone.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(milestone.getTitle()) + "</a>", "", milestone.getCreator(), data, milestone.toMap());
+        ActivityLogHelper.log(message + milestone.getId() + " <a href=\"/web/guest/rike/-/show/milestone/" + milestone.getId() + "\">" + StringEscapeUtils.escapeHtml(milestone.getTitle()) + "</a>", "", milestone.getCreator(), data, milestone.toMap());
 
     }
 }

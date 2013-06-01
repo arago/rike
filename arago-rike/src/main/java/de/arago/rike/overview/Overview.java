@@ -86,7 +86,7 @@ public class Overview extends AragoPortlet {
             }
 
             data.setSessionAttribute("taskListFilter", taskListFilterObject);
-            data.setSessionAttribute("list", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
+            data.setSessionAttribute("taskList", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
         } catch(Throwable t) {
             t.printStackTrace(System.err);
         }
@@ -101,7 +101,7 @@ public class Overview extends AragoPortlet {
         Object taskListFilterObject = data.getSessionAttribute("taskListFilter");
 
         if (taskListFilterObject != null) {
-            data.setSessionAttribute("list", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
+            data.setSessionAttribute("taskList", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
         }
 
         return true;

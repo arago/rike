@@ -39,7 +39,7 @@ public class ShowTasks implements Action {
         Object taskListFilterObject = data.getSessionAttribute("taskListFilter");
 
         if (taskListFilterObject != null) {
-            data.setSessionAttribute("list", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
+            data.setSessionAttribute("taskList", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
         }
 
         data.setSessionAttribute("targetView", "defaultView");
