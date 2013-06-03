@@ -31,7 +31,7 @@
         <% if (milestone ==  null) { %>
           New Milestone
         <% } else { %>
-          Milestone: #<%= milestone.getId() %>
+          Milestone: #<%= milestone.getId() %> <%= StringEscapeUtils.escapeHtml(milestone.getTitle())%>
         <% } %>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 

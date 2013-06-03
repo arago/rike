@@ -172,6 +172,12 @@
 
       <table>
         <tbody>
+          
+          <tr>
+            <th class="shrink">Title:</th>
+            <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></td>
+          </tr>
+
           <tr>
             <th class="shrink">Status:</th>
             <td class="shrink">
@@ -186,15 +192,14 @@
                     break;
 
                   case OPEN:
-                    out.print("open");
+                    out.print("rated on " + service.formatDate(task.getRated()) + " by " + ViewHelper.formatUser(task.getRatedBy()));
                     break;
 
                   case UNKNOWN:
-                    out.print("not rated");
+                    out.print("created on " + service.formatDate(task.getCreated()) + " by " + ViewHelper.formatUser(task.getCreator()));
                     break;
                 }
               %>
-
             </td>
           </tr>
 
@@ -203,34 +208,16 @@
             <td class="shrink"><%= ViewHelper.formatURL(task.getUrl())%></td>
           </tr>
           
-          <tr>
-            <th class="shrink">Description:</th>
-            <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getDescription()) %></td>
-          </tr>
-
-
-
-
-
           <% if (task.getStatusEnum() != Task.Status.UNKNOWN) {%>
-
-
           <tr>
             <th class="shrink">Time:</th>
             <td class="shrink"><%= task.getSizeEstimated()%> hours estimated, <%= task.getHoursSpent()%> hours spent</td>
           </tr>
 
-
           <tr> 
             <th class="shrink">Priority:</th>
             <td class="shrink"><%= ViewHelper.getPriority(task.getPriority())%></td>
           </tr>
-
-          <tr>
-            <th class="shrink">Rated:</th>
-            <td class="shrink">on <%= StringEscapeUtils.escapeHtml(service.formatDate(task.getRated()))%> by <%= ViewHelper.formatUser(task.getRatedBy())%></td>
-          </tr>
-
           <% }%>
 
           <tr>
@@ -239,18 +226,19 @@
           </tr>
 
           <% if (task.getMilestone() != null) {%>
-
           <tr>
             <th class="shrink">Milestone:</th>
             <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getMilestone().getTitle())%></td>
           </tr>
-
           <%  }%>
 
+          <% if (task.getDescription()!=null && !task.getDescription().isEmpty()) {%>
           <tr>
-            <th class="shrink">Created:</th>
-            <td class="shrink">on <%= StringEscapeUtils.escapeHtml(service.formatDate(task.getCreated()))%> by <%= ViewHelper.formatUser(task.getCreator())%></td>
+            <th class="shrink">Description:</th>
+            <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getDescription()) %></td>
           </tr>
+          <% }%>
+
         </tbody>
       </table>
       <% }%>
@@ -288,7 +276,7 @@
         Done on <%= service.formatDate(task.getEnd())%> (<%= ViewHelper.formatUser(task.getOwner())%>)
 
         <% }%>
-        | <a href="?perm_task=<%= task.getId()%>">permalink</a>
+        | <a href="/web/guest/rike/-/show/task/<%= task.getId()%>">permalink</a>
         <% } else {%>
         <p>No Task selected</p>
         <% }%>

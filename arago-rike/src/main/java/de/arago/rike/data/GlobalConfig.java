@@ -22,11 +22,79 @@
  */
 package de.arago.rike.data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class GlobalConfig {
-    public static int PRIORITY_MAXIMAL_NUMBER = 3;
-    public static int PRIORITY_NORMAL = 2;
-    public static String WORKFLOW_TYPE = "arago Technologies";
-    public static int WORKFLOW_DAYS_TO_FINISH_TASK = 5;
-    public static int WORKFLOW_DAYS_TOP_PRIO_TASK = 7;
-    public static int WORKFLOW_WIP_LIMIT = 3;
+
+    private static Map keyValues = new HashMap();
+    private long id;
+    private String key;
+    private String value;
+
+    public static void fetchFromDatabase() {
+        keyValues.clear();
+
+        DataHelperRike<GlobalConfig> helper = new DataHelperRike<GlobalConfig>(GlobalConfig.class);
+
+        for (GlobalConfig param : helper.list()) {
+            keyValues.put(param.getKey(), param.getValue());
+        }
+
+        checkDefaults(keyValues);
+    }
+
+    private static void checkDefaults(Map map) {
+        if (map.get("PRIORITY_MAXIMAL_NUMBER") == null) {
+            map.put("PRIORITY_MAXIMAL_NUMBER", "3");
+        }
+
+        if (map.get("PRIORITY_NORMAL") == null) {
+            map.put("PRIORITY_NORMAL", "2");
+        }
+
+        if (map.get("WORKFLOW_TYPE") == null) {
+            map.put("WORKFLOW_TYPE", "arago Technologies");
+        }
+
+        if (map.get("WORKFLOW_DAYS_TO_FINISH_TASK") == null) {
+            map.put("WORKFLOW_DAYS_TO_FINISH_TASK", "5");
+        }
+
+        if (map.get("WORKFLOW_DAYS_TOP_PRIO_TASK") == null) {
+            map.put("WORKFLOW_DAYS_TOP_PRIO_TASK", "7");
+        }
+
+        if (map.get("WORKFLOW_WIP_LIMIT") == null) {
+            map.put("WORKFLOW_WIP_LIMIT", "3");
+        }
+    }
+
+    public static String get(final String key) {
+        return (String) keyValues.get(key);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 }

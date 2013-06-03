@@ -34,6 +34,6 @@ public class TaskFilterRequest implements Event {
 
         if (event.getEventAttribute("status") != null) filter.setStatus((String) event.getEventAttribute("status"));
 
-        event.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
+        event.setSessionAttribute("taskList", TaskHelper.getAllTasks(filter));
     }
 }

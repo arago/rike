@@ -58,7 +58,7 @@ public class ViewHelper {
     private static final Map<String, String> statusColors = new HashMap<String, String>();
 
     static {
-        for (int i = 1; i <= GlobalConfig.PRIORITY_MAXIMAL_NUMBER; ++i) {
+        for (int i = 1; i <= Integer.parseInt(GlobalConfig.get("PRIORITY_MAXIMAL_NUMBER")); ++i) {
             priorities.add(i + "");
             priorityNames.put(i + "", i + "");
         }
@@ -136,19 +136,6 @@ public class ViewHelper {
         return priorityNames.get(what);
     }
 
-    /*public static String getTaskLogColorClass(ActivityLog log) {
-        switch (log.getStatusEnum()) {
-        case OPEN:
-            return "status-critical";
-        case IN_PROGRESS:
-            return "status-warning";
-        case DONE:
-            return "status-ok";
-        default:
-            return "status-unknown";
-        }
-    }*/
-
     public static String getTaskStatusColorClass(Task task) {
         switch (task.getStatusEnum()) {
         case OPEN:
@@ -168,7 +155,7 @@ public class ViewHelper {
 
         if (p==1) {
             return "priority-high";
-        } else if (p <= GlobalConfig.PRIORITY_NORMAL) {
+        } else if (p <= Integer.parseInt(GlobalConfig.get("PRIORITY_NORMAL"))) {
             return "priority-normal";
         } else {
             return "priority-low";

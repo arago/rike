@@ -78,7 +78,7 @@ public class FilterTasks implements Action {
         filter.setIsActive(have);
         filter.setCreator(creator);
 
-        data.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
+        data.setSessionAttribute("taskList", TaskHelper.getAllTasks(filter));
 
         HashMap<String, Object> eventData = new HashMap<String, Object>();
         eventData.put("milestone", milestone);

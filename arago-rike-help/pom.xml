@@ -4,7 +4,7 @@
     <groupId>de.arago</groupId>
     <artifactId>arago-rike-help</artifactId>
     <packaging>war</packaging>
-    <version>4.1-SNAPSHOT</version>
+    <version>4.1</version>
     <name>${project.artifactId}</name>
 
     <build>

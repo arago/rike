@@ -68,7 +68,7 @@ public class SaveTask implements Action {
         } catch (Exception ignored) {
         }
 
-        int priority = GlobalConfig.PRIORITY_NORMAL;
+        int priority = Integer.parseInt(GlobalConfig.get("PRIORITY_NORMAL"));
 
         task.setPriority(priority);
 
@@ -86,6 +86,6 @@ public class SaveTask implements Action {
         data.setEvent("TaskUpdateNotification", notificationParam);
         data.setEvent("TaskSelectNotification", notificationParam);
 
-        ActivityLogHelper.log(" created Task #" + task.getId().toString() + " <a href=\"?perm_task=" + task.getId().toString() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a>", task.getStatus(), user, data, task.toMap());
+        ActivityLogHelper.log(" created Task #" + task.getId() + " <a href=\"/web/guest/rike/-/show/task/" + task.getId() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a>", task.getStatus(), user, data, task.toMap());
     }
 }

@@ -20,32 +20,22 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-/**
- *
- */
-package de.arago.rike.report.action;
+package de.arago.rike.overview.event;
 
-import de.arago.portlet.Action;
+import de.arago.portlet.Event;
+import de.arago.data.IEventWrapper;
+import de.arago.rike.util.MilestoneHelper;
 
-import de.arago.data.IDataWrapper;
-import de.arago.rike.data.DataHelperRike;
-import de.arago.rike.data.Milestone;
-import java.util.HashMap;
-import org.hibernate.criterion.Restrictions;
+public class MilestoneSelectNotification implements Event {
 
-public class SelectMilestone implements Action {
     @Override
-    public void execute(IDataWrapper data) throws Exception {
-        HashMap<String, Object> notificationParam = new HashMap<String, Object>();
-
-        String milestone = data.getRequestAttribute("milestone");
-
-        DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
-        Milestone m                      = helper.find(helper.filter().add(Restrictions.eq("title", milestone)));
-
-        if (m != null) {
-            notificationParam.put("id", "" + m.getId());
-            data.setEvent("MilestoneSelectNotification", notificationParam);
+    public void execute(IEventWrapper event) throws Exception {
+        if (event.getEventAttribute("id") != null) {
+            event.setSessionAttribute("milestone", MilestoneHelper.getMilestone((String) event.getEventAttribute("id")));
+            if(event.getSessionAttribute("milestones")==null){
+                event.setSessionAttribute("milestones", MilestoneHelper.list());
+            }
+            event.setSessionAttribute("targetView", "viewMilestones");
         }
     }
 }
