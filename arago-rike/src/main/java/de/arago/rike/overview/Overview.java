@@ -34,6 +34,7 @@ import java.io.IOException;
 import javax.portlet.PortletException;
 
 import de.arago.portlet.util.SecurityHelper;
+import de.arago.rike.data.GlobalConfig;
 import de.arago.rike.util.StatisticHelper;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -48,6 +49,7 @@ public class Overview extends AragoPortlet {
         super.init();
 
         scheduler.scheduleAtFixedRate(new StatisticHelper(), 1, 1, TimeUnit.HOURS);
+        GlobalConfig.fetchFromDatabase();
         StatisticHelper.update();
     }
 

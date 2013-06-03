@@ -66,7 +66,7 @@
           <tbody>
             <% for (Artifact a : artifacts) {%>
 
-            <tr<%= currentArtifact != null && currentArtifact.getId().equals(a.getId()) ? " class=\"active\"" : ""%>>
+            <tr<%= currentArtifact != null && currentArtifact.getId().equals(a.getId()) ? " class=\"selected\"" : ""%>>
               <td><%=a.getId()%></td>
               <td><a href="<portlet:actionURL portletMode="view" />&action=showArtifact&id=<%= a.getId()%>"><%=StringEscapeUtils.escapeHtml(a.getName())%></a></td>
               <td><%= ViewHelper.formatURL(a.getUrl())%></td>
@@ -82,7 +82,7 @@
         <% if (currentArtifact != null) {%>
             $(function()
             {
-              var el = $('#<portlet:namespace />TableScroll .active').get(0);
+              var el = $('#<portlet:namespace />TableScroll .selected').get(0);
 
               try
               {

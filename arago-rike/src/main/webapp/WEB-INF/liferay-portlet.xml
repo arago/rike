@@ -9,7 +9,7 @@
     <friendly-url-routes>de/arago/rike/urlmapping/friendly-url-router.xml</friendly-url-routes>  
     <use-default-template>true</use-default-template>
     <instanceable>false</instanceable>
-    <header-portlet-css>/css/main.css</header-portlet-css>
+    <header-portlet-css>/css/rike-main.css</header-portlet-css>
     <header-portlet-javascript>/js/jquery.js</header-portlet-javascript>
     <header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
   </portlet>
@@ -18,7 +18,7 @@
     <portlet-name>arago-rike-mytasks</portlet-name>
     <use-default-template>true</use-default-template>
     <instanceable>false</instanceable>
-    <header-portlet-css>/css/main.css</header-portlet-css>
+    <header-portlet-css>/css/rike-main.css</header-portlet-css>
     <header-portlet-javascript>/js/jquery.js</header-portlet-javascript>
     <header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
     <header-portlet-javascript>/js/help/help.js</header-portlet-javascript>
@@ -28,7 +28,7 @@
     <portlet-name>arago-rike-zombies</portlet-name>
     <use-default-template>true</use-default-template>
     <instanceable>false</instanceable>
-    <header-portlet-css>/css/main.css</header-portlet-css>
+    <header-portlet-css>/css/rike-main.css</header-portlet-css>
     <header-portlet-javascript>/js/jquery.js</header-portlet-javascript>
     <header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
     <header-portlet-javascript>/js/flot/jquery.flot.js</header-portlet-javascript>
@@ -44,7 +44,7 @@
     <portlet-name>arago-rike-task</portlet-name>
     <use-default-template>true</use-default-template>
     <instanceable>false</instanceable>
-    <header-portlet-css>/css/main.css</header-portlet-css>
+    <header-portlet-css>/css/rike-main.css</header-portlet-css>
     <header-portlet-javascript>/js/jquery.js</header-portlet-javascript>
     <header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
   </portlet>
@@ -53,7 +53,7 @@
     <portlet-name>arago-rike-activitylog</portlet-name>
     <use-default-template>true</use-default-template>
     <instanceable>false</instanceable>
-    <header-portlet-css>/css/main.css</header-portlet-css>
+    <header-portlet-css>/css/rike-main.css</header-portlet-css>
     <header-portlet-javascript>/js/jquery.js</header-portlet-javascript>
     <header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
   </portlet>

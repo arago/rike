@@ -185,7 +185,7 @@
               for (Task task: tasks) {
 
             %>
-            <tr<%= currentTask != null && currentTask.getId().equals(task.getId()) ? " class=\"active\"" : ""%>>
+            <tr<%= currentTask != null && currentTask.getId().equals(task.getId()) ? " class=\"selected\"" : ""%>>
               <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getId().toString())%></td>
               <td class="shrink <%= ViewHelper.getTaskStatusColorClass(task)%>"></td>
               <td class="shrink"><%= task.getPriority()%></td>
@@ -209,7 +209,7 @@
         <% if (currentTask != null) {%>
           $(function()
           {
-            var el = $('#<portlet:namespace />TableScroll .active').get(0);
+            var el = $('#<portlet:namespace />TableScroll .selected').get(0);
 
             try
             {

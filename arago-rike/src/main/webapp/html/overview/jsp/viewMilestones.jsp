@@ -65,7 +65,7 @@
         <tbody>
           <% for (Milestone stone : milestones) {%>
 
-          <tr<%= currentMilestone != null && currentMilestone.getId().equals(stone.getId()) ? " class=\"active\"" : ""%>>
+          <tr<%= currentMilestone != null && currentMilestone.getId().equals(stone.getId()) ? " class=\"selected\"" : ""%>>
             <td><%=stone.getId()%></td>
             <td><a href="/web/guest/rike/-/show/milestone/<%= stone.getId()%>"><%=StringEscapeUtils.escapeHtml(stone.getTitle())%></a></td>
             <td><%= ViewHelper.formatURL(stone.getUrl())%></td>
@@ -81,7 +81,7 @@
         <% if (currentMilestone != null) {%>
           $(function()
           {
-            var el = $('#<portlet:namespace />TableScroll .active').get(0);
+            var el = $('#<portlet:namespace />TableScroll .selected').get(0);
 
             try
             {
