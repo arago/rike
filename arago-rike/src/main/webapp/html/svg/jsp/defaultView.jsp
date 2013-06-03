@@ -111,7 +111,7 @@
 
     top.openRikeTask = function(id)
     {
-      window.location = (top.document.location + '').replace(/\?.*$/, '') + '?perm_task=' + (id * 1);
+      window.location = '/web/guest/rike/-/show/task/' + (id * 1);
       return false;
     };
 

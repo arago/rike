@@ -27,7 +27,7 @@
     <div class="head">
       <h1>
 
-        Milestone #<%= milestone.getId()%>
+        Milestone #<%= milestone.getId()%> <%= StringEscapeUtils.escapeHtml(milestone.getTitle())%>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
           <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
@@ -80,7 +80,7 @@
     <div class="footer">
       <div class="inner">
         <a href="<portlet:actionURL portletMode="view"/>&action=editMilestone&id=<%= URLEncoder.encode(milestone.getId().toString(), "UTF-8")%>">edit</a>
-        | <a href="?perm_milestone=<%= milestone.getId()%>">permalink</a>
+        | <a href="/web/guest/rike/-/show/milestone/<%= milestone.getId()%>">permalink</a>
       </div>
 
     </div>

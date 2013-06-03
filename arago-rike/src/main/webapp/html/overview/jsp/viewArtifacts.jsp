@@ -20,10 +20,11 @@
 <portlet:defineObjects />
 
 <%
-  try {
-    UserService service = new JspUserService(renderRequest, portletSession);
-    String user = (String) portletSession.getAttribute("userEmail");
-    List<Artifact> artifacts = (List) portletSession.getAttribute("artifacts");
+    try {
+        UserService service = new JspUserService(renderRequest, portletSession);
+        String user = (String) portletSession.getAttribute("userEmail");
+        List<Artifact> artifacts = (List) portletSession.getAttribute("artifacts");
+        Artifact currentArtifact = (Artifact) portletSession.getAttribute("artifact");
 %>
 
 <div class="portlet big <%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "maximized" : ""%>" style="" id="<portlet:namespace />Portlet">
@@ -49,42 +50,57 @@
             <li class="selected"><a href="#">Artifacts</a></li>
           </ul>
         </div>
-        
+
       </div>
     </div>
     <div class="content nofooter">
+      <div id="<portlet:namespace />TableScroll">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>URL</th>
+            </tr>         
+          </thead>
+          <tbody>
+            <% for (Artifact a : artifacts) {%>
 
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>URL</th>
-          </tr>
-          
-        </thead>
-        <tbody>
-          <% for (Artifact a : artifacts) {%>
+            <tr<%= currentArtifact != null && currentArtifact.getId().equals(a.getId()) ? " class=\"active\"" : ""%>>
+              <td><%=a.getId()%></td>
+              <td><a href="<portlet:actionURL portletMode="view" />&action=showArtifact&id=<%= a.getId()%>"><%=StringEscapeUtils.escapeHtml(a.getName())%></a></td>
+              <td><%= ViewHelper.formatURL(a.getUrl())%></td>
+            </tr>
 
-
-          <tr>
-            <td><%=a.getId()%></td>
-            <td><a href="<portlet:actionURL portletMode="view" />&action=showArtifact&id=<%= a.getId()%>"><%=StringEscapeUtils.escapeHtml(a.getName())%></a></td>
-            <td><%= ViewHelper.formatURL(a.getUrl())%></td>
-          </tr>
-
-          <% }%>
+            <% }%>
 
 
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
+      <script type="text/javascript">
+        <% if (currentArtifact != null) {%>
+            $(function()
+            {
+              var el = $('#<portlet:namespace />TableScroll .active').get(0);
 
+              try
+              {
+                if (el)
+                  el.scrollIntoView();
+              } catch (e) {
+                ;
+              }
+              ;
+            });
+        <% }%>
+      </script>
     </div>
   </div>
 </div>
 <% } catch (Throwable t) {
 
-    out.write("Please Reload");
-    t.printStackTrace(System.err);
-    throw (t);
-  }%>
+        out.write("Please Reload");
+        t.printStackTrace(System.err);
+        throw (t);
+    }%>

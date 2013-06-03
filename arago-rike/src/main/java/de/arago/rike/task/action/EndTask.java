@@ -65,13 +65,14 @@ public class EndTask implements Action {
                 notificationParam.put("id", data.getRequestAttribute("id"));
                 data.setEvent("TaskUpdateNotification", notificationParam);
 
-                ActivityLogHelper.log(" completed Task #" + task.getId().toString() +
-                                      " <a href=\"?perm_task=" + task.getId().toString() + "\">" +
-                                      StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), user, data);
+                ActivityLogHelper.log(" completed Task #" + task.getId() +
+                               " <a href=\"/web/guest/rike/-/show/task/" + task.getId() + "\">" +
+                               StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), user, data, task.toMap());
+
 
                 Milestone milestone = task.getMilestone();
                 if (MilestoneHelper.isMilestoneDone(milestone)) {
-                    ActivityLogHelper.log(" finished Milestone #" + milestone.getId() + " <a href=\"?perm_milestone=" + task.getId() + "\">" + StringEscapeUtils.escapeHtml(milestone.getTitle()) + "</a>", "done", user, data);
+                    ActivityLogHelper.log(" finished Milestone #" + milestone.getId() + " <a href=\"/web/guest/rike/-/show/milestone/" + milestone.getId() + "\">" + StringEscapeUtils.escapeHtml(milestone.getTitle()) + "</a>", "done", user, data, milestone.toMap());
                 }
             }
         }

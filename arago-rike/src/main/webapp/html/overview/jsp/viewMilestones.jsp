@@ -23,6 +23,7 @@
     UserService service = new JspUserService(renderRequest, portletSession);
     String user = (String) portletSession.getAttribute("userEmail");
     List<Milestone> milestones = (List) portletSession.getAttribute("milestones");
+    Milestone currentMilestone = (Milestone) portletSession.getAttribute("milestone");
 %>
 
 <div class="portlet big <%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "maximized" : ""%>" style="" id="<portlet:namespace />Portlet">
@@ -52,7 +53,7 @@
       </div>
     </div>
     <div class="content nofooter">
-
+      <div id="<portlet:namespace />TableScroll">
       <table>
         <thead>
           <tr>
@@ -64,19 +65,31 @@
         <tbody>
           <% for (Milestone stone : milestones) {%>
 
-
-          <tr>
+          <tr<%= currentMilestone != null && currentMilestone.getId().equals(stone.getId()) ? " class=\"active\"" : ""%>>
             <td><%=stone.getId()%></td>
-            <td><a href="?perm_milestone=<%= stone.getId()%>"><%=StringEscapeUtils.escapeHtml(stone.getTitle())%></a></td>
+            <td><a href="/web/guest/rike/-/show/milestone/<%= stone.getId()%>"><%=StringEscapeUtils.escapeHtml(stone.getTitle())%></a></td>
             <td><%= ViewHelper.formatURL(stone.getUrl())%></td>
           </tr>
 
           <% }%>
 
-
-
         </tbody>
       </table>
+      </div>
+          
+      <script type="text/javascript">
+        <% if (currentMilestone != null) {%>
+          $(function()
+          {
+            var el = $('#<portlet:namespace />TableScroll .active').get(0);
+
+            try
+            {
+              if (el) el.scrollIntoView();
+            } catch(e) { ; };
+          });
+        <% }%>
+      </script>
 
     </div>
   </div>

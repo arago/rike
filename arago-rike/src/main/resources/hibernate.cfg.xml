@@ -31,5 +31,6 @@
     <mapping resource="de/arago/rike/data/TaskUser.hbm.xml"/>
     <mapping resource="de/arago/rike/data/ActivityLog.hbm.xml"/>
     <mapping resource="de/arago/rike/data/Dependency.hbm.xml"/>
+    <mapping resource="de/arago/rike/data/GlobalConfig.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

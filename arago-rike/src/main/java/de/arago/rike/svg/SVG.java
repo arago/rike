@@ -22,22 +22,15 @@
  */
 package de.arago.rike.svg;
 
-import com.liferay.portal.util.PortalUtil;
 import de.arago.portlet.AragoPortlet;
 import de.arago.portlet.util.SecurityHelper;
-
 import de.arago.data.IDataWrapper;
-import de.arago.portlet.PortletDataWrapper;
 import de.arago.rike.util.TaskListFilter;
 import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.Milestone;
-import de.arago.rike.util.MilestoneHelper;
-
 import java.io.IOException;
 import java.util.List;
 import javax.portlet.PortletException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 import org.hibernate.criterion.Order;
 
 public class SVG extends AragoPortlet {
@@ -73,34 +66,4 @@ public class SVG extends AragoPortlet {
         return SecurityHelper.isLoggedIn(data.getUser());
     }
 
-    @Override
-    public void doView(RenderRequest request, RenderResponse response)
-    throws PortletException, IOException {
-        checkForMilestone(request, new PortletDataWrapper(request, response));
-
-        super.doView(request, response);
-    }
-
-    private void checkForMilestone(RenderRequest request, IDataWrapper data) {
-        try {
-            String id = PortalUtil.getOriginalServletRequest(PortalUtil.getHttpServletRequest(request)).getParameter("perm_milestone");
-
-            if (id != null && !id.isEmpty()) {
-                final Milestone milestone = MilestoneHelper.getMilestone(id);
-
-                if (milestone != null) {
-                    data.setSessionAttribute("taskListFilter", new TaskListFilter() {
-                        @Override
-                        public void setDefaultOptions() {
-                            super.setDefaultOptions();
-                            setIsActive(true);
-                            setMilestone("milestone_" + milestone.getId());
-                        }
-                    });
-                }
-            }
-        } catch(Throwable ignored) {
-            // blank
-        }
-    }
 }
