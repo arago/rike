@@ -68,7 +68,7 @@ public class SaveTask implements Action {
         } catch (Exception ignored) {
         }
 
-        int priority = GlobalConfig.PRIORITY_NORMAL;
+        int priority = Integer.parseInt(GlobalConfig.get("PRIORITY_NORMAL"));
 
         task.setPriority(priority);
 
