@@ -1,10 +1,10 @@
+<%@page import="de.arago.rike.util.TaskListFilter"%>
 <%@page import="de.arago.rike.data.Artifact"%>
 <%@page import="de.arago.rike.data.Milestone"%>
 <%@page import="de.arago.rike.util.TaskHelper"%>
 <%@page import="de.arago.portlet.jsp.UserService"%>
 <%@page import="de.arago.portlet.jsp.JspUserService"%>
 <%@page import="de.arago.rike.util.ViewHelper"%>
-<%@page import="com.liferay.portal.model.User"%>
 <%@page import="de.arago.portlet.util.SecurityHelper"%>
 <%@page import="de.arago.rike.data.Task.Status"%>
 <%@page import="com.liferay.portal.service.UserLocalServiceUtil"%>
@@ -22,7 +22,7 @@
 <%
     try {
         UserService service = new JspUserService(renderRequest, portletSession);
-        String user = (String) portletSession.getAttribute("userEmail");
+        TaskListFilter filter = (TaskListFilter) portletSession.getAttribute("taskListFilter");
         List<Artifact> artifacts = (List) portletSession.getAttribute("artifacts");
         Artifact currentArtifact = (Artifact) portletSession.getAttribute("artifact");
 %>
@@ -53,7 +53,7 @@
 
       </div>
     </div>
-    <div class="content nofooter">
+    <div class="content">
       <div id="<portlet:namespace />TableScroll">
         <table>
           <thead>
@@ -95,6 +95,12 @@
             });
         <% }%>
       </script>
+    </div>
+
+    <div class="footer">
+      <div class="inner">
+        <a href="javascript:void(0);"><span class="icon">S</span> Filter <%= filter.isActive() ? "(active)" : ""%></a> <br />
+      </div>
     </div>
   </div>
 </div>

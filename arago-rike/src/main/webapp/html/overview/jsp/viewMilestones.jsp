@@ -1,3 +1,4 @@
+<%@page import="de.arago.rike.util.TaskListFilter"%>
 <%@page import="de.arago.rike.data.Milestone"%>
 <%@page import="de.arago.rike.util.TaskHelper"%>
 <%@page import="de.arago.portlet.jsp.UserService"%>
@@ -21,7 +22,7 @@
 <%
   try {
     UserService service = new JspUserService(renderRequest, portletSession);
-    String user = (String) portletSession.getAttribute("userEmail");
+    TaskListFilter filter = (TaskListFilter) portletSession.getAttribute("taskListFilter");
     List<Milestone> milestones = (List) portletSession.getAttribute("milestones");
     Milestone currentMilestone = (Milestone) portletSession.getAttribute("milestone");
 %>
@@ -52,7 +53,7 @@
 
       </div>
     </div>
-    <div class="content nofooter">
+    <div class="content">
       <div id="<portlet:namespace />TableScroll">
       <table>
         <thead>
@@ -91,6 +92,12 @@
         <% }%>
       </script>
 
+    </div>
+
+    <div class="footer">
+      <div class="inner">
+        <a href="javascript:void(0);"><span class="icon">S</span> Filter <%= filter.isActive() ? "(active)" : ""%></a> <br />
+      </div>
     </div>
   </div>
 </div>

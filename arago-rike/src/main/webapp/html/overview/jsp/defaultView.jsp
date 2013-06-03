@@ -39,8 +39,7 @@
           <% } %>
         </span>
       </h1>
-        <div class="inner">
-        <a href="javascript:void(0);" onclick="$('#<portlet:namespace />Filter').toggle();"><span class="icon">S</span> Filter <%= filter.isActive() ? "(active)" : ""%></a> <br />
+      <div class="inner">
         <div id="<portlet:namespace />Filter" class="dropDown" style="display:none;">
           <form method="post" action="<portlet:actionURL portletMode="view"/>">
             <input type="hidden" name="action" value="filterTasks" />
@@ -153,22 +152,17 @@
           </form>
 
         </div>
-                  
-                  
-                  
         <div class="left">
-          <ul class="tabbar" style="left:80px">
+          <ul class="tabbar">
             <li class="selected"><a href="#">Tasks</a></li>
             <li ><a href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones</a></li>
             <li><a href="<portlet:actionURL portletMode="view"/>&action=showArtifacts">Artifacts</a></li>
           </ul>
         </div>
-
-                  
-        </div>
+      </div>
     </div>
     <!-- content -->
-    <div class="content nofooter">
+    <div class="content">
         <div id="<portlet:namespace />TableScroll">
         <table>
           <thead>
@@ -219,11 +213,15 @@
         <% }%>
       </script>
     </div>
+    <div class="footer">
+      <div class="inner">
+        <a href="javascript:void(0);" onclick="$('#<portlet:namespace />Filter').toggle();"><span class="icon">S</span> Filter <%= filter.isActive() ? "(active)" : ""%></a> <br />
+      </div>
+    </div>
   </div>
 </div>  
-  <%
-          
-   } catch (Throwable t) {
+<%
+  } catch (Throwable t) {
       out.write("Please Reload");
       t.printStackTrace(System.err);
   }
