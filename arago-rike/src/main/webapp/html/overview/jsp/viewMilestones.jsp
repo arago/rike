@@ -1,3 +1,4 @@
+<%@page import="de.arago.rike.util.TaskListFilter"%>
 <%@page import="de.arago.rike.data.Milestone"%>
 <%@page import="de.arago.rike.util.TaskHelper"%>
 <%@page import="de.arago.portlet.jsp.UserService"%>
@@ -21,7 +22,7 @@
 <%
   try {
     UserService service = new JspUserService(renderRequest, portletSession);
-    String user = (String) portletSession.getAttribute("userEmail");
+    TaskListFilter filter = (TaskListFilter) portletSession.getAttribute("taskListFilter");
     List<Milestone> milestones = (List) portletSession.getAttribute("milestones");
     Milestone currentMilestone = (Milestone) portletSession.getAttribute("milestone");
 %>
@@ -52,7 +53,7 @@
 
       </div>
     </div>
-    <div class="content nofooter">
+    <div class="content">
       <div id="<portlet:namespace />TableScroll">
       <table>
         <thead>
@@ -65,7 +66,7 @@
         <tbody>
           <% for (Milestone stone : milestones) {%>
 
-          <tr<%= currentMilestone != null && currentMilestone.getId().equals(stone.getId()) ? " class=\"active\"" : ""%>>
+          <tr<%= currentMilestone != null && currentMilestone.getId().equals(stone.getId()) ? " class=\"selected\"" : ""%>>
             <td><%=stone.getId()%></td>
             <td><a href="/web/guest/rike/-/show/milestone/<%= stone.getId()%>"><%=StringEscapeUtils.escapeHtml(stone.getTitle())%></a></td>
             <td><%= ViewHelper.formatURL(stone.getUrl())%></td>
@@ -81,7 +82,7 @@
         <% if (currentMilestone != null) {%>
           $(function()
           {
-            var el = $('#<portlet:namespace />TableScroll .active').get(0);
+            var el = $('#<portlet:namespace />TableScroll .selected').get(0);
 
             try
             {
@@ -91,6 +92,12 @@
         <% }%>
       </script>
 
+    </div>
+
+    <div class="footer">
+      <div class="inner">
+        <a href="javascript:void(0);"><span class="icon">S</span> Filter <%= filter.isActive() ? "(active)" : ""%></a> <br />
+      </div>
     </div>
   </div>
 </div>
