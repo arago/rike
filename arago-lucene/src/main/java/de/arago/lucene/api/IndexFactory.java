@@ -46,20 +46,27 @@ public final class IndexFactory {
         p.put("index.tag-names.converterClass", "de.arago.lucene.util.StringMapConverter");
         p.put("index.ki-wiki-relatives.converterClass", "de.arago.lucene.util.StringMapConverter");
         p.put("index.ki-wiki-relatives.creatorClass", "de.arago.lucene.util.NoopIndexCreator");
+        p.put("index.ki-index.converterClass", "de.arago.lucene.util.StringMapConverter");
+        p.put("index.ki-index.converterClass", "de.arago.lucene.util.StringMapConverter");
+        p.put("index.ki-index.creatorClass", "de.arago.lucene.util.NoopIndexCreator");
+        p.put("index.ki-index.analyzerClass", "de.arago.lucene.util.MultiAnalyzerFactory");
+
         return p;
     }
 
     public static Index<?> getIndex(String name, Properties config) {
-        if (!indices.containsKey(name)) {
-            Properties p = new Properties();
+        synchronized(indices) {
+            if (!indices.containsKey(name)) {
+                Properties p = new Properties();
 
-            p.putAll(getDefaultProperties());
-            if (config != null) p.putAll(config);
+                p.putAll(getDefaultProperties());
+                if (config != null) p.putAll(config);
 
-            indices.put(name, createIndex(name, p));
+                indices.put(name, createIndex(name, p));
+            }
+
+            return indices.get(name);
         }
-
-        return indices.get(name);
     }
 
     public static Index<?> getIndex(String name) {

@@ -32,7 +32,7 @@ public class MilestoneSelectNotification implements Event {
     public void execute(IEventWrapper event) throws Exception {
         if (event.getEventAttribute("id") != null) {
             event.setSessionAttribute("milestone", MilestoneHelper.getMilestone((String) event.getEventAttribute("id")));
-            if(event.getSessionAttribute("milestones")==null){
+            if(event.getSessionAttribute("milestones")==null) {
                 event.setSessionAttribute("milestones", MilestoneHelper.list());
             }
             event.setSessionAttribute("targetView", "viewMilestones");

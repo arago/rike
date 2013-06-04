@@ -13,11 +13,22 @@ import org.apache.lucene.util.Version;
 * @author vvoss
 */
 final public class LowCaseAnalyzer extends Analyzer {
+    private final int mingram;
+    private final int maxgram;
+
+    public LowCaseAnalyzer() {
+        this(2, 4);
+    }
+
+    public LowCaseAnalyzer(int mingram, int maxgram) {
+        this.mingram = mingram;
+        this.maxgram = maxgram;
+    }
 
     @Override
     public TokenStream tokenStream(String string, Reader reader) {
         if("_name_prefix".equals(string)) {
-            NGramTokenizer ngram = new NGramTokenizer(reader,2,4);
+            NGramTokenizer ngram = new NGramTokenizer(reader,mingram,maxgram);
             TokenStream stream = new LowerCaseFilter(Version.LUCENE_36,ngram);
             return stream;
         } else if(string.startsWith("_ngram_")) {

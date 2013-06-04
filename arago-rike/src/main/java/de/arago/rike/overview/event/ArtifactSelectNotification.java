@@ -32,7 +32,7 @@ public class ArtifactSelectNotification implements Event {
     public void execute(IEventWrapper event) throws Exception {
         if (event.getEventAttribute("id") != null) {
             event.setSessionAttribute("artifact", ArtifactHelper.getArtifact((String) event.getEventAttribute("id")));
-            if(event.getSessionAttribute("artifacts")==null){
+            if(event.getSessionAttribute("artifacts")==null) {
                 event.setSessionAttribute("artifacts", ArtifactHelper.list());
             }
             event.setSessionAttribute("targetView", "viewArtifacts");

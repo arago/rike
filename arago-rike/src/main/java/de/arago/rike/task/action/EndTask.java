@@ -66,8 +66,8 @@ public class EndTask implements Action {
                 data.setEvent("TaskUpdateNotification", notificationParam);
 
                 ActivityLogHelper.log(" completed Task #" + task.getId() +
-                               " <a href=\"/web/guest/rike/-/show/task/" + task.getId() + "\">" +
-                               StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), user, data, task.toMap());
+                                      " <a href=\"/web/guest/rike/-/show/task/" + task.getId() + "\">" +
+                                      StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), user, data, task.toMap());
 
 
                 Milestone milestone = task.getMilestone();
