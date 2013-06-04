@@ -35,7 +35,7 @@ public class TaskSelectNotification implements Event {
         if (event.getEventAttribute("id") != null) {
             event.setSessionAttribute("task", TaskHelper.getTask((String) event.getEventAttribute("id")));
             event.setSessionAttribute("targetView", "defaultView");
-            if(event.getSessionAttribute("taskList")==null){
+            if(event.getSessionAttribute("taskList")==null) {
                 Object taskListFilterObject = event.getSessionAttribute("taskListFilter");
                 if (taskListFilterObject != null) {
                     event.setSessionAttribute("taskList", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
