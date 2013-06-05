@@ -42,7 +42,7 @@ public final class IndexFactory {
         p.put("index.issue-condition.converterClass", "de.arago.lucene.util.StringMapConverter");
         p.put("index.issue-statistics.creatorClass", "de.arago.lucene.issue.IssueStatisticIndexCreator");
         p.put("index.issue-statistics.converterClass", "de.arago.lucene.issue.IssueStatisticIndexConverter");
-        p.put("index.tag-names.creatorClass", "de.arago.lucene.rule.TagsIndexCreator");
+        p.put("index.tag-names.creatorClass", "de.arago.lucene.ki.TagsIndexCreator");
         p.put("index.tag-names.converterClass", "de.arago.lucene.util.StringMapConverter");
         p.put("index.ki-wiki-relatives.converterClass", "de.arago.lucene.util.StringMapConverter");
         p.put("index.ki-wiki-relatives.creatorClass", "de.arago.lucene.util.NoopIndexCreator");
