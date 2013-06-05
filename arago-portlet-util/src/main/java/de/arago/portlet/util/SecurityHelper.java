@@ -26,9 +26,10 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.KeyValuePair;
-import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.model.Role;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
+import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.UserGroupLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.util.PortalUtil;
@@ -219,6 +220,21 @@ public class SecurityHelper {
         try {
             List<UserGroup> groups = UserGroupLocalServiceUtil.getUserUserGroups(Long.valueOf(userId,10));
             for(UserGroup g: groups) {
+                result.add(g.getName());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(SecurityHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result.toArray(new String[0]);
+    }
+    
+    public static String[] getUserRoles(String userId) {
+        if (userId == null || userId.isEmpty()) return new String[0];
+        ArrayList<String> result = new ArrayList<String>();
+
+        try {
+            List<Role> roles = RoleLocalServiceUtil.getUserRoles(Long.valueOf(userId,10));
+            for(Role g: roles) {
                 result.add(g.getName());
             }
         } catch (Exception ex) {
