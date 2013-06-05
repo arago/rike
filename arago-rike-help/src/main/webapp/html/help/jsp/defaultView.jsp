@@ -31,6 +31,7 @@ $.globalPortletJS
 <script>
 (function()
 {
+  // TODO hier das overlay einpflegen
   var div = document.createElement('div');
   
   div.innerHTML = '<div style="position:absolute; top:0px; left:0px; right:0px; bottom:0px; z-index:10000000000; background-color:#ccc; opacity:0.7"><img style="position:absolute; top:0px; left:0px; right:0px; bottom:0px; width:100%; height:100%;" src="<%= renderRequest.getContextPath()%>/images/helpoverlay.svg" alt="" /></div>';
