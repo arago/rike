@@ -26,8 +26,13 @@
     <!-- head -->
     <div class="head">
       <h1>
-
-        Milestone #<%= milestone.getId()%> <%= StringEscapeUtils.escapeHtml(milestone.getTitle())%>
+        <div class="ellipsis">
+        <% if (milestone ==  null) { %>
+          New Milestone
+        <% } else { %>
+          Milestone: #<%= milestone.getId() %> <%= StringEscapeUtils.escapeHtml(milestone.getTitle())%>
+        <% } %>
+        </div>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
           <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>

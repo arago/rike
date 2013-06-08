@@ -34,10 +34,7 @@ public class EditMilestone implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
-
         data.setSessionAttribute("milestone", MilestoneHelper.getMilestone(data.getRequestAttribute("id")));
-
         data.setSessionAttribute("targetView", "viewEditMilestone");
-
     }
 }

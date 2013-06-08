@@ -27,7 +27,9 @@
     <!-- head -->
     <div class="head">
       <h1>
-        New Task
+        <div class="ellipsis">
+          New Task
+        </div>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>

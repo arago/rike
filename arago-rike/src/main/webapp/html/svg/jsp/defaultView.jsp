@@ -38,74 +38,6 @@
           <% } %>
         </span>
       </h1>
-      <div class="inner">
-        <!-- Filterfunktion-->
-        <a href="javascript:void(0);" onclick="$('#<portlet:namespace />Filter').toggle();"><span class="icon">S</span> Filter <%= filter.isActive() ? "(active)" : ""%></a> <br />
-        <div id="<portlet:namespace />Filter" class="dropDown" style="display:none; ">
-          <form method="post" action="<portlet:actionURL portletMode="view"/>">
-            <input type="hidden" name="action" value="filterTasks" />
-            <table style="width:100%">
-              <tbody>
-                <tr>
-                  <td>User:</td>
-                  <td>
-                    <select name="user"  class="rike-select">
-                      <option <%= filter.getUser().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
-                      <% for (TaskUser user: ViewHelper.getAvailableUsers()) {%>
-
-                      <option <%= filter.getUser().equals(user.getEmail()) ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(user.getEmail())%>"><%= StringEscapeUtils.escapeHtml(user.getEmail())%></option>
-
-                      <% }%>
-
-                    </select>
-
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Milestone:</td>
-                  <td>
-                    <select name="milestone"  class="rike-select">
-                      <% for (String[] data: ViewHelper.getAvailableMilestones(service)) {%>
-
-                      <option <%= filter.getMilestone().equals(data[0]) ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(data[0])%>"><%= StringEscapeUtils.escapeHtml(data[1])%></option>
-
-                      <% }%>
-
-                    </select>
-
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Artifact:</td>
-                  <td>
-                    <select name="artifact"  class="rike-select">
-                      <option <%= filter.getMilestone().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
-                      <% for (Artifact artifact: ViewHelper.getAvailableArtifacts()) {%>
-
-                      <option <%= filter.getArtifact().equals(artifact.getId().toString()) ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(artifact.getId().toString())%>"><%= StringEscapeUtils.escapeHtml(artifact.getName())%></option>
-
-                      <% }%>
-
-                    </select>
-
-                  </td>
-                </tr>
-
-
-                <tr>
-                  <td style="text-align:left"><input type="reset" value="Close" onclick="$('#<portlet:namespace />Filter').hide();"/></td>
-                  <td style="text-align:right"><input type="submit" value="Ok" /></td>
-                </tr>
-              </tbody>
-            </table>
-
-          </form>
-
-        </div>
-
-      </div>
     </div>
     <script type="text/javascript">
 
@@ -335,7 +267,7 @@
         };
 			
     </script>
-    <div class="content nofooter">
+    <div class="content nofooter nohead">
       <div style="position:relative; height:100%" id="<portlet:namespace/>PortletContent">
         <div id="<portlet:namespace />controlNode" style="<%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "" : "display:none;"%> position:absolute; top:0px; left:0px; width:170px; height:150px"></div>
         <embed src="<%=renderRequest.getContextPath()%>/svg?action=graph&user=<%= URLEncoder.encode(filter.getUser(), "UTF-8")%>&artifact=<%= URLEncoder.encode(filter.getArtifact(), "UTF-8")%>&milestone=<%= URLEncoder.encode(filter.getMilestone(), "UTF-8")%>" id="<portlet:namespace />SVG"  type="image/svg+xml" style="width:300px; height:200px;" />
