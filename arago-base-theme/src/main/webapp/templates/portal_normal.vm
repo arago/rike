@@ -7,7 +7,7 @@
 <head>
 	#css ($css_main_file)
 
-	<title>$the_title - arago AutoPilot 4.0</title>
+	<title>$the_title - arago Rike 4.1</title>
 
 	$theme.include($top_head_include)
 

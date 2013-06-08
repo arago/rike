@@ -34,10 +34,8 @@ public class ShowMilestone implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
-
         if (data.getRequestAttribute("id") != null) {
             HashMap<String, Object> notificationParam = new HashMap<String, Object>();
-
             notificationParam.put("id", data.getRequestAttribute("id"));
             data.setEvent("MilestoneSelectNotification", notificationParam);
         }

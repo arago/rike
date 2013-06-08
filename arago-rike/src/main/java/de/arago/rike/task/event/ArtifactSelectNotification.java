@@ -34,6 +34,9 @@ public class ArtifactSelectNotification implements Event {
         if (event.getEventAttribute("id") != null) {
             event.setSessionAttribute("artifact", ArtifactHelper.getArtifact((String) event.getEventAttribute("id")));
             event.setSessionAttribute("targetView", "viewArtifact");
+        } else {
+            event.removeSessionAttribute("artifact");
+            event.setSessionAttribute("targetView", "viewEditArtifact");
         }
     }
 }

@@ -29,13 +29,13 @@
     <!-- head -->
     <div class="head">
       <h1>
+        <div class="ellipsis">
         <% if (task != null) {%>
-        <span class="<%= ViewHelper.getTaskStatusColorClass(task)%>" style="overflow:hidden; max-width: 76%; padding-left:10px; background-position: center left">
           Task: #<%= StringEscapeUtils.escapeHtml(task.getId().toString())%> <%= StringEscapeUtils.escapeHtml(task.getTitle())%>
-        </span>
         <% } else {%>
-        <span>Task</span>
+          Task
         <% }%>
+        </div>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>

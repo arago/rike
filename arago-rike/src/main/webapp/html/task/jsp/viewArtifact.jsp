@@ -23,8 +23,13 @@
     <!-- head -->
     <div class="head">
       <h1>
-
-        Artifact #<%= artifact.getId()%> <%= StringEscapeUtils.escapeHtml(artifact.getName())%>
+        <div class="ellipsis">
+        <% if (artifact ==  null) { %>
+          New Artifact
+        <% } else { %>
+          Artifact: #<%= artifact.getId() %> <%= StringEscapeUtils.escapeHtml(artifact.getName())%>
+        <% } %>
+        </div>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
           <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>

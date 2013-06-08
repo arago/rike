@@ -60,12 +60,6 @@
 		<supported-processing-event>
 			<qname>ActivityLogNotification</qname>
 		</supported-processing-event>
-		<supported-processing-event>
-			<qname>MilestoneSelectNotification</qname>
-		</supported-processing-event>
-		<supported-processing-event>
-			<qname>ArtifactSelectNotification</qname>
-		</supported-processing-event>
 
 		<supported-publishing-event>
 			<qname>MilestoneChangeNotification</qname>
