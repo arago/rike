@@ -36,6 +36,5 @@ public class EditArtifact implements Action {
     public void execute(IDataWrapper data) throws Exception {
         data.setSessionAttribute("artifact", ArtifactHelper.getArtifact(data.getRequestAttribute("id")));
         data.setSessionAttribute("targetView", "viewEditArtifact");
-
     }
 }

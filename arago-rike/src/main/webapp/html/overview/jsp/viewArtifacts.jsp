@@ -50,10 +50,9 @@
             <li class="selected"><a href="#">Artifacts</a></li>
           </ul>
         </div>
-
       </div>
     </div>
-    <div class="content">
+    <div class="content nofooter">
       <div id="<portlet:namespace />TableScroll">
         <table>
           <thead>
@@ -78,6 +77,7 @@
           </tbody>
         </table>
       </div>
+
       <script type="text/javascript">
         <% if (currentArtifact != null) {%>
             $(function()
@@ -95,12 +95,7 @@
             });
         <% }%>
       </script>
-    </div>
 
-    <div class="footer">
-      <div class="inner">
-        <a href="javascript:void(0);"><span class="icon">S</span> Filter <%= filter.isActive() ? "(active)" : ""%></a> <br />
-      </div>
     </div>
   </div>
 </div>

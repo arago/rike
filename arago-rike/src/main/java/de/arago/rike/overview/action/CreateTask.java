@@ -20,27 +20,16 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.arago.rike.task.action;
+package de.arago.rike.overview.action;
 
 import de.arago.portlet.Action;
 import de.arago.data.IDataWrapper;
-import de.arago.rike.data.Artifact;
-import de.arago.rike.data.DataHelperRike;
-import de.arago.rike.data.Milestone;
-import de.arago.rike.data.Task;
-import de.arago.rike.util.MilestoneHelper;
-import org.hibernate.criterion.Order;
+import java.util.HashMap;
 
 public class CreateTask implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
-        DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
-        DataHelperRike<Milestone> stoneHelper = new DataHelperRike<Milestone>(Milestone.class);
-
-        data.setSessionAttribute("task", new Task());
-        data.setSessionAttribute("artifacts", helper.list(helper.filter().addOrder(Order.asc("name"))));
-        data.setSessionAttribute("targetView", "viewCreate");
-        data.setSessionAttribute("milestones", MilestoneHelper.listNotExpired());
+        data.setEvent("TaskSelectNotification", new HashMap<String, Object>());
     }
 }

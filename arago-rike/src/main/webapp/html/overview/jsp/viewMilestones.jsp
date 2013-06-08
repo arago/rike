@@ -43,17 +43,16 @@
         </span>
       </h1>
       <div class="inner">
-        <div class="left">
+        <div class="right">
           <ul class="tabbar">
             <li><a href="<portlet:actionURL portletMode="view"/>&action=showTasks">Tasks</a></li>
             <li class="selected"><a href="#">Milestones</a></li>
             <li><a href="<portlet:actionURL portletMode="view"/>&action=showArtifacts">Artifacts</a></li>
           </ul>
         </div>
-
       </div>
     </div>
-    <div class="content">
+    <div class="content nofooter">
       <div id="<portlet:namespace />TableScroll">
       <table>
         <thead>
@@ -92,12 +91,6 @@
         <% }%>
       </script>
 
-    </div>
-
-    <div class="footer">
-      <div class="inner">
-        <a href="javascript:void(0);"><span class="icon">S</span> Filter <%= filter.isActive() ? "(active)" : ""%></a> <br />
-      </div>
     </div>
   </div>
 </div>

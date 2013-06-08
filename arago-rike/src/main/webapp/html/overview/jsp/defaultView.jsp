@@ -16,11 +16,11 @@
 <portlet:defineObjects />
 
 <%
-  try {
-    UserService service = new JspUserService(renderRequest, portletSession);
-    List<Task> tasks = (List<Task>) portletSession.getAttribute("taskList");
-    TaskListFilter filter = (TaskListFilter) portletSession.getAttribute("taskListFilter");
-    Task currentTask = (Task) portletSession.getAttribute("task");
+    try {
+        UserService service = new JspUserService(renderRequest, portletSession);
+        List<Task> tasks = (List<Task>) portletSession.getAttribute("taskList");
+        TaskListFilter filter = (TaskListFilter) portletSession.getAttribute("taskListFilter");
+        Task currentTask = (Task) portletSession.getAttribute("task");
 %>
 
 
@@ -32,11 +32,11 @@
         Overview: Tasks
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.overview');" title="Help"><span class="icon">S</span></a> 
-          <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
-            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
-          <% } else { %>
-            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
-          <% } %>
+          <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
+          <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+          <% } else {%>
+          <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+          <% }%>
         </span>
       </h1>
       <div class="inner">
@@ -50,7 +50,7 @@
                   <td>
                     <select name="user"  class="rike-select">
                       <option <%= filter.getUser().length() == 0 ? "selected='selected'" : ""%> value="">Any</option>
-                      <% for (TaskUser user: ViewHelper.getAvailableUsers()) {%>
+                      <% for (TaskUser user : ViewHelper.getAvailableUsers()) {%>
 
                       <option <%= filter.getUser().equals(user.getEmail()) ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(user.getEmail())%>"><%= StringEscapeUtils.escapeHtml(user.getEmail())%></option>
 
@@ -66,7 +66,7 @@
                   <td>
                     <select name="creator"  class="rike-select">
                       <option <%= filter.getCreator().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
-                      <% for (TaskUser user: ViewHelper.getAvailableUsers()) {%>
+                      <% for (TaskUser user : ViewHelper.getAvailableUsers()) {%>
 
                       <option <%= filter.getCreator().equals(user.getEmail()) ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(user.getEmail())%>"><%= StringEscapeUtils.escapeHtml(user.getEmail())%></option>
 
@@ -82,7 +82,7 @@
                   <td>
                     <select name="status"  class="rike-select">
                       <option <%= filter.getStatus().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
-                      <% for (String status: ViewHelper.getStatus()) {%>
+                      <% for (String status : ViewHelper.getStatus()) {%>
 
                       <option <%= filter.getStatus().equalsIgnoreCase(status) ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(status)%>"><%= StringEscapeUtils.escapeHtml(ViewHelper.getStatus(status))%></option>
 
@@ -98,7 +98,7 @@
                   <td>
                     <select name="priority"  class="rike-select">
                       <option <%= filter.getStatus().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
-                      <% for (String priority: ViewHelper.getPriorities()) {%>
+                      <% for (String priority : ViewHelper.getPriorities()) {%>
 
                       <option <%= filter.getPriority().equalsIgnoreCase(priority) ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(priority)%>"><%= StringEscapeUtils.escapeHtml(ViewHelper.getPriority(priority))%></option>
 
@@ -114,7 +114,7 @@
                   <td>
                     <select name="milestone"  class="rike-select">
                       <option <%= filter.getMilestone().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
-                      <% for (String[] data: ViewHelper.getAvailableMilestones(service)) {%>
+                      <% for (String[] data : ViewHelper.getAvailableMilestones(service)) {%>
 
                       <option <%= filter.getMilestone().equals(data[0]) ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(data[0])%>"><%= StringEscapeUtils.escapeHtml(data[1])%></option>
 
@@ -130,7 +130,7 @@
                   <td>
                     <select name="artifact" class="rike-select">
                       <option <%= filter.getMilestone().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
-                      <% for (Artifact artifact: ViewHelper.getAvailableArtifacts()) {%>
+                      <% for (Artifact artifact : ViewHelper.getAvailableArtifacts()) {%>
 
                       <option <%= filter.getArtifact().equals(artifact.getId().toString()) ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(artifact.getId().toString())%>"><%= StringEscapeUtils.escapeHtml(artifact.getName())%></option>
 
@@ -152,31 +152,101 @@
           </form>
 
         </div>
-        <div class="left">
-          <ul class="tabbar">
-            <li class="selected"><a href="#">Tasks</a></li>
-            <li ><a href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones</a></li>
-            <li><a href="<portlet:actionURL portletMode="view"/>&action=showArtifacts">Artifacts</a></li>
-          </ul>
-        </div>
+
+        <a class="submit rike-addbutton icon-plus-sign" onclick="$('#<portlet:namespace/>New').toggle()"></a>
+        <ul class="rike-add-dropdown" id="<portlet:namespace/>New">
+          <li><a href="<portlet:actionURL portletMode="view" />&action=createTask">Task</a></li>
+          <li><a href="<portlet:actionURL portletMode="view" />&action=createMilestone">Milestone</a></li>
+          <li><a href="<portlet:actionURL portletMode="view" />&action=createArtifact">Artifact</a></li>
+        </ul>
+
+        <input onclick="if (this.value === 'Search...') this.value = '';" onblur="" 
+               id="<portlet:namespace/>search" class="rike-input rike-search" placeholder="Search..." type="text"/>
+        
+          <script type="text/javascript">
+            $(function()
+            {
+              var statusColors =
+                      {
+                        OPEN: "status-critical",
+                        IN_PROGRESS: "status-warning",
+                        DONE: "status-ok",
+                        UNKNOWN: "status-unknown"
+                      };
+
+              $("#<portlet:namespace/>search").autocomplete("<portlet:resourceURL />&as=json&action=findTask",
+                      {
+                        max: 10,
+                        minChars: 1,
+                        dataType: 'json',
+                        delay: 50,
+                        width: '250px',
+                        selectFirst: false,
+                        widthNode: document.getElementById('<portlet:namespace/>Searchbox'),
+                        offsetRight: 148,
+                        onstart: function()
+                        {
+                          //$('#<portlet:namespace/>SearchboxButton').get(0).style.backgroundImage = 'url(/wisdome-theme/pix/ajax-loader.gif)';
+                        },
+                        onend: function()
+                        {
+                          //$('#<portlet:namespace/>SearchboxButton').get(0).style.backgroundImage = '';
+                        },
+                        onResult: function(item)
+                        {
+                          window.location = '<portlet:actionURL portletMode="view"/>&action=selectTask&id=' + encodeURIComponent(item.value);
+
+                          return false;
+                        },
+                        parse: function(text)
+                        {
+                          var parsed = [];
+
+                          for (var i = 0; i < text.items.length; ++i)
+                          {
+                            var item = text.items[i];
+                            parsed[parsed.length] = {
+                              data: '<span class="' + statusColors[item.status] + '">&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="priority-' + item.priority.toLowerCase() + '">&nbsp;</span> <span style="font-style: italic;">#' + item.id + ' ' + item.name + '</span> <br /><span style="color:#666">' + (item.owner ? 'completed by ' + item.owner : 'not completed') + '</span>',
+                              value: text.items[i].id,
+                              result: text.items[i].id
+                            };
+                          }
+                          ;
+
+                          return parsed;
+                        },
+                        formatItem: function(row)
+                        {
+                          return row;
+                        }
+
+                      });
+            });
+
+          </script>
+        
+        <a href="javascript:void(0);" onclick="$('#<portlet:namespace />Filter').toggle();" class="right"> 
+          <span class="icon-filter"></span> Filter <%= filter.isActive() ? "(active)" : ""%>
+        </a> 
+        <br/>
       </div>
     </div>
     <!-- content -->
-    <div class="content">
-        <div id="<portlet:namespace />TableScroll">
-        <table>
+    <div class="content nofooter">
+      <div id="<portlet:namespace />TableScroll">
+        <table class="list">
           <thead>
             <tr>
               <th class="shrink center"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.ID.toString()%>">#</a></th>
               <th class="shrink center"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.STATUS.toString()%>" title="Status">?</a></th>
-              <th class="shrink center"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.PRIORITY.toString()%>" title="Priority">!</a></th>
+              <th class="shrink center"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.PRIORITY.toString()%>" title="Priority">Prio</a></th>
               <th class="shrink center"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.TITLE.toString()%>">Title</a></th>
             </tr>
           </thead>
           <tbody>
             <%
 
-              for (Task task: tasks) {
+                for (Task task : tasks) {
 
             %>
             <tr<%= currentTask != null && currentTask.getId().equals(task.getId()) ? " class=\"selected\"" : ""%>>
@@ -192,7 +262,7 @@
 
             </tr>
             <%
-              }
+                }
             %>
           </tbody>
         </table>
@@ -201,28 +271,27 @@
 
       <script type="text/javascript">
         <% if (currentTask != null) {%>
-          $(function()
-          {
-            var el = $('#<portlet:namespace />TableScroll .selected').get(0);
-
-            try
+            $(function()
             {
-              if (el) el.scrollIntoView();
-            } catch(e) { ; };
-          });
+              var el = $('#<portlet:namespace />TableScroll .selected').get(0);
+
+              try
+              {
+                if (el)
+                  el.scrollIntoView();
+              } catch (e) {
+                ;
+              }
+              ;
+            });
         <% }%>
       </script>
-    </div>
-    <div class="footer">
-      <div class="inner">
-        <a href="javascript:void(0);" onclick="$('#<portlet:namespace />Filter').toggle();"><span class="icon">S</span> Filter <%= filter.isActive() ? "(active)" : ""%></a> <br />
-      </div>
     </div>
   </div>
 </div>  
 <%
-  } catch (Throwable t) {
-      out.write("Please Reload");
-      t.printStackTrace(System.err);
-  }
+    } catch (Throwable t) {
+        out.write("Please Reload");
+        t.printStackTrace(System.err);
+    }
 %>
