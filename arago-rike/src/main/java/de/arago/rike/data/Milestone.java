@@ -115,6 +115,7 @@ public class Milestone {
     public Map toMap() {
         Map map = new HashMap();
 
+        map.put("type", "Milestone");
         map.put("id", getId().toString());
         map.put("title", title);
 

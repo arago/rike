@@ -362,9 +362,15 @@
     <supported-processing-event>
       <qname>MilestoneSelectNotification</qname>
     </supported-processing-event>
+		<supported-processing-event>
+			<qname>ActivityLogNotification</qname>
+		</supported-processing-event>
     <supported-publishing-event>
       <qname>MilestoneSelectNotification</qname>
     </supported-publishing-event>
+		<supported-publishing-event>
+			<qname>ActivityLogNotification</qname>
+		</supported-publishing-event>
   </portlet>
   <portlet>
     <description>Report TaskStatus</description>

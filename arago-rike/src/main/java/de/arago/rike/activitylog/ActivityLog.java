@@ -28,12 +28,20 @@ import de.arago.portlet.util.SecurityHelper;
 import de.arago.rike.util.TaskHelper;
 
 public class ActivityLog extends AragoPortlet {
-
+    private static final long CHECK_PERIOD_MILLIS = 60 * 1000;
+    
     @Override
     protected boolean checkViewData(IDataWrapper data) {
         if(!SecurityHelper.isLoggedIn(data.getUser()))
             return false;
-        data.setSessionAttribute("list", TaskHelper.getRecentActivityLogs());
+        Long nextUpdate = (Long) data.getSessionAttribute("nextUpdate");
+        if(nextUpdate==null||nextUpdate<System.currentTimeMillis()){
+            data.setSessionAttribute("nextUpdate", System.currentTimeMillis()+CHECK_PERIOD_MILLIS);
+            data.removeSessionAttribute("list");
+        }
+        if(data.getSessionAttribute("list")==null){
+            data.setSessionAttribute("list", TaskHelper.getRecentActivityLogs());
+        }
         return true;
     }
 }

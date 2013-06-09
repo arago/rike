@@ -25,7 +25,6 @@ package de.arago.rike.task;
 import de.arago.portlet.AragoPortlet;
 import de.arago.portlet.util.SecurityHelper;
 import de.arago.data.IDataWrapper;
-import java.io.IOException;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
 
@@ -34,13 +33,6 @@ public class Task extends AragoPortlet {
     @Override
     public void init(PortletConfig config) throws PortletException {
         super.init(config);
-    }
-
-    @Override
-    public void initSession(IDataWrapper data) throws PortletException, IOException {
-        if (!checkViewData(data)) {
-            return;
-        }
     }
 
     @Override

@@ -20,18 +20,20 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.arago.rike.activitylog.event;
+/**
+ *
+ */
+package de.arago.rike.svg.action;
 
-import de.arago.data.IEventWrapper;
-import de.arago.portlet.Event;
+import de.arago.portlet.Action;
+
+import de.arago.data.IDataWrapper;
 import de.arago.rike.util.TaskHelper;
 
-
-public class ActivityLogNotification  implements Event {
+public class Disconnect implements Action {
 
     @Override
-    public void execute(IEventWrapper event) throws Exception {
-        event.setSessionAttribute("list", TaskHelper.getRecentActivityLogs());
+    public void execute(IDataWrapper data) throws Exception {
+        TaskHelper.changeConnections(data, false);
     }
-
 }

@@ -215,6 +215,7 @@ public class Task implements Serializable {
     public Map toMap() {
         Map map = new HashMap();
 
+        map.put("type", "Task");
         map.put("id", getId().toString());
         map.put("title", title);
         map.put("url", url);

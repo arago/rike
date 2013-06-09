@@ -97,6 +97,7 @@ public class Artifact implements Serializable {
     public Map toMap() {
         Map map = new HashMap();
 
+        map.put("type", "Artifact");
         map.put("id" , getId().toString());
         map.put("name", name);
         map.put("url", url);
