@@ -27,6 +27,15 @@ import java.util.Map;
 
 public class GlobalConfig {
 
+    public static final String PRIORITY_MAXIMAL_NUMBER      = "PRIORITY_MAXIMAL_NUMBER";
+    public static final String PRIORITY_NORMAL              = "PRIORITY_NORMAL";
+    public static final String WORKFLOW_TYPE                = "WORKFLOW_TYPE";
+    public static final String WORKFLOW_DAYS_TO_FINISH_TASK = "WORKFLOW_DAYS_TO_FINISH_TASK";
+    public static final String WORKFLOW_DAYS_TOP_PRIO_TASK  = "WORKFLOW_DAYS_TOP_PRIO_TASK";
+    public static final String WORKFLOW_WIP_LIMIT           = "WORKFLOW_WIP_LIMIT";
+    public static final String CHECK_PERIOD_SECONDS         = "CHECK_PERIOD_SECONDS";
+    public static final String PATH_TO_PERSONAL_PICS        = "PATH_TO_PERSONAL_PICS";
+    
     private static Map keyValues = new HashMap();
     private long id;
     private String key;
@@ -45,28 +54,32 @@ public class GlobalConfig {
     }
 
     private static void checkDefaults(Map map) {
-        if (map.get("PRIORITY_MAXIMAL_NUMBER") == null) {
-            map.put("PRIORITY_MAXIMAL_NUMBER", "3");
+        if (map.get(PRIORITY_MAXIMAL_NUMBER) == null) {
+            map.put(PRIORITY_MAXIMAL_NUMBER, "3");
         }
 
-        if (map.get("PRIORITY_NORMAL") == null) {
-            map.put("PRIORITY_NORMAL", "2");
+        if (map.get(PRIORITY_NORMAL) == null) {
+            map.put(PRIORITY_NORMAL, "2");
         }
 
-        if (map.get("WORKFLOW_TYPE") == null) {
-            map.put("WORKFLOW_TYPE", "arago Technologies");
+        if (map.get(WORKFLOW_TYPE) == null) {
+            map.put(WORKFLOW_TYPE, "arago Technologies");
         }
 
-        if (map.get("WORKFLOW_DAYS_TO_FINISH_TASK") == null) {
-            map.put("WORKFLOW_DAYS_TO_FINISH_TASK", "5");
+        if (map.get(WORKFLOW_DAYS_TO_FINISH_TASK) == null) {
+            map.put(WORKFLOW_DAYS_TO_FINISH_TASK, "5");
         }
 
-        if (map.get("WORKFLOW_DAYS_TOP_PRIO_TASK") == null) {
-            map.put("WORKFLOW_DAYS_TOP_PRIO_TASK", "7");
+        if (map.get(WORKFLOW_DAYS_TOP_PRIO_TASK) == null) {
+            map.put(WORKFLOW_DAYS_TOP_PRIO_TASK, "7");
         }
 
-        if (map.get("WORKFLOW_WIP_LIMIT") == null) {
-            map.put("WORKFLOW_WIP_LIMIT", "3");
+        if (map.get(WORKFLOW_WIP_LIMIT) == null) {
+            map.put(WORKFLOW_WIP_LIMIT, "3");
+        }
+        
+        if (map.get(CHECK_PERIOD_SECONDS) == null) {
+            map.put(CHECK_PERIOD_SECONDS, "60");            
         }
     }
 

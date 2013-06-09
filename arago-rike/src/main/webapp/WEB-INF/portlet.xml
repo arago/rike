@@ -149,8 +149,8 @@
 		</supported-publishing-event>
 
 	</portlet>
-<!-- -->
-	<portlet>
+
+  <portlet>
 		<description>Task</description>
 		<portlet-name>arago-rike-task</portlet-name>
 		<display-name>Task</display-name>
@@ -283,9 +283,9 @@
 		</supported-publishing-event>
 
 	</portlet>
-	<!--  <portlet>
-		<portlet-name>arago-rike-leaderboard</portlet-name>
+	<portlet>
 		<description>Leaderboard</description>
+		<portlet-name>arago-rike-leaderboard</portlet-name>
 		<display-name>Leaderboard</display-name>
 		<portlet-class>de.arago.rike.leaderboard.LeaderBoard</portlet-class>
 		<expiration-cache>0</expiration-cache>
@@ -295,8 +295,6 @@
 			<portlet-mode>EDIT</portlet-mode>
 			<portlet-mode>HELP</portlet-mode>
 		</supports>
-
-
 
     <portlet-info>
       <title>Leaderboard</title>
@@ -322,7 +320,10 @@
     <security-role-ref>
       <role-name>user</role-name>
     </security-role-ref>
-  </portlet>-->
+		<supported-processing-event>
+			<qname>ActivityLogNotification</qname>
+		</supported-processing-event>
+  </portlet>
   <portlet>
     <description>SVG</description>
     <portlet-name>arago-rike-svg</portlet-name>

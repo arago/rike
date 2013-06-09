@@ -26,6 +26,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import static de.arago.rike.data.GlobalConfig.PRIORITY_MAXIMAL_NUMBER;
 
 
 public class Task implements Serializable {
@@ -182,8 +183,8 @@ public class Task implements Serializable {
     public void setPriority(Integer priority) {
         if(priority<=0)
             priority = 1;
-        if(priority>Integer.parseInt(GlobalConfig.get("PRIORITY_MAXIMAL_NUMBER")))
-            priority = Integer.parseInt(GlobalConfig.get("PRIORITY_MAXIMAL_NUMBER"));
+        if(priority>Integer.parseInt(GlobalConfig.get(PRIORITY_MAXIMAL_NUMBER)))
+            priority = Integer.parseInt(GlobalConfig.get(PRIORITY_MAXIMAL_NUMBER));
         this.priority = priority;
     }
 

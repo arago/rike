@@ -31,6 +31,7 @@ public class TaskUser {
     private long account;
     private long yesterday;
     private int isDeleted;
+    private int[] ended_tasks;
 
     public String getLast_ms() {
         return last_ms;
@@ -88,6 +89,14 @@ public class TaskUser {
 
     public boolean isDeleted() {
         return isDeleted == 1;
+    }
+
+    public int[] getEnded_tasks() {
+        return ended_tasks;
+    }
+
+    public void setEnded_tasks(int[] ended_tasks) {
+        this.ended_tasks = ended_tasks;
     }
 
 }

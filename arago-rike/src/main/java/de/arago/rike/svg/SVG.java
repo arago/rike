@@ -22,6 +22,8 @@ import de.arago.data.IDataWrapper;
 import de.arago.rike.data.ActivityLog;
 import de.arago.rike.util.TaskListFilter;
 import de.arago.rike.data.DataHelperRike;
+import de.arago.rike.data.GlobalConfig;
+import static de.arago.rike.data.GlobalConfig.CHECK_PERIOD_SECONDS;
 import de.arago.rike.data.Milestone;
 import java.util.Date;
 import java.util.List;
@@ -59,12 +61,9 @@ public class SVG extends AragoPortlet {
         }
         
         Long nextUpdate = (Long) data.getSessionAttribute("nextUpdate");
-        if(nextUpdate==null||nextUpdate<System.currentTimeMillis()){
-            data.setSessionAttribute("nextUpdate", System.currentTimeMillis()+CHECK_PERIOD_MILLIS);
-            data.removeSessionAttribute("lastActivity");
-        }
-
-        if(data.getSessionAttribute("lastActivity")==null){
+        if(nextUpdate==null||nextUpdate<System.currentTimeMillis()||data.getSessionAttribute("lastActivity")==null){
+            data.setSessionAttribute("nextUpdate", 
+                    System.currentTimeMillis() + Long.parseLong(GlobalConfig.get(CHECK_PERIOD_SECONDS))*1000);
             data.setSessionAttribute("lastActivity", lastChange());
         }
         
