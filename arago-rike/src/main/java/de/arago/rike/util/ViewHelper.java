@@ -47,6 +47,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.hibernate.criterion.Order;
+import static de.arago.rike.data.GlobalConfig.*;
 
 public class ViewHelper {
 
@@ -58,7 +59,7 @@ public class ViewHelper {
     private static final Map<String, String> statusColors = new HashMap<String, String>();
 
     static {
-        for (int i = 1; i <= Integer.parseInt(GlobalConfig.get("PRIORITY_MAXIMAL_NUMBER")); ++i) {
+        for (int i = 1; i <= Integer.parseInt(GlobalConfig.get(PRIORITY_MAXIMAL_NUMBER)); ++i) {
             priorities.add(i + "");
             priorityNames.put(i + "", i + "");
         }
@@ -155,7 +156,7 @@ public class ViewHelper {
 
         if (p==1) {
             return "priority-high";
-        } else if (p <= Integer.parseInt(GlobalConfig.get("PRIORITY_NORMAL"))) {
+        } else if (p <= Integer.parseInt(GlobalConfig.get(PRIORITY_NORMAL))) {
             return "priority-normal";
         } else {
             return "priority-low";

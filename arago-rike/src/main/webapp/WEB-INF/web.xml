@@ -23,13 +23,13 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>MilestoneDataServlet</servlet-name>
-		<servlet-class>de.arago.rike.zombie.MilestoneDataServlet</servlet-class>
+		<servlet-name>LeaderBoardImagesServlet</servlet-name>
+		<servlet-class>de.arago.rike.leaderboard.LeaderBoardImagesServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>MilestoneDataServlet</servlet-name>
-		<url-pattern>/zombie/json</url-pattern>
+		<servlet-name>LeaderBoardImagesServlet</servlet-name>
+		<url-pattern>/avatar/*</url-pattern>
 	</servlet-mapping>
 
 </web-app>

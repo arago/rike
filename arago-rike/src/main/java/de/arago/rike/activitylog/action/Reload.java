@@ -28,9 +28,13 @@ package de.arago.rike.activitylog.action;
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
+import java.util.HashMap;
 
 public class Reload implements Action {
+    
+    @Override
     public void execute(IDataWrapper data) throws Exception {
-        // blank
+        HashMap<String, Object> notificationParam = new HashMap<String, Object>();
+        data.setEvent("ActivityLogNotification", notificationParam);
     }
 }

@@ -20,6 +20,7 @@
 <%
   UserService service = new JspUserService(renderRequest, portletSession);
   TaskListFilter filter = (TaskListFilter) portletSession.getAttribute("taskListFilter");
+  String lastActivity = "" + portletSession.getAttribute("lastActivity");
 %>
 
 
@@ -214,50 +215,24 @@
             var fromId = $('title', from).get(0).textContent;
             var toId   = $('title', to).get(0).textContent;
 
-            var url = '<%=renderRequest.getContextPath()%>/svg?action=connect';
+            var url = '<portlet:actionURL portletMode="view"/>&action=connect';
 
             url += '&from=' + encodeURIComponent(fromId);
             url += '&to=' + encodeURIComponent(toId);
 
-            $.ajax
-            ({
-              type: "GET",
-              url: url,
-              dataType: "json",
-              success: function(ret) {
-                if (ret.error)
-                {
-                  alert('error: ' + ret.error);
-                } else {
-                  document.location = '<portlet:actionURL portletMode="view"/>';
-                };
-              }
-            });
+            document.location = url;
           }, function(edge, data)
           {
             if (confirm('Remove Connection?'))
             {
               var parts = $('title', edge).get(0).textContent.split(/[^\d]+/);
 
-              var url = '<%=renderRequest.getContextPath()%>/svg?action=disconnect';
+              var url = '<portlet:actionURL portletMode="view"/>&action=disconnect';
 
               url += '&from=' + encodeURIComponent(parts[0]);
               url += '&to=' + encodeURIComponent(parts[1]);
 
-              $.ajax
-              ({
-                type: "GET",
-                url: url,
-                dataType: "json",
-                success: function(ret) {
-                  if (ret.error)
-                  {
-                    alert('error: ' + ret.error);
-                  } else {
-                    edge.parentNode.removeChild(edge);
-                  };
-                }
-              });
+              document.location = url;
             };
 
             data.unmarkEdge();
@@ -270,7 +245,7 @@
     <div class="content nofooter nohead">
       <div style="position:relative; height:100%" id="<portlet:namespace/>PortletContent">
         <div id="<portlet:namespace />controlNode" style="<%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "" : "display:none;"%> position:absolute; top:0px; left:0px; width:170px; height:150px"></div>
-        <embed src="<%=renderRequest.getContextPath()%>/svg?action=graph&user=<%= URLEncoder.encode(filter.getUser(), "UTF-8")%>&artifact=<%= URLEncoder.encode(filter.getArtifact(), "UTF-8")%>&milestone=<%= URLEncoder.encode(filter.getMilestone(), "UTF-8")%>" id="<portlet:namespace />SVG"  type="image/svg+xml" style="width:300px; height:200px;" />
+        <embed src="<%=renderRequest.getContextPath()%>/svg?action=graph&user=<%= URLEncoder.encode(filter.getUser(), "UTF-8")%>&lastActivity=<%=lastActivity %>&milestone=<%= URLEncoder.encode(filter.getMilestone(), "UTF-8")%>" id="<portlet:namespace />SVG"  type="image/svg+xml" style="width:300px; height:200px;" />
       </div>
     </div>
   </div>

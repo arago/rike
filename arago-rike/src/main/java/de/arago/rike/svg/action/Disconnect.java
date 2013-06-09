@@ -20,27 +20,20 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.arago.rike.activitylog;
+/**
+ *
+ */
+package de.arago.rike.svg.action;
+
+import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
-import de.arago.portlet.AragoPortlet;
-import de.arago.portlet.util.SecurityHelper;
-import de.arago.rike.data.GlobalConfig;
-import static de.arago.rike.data.GlobalConfig.CHECK_PERIOD_SECONDS;
 import de.arago.rike.util.TaskHelper;
 
-public class ActivityLog extends AragoPortlet {
-    
+public class Disconnect implements Action {
+
     @Override
-    protected boolean checkViewData(IDataWrapper data) {
-        if(!SecurityHelper.isLoggedIn(data.getUser()))
-            return false;
-        Long nextUpdate = (Long) data.getSessionAttribute("nextUpdate");
-        if(nextUpdate==null||nextUpdate<System.currentTimeMillis()||data.getSessionAttribute("list")==null){
-            data.setSessionAttribute("nextUpdate", 
-                    System.currentTimeMillis() + Long.parseLong(GlobalConfig.get(CHECK_PERIOD_SECONDS))*1000);
-            data.setSessionAttribute("list", TaskHelper.getRecentActivityLogs());
-        }
-        return true;
+    public void execute(IDataWrapper data) throws Exception {
+        TaskHelper.changeConnections(data, false);
     }
 }

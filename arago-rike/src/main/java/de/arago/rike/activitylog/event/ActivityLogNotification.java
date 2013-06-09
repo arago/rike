@@ -29,6 +29,7 @@ import de.arago.rike.util.TaskHelper;
 
 public class ActivityLogNotification  implements Event {
 
+    @Override
     public void execute(IEventWrapper event) throws Exception {
         event.setSessionAttribute("list", TaskHelper.getRecentActivityLogs());
     }

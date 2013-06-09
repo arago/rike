@@ -27,23 +27,9 @@ import de.arago.portlet.util.SecurityHelper;
 
 import de.arago.data.IDataWrapper;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletException;
 
 public class Zombies extends AragoPortlet {
-
-    @Override
-    public void init(PortletConfig config) throws PortletException {
-
-        super.init(config);
-    }
-
-    @Override
-    public void initSession(IDataWrapper data) throws PortletException, IOException {
-
-    }
 
     @Override
     protected boolean checkViewData(IDataWrapper data) {
