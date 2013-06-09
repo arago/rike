@@ -43,6 +43,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import org.apache.commons.lang.StringEscapeUtils;
+import static de.arago.rike.data.GlobalConfig.PRIORITY_NORMAL;
 
 public class SaveTask implements Action {
 
@@ -68,7 +69,7 @@ public class SaveTask implements Action {
         } catch (Exception ignored) {
         }
 
-        int priority = Integer.parseInt(GlobalConfig.get("PRIORITY_NORMAL"));
+        int priority = Integer.parseInt(GlobalConfig.get(PRIORITY_NORMAL));
 
         task.setPriority(priority);
 

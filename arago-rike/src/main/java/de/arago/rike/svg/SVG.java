@@ -19,27 +19,23 @@ package de.arago.rike.svg;
 import de.arago.portlet.AragoPortlet;
 import de.arago.portlet.util.SecurityHelper;
 import de.arago.data.IDataWrapper;
+import de.arago.rike.data.ActivityLog;
 import de.arago.rike.util.TaskListFilter;
 import de.arago.rike.data.DataHelperRike;
+import de.arago.rike.data.GlobalConfig;
+import static de.arago.rike.data.GlobalConfig.CHECK_PERIOD_SECONDS;
 import de.arago.rike.data.Milestone;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import javax.portlet.PortletException;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 public class SVG extends AragoPortlet {
-
-    @Override
-    public void initSession(IDataWrapper data) throws PortletException, IOException {
-        if (!SecurityHelper.isLoggedIn(data.getUser())) {
-            return;
-        }
-    }
+    private static final long CHECK_PERIOD_MILLIS = 60 * 1000;
 
     @Override
     protected boolean checkViewData(IDataWrapper data) {
+        if (!SecurityHelper.isLoggedIn(data.getUser())) return false;
 
         if (data.getSessionAttribute("taskListFilter") == null) {
             data.setSessionAttribute("taskListFilter", new TaskListFilter() {
@@ -63,7 +59,25 @@ public class SVG extends AragoPortlet {
                 }
             });
         }
-
-        return SecurityHelper.isLoggedIn(data.getUser());
+        
+        Long nextUpdate = (Long) data.getSessionAttribute("nextUpdate");
+        if(nextUpdate==null||nextUpdate<System.currentTimeMillis()||data.getSessionAttribute("lastActivity")==null){
+            data.setSessionAttribute("nextUpdate", 
+                    System.currentTimeMillis() + Long.parseLong(GlobalConfig.get(CHECK_PERIOD_SECONDS))*1000);
+            data.setSessionAttribute("lastActivity", lastChange());
+        }
+        
+        return true;
+    }
+    
+    static public String lastChange(){
+        Date current = new Date();
+        String update = "" + current.getTime();
+        DataHelperRike<ActivityLog> helper = new DataHelperRike<ActivityLog>(ActivityLog.class);
+        List<ActivityLog> last = helper.list(helper.filter().addOrder(Order.desc("id")).setMaxResults(1));
+        if(!last.isEmpty()){
+            update = "_" + last.get(0).getId();
+        }
+        return update;
     }
 }

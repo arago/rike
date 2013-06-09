@@ -14,52 +14,44 @@
  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.arago.rike.svg;
+package de.arago.rike.leaderboard;
 
+import de.arago.rike.data.GlobalConfig;
+import de.arago.rike.svg.SVGDataServlet;
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 /**
  * this servlet serves svg graphs and status for mars nodes
  */
-public class SVGDataServlet extends HttpServlet {
-	private static final int CACHE_DURATION_IN_SECONDS = 3600;
-    private static final long CACHE_DURATION_IN_MS = CACHE_DURATION_IN_SECONDS * 1000;
+public class LeaderBoardImagesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       response.setContentType("image/svg+xml; charset=utf-8");
+        response.setContentType("image/png");
 
         try {
-            addExpires(response);
-            SvgFilter filter = new SvgFilter();
+            SVGDataServlet.addExpires(response);
 
-            try {
-                filter.setArtifact(Long.valueOf(request.getParameter("artifact")));
-            } catch (NumberFormatException ignored) {
+            int pos = request.getRequestURL().lastIndexOf("/");
+            String name = request.getRequestURL().substring(pos+1);
+            File tmp = new File(System.getProperty("java.io.tmpdir"),name);
+            if(!tmp.exists()){
+                String uri = GlobalConfig.get(GlobalConfig.PATH_TO_PERSONAL_PICS);
+                URL resource = (new URI(uri+name)).toURL();
+                FileUtils.copyURLToFile(resource, tmp);
             }
-
-            try {
-                filter.setMilestone(request.getParameter("milestone"));
-            } catch (NumberFormatException ignored) {
-            }
-
-            filter.setUser(request.getParameter("user"));
-
-            response.getWriter().append(SVGGraphCreator.getGraph(filter));
+            FileUtils.copyFile(tmp, response.getOutputStream());
         } catch (Exception ex) {
-            throw new ServletException(ex);
+            IOUtils.copy(LeaderBoardImagesServlet.class.getResourceAsStream("/unknown.png"), response.getOutputStream());
         }
-    }
-
-    public static void addExpires(HttpServletResponse response) {
-        long now = System.currentTimeMillis();
-
-        response.addHeader("Cache-Control", "max-age=" + CACHE_DURATION_IN_SECONDS);
-        response.setDateHeader("Last-Modified", now);
-        response.setDateHeader("Expires", now + CACHE_DURATION_IN_MS);
     }
 }
