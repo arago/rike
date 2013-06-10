@@ -227,7 +227,7 @@ public class SecurityHelper {
         }
         return result.toArray(new String[0]);
     }
-    
+
     public static String[] getUserRoles(String userId) {
         if (userId == null || userId.isEmpty()) return new String[0];
         ArrayList<String> result = new ArrayList<String>();

@@ -47,7 +47,7 @@ public class TaskSelectNotification implements Event {
             event.setSessionAttribute("task", new Task());
             event.setSessionAttribute("artifacts", helper.list(helper.filter().addOrder(Order.asc("name"))));
             event.setSessionAttribute("targetView", "viewCreate");
-            event.setSessionAttribute("milestones", MilestoneHelper.listNotExpired());          
+            event.setSessionAttribute("milestones", MilestoneHelper.listNotExpired());
         }
     }
 }
