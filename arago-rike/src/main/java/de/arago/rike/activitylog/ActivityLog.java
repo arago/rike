@@ -30,15 +30,15 @@ import static de.arago.rike.data.GlobalConfig.CHECK_PERIOD_SECONDS;
 import de.arago.rike.util.TaskHelper;
 
 public class ActivityLog extends AragoPortlet {
-    
+
     @Override
     protected boolean checkViewData(IDataWrapper data) {
         if(!SecurityHelper.isLoggedIn(data.getUser()))
             return false;
         Long nextUpdate = (Long) data.getSessionAttribute("nextUpdate");
-        if(nextUpdate==null||nextUpdate<System.currentTimeMillis()||data.getSessionAttribute("list")==null){
-            data.setSessionAttribute("nextUpdate", 
-                    System.currentTimeMillis() + Long.parseLong(GlobalConfig.get(CHECK_PERIOD_SECONDS))*1000);
+        if(nextUpdate==null||nextUpdate<System.currentTimeMillis()||data.getSessionAttribute("list")==null) {
+            data.setSessionAttribute("nextUpdate",
+                                     System.currentTimeMillis() + Long.parseLong(GlobalConfig.get(CHECK_PERIOD_SECONDS))*1000);
             data.setSessionAttribute("list", TaskHelper.getRecentActivityLogs());
         }
         return true;

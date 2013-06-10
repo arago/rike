@@ -30,7 +30,7 @@ import de.arago.portlet.Action;
 import de.arago.data.IDataWrapper;
 
 public class CloseOwerview implements Action {
-    
+
     @Override
     public void execute(IDataWrapper data) throws Exception {
         data.setSessionAttribute("help.shown", "true");
