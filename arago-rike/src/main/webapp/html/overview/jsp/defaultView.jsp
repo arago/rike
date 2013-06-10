@@ -241,6 +241,7 @@
               <th class="shrink center"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.STATUS.toString()%>" title="Status">?</a></th>
               <th class="shrink center"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.PRIORITY.toString()%>" title="Priority">Prio</a></th>
               <th class="shrink center"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.TITLE.toString()%>">Title</a></th>
+            <th class="shrink center"></th>
             </tr>
           </thead>
           <tbody>
@@ -251,7 +252,7 @@
             %>
             <tr<%= currentTask != null && currentTask.getId().equals(task.getId()) ? " class=\"selected\"" : ""%>>
               <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getId().toString())%></td>
-              <td class="shrink <%= ViewHelper.getTaskStatusColorClass(task)%>"></td>
+              <td class="shrink"><span class="<%= ViewHelper.getTaskStatusColorClass(task)%>"></span></td>
               <td class="shrink"><%= task.getPriority()%></td>
               <td class="last shrink"><a href="<portlet:actionURL portletMode="view" />&action=selectTask&id=<%= URLEncoder.encode(task.getId().toString(), "UTF-8")%>"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></a>
                 <% if (task.getOwner() != null && !task.getOwner().isEmpty()) {%>
@@ -259,7 +260,7 @@
                 <%= ViewHelper.formatUser(task)%>
                 <% }%>
               </td>
-
+			 <td class="arrow shrink"><span class="icon-chevron-right"></span></td>
             </tr>
             <%
                 }
