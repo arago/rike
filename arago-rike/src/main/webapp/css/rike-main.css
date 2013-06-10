@@ -1,11 +1,11 @@
 /* RIIKE MAIN CSS */
 
 /* ------status -------*/
-.place-unchanged, .status-warning, .rike-activity-in_progress, .rike-activity-modified { display: inline-block; width: 10px; height: 10px; background-image: url(../pix/icon-ampel-orange.png); background-repeat: no-repeat; background-position: center center; }
-.place-down, .status-critical, .rike-activity-open { display: inline-block; width: 10px; height: 10px; background-image: url(../pix/icon-ampel-rot.png); background-repeat: no-repeat; background-position: center center; }
-.place-up, .status-ok, .rike-activity-done { display: inline-block; width: 10px; height: 10px; background-image: url(../pix/icon-ampel-gruen.png); background-repeat: no-repeat; background-position: center center; }
-.status-unknown, .rike-activity-unknown, .rike-activity-new { display: inline-block; width: 10px; height: 10px; background-image: url(../pix/icon-ampel-blau.png); background-repeat: no-repeat; background-position: center center; }
-
+.place-unchanged, .status-warning, .rike-activity-in_progress, .rike-activity-modified.status-unknown, .rike-activity-unknown, .rike-activity-new, .place-up, .status-ok, .rike-activity-done, .place-down, .status-critical, .rike-activity-open{ -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; display: inline-block;  border:1px solid #d6d6d6; padding:0.15em; float:left; width: 10px; height: 10px; }
+.place-unchanged, .status-warning, .rike-activity-in_progress, .rike-activity-modified { background-image: url(../pix/icon-ampel-orange.png); background-repeat: no-repeat; background-position: center center; }
+.place-down, .status-critical, .rike-activity-open { background-image: url(../pix/icon-ampel-rot.png); background-repeat: no-repeat; background-position: center center; }
+.place-up, .status-ok, .rike-activity-done { background-image: url(../pix/icon-ampel-gruen.png); background-repeat: no-repeat; background-position: center center; }
+.status-unknown, .rike-activity-unknown, .rike-activity-new {background-image: url(../pix/icon-ampel-blau.png); background-repeat: no-repeat; background-position: center center; }
 /* --- forms --- */
 .rike-search, .rike-input, .rike-textarea, .rike-select { border: 1px solid #999!important; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; width: 100%; padding: 0.35em 0.5em; }
 .rike-search { width: 50%; }
@@ -17,6 +17,14 @@ input.auto { width: auto; }
 .rike-add-dropdown { display: none; width: 100px; position: absolute; left: 0; top: 0; margin: 25px 6px; z-index: 1; background: #044881; padding: 4px; border-bottom: 1px solid #999; -moz-box-shadow: 0 5px 4px -4px #888; -webkit-box-shadow: 0 5px 4px -4px #888; box-shadow: 0 5px 4px -4px #888; border-radius: 0px 3px 3px 3px; -webkit-border-radius: 0px 3px 3px 3px; -moz-border-radius: 0px 3px 3px 3px; }
 .rike-add-dropdown a { display: block; padding: 4px 8px; line-height: 1.25em; color: #fff; }
 .rike-add-dropdown a:hover { font-weight: bold; }
+
+.ac_results {display:none; box-shadow:1px 4px 10px #ccc; position:absolute; left:28px; width:80%; height:200px; z-index:999; overflow:auto; border-radius:4px;background:#fff; border:1px solid #999;}
+.ac_results ul {}
+.ac_results ul li {cursor:pointer; font:1em; line-height:1.5em; border-bottom:1px solid #ccc; padding:0.5em 0.5em; }
+.ac_results ul li span.name {display:inline-block; color:#044881;font-variant:normal; font-style:normal;  overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; white-space: nowrap; width:80%;}
+.ac_results ul li span.status {display:block; font-weight:300; color:#999}
+.ac_results ul li:hover { background:#f0f0f0;}
+.ac_results ul li span.status-ok { float:left; margin-right:0.25em;}  
 /* --- rike-svg --- */
 .content .rike-svg { margin: 0.5em; text-align: center }
 .rike-svg img { width: 95%; }
