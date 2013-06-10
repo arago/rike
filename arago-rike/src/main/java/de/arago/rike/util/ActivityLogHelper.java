@@ -55,8 +55,8 @@ public class ActivityLogHelper {
         new DataHelperRike<ActivityLog>(ActivityLog.class).save(log);
 
         runPostHook(log);
-        
-        if(data!=null){
+
+        if(data!=null) {
             HashMap<String, Object> notificationParam = new HashMap<String, Object>();
             data.setEvent("ActivityLogNotification", notificationParam);
         }
