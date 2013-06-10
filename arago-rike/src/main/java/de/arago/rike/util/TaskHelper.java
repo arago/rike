@@ -222,8 +222,8 @@ public class TaskHelper {
             map.put("message", message);
 
             ActivityLogHelper.log(message + " dependency Task <a href=\"/web/guest/rike/-/show/task/" + to + "\">#" + to + "</a>"
-                    + " from Task <a href=\"/web/guest/rike/-/show/task/" + from + "\">#" + from + "</a>", "unknown",
-                    user, data, map);
+                                  + " from Task <a href=\"/web/guest/rike/-/show/task/" + from + "\">#" + from + "</a>", "unknown",
+                                  user, data, map);
         }
     }
 }

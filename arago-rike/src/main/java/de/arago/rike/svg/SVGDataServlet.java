@@ -26,12 +26,12 @@ import javax.servlet.http.HttpServletResponse;
  * this servlet serves svg graphs and status for mars nodes
  */
 public class SVGDataServlet extends HttpServlet {
-	private static final int CACHE_DURATION_IN_SECONDS = 3600;
+    private static final int CACHE_DURATION_IN_SECONDS = 3600;
     private static final long CACHE_DURATION_IN_MS = CACHE_DURATION_IN_SECONDS * 1000;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       response.setContentType("image/svg+xml; charset=utf-8");
+        response.setContentType("image/svg+xml; charset=utf-8");
 
         try {
             addExpires(response);

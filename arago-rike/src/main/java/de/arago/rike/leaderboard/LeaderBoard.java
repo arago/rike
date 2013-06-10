@@ -39,24 +39,24 @@ import org.hibernate.criterion.Restrictions;
 import static de.arago.rike.data.GlobalConfig.PRIORITY_MAXIMAL_NUMBER;
 
 public class LeaderBoard extends AragoPortlet {
-    final static String query_now = 
-            "SELECT owner, priority, count( id ) FROM tasks " +
-            "WHERE END >= DATE_SUB( CURDATE( ) , INTERVAL 7 DAY ) " +
-            "GROUP BY owner, priority";
-    final static String query_last = 
-            "SELECT owner, priority, count( id ) FROM tasks " +
-            "WHERE END >= DATE_SUB( CURDATE( ) , INTERVAL 14 DAY ) " +
-            "AND END < DATE_SUB( CURDATE( ) , INTERVAL 7 DAY ) " +
-            "GROUP BY owner, priority";
-    
+    final static String query_now =
+        "SELECT owner, priority, count( id ) FROM tasks " +
+        "WHERE END >= DATE_SUB( CURDATE( ) , INTERVAL 7 DAY ) " +
+        "GROUP BY owner, priority";
+    final static String query_last =
+        "SELECT owner, priority, count( id ) FROM tasks " +
+        "WHERE END >= DATE_SUB( CURDATE( ) , INTERVAL 14 DAY ) " +
+        "AND END < DATE_SUB( CURDATE( ) , INTERVAL 7 DAY ) " +
+        "GROUP BY owner, priority";
+
     @Override
     protected boolean checkViewData(IDataWrapper data) {
         if (!SecurityHelper.isLoggedIn(data.getUser())) return false;
 
         Long nextUpdate = (Long) data.getSessionAttribute("nextUpdate");
-        if(nextUpdate==null||nextUpdate<System.currentTimeMillis()||data.getSessionAttribute("list")==null){
-            data.setSessionAttribute("nextUpdate", 
-                    System.currentTimeMillis() + Long.parseLong(GlobalConfig.get(CHECK_PERIOD_SECONDS))*1000);
+        if(nextUpdate==null||nextUpdate<System.currentTimeMillis()||data.getSessionAttribute("list")==null) {
+            data.setSessionAttribute("nextUpdate",
+                                     System.currentTimeMillis() + Long.parseLong(GlobalConfig.get(CHECK_PERIOD_SECONDS))*1000);
             data.setSessionAttribute("list", getData());
         }
 
@@ -68,32 +68,32 @@ public class LeaderBoard extends AragoPortlet {
         List<TaskUser> list = helper.list(helper.filter().add(Restrictions.eq("isDeleted", 0)));
         HashMap<String,TaskUser> map = new HashMap<String,TaskUser>();
         int priorities = Integer.parseInt(GlobalConfig.get(PRIORITY_MAXIMAL_NUMBER));
-        for(TaskUser task:list){
+        for(TaskUser task:list) {
             map.put(task.getEmail(), task);
             task.setEnded_tasks(new int[priorities]);
         }
 
         fillTasksCount(helper, map, query_last);
-        Collections.sort(list, new UserComparator());        
+        Collections.sort(list, new UserComparator());
 
         int i=1;
-        for(TaskUser task:list){
+        for(TaskUser task:list) {
             task.setYesterday(new Long(i++));
             task.setEnded_tasks(new int[priorities]);
         }
-        
+
         fillTasksCount(helper, map, query_now);
-        Collections.sort(list, new UserComparator());        
+        Collections.sort(list, new UserComparator());
 
         i=1;
-        for(TaskUser task:list){
+        for(TaskUser task:list) {
             task.setAccount(new Long(i++));
         }
 
         return list;
     }
 
-    private static void fillTasksCount(DataHelperRike<TaskUser> helper,HashMap<String,TaskUser> map, String query){
+    private static void fillTasksCount(DataHelperRike<TaskUser> helper,HashMap<String,TaskUser> map, String query) {
         List<Object> values = helper.list(helper.createSQLQuery(query));
 
         for (final Object o: values) {
@@ -107,14 +107,14 @@ public class LeaderBoard extends AragoPortlet {
             if(prio>points.length)
                 prio = points.length;
             points[prio-1] = (int) count.longValue();
-        }     
+        }
     }
-    
-    private static class UserComparator implements Comparator<TaskUser>{
+
+    private static class UserComparator implements Comparator<TaskUser> {
 
         @Override
         public int compare(TaskUser t, TaskUser t1) {
-            for(int i=0;i<t.getEnded_tasks().length;i++){
+            for(int i=0; i<t.getEnded_tasks().length; i++) {
                 if(t.getEnded_tasks()[i]!=t1.getEnded_tasks()[i])
                     return t1.getEnded_tasks()[i]-t.getEnded_tasks()[i];
             }

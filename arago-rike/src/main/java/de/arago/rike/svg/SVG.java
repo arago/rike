@@ -44,13 +44,13 @@ public class SVG extends AragoPortlet {
                     super.setDefaultOptions();
 
                     DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
-                    List<Milestone> list = 
-                            helper.list(helper.filter().addOrder(Order.asc("dueDate")).add(
-                                    Restrictions.and(
-                                            Restrictions.isNotNull("dueDate"), 
+                    List<Milestone> list =
+                        helper.list(helper.filter().addOrder(Order.asc("dueDate")).add(
+                                        Restrictions.and(
+                                            Restrictions.isNotNull("dueDate"),
                                             Restrictions.ge("dueDate", new Date())
-                                    )
-                            ).setMaxResults(1));
+                                        )
+                                    ).setMaxResults(1));
 
                     if (list.size() > 0) {
                         setIsActive(true);
@@ -59,23 +59,23 @@ public class SVG extends AragoPortlet {
                 }
             });
         }
-        
+
         Long nextUpdate = (Long) data.getSessionAttribute("nextUpdate");
-        if(nextUpdate==null||nextUpdate<System.currentTimeMillis()||data.getSessionAttribute("lastActivity")==null){
-            data.setSessionAttribute("nextUpdate", 
-                    System.currentTimeMillis() + Long.parseLong(GlobalConfig.get(CHECK_PERIOD_SECONDS))*1000);
+        if(nextUpdate==null||nextUpdate<System.currentTimeMillis()||data.getSessionAttribute("lastActivity")==null) {
+            data.setSessionAttribute("nextUpdate",
+                                     System.currentTimeMillis() + Long.parseLong(GlobalConfig.get(CHECK_PERIOD_SECONDS))*1000);
             data.setSessionAttribute("lastActivity", lastChange());
         }
-        
+
         return true;
     }
-    
-    static public String lastChange(){
+
+    static public String lastChange() {
         Date current = new Date();
         String update = "" + current.getTime();
         DataHelperRike<ActivityLog> helper = new DataHelperRike<ActivityLog>(ActivityLog.class);
         List<ActivityLog> last = helper.list(helper.filter().addOrder(Order.desc("id")).setMaxResults(1));
-        if(!last.isEmpty()){
+        if(!last.isEmpty()) {
             update = "_" + last.get(0).getId();
         }
         return update;
