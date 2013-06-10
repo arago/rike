@@ -24,6 +24,8 @@ package de.arago.rike.task.event;
 
 import de.arago.portlet.Event;
 import de.arago.data.IEventWrapper;
+import de.arago.lucene.api.Index;
+import de.arago.lucene.api.IndexFactory;
 import de.arago.rike.util.TaskHelper;
 import de.arago.rike.data.Task;
 
@@ -32,6 +34,7 @@ public class TaskUpdateNotification implements Event {
     @Override
     public void execute(IEventWrapper event) throws Exception {
         Task task = TaskHelper.getTask(Long.valueOf((String) event.getEventAttribute("id"), 10));
-
+        if (task != null)
+            ((Index<Task>) IndexFactory.getIndex("rike-tasks")).replace(task);
     }
 }

@@ -6,6 +6,10 @@
 		<portlet-name>arago-rike-overview</portlet-name>
 		<display-name>Overview</display-name>
 		<portlet-class>de.arago.rike.overview.Overview</portlet-class>
+    <init-param>
+      <name>check-auth-token</name>
+      <value>false</value>
+    </init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
@@ -37,7 +41,7 @@
 		<security-role-ref>
 			<role-name>user</role-name>
 		</security-role-ref>
-	<!-- -->	
+	<!-- -->
 		<supported-processing-event>
 			<qname>MilestoneChangeNotification</qname>
 		</supported-processing-event>
@@ -54,9 +58,9 @@
 			<qname>TaskCreateNotification</qname>
 		</supported-processing-event>
 		<supported-processing-event>
-			<qname>TaskLogNotification</qname>
+			<qname>ActivityLogNotification</qname>
 		</supported-processing-event>
-		
+
 		<supported-publishing-event>
 			<qname>MilestoneChangeNotification</qname>
 		</supported-publishing-event>
@@ -73,7 +77,13 @@
 			<qname>TaskCreateNotification</qname>
 		</supported-publishing-event>
 		<supported-publishing-event>
-			<qname>TaskLogNotification</qname>
+			<qname>ActivityLogNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>MilestoneSelectNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>ArtifactSelectNotification</qname>
 		</supported-publishing-event>
 	</portlet>
 	<portlet>
@@ -123,7 +133,7 @@
 			<qname>TaskCreateNotification</qname>
 		</supported-processing-event>
 		<supported-processing-event>
-			<qname>TaskLogNotification</qname>
+			<qname>ActivityLogNotification</qname>
 		</supported-processing-event>
 		<supported-publishing-event>
 			<qname>TaskSelectNotification</qname>
@@ -135,12 +145,12 @@
 			<qname>TaskCreateNotification</qname>
 		</supported-publishing-event>
 		<supported-publishing-event>
-			<qname>TaskLogNotification</qname>
+			<qname>ActivityLogNotification</qname>
 		</supported-publishing-event>
-		
+
 	</portlet>
-<!-- -->
-	<portlet>
+
+  <portlet>
 		<description>Task</description>
 		<portlet-name>arago-rike-task</portlet-name>
 		<display-name>Task</display-name>
@@ -180,6 +190,12 @@
 		<supported-processing-event>
 			<qname>TaskSelectNotification</qname>
 		</supported-processing-event>
+    <supported-processing-event>
+			<qname>MilestoneSelectNotification</qname>
+		</supported-processing-event>
+    <supported-processing-event>
+			<qname>ArtifactSelectNotification</qname>
+		</supported-processing-event>
 		<supported-processing-event>
 			<qname>TaskUpdateNotification</qname>
 		</supported-processing-event>
@@ -187,7 +203,7 @@
 			<qname>TaskCreateNotification</qname>
 		</supported-processing-event>
 		<supported-processing-event>
-			<qname>TaskLogNotification</qname>
+			<qname>ActivityLogNotification</qname>
 		</supported-processing-event>
 
 		<supported-publishing-event>
@@ -200,14 +216,14 @@
 			<qname>TaskCreateNotification</qname>
 		</supported-publishing-event>
 		<supported-publishing-event>
-			<qname>TaskLogNotification</qname>
+			<qname>ActivityLogNotification</qname>
 		</supported-publishing-event>
 	</portlet>
 	<portlet>
-		<description>Task Log</description>		
-		<portlet-name>arago-rike-tasklog</portlet-name>
-		<display-name>Task Log</display-name>
-		<portlet-class>de.arago.rike.tasklog.TaskLog</portlet-class>
+		<description>Activity Log</description>
+		<portlet-name>arago-rike-activitylog</portlet-name>
+		<display-name>Activity Log</display-name>
+		<portlet-class>de.arago.rike.activitylog.ActivityLog</portlet-class>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
@@ -216,8 +232,8 @@
 			<portlet-mode>HELP</portlet-mode>
 		</supports>
 		<portlet-info>
-			<title>Task Log</title>
-			<short-title>Task Log</short-title>
+			<title>Activity Log</title>
+			<short-title>Activity Log</short-title>
 			<keywords></keywords>
 		</portlet-info>
 		<portlet-preferences>
@@ -239,7 +255,7 @@
 		<security-role-ref>
 			<role-name>user</role-name>
 		</security-role-ref>
-		
+
 		<supported-processing-event>
 			<qname>TaskSelectNotification</qname>
 		</supported-processing-event>
@@ -250,7 +266,7 @@
 			<qname>TaskCreateNotification</qname>
 		</supported-processing-event>
 		<supported-processing-event>
-			<qname>TaskLogNotification</qname>
+			<qname>ActivityLogNotification</qname>
 		</supported-processing-event>
 
 		<supported-publishing-event>
@@ -263,13 +279,13 @@
 			<qname>TaskCreateNotification</qname>
 		</supported-publishing-event>
 		<supported-publishing-event>
-			<qname>TaskLogNotification</qname>
+			<qname>ActivityLogNotification</qname>
 		</supported-publishing-event>
-		
+
 	</portlet>
-	<!--  <portlet>
-		<portlet-name>arago-rike-leaderboard</portlet-name>
+	<portlet>
 		<description>Leaderboard</description>
+		<portlet-name>arago-rike-leaderboard</portlet-name>
 		<display-name>Leaderboard</display-name>
 		<portlet-class>de.arago.rike.leaderboard.LeaderBoard</portlet-class>
 		<expiration-cache>0</expiration-cache>
@@ -280,217 +296,293 @@
 			<portlet-mode>HELP</portlet-mode>
 		</supports>
 
+    <portlet-info>
+      <title>Leaderboard</title>
+      <short-title>Leaderboard</short-title>
+      <keywords></keywords>
+    </portlet-info>
+    <portlet-preferences>
+      <preference>
+        <name>portlet-setup-show-borders</name>
+        <value>false</value>
+      </preference>
+      <preference>
+        <name>portlet-setup-hide-topper</name>
+        <value>true</value>
+      </preference>
+    </portlet-preferences>
+    <security-role-ref>
+      <role-name>administrator</role-name>
+    </security-role-ref>
+    <security-role-ref>
+      <role-name>power-user</role-name>
+    </security-role-ref>
+    <security-role-ref>
+      <role-name>user</role-name>
+    </security-role-ref>
+		<supported-processing-event>
+			<qname>ActivityLogNotification</qname>
+		</supported-processing-event>
+  </portlet>
+  <portlet>
+    <description>SVG</description>
+    <portlet-name>arago-rike-svg</portlet-name>
+    <display-name>SVG</display-name>
+    <portlet-class>de.arago.rike.svg.SVG</portlet-class>
+    <expiration-cache>0</expiration-cache>
+    <supports>
+      <mime-type>text/html</mime-type>
+      <portlet-mode>VIEW</portlet-mode>
+      <portlet-mode>EDIT</portlet-mode>
+      <portlet-mode>HELP</portlet-mode>
+    </supports>
+    <portlet-info>
+      <title>SVG</title>
+      <short-title>SVG</short-title>
+      <keywords></keywords>
+    </portlet-info>
+    <portlet-preferences>
+      <preference>
+        <name>portlet-setup-show-borders</name>
+        <value>false</value>
+      </preference>
+      <preference>
+        <name>portlet-setup-hide-topper</name>
+        <value>true</value>
+      </preference>
+    </portlet-preferences>
+    <security-role-ref>
+      <role-name>administrator</role-name>
+    </security-role-ref>
+    <security-role-ref>
+      <role-name>power-user</role-name>
+    </security-role-ref>
+    <security-role-ref>
+      <role-name>user</role-name>
+    </security-role-ref>
+    <supported-processing-event>
+      <qname>MilestoneSelectNotification</qname>
+    </supported-processing-event>
+		<supported-processing-event>
+			<qname>ActivityLogNotification</qname>
+		</supported-processing-event>
+    <supported-publishing-event>
+      <qname>MilestoneSelectNotification</qname>
+    </supported-publishing-event>
+		<supported-publishing-event>
+			<qname>ActivityLogNotification</qname>
+		</supported-publishing-event>
+  </portlet>
+  <portlet>
+    <description>Report TaskStatus</description>
+    <portlet-name>arago-rike-report</portlet-name>
+    <display-name>Report TaskStatus</display-name>
+    <portlet-class>de.arago.rike.report.Report</portlet-class>
+    <init-param>
+      <name>type</name>
+      <value>taskstatus</value>
+    </init-param>
+    <init-param>
+      <name>typeName</name>
+      <value>Task Status</value>
+    </init-param>
+    <expiration-cache>0</expiration-cache>
+    <supports>
+      <mime-type>text/html</mime-type>
+      <portlet-mode>VIEW</portlet-mode>
+      <portlet-mode>EDIT</portlet-mode>
+      <portlet-mode>HELP</portlet-mode>
+    </supports>
+    <portlet-info>
+      <title>Report TaskStatus</title>
+      <short-title>Report TaskStatus</short-title>
+      <keywords></keywords>
+    </portlet-info>
+    <portlet-preferences>
+      <preference>
+        <name>portlet-setup-show-borders</name>
+        <value>false</value>
+      </preference>
+      <preference>
+        <name>portlet-setup-hide-topper</name>
+        <value>true</value>
+      </preference>
+    </portlet-preferences>
+    <security-role-ref>
+      <role-name>administrator</role-name>
+    </security-role-ref>
+    <security-role-ref>
+      <role-name>power-user</role-name>
+    </security-role-ref>
+    <security-role-ref>
+      <role-name>user</role-name>
+    </security-role-ref>
+    <supported-processing-event>
+      <qname>MilestoneChangeNotification</qname>
+    </supported-processing-event>
+    <supported-processing-event>
+      <qname>TaskFilterRequest</qname>
+    </supported-processing-event>
+    <supported-publishing-event>
+      <qname>MilestoneChangeNotification</qname>
+    </supported-publishing-event>
+    <supported-publishing-event>
+      <qname>TaskFilterRequest</qname>
+    </supported-publishing-event>
+  </portlet>
 
-		
-		<portlet-info>
-			<title>Leaderboard</title>
-			<short-title>Leaderboard</short-title>
-			<keywords></keywords>
-		</portlet-info>
-		<portlet-preferences>
-			<preference>
-				<name>portlet-setup-show-borders</name>
-				<value>false</value>
-			</preference>
-			<preference>
-				<name>portlet-setup-hide-topper</name>
-				<value>true</value>
-			</preference>
-		</portlet-preferences>
-		<security-role-ref>
-			<role-name>administrator</role-name>
-		</security-role-ref>
-		<security-role-ref>
-			<role-name>power-user</role-name>
-		</security-role-ref>
-		<security-role-ref>
-			<role-name>user</role-name>
-		</security-role-ref>
-	</portlet>-->
-	<portlet>
-		<description>SVG</description>
-		<portlet-name>arago-rike-svg</portlet-name>
-		<display-name>SVG</display-name>
-		<portlet-class>de.arago.rike.svg.SVG</portlet-class>
-		<expiration-cache>0</expiration-cache>
-		<supports>
-			<mime-type>text/html</mime-type>
-			<portlet-mode>VIEW</portlet-mode>
-			<portlet-mode>EDIT</portlet-mode>
-			<portlet-mode>HELP</portlet-mode>
-		</supports>
-		<portlet-info>
-			<title>SVG</title>
-			<short-title>SVG</short-title>
-			<keywords></keywords>
-		</portlet-info>
-		<portlet-preferences>
-			<preference>
-				<name>portlet-setup-show-borders</name>
-				<value>false</value>
-			</preference>
-			<preference>
-				<name>portlet-setup-hide-topper</name>
-				<value>true</value>
-			</preference>
-		</portlet-preferences>
-		<security-role-ref>
-			<role-name>administrator</role-name>
-		</security-role-ref>
-		<security-role-ref>
-			<role-name>power-user</role-name>
-		</security-role-ref>
-		<security-role-ref>
-			<role-name>user</role-name>
-		</security-role-ref>
-		<supported-processing-event>
-			<qname>SelectMilestoneRequest</qname>
-		</supported-processing-event>
-		<supported-publishing-event>
-			<qname>SelectMilestoneRequest</qname>
-		</supported-publishing-event>
-	</portlet>
-	<portlet>
-		<description>Report TaskStatus</description>
-		<portlet-name>arago-rike-report</portlet-name>
-		<display-name>Report TaskStatus</display-name>
-		<portlet-class>de.arago.rike.report.Report</portlet-class>
-				<init-param>
-			<name>type</name>
-			<value>taskstatus</value>
-		</init-param>
-		<init-param>
-			<name>typeName</name>
-			<value>Task Status</value>
-		</init-param>
-		<expiration-cache>0</expiration-cache>
-		<supports>
-			<mime-type>text/html</mime-type>
-			<portlet-mode>VIEW</portlet-mode>
-			<portlet-mode>EDIT</portlet-mode>
-			<portlet-mode>HELP</portlet-mode>
-		</supports>
-		<portlet-info>
-			<title>Report TaskStatus</title>
-			<short-title>Report TaskStatus</short-title>
-			<keywords></keywords>
-		</portlet-info>
-		<portlet-preferences>
-			<preference>
-				<name>portlet-setup-show-borders</name>
-				<value>false</value>
-			</preference>
-			<preference>
-				<name>portlet-setup-hide-topper</name>
-				<value>true</value>
-			</preference>
-		</portlet-preferences>
-		<security-role-ref>
-			<role-name>administrator</role-name>
-		</security-role-ref>
-		<security-role-ref>
-			<role-name>power-user</role-name>
-		</security-role-ref>
-		<security-role-ref>
-			<role-name>user</role-name>
-		</security-role-ref>
-		<supported-processing-event>
-			<qname>MilestoneChangeNotification</qname>
-		</supported-processing-event>
-		<supported-processing-event>
-			<qname>TaskFilterRequest</qname>
-		</supported-processing-event>
-		<supported-publishing-event>
-			<qname>MilestoneChangeNotification</qname>
-		</supported-publishing-event>
-		<supported-publishing-event>
-			<qname>TaskFilterRequest</qname>
-		</supported-publishing-event>
-	</portlet>
-	<portlet>
-		<description>Report Burndown</description>
-		<portlet-name>arago-rike-report2</portlet-name>
-		<display-name>Report Burndown</display-name>
-		<portlet-class>de.arago.rike.report.Report</portlet-class>
-				<init-param>
-			<name>type</name>
-			<value>burndown</value>
-		</init-param>
-		<init-param>
-			<name>typeName</name>
-			<value>Burndown</value>
-		</init-param>
-		<expiration-cache>0</expiration-cache>
-		<supports>
-			<mime-type>text/html</mime-type>
-			<portlet-mode>VIEW</portlet-mode>
-			<portlet-mode>EDIT</portlet-mode>
-			<portlet-mode>HELP</portlet-mode>
-		</supports>
-		<portlet-info>
-			<title>Report Burndown</title>
-			<short-title>Report Burndown</short-title>
-			<keywords></keywords>
-		</portlet-info>
-		<portlet-preferences>
-			<preference>
-				<name>portlet-setup-show-borders</name>
-				<value>false</value>
-			</preference>
-			<preference>
-				<name>portlet-setup-hide-topper</name>
-				<value>true</value>
-			</preference>
-		</portlet-preferences>
-		<security-role-ref>
-			<role-name>administrator</role-name>
-		</security-role-ref>
-		<security-role-ref>
-			<role-name>power-user</role-name>
-		</security-role-ref>
-		<security-role-ref>
-			<role-name>user</role-name>
-		</security-role-ref>
+  <portlet>
+    <description>Zombies</description>
+    <portlet-name>arago-rike-zombies</portlet-name>
+    <display-name>Zombies</display-name>
+    <portlet-class>de.arago.rike.zombie.Zombies</portlet-class>
+    <expiration-cache>0</expiration-cache>
+    <supports>
+      <mime-type>text/html</mime-type>
+      <portlet-mode>VIEW</portlet-mode>
+      <portlet-mode>EDIT</portlet-mode>
+      <portlet-mode>HELP</portlet-mode>
+    </supports>
+    <portlet-info>
+      <title>Zombies</title>
+      <short-title>Zombies</short-title>
+      <keywords></keywords>
+    </portlet-info>
+    <portlet-preferences>
+      <preference>
+        <name>portlet-setup-show-borders</name>
+        <value>false</value>
+      </preference>
+      <preference>
+        <name>portlet-setup-hide-topper</name>
+        <value>true</value>
+      </preference>
+    </portlet-preferences>
+    <security-role-ref>
+      <role-name>administrator</role-name>
+    </security-role-ref>
+    <security-role-ref>
+      <role-name>power-user</role-name>
+    </security-role-ref>
+    <security-role-ref>
+      <role-name>user</role-name>
+    </security-role-ref>
 
-		<supported-processing-event>
-			<qname>SelectMilestoneRequest</qname>
-		</supported-processing-event>
-		<supported-processing-event>
-			<qname>MilestoneChangeNotification</qname>
-		</supported-processing-event>
-		<supported-publishing-event>
-			<qname>SelectMilestoneRequest</qname>
-		</supported-publishing-event>
-		<supported-publishing-event>
-			<qname>MilestoneChangeNotification</qname>
-		</supported-publishing-event>
-	</portlet>
-	<event-definition>
-		<qname>TaskSelectNotification</qname>
-		<value-type>java.util.HashMap</value-type>
-	</event-definition>
-	<event-definition>
-		<qname>TaskUpdateNotification</qname>
-		<value-type>java.util.HashMap</value-type>
-	</event-definition>
-	<event-definition>
-		<qname>TaskCreateNotification</qname>
-		<value-type>java.util.HashMap</value-type>
-	</event-definition>
-	<event-definition>
-		<qname>TaskLogNotification</qname>
-		<value-type>java.util.HashMap</value-type>
-	</event-definition>
-	<event-definition>
-		<qname>MilestoneChangeNotification</qname>
-		<value-type>java.util.HashMap</value-type>
-	</event-definition>
-	<event-definition>
-		<qname>TaskFilterRequest</qname>
-		<value-type>java.util.HashMap</value-type>
-	</event-definition>
-	<event-definition>
-		<qname>SelectMilestoneRequest</qname>
-		<value-type>java.util.HashMap</value-type>
-	</event-definition>
+    <supported-processing-event>
+      <qname>TaskSelectNotification</qname>
+    </supported-processing-event>
+    <supported-processing-event>
+      <qname>TaskUpdateNotification</qname>
+    </supported-processing-event>
+    <supported-processing-event>
+      <qname>TaskCreateNotification</qname>
+    </supported-processing-event>
+    <supported-processing-event>
+      <qname>ActivityLogNotification</qname>
+    </supported-processing-event>
+
+    <supported-publishing-event>
+      <qname>TaskSelectNotification</qname>
+    </supported-publishing-event>
+    <supported-publishing-event>
+      <qname>TaskUpdateNotification</qname>
+    </supported-publishing-event>
+    <supported-publishing-event>
+      <qname>TaskCreateNotification</qname>
+    </supported-publishing-event>
+    <supported-publishing-event>
+      <qname>ActivityLogNotification</qname>
+    </supported-publishing-event>
+  </portlet>
+
+  <portlet>
+    <description>Report Burndown</description>
+    <portlet-name>arago-rike-report2</portlet-name>
+    <display-name>Report Burndown</display-name>
+    <portlet-class>de.arago.rike.report.Report</portlet-class>
+    <init-param>
+      <name>type</name>
+      <value>burndown</value>
+    </init-param>
+    <init-param>
+      <name>typeName</name>
+      <value>Burndown</value>
+    </init-param>
+    <expiration-cache>0</expiration-cache>
+    <supports>
+      <mime-type>text/html</mime-type>
+      <portlet-mode>VIEW</portlet-mode>
+      <portlet-mode>EDIT</portlet-mode>
+      <portlet-mode>HELP</portlet-mode>
+    </supports>
+    <portlet-info>
+      <title>Report Burndown</title>
+      <short-title>Report Burndown</short-title>
+      <keywords></keywords>
+    </portlet-info>
+    <portlet-preferences>
+      <preference>
+        <name>portlet-setup-show-borders</name>
+        <value>false</value>
+      </preference>
+      <preference>
+        <name>portlet-setup-hide-topper</name>
+        <value>true</value>
+      </preference>
+    </portlet-preferences>
+    <security-role-ref>
+      <role-name>administrator</role-name>
+    </security-role-ref>
+    <security-role-ref>
+      <role-name>power-user</role-name>
+    </security-role-ref>
+    <security-role-ref>
+      <role-name>user</role-name>
+    </security-role-ref>
+
+    <supported-processing-event>
+      <qname>MilestoneSelectNotification</qname>
+    </supported-processing-event>
+    <supported-processing-event>
+      <qname>MilestoneChangeNotification</qname>
+    </supported-processing-event>
+    <supported-publishing-event>
+      <qname>MilestoneSelectNotification</qname>
+    </supported-publishing-event>
+    <supported-publishing-event>
+      <qname>MilestoneChangeNotification</qname>
+    </supported-publishing-event>
+  </portlet>
+  <event-definition>
+    <qname>TaskSelectNotification</qname>
+    <value-type>java.util.HashMap</value-type>
+  </event-definition>
+  <event-definition>
+    <qname>TaskUpdateNotification</qname>
+    <value-type>java.util.HashMap</value-type>
+  </event-definition>
+  <event-definition>
+    <qname>TaskCreateNotification</qname>
+    <value-type>java.util.HashMap</value-type>
+  </event-definition>
+  <event-definition>
+    <qname>ActivityLogNotification</qname>
+    <value-type>java.util.HashMap</value-type>
+  </event-definition>
+  <event-definition>
+    <qname>MilestoneChangeNotification</qname>
+    <value-type>java.util.HashMap</value-type>
+  </event-definition>
+  <event-definition>
+    <qname>TaskFilterRequest</qname>
+    <value-type>java.util.HashMap</value-type>
+  </event-definition>
+  <event-definition>
+    <qname>MilestoneSelectNotification</qname>
+    <value-type>java.util.HashMap</value-type>
+  </event-definition>
+  <event-definition>
+    <qname>ArtifactSelectNotification</qname>
+    <value-type>java.util.HashMap</value-type>
+  </event-definition>
 </portlet-app>

@@ -1,7 +1,9 @@
 package de.arago.lucene.api;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.nio.channels.OverlappingFileLockException;
 import org.apache.commons.io.FileUtils;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexReader;
@@ -14,11 +16,13 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.TopDocsCollector;
 import org.apache.lucene.search.TopScoreDocCollector;
+import org.apache.lucene.search.TotalHitCountCollector;
+import org.apache.lucene.store.AlreadyClosedException;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.NIOFSDirectory;
 import org.apache.lucene.util.Version;
 
-public class Index<T> {
+public class Index<T> implements Closeable {
 
     private final IndexConfig config;
     private volatile IndexWriter writer;
@@ -53,11 +57,16 @@ public class Index<T> {
         return searcher;
     }
 
-    protected IndexWriter getWriter() {
+    protected synchronized IndexWriter getWriter() {
         if (writer == null) {
             try {
-                FSDirectory directory = FSDirectory.open(new File(config.getPath()));
-                if (IndexWriter.isLocked(directory)) {
+                FSDirectory directory = NIOFSDirectory.open(new File(config.getPath()));
+
+                try {
+                    if (IndexWriter.isLocked(directory)) {
+                        IndexWriter.unlock(directory);
+                    }
+                } catch(OverlappingFileLockException ex) {
                     IndexWriter.unlock(directory);
                 }
 
@@ -72,7 +81,7 @@ public class Index<T> {
 
     private Converter<T> createConverter() {
         try {
-          return (Converter<T>) config.getConverterClass().newInstance();
+            return (Converter<T>) config.getConverterClass().newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -84,7 +93,6 @@ public class Index<T> {
 
         try {
             w.forceMerge(1);
-            w.close();
         } catch (Exception e) {
             try {
                 w.rollback();
@@ -100,14 +108,32 @@ public class Index<T> {
     }
 
     private synchronized void closeWriter() {
-        if (writer != null) {
-            try {
-                writer.close();
-            } catch (Exception ex) {
-                ex.printStackTrace(System.err);
-            } finally {
-                writer = null;
+        try {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (Exception ex) {
+                    // blank
+                } finally {
+                    try {
+                        if (IndexWriter.isLocked(writer.getDirectory())) {
+                            IndexWriter.unlock(writer.getDirectory());
+                        }
+                    } catch (IOException ex) {
+                        // blank
+                    }
+                }
+
+                try {
+                    writer.getDirectory().close();
+                } catch (IOException ex) {
+                    // blank
+                }
             }
+        } catch (AlreadyClosedException ex) {
+            // blank
+        } finally {
+            writer = null;
         }
     }
 
@@ -124,9 +150,11 @@ public class Index<T> {
         }
     }
 
+    @Override
     public void close() {
-        closeWriter();
+        System.err.println("closing");
         closeSearcher();
+        closeWriter();
     }
 
     public synchronized void replace(T o) {
@@ -159,13 +187,12 @@ public class Index<T> {
 
     }
 
-    public synchronized void commit()
-    {
-      try {
-        if (writer != null) writer.commit();
-      } catch(Exception ex) {
-        throw new RuntimeException(ex);
-      }
+    public synchronized void commit() {
+        try {
+            if (writer != null) writer.commit();
+        } catch(Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     public synchronized void remove(T o) {
@@ -183,14 +210,12 @@ public class Index<T> {
         }
     }
 
-    public Query parse(final String q)
-    {
-      try
-      {
-        return new QueryParser(Version.LUCENE_36,Converter.FIELD_CONTENT, config.getAnalyzer()).parse(q);
-      } catch(ParseException ex) {
-        throw new RuntimeException("could not parse query " + q, ex);
-      }
+    public Query parse(final String q) {
+        try {
+            return new QueryParser(Version.LUCENE_36,Converter.FIELD_CONTENT, config.getAnalyzer()).parse(q);
+        } catch(ParseException ex) {
+            throw new RuntimeException("could not parse query " + q, ex);
+        }
     }
 
     public Converter<T> query(String q, int maxResults) {
@@ -204,6 +229,19 @@ public class Index<T> {
     public Converter<T> query(Query q, int maxResults) {
 
         return query(q, TopScoreDocCollector.create(maxResults,true), maxResults);
+    }
+
+    public long count(Query q) {
+        TotalHitCountCollector collector = new TotalHitCountCollector();
+
+        try {
+            IndexSearcher s = getSearcher();
+            s.search(q, collector);
+
+            return collector.getTotalHits();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     public Converter<T> query(Query q, TopDocsCollector collector, int maxResults) {
@@ -239,8 +277,7 @@ public class Index<T> {
         return config;
     }
 
-    public static String escape(String in)
-    {
-      return QueryParser.escape(in);
+    public static String escape(String in) {
+        return QueryParser.escape(in);
     }
 }

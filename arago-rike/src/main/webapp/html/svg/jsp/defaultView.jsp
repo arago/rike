@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.util.PortalUtil"%>
 <%@page import="de.arago.portlet.jsp.UserService"%>
 <%@page import="de.arago.portlet.jsp.JspUserService"%>
 <%@page import="de.arago.rike.data.Artifact"%>
@@ -19,6 +20,7 @@
 <%
   UserService service = new JspUserService(renderRequest, portletSession);
   TaskListFilter filter = (TaskListFilter) portletSession.getAttribute("taskListFilter");
+  String lastActivity = "" + portletSession.getAttribute("lastActivity");
 %>
 
 
@@ -37,76 +39,15 @@
           <% } %>
         </span>
       </h1>
-      <div class="inner">
-        <!-- Filterfunktion-->
-        <a href="javascript:void(0);" onclick="$('#<portlet:namespace />Filter').toggle();"><span class="icon">S</span> Filter <%= filter.isActive() ? "(active)" : ""%></a> <br />
-        <div id="<portlet:namespace />Filter" class="dropDown" style="display:none; ">
-          <form method="post" action="<portlet:actionURL portletMode="view"/>">
-            <input type="hidden" name="action" value="filterTasks" />
-            <table style="width:100%">
-              <tbody>
-                <tr>
-                  <td>User:</td>
-                  <td>
-                    <select name="user" style="width:150px">
-                      <option <%= filter.getUser().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
-                      <% for (TaskUser user: ViewHelper.getAvailableUsers()) {%>
-
-                      <option <%= filter.getUser().equals(user.getEmail()) ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(user.getEmail())%>"><%= StringEscapeUtils.escapeHtml(user.getEmail())%></option>
-
-                      <% }%>
-
-                    </select>
-
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Milestone:</td>
-                  <td>
-                    <select name="milestone" style="width:150px">
-                      <% for (String[] data: ViewHelper.getAvailableMilestones(service)) {%>
-
-                      <option <%= filter.getMilestone().equals(data[0]) ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(data[0])%>"><%= StringEscapeUtils.escapeHtml(data[1])%></option>
-
-                      <% }%>
-
-                    </select>
-
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>Artifact:</td>
-                  <td>
-                    <select name="artifact" style="width:150px">
-                      <option <%= filter.getMilestone().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
-                      <% for (Artifact artifact: ViewHelper.getAvailableArtifacts()) {%>
-
-                      <option <%= filter.getArtifact().equals(artifact.getId().toString()) ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(artifact.getId().toString())%>"><%= StringEscapeUtils.escapeHtml(artifact.getName())%></option>
-
-                      <% }%>
-
-                    </select>
-
-                  </td>
-                </tr>
-
-
-                <tr>
-                  <td style="text-align:left"><input type="reset" value="Close" onclick="$('#<portlet:namespace />Filter').hide();"/></td>
-                  <td style="text-align:right"><input type="submit" value="Ok" /></td>
-                </tr>
-              </tbody>
-            </table>
-
-          </form>
-
-        </div>
-
-      </div>
     </div>
     <script type="text/javascript">
+
+    top.openRikeTask = function(id)
+    {
+      window.location = '/web/guest/rike/-/show/task/' + (id * 1);
+      return false;
+    };
+
 
       window.onload = <portlet:namespace />enrichSVG;
 
@@ -229,7 +170,7 @@
           var svgNode = $('svg', doc).get(0);
 
           var outer_width = $('#<portlet:namespace/>Portlet').width() - 12;
-          var outer_height = $('#<portlet:namespace/>Portlet').height() - 56;
+          var outer_height = $('#<portlet:namespace/>Portlet').height() - 60;
 
           $("#<portlet:namespace />SVG").width(outer_width).height(outer_height);
           $('#<portlet:namespace/>PortletContent').show();
@@ -274,50 +215,24 @@
             var fromId = $('title', from).get(0).textContent;
             var toId   = $('title', to).get(0).textContent;
 
-            var url = '<%=renderRequest.getContextPath()%>/svg?action=connect';
+            var url = '<portlet:actionURL portletMode="view"/>&action=connect';
 
             url += '&from=' + encodeURIComponent(fromId);
             url += '&to=' + encodeURIComponent(toId);
 
-            $.ajax
-            ({
-              type: "GET",
-              url: url,
-              dataType: "json",
-              success: function(ret) {
-                if (ret.error)
-                {
-                  alert('error: ' + ret.error);
-                } else {
-                  document.location = '<portlet:actionURL portletMode="view"/>';
-                };
-              }
-            });
+            document.location = url;
           }, function(edge, data)
           {
             if (confirm('Remove Connection?'))
             {
               var parts = $('title', edge).get(0).textContent.split(/[^\d]+/);
 
-              var url = '<%=renderRequest.getContextPath()%>/svg?action=disconnect';
+              var url = '<portlet:actionURL portletMode="view"/>&action=disconnect';
 
               url += '&from=' + encodeURIComponent(parts[0]);
               url += '&to=' + encodeURIComponent(parts[1]);
 
-              $.ajax
-              ({
-                type: "GET",
-                url: url,
-                dataType: "json",
-                success: function(ret) {
-                  if (ret.error)
-                  {
-                    alert('error: ' + ret.error);
-                  } else {
-                    edge.parentNode.removeChild(edge);
-                  };
-                }
-              });
+              document.location = url;
             };
 
             data.unmarkEdge();
@@ -327,10 +242,10 @@
         };
 			
     </script>
-    <div class="content nofooter">
+    <div class="content nofooter nohead">
       <div style="position:relative; height:100%" id="<portlet:namespace/>PortletContent">
         <div id="<portlet:namespace />controlNode" style="<%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "" : "display:none;"%> position:absolute; top:0px; left:0px; width:170px; height:150px"></div>
-        <embed src="<%=renderRequest.getContextPath()%>/svg?action=graph&user=<%= URLEncoder.encode(filter.getUser(), "UTF-8")%>&artifact=<%= URLEncoder.encode(filter.getArtifact(), "UTF-8")%>&milestone=<%= URLEncoder.encode(filter.getMilestone(), "UTF-8")%>" id="<portlet:namespace />SVG"  type="image/svg+xml" style="width:300px; height:200px;" />
+        <embed src="<%=renderRequest.getContextPath()%>/svg?action=graph&user=<%= URLEncoder.encode(filter.getUser(), "UTF-8")%>&lastActivity=<%=lastActivity %>&milestone=<%= URLEncoder.encode(filter.getMilestone(), "UTF-8")%>" id="<portlet:namespace />SVG"  type="image/svg+xml" style="width:300px; height:200px;" />
       </div>
     </div>
   </div>

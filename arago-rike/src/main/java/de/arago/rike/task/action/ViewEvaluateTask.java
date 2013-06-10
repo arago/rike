@@ -20,26 +20,23 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-/**
- *
- */
+
 package de.arago.rike.task.action;
 
-import java.util.Date;
 
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
+import de.arago.rike.data.Artifact;
 import de.arago.rike.util.TaskHelper;
 import de.arago.rike.data.DataHelperRike;
-import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
-
+import de.arago.rike.util.MilestoneHelper;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 
 public class ViewEvaluateTask implements Action {
 
+    @Override
     public void execute(IDataWrapper data) throws Exception {
 
         if (data.getRequestAttribute("id") != null) {
@@ -47,10 +44,11 @@ public class ViewEvaluateTask implements Action {
             Task task = TaskHelper.getTask(data.getRequestAttribute("id"));
 
             if (task.getStatusEnum() == Task.Status.UNKNOWN || task.getStatusEnum() == Task.Status.OPEN) {
-                DataHelperRike<Milestone> stoneHelper = new DataHelperRike<Milestone>(Milestone.class);
+                DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
                 data.setSessionAttribute("task", task);
                 data.setSessionAttribute("targetView", "viewEvaluate");
-                data.setSessionAttribute("milestones", stoneHelper.list(stoneHelper.filter().add(Restrictions.or(Restrictions.gt("dueDate", new Date()), Restrictions.isNull("dueDate"))).addOrder(Order.asc("dueDate")).addOrder(Order.asc("title"))));
+                data.setSessionAttribute("artifacts", helper.list(helper.filter().addOrder(Order.asc("name"))));
+                data.setSessionAttribute("milestones", MilestoneHelper.listNotExpired());
             }
         }
     }

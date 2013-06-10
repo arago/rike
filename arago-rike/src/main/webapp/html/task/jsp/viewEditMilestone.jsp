@@ -28,7 +28,13 @@
     <!-- head -->
     <div class="head">
       <h1>
-        New Milestone
+        <div class="ellipsis">
+        <% if (milestone ==  null) { %>
+          New Milestone
+        <% } else { %>
+          Milestone: #<%= milestone.getId() %> <%= StringEscapeUtils.escapeHtml(milestone.getTitle())%>
+        <% } %>
+        </div>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
@@ -50,30 +56,35 @@
 
               <tr>
                 <th class="shrink">Title:</th>
-                <td class="shrink"><input type="text" name="title" value="<%= StringEscapeUtils.escapeHtml(milestone == null ? "" : milestone.getTitle())%>" /></td>
+                <td class="shrink"><input class="rike-input" placeholder="title of the milestone" type="text" name="title" value="<%= StringEscapeUtils.escapeHtml(milestone == null ? "" : milestone.getTitle())%>" /></td>
               </tr>
 
               <tr>
                 <th class="shrink">URL:</th>
-                <td class="shrink"><input type="text" name="url" value="<%= StringEscapeUtils.escapeHtml(milestone == null ? "" : milestone.getUrl())%>"/></td>
+                <td class="shrink"><input class="rike-input" placeholder="URL of the milestone, if any" type="text" name="url" value="<%= StringEscapeUtils.escapeHtml(milestone == null ? "" : milestone.getUrl())%>"/></td>
               </tr>
 
               <tr>
                 <th class="shrink">Date:</th>
-                <td class="shrink"><input type="text" name="due_date" value="<%= StringEscapeUtils.escapeHtml(milestone == null || milestone.getDueDate() == null ? "" : service.formatDate(milestone.getDueDate(), "dd.MM.yyyy"))%>"/> <span style="font-size:0.9em; color:#666">DD.MM.YYYY</span></td>
+                <td class="shrink"><input class="rike-input" placeholder="due date of the milestone, YYYY-MM-DD" type="text" name="due_date" value="<%= StringEscapeUtils.escapeHtml(milestone == null || milestone.getDueDate() == null ? "" : service.formatDate(milestone.getDueDate(), "yyyy-MM-dd"))%>"/></td>
+              </tr>
+              
+              <tr>
+                <th class="shrink">Performance:</th>
+                <td class="shrink"><input class="rike-input" placeholder="capacity per week in hours" type="text" name="performance" value=""/></td>
               </tr>
 
               <tr>
                 <th class="shrink">Release:</th>
                 <td class="shrink">
-                  <select name="release" id="<portlet:namespace />Release">
+                  <select name="release" id="<portlet:namespace />Release" class="rike-select">
                     <option value="">[No Release]</option>
                     <% for (String r: ViewHelper.getAvailableReleases()) {%>
-                    <option value="<%= StringEscapeUtils.escapeHtml(r)%>"><%= StringEscapeUtils.escapeHtml(r)%></option>
+                    <option value="<%= StringEscapeUtils.escapeHtml(r)%>" <%= milestone != null && r.equals(milestone.getRelease())?"selected='selected'":"" %>><%= StringEscapeUtils.escapeHtml(r)%></option>
                     <% }%>
                     <option value="_new_">[New Release]</option>
                   </select>
-                  <input type="text" name="new_release" style="display:none" id="<portlet:namespace />NewRelease" />
+                  <input placeholder="name of the release" type="text" name="new_release" style="display:none" id="<portlet:namespace />NewRelease" />
 
                   <script type="text/javascript">
                     $(function()
@@ -93,8 +104,8 @@
               </tr>
 
               <tr>
-                <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abort';"/></td>
-                <td class="shrink" style="text-align:right"><input type="submit" value="Create" /></td>
+                <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abortEditMilestone';"/></td>
+                <td class="shrink" style="text-align:right"><input type="submit" value="Save" /></td>
               </tr>
             </tbody>
           </table>
@@ -109,7 +120,7 @@
               {
                 var ok = true;
 						
-                $([$("input[name=title]", this), $("input[name=url]", this)]).each(function()
+                $([$("input[name=title]", this)]).each(function()
                 {
                   if (!this.val())
                   {

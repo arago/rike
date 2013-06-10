@@ -6,7 +6,7 @@
     <packaging>war</packaging>
     <name>${project.artifactId}</name>
     <groupId>de.arago</groupId>
-    <version>4.1-SNAPSHOT</version>
+    <version>4.1</version>
 
     <build>
         <finalName>arago-rike</finalName>
@@ -157,6 +157,18 @@
             <version>2.3</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>3.6.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>arago-data-util</artifactId>
             <version>${project.version}</version>
@@ -164,6 +176,11 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>arago-portlet-util</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>arago-lucene</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

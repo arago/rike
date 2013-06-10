@@ -25,33 +25,33 @@ package de.arago.rike.util;
 import de.arago.portlet.jsp.UserService;
 import de.arago.rike.data.Artifact;
 import de.arago.rike.data.DataHelperRike;
+import de.arago.rike.data.GlobalConfig;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
-import de.arago.rike.data.TaskLog;
-import de.arago.rike.data.TaskUser;
-import de.arago.rike.data.Task.Challenge;
-import de.arago.rike.data.Task.Priority;
 import de.arago.rike.data.Task.Status;
-
+import de.arago.rike.data.TaskUser;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.hibernate.criterion.Order;
+import static de.arago.rike.data.GlobalConfig.*;
 
 public class ViewHelper {
 
-    private static final Map<String, String> challengeNames = new HashMap<String, String>();
-    private static final List<String> challenges = new LinkedList<String>();
+
     private static final Map<String, String> priorityNames = new HashMap<String, String>();
     private static final List<String> priorities = new LinkedList<String>();
     private static final Map<String, String> statusNames = new HashMap<String, String>();
@@ -59,21 +59,10 @@ public class ViewHelper {
     private static final Map<String, String> statusColors = new HashMap<String, String>();
 
     static {
-        challenges.add(Challenge.DIFFICULT.toString());
-        challenges.add(Challenge.AVERAGE.toString());
-        challenges.add(Challenge.EASY.toString());
-
-        challengeNames.put(Challenge.DIFFICULT.toString(), "hard");
-        challengeNames.put(Challenge.AVERAGE.toString(), "normal");
-        challengeNames.put(Challenge.EASY.toString(), "easy");
-
-        priorities.add(Priority.HIGH.toString());
-        priorities.add(Priority.NORMAL.toString());
-        priorities.add(Priority.LOW.toString());
-
-        priorityNames.put(Priority.HIGH.toString(), "high");
-        priorityNames.put(Priority.NORMAL.toString(), "normal");
-        priorityNames.put(Priority.LOW.toString(), "low");
+        for (int i = 1; i <= Integer.parseInt(GlobalConfig.get(PRIORITY_MAXIMAL_NUMBER)); ++i) {
+            priorities.add(i + "");
+            priorityNames.put(i + "", i + "");
+        }
 
         status.add(Status.UNKNOWN.toString());
         status.add(Status.OPEN.toString());
@@ -124,7 +113,7 @@ public class ViewHelper {
 
     public static String formatURL(String path) {
         if (path == null || path.length() == 0) {
-            return "Keine URL hinterlegt";
+            return "";
         }
 
         try {
@@ -135,41 +124,17 @@ public class ViewHelper {
         }
     }
 
-    public static List<String> getChallenges() {
-        return challenges;
-    }
-
-    public static String getChallenge(Challenge what) {
-        return getChallenge(what.toString());
-    }
-
-    public static String getChallenge(String what) {
-        return challengeNames.get(what.toUpperCase());
-    }
-
     public static List<String> getPriorities() {
         return priorities;
     }
 
-    public static String getPriority(Priority what) {
-        return getPriority(what.toString());
+
+    public static String getPriority(int what) {
+        return priorityNames.get(what + "");
     }
 
     public static String getPriority(String what) {
-        return priorityNames.get(what.toUpperCase());
-    }
-
-    public static String getTaskLogColorClass(TaskLog log) {
-        switch (log.getStatusEnum()) {
-        case OPEN:
-            return "status-critical";
-        case IN_PROGRESS:
-            return "status-warning";
-        case DONE:
-            return "status-ok";
-        default:
-            return "status-unknown";
-        }
+        return priorityNames.get(what);
     }
 
     public static String getTaskStatusColorClass(Task task) {
@@ -186,7 +151,16 @@ public class ViewHelper {
     }
 
     public static String getTaskPriorityColorClass(Task task) {
-        return "priority-" + task.getPriority();
+
+        int p = task.getPriority();
+
+        if (p==1) {
+            return "priority-high";
+        } else if (p <= Integer.parseInt(GlobalConfig.get(PRIORITY_NORMAL))) {
+            return "priority-normal";
+        } else {
+            return "priority-low";
+        }
     }
 
     public static List<TaskUser> getAvailableUsers() {
@@ -211,11 +185,9 @@ public class ViewHelper {
     }
 
     public static List<String[]> getAvailableMilestones(UserService service) {
-        DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
-
         List<String[]> data = new ArrayList<String[]>();
 
-        List<Milestone> list = helper.list(helper.filter().addOrder(Order.desc("dueDate")));
+        List<Milestone> list = MilestoneHelper.list();
 
         Set<String> releases = new TreeSet<String>();
 
@@ -229,6 +201,10 @@ public class ViewHelper {
             data.add(new String[] {"milestone_" + m.getId().toString(), (m.getDueDate() != null ? "[" + service.formatDate(m.getDueDate(), "dd.MM.yyyy") + "] " : "[?] ") + m.getTitle()});
         }
         return data;
+    }
+
+    public static int getDayDifference(Date date) {
+        return (int) Math.ceil((date.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) ;
     }
 
     public static List<Artifact> getAvailableArtifacts() {
@@ -250,5 +226,27 @@ public class ViewHelper {
 
     public static String getColor(String what) {
         return statusColors.get(what.toUpperCase());
+    }
+
+    public static int asInt(Object o) {
+        if (o == null) return 0;
+
+        if (o instanceof BigInteger) {
+            return ((BigInteger) o).intValue();
+        }
+
+        if (o instanceof BigDecimal) {
+            return ((BigDecimal) o).intValue();
+        }
+
+        if (o instanceof String) {
+            try {
+                return Integer.valueOf(o.toString(), 10);
+            } catch(NumberFormatException ignored) {
+                return 0;
+            }
+        }
+
+        return (Integer) o;
     }
 }

@@ -22,4 +22,14 @@
 		<url-pattern>/report/json</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>LeaderBoardImagesServlet</servlet-name>
+		<servlet-class>de.arago.rike.leaderboard.LeaderBoardImagesServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>LeaderBoardImagesServlet</servlet-name>
+		<url-pattern>/avatar/*</url-pattern>
+	</servlet-mapping>
+
 </web-app>

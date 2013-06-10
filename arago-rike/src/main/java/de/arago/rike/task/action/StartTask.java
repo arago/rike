@@ -26,11 +26,15 @@ import de.arago.portlet.Action;
 import de.arago.portlet.util.SecurityHelper;
 
 import de.arago.data.IDataWrapper;
+import de.arago.rike.data.GlobalConfig;
+import static de.arago.rike.data.GlobalConfig.*;
 import de.arago.rike.util.TaskHelper;
 import de.arago.rike.data.Task;
-import de.arago.rike.task.StatisticHelper;
-
+import de.arago.rike.util.ActivityLogHelper;
+import de.arago.rike.util.StatisticHelper;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import org.apache.commons.lang.StringEscapeUtils;
 
@@ -41,7 +45,7 @@ public class StartTask implements Action {
         if (data.getRequestAttribute("id") != null) {
             String user = SecurityHelper.getUserEmail(data.getUser());
 
-            if (TaskHelper.getTasksInProgressForUser(user).size() < 3) {
+            if (TaskHelper.getTasksInProgressForUser(user).size() < Integer.parseInt(GlobalConfig.get(WORKFLOW_WIP_LIMIT))) {
                 Task task = TaskHelper.getTask(data.getRequestAttribute("id"));
 
                 if (!TaskHelper.canDoTask(user, task) || task.getStatusEnum() != Task.Status.OPEN) {
@@ -51,28 +55,16 @@ public class StartTask implements Action {
                 task.setOwner(user);
                 task.setStart(new Date());
                 task.setStatus(Task.Status.IN_PROGRESS);
+                if(GlobalConfig.get(WORKFLOW_TYPE).equalsIgnoreCase("arago Technologies")) {
+                    GregorianCalendar c = new GregorianCalendar();
+                    c.setTime(task.getStart());
+                    c.add(Calendar.DAY_OF_MONTH, Integer.parseInt(GlobalConfig.get(WORKFLOW_DAYS_TO_FINISH_TASK)));
+                    task.setDueDate(c.getTime());
+                }
 
                 TaskHelper.save(task);
                 StatisticHelper.update();
 
-                if(task.getArtifact().getId().longValue()!=TaskHelper.OTHER_ARTEFACT_ID) {
-                    long price = task.getSizeEstimated();
-
-                    if(task.getChallengeEnum()==Task.Challenge.DIFFICULT)
-                        price *= 2;
-                    else if(task.getChallengeEnum()==Task.Challenge.EASY)
-                        price /= 2;
-
-                    if(task.getPriorityEnum()==Task.Priority.HIGH)
-                        price*=2;
-                    else if(task.getPriorityEnum()==Task.Priority.LOW)
-                        price /=2;
-
-                    System.err.println("{task} " + user + " started task #" + task.getId() + " (calculated price is "+price+")");
-
-                    TaskHelper.changeAccount(user, price);
-                    TaskHelper.changeAccount(task.getCreator(), -price);
-                }
 
                 data.setSessionAttribute("task", task);
 
@@ -81,7 +73,7 @@ public class StartTask implements Action {
                 notificationParam.put("id", task.getId().toString());
                 data.setEvent("TaskUpdateNotification", notificationParam);
 
-                TaskHelper.log(" started Task #" + task.getId().toString() + " <a href=\"[selectTask:" + task.getId().toString() + "]\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task, user, data);
+                ActivityLogHelper.log(" started Task #" + task.getId() + " <a href=\"/web/guest/rike/-/show/task/" + task.getId() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), user, data, task.toMap());
             }
         }
     }

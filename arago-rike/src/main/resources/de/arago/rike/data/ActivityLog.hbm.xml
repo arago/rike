@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="false" default-lazy="false">
+  <class name="de.arago.rike.data.ActivityLog" table="activity_log">
+    <id name="id" type="long">
+      <generator class="native"/>
+    </id>
+    <property name="content"/>
+    <property column="log_user" name="user"/>
+    <property column="icon" name="icon"/>
+    <property name="created"/>
+    <property column="json_data" name="json_data"/>
+  </class>
+</hibernate-mapping>

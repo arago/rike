@@ -23,7 +23,13 @@
     <!-- head -->
     <div class="head">
       <h1>
-        New Artifact
+        <div class="ellipsis">
+        <% if (artifact ==  null) { %>
+          New Artifact
+        <% } else { %>
+          Artifact: #<%= artifact.getId() %> <%= StringEscapeUtils.escapeHtml(artifact.getName())%>
+        <% } %>
+        </div>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
@@ -46,24 +52,19 @@
 
               <tr>
                 <th class="shrink">Name:</th>
-                <td class="shrink"><input type="text" name="name" value="<%= StringEscapeUtils.escapeHtml(artifact == null ? "" : artifact.getName())%>" /></td>
-              </tr>
-
-              <tr>
-                <th class="shrink">Short Name:</th>
-                <td class="shrink"><input type="text" name="short_name" value="<%= StringEscapeUtils.escapeHtml(artifact == null ? "" : artifact.getShortName())%>" /></td>
+                <td class="shrink"><input class="rike-input" placeholder="name of the artifact" type="text" name="name" value="<%= StringEscapeUtils.escapeHtml(artifact == null ? "" : artifact.getName())%>" /></td>
               </tr>
 
               <tr>
                 <th class="shrink">URL:</th>
-                <td class="shrink"><input type="text" name="url" value="<%= StringEscapeUtils.escapeHtml(artifact == null ? "" : artifact.getUrl())%>"/></td>
+                <td class="shrink"><input class="rike-input" placeholder="URL of the artifact" type="text" name="url" value="<%= StringEscapeUtils.escapeHtml(artifact == null ? "" : artifact.getUrl())%>"/></td>
               </tr>
 
 
 
               <tr>
-                <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abort';"/></td>
-                <td class="shrink" style="text-align:right"><input type="submit" value="Create" /></td>
+                <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abortEditArtifact';"/></td>
+                <td class="shrink" style="text-align:right"><input type="submit" value="Save" /></td>
               </tr>
             </tbody>
           </table>
@@ -78,7 +79,7 @@
               {
                 var ok = true;
 						
-                $([$("input[name=name]", this), $("input[name=short_name]", this), $("input[name=url]", this)]).each(function()
+                $([$("input[name=name]", this), $("input[name=url]", this)]).each(function()
                 {
                   if (!this.val())
                   {
@@ -92,7 +93,7 @@
 
                 return ok;
               } catch(e) {
-                alert(e);
+                // blank
               };
 
               return false;

@@ -12,21 +12,23 @@
     <property name="end"/>
     <property name="creator"/>
     <property name="created"/>
-    <property name="size"/>
+    <property name="description"/>
+    <property column="rated_by" name="ratedBy"/>
+    <property name="rated"/>
     <property column="task_status" name="status"/>
     <property column="size_estimated" name="sizeEstimated"/>
     <property column="hours_spent" name="hoursSpent"/>
-    <property name="challenge"/>
     <property name="priority"/>
+    <property column="due_date" name="dueDate"/>
     <many-to-one class="de.arago.rike.data.Milestone" column="milestone_id" name="milestone" not-null="false"/>
     <many-to-one class="de.arago.rike.data.Artifact" column="artifact_id" name="artifact" not-null="false"/>
     <!--
     <property name="hours_spent"/>
     <property name="state"/>
-    
+
     <property name="size"/>
     <property name="size_estimated"/>
-    
+
     <property name="artifact_id"/>
     <property name="milestone"/>-->
   </class>

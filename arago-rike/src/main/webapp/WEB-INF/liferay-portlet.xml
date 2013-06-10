@@ -4,9 +4,12 @@
 <liferay-portlet-app>
   <portlet>
     <portlet-name>arago-rike-overview</portlet-name>
+    <friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper</friendly-url-mapper-class>  
+    <friendly-url-mapping>show</friendly-url-mapping>  
+    <friendly-url-routes>de/arago/rike/urlmapping/friendly-url-router.xml</friendly-url-routes>  
     <use-default-template>true</use-default-template>
     <instanceable>false</instanceable>
-    <header-portlet-css>/css/main.css</header-portlet-css>
+    <header-portlet-css>/css/rike-main.css</header-portlet-css>
     <header-portlet-javascript>/js/jquery.js</header-portlet-javascript>
     <header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
   </portlet>
@@ -15,9 +18,25 @@
     <portlet-name>arago-rike-mytasks</portlet-name>
     <use-default-template>true</use-default-template>
     <instanceable>false</instanceable>
-    <header-portlet-css>/css/main.css</header-portlet-css>
+    <header-portlet-css>/css/rike-main.css</header-portlet-css>
     <header-portlet-javascript>/js/jquery.js</header-portlet-javascript>
     <header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/help/help.js</header-portlet-javascript>
+  </portlet>
+
+  <portlet>
+    <portlet-name>arago-rike-zombies</portlet-name>
+    <use-default-template>true</use-default-template>
+    <instanceable>false</instanceable>
+    <header-portlet-css>/css/rike-main.css</header-portlet-css>
+    <header-portlet-javascript>/js/jquery.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/flot/jquery.flot.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/flot/jquery.flot.navigate.min.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/flot/jquery.flot.fillbetween.min.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/flot/jquery.flot.selection.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/flot/jquery.flot.jum.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/flot/jquery.flot.gantt.js</header-portlet-javascript>
     <header-portlet-javascript>/js/help/help.js</header-portlet-javascript>
   </portlet>
 
@@ -25,16 +44,16 @@
     <portlet-name>arago-rike-task</portlet-name>
     <use-default-template>true</use-default-template>
     <instanceable>false</instanceable>
-    <header-portlet-css>/css/main.css</header-portlet-css>
+    <header-portlet-css>/css/rike-main.css</header-portlet-css>
     <header-portlet-javascript>/js/jquery.js</header-portlet-javascript>
     <header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
   </portlet>
 
   <portlet>
-    <portlet-name>arago-rike-tasklog</portlet-name>
+    <portlet-name>arago-rike-activitylog</portlet-name>
     <use-default-template>true</use-default-template>
     <instanceable>false</instanceable>
-    <header-portlet-css>/css/main.css</header-portlet-css>
+    <header-portlet-css>/css/rike-main.css</header-portlet-css>
     <header-portlet-javascript>/js/jquery.js</header-portlet-javascript>
     <header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
   </portlet>
@@ -57,7 +76,9 @@
     <header-portlet-javascript>/js/flot/jquery.flot.navigate.min.js</header-portlet-javascript>
     <header-portlet-javascript>/js/flot/jquery.flot.fillbetween.min.js</header-portlet-javascript>
     <header-portlet-javascript>/js/flot/jquery.flot.selection.js</header-portlet-javascript>
-    
+    <header-portlet-javascript>/js/flot/jquery.flot.jum.js</header-portlet-javascript>
+    <header-portlet-javascript>/js/flot/jquery.flot.gantt.js</header-portlet-javascript>
+
   </portlet>
 
   <portlet>

@@ -19,22 +19,29 @@ $.globalPortletJS
 
 
 <%
-      PortletPreferences prefs = renderRequest.getPreferences();
+//      PortletPreferences prefs = renderRequest.getPreferences();
 
-      if ("false".equals(prefs.getValue("de.arago.rike.help.shown", "false")))
-      {
-        //prefs.setValue("de.arago.rike.help.shown", "true");
+//      if ("false".equals(prefs.getValue("de.arago.rike.help.shown", "false")))
+//      {
+//          prefs.setValue("de.arago.rike.help.shown", "true");
 
-
+        if(portletSession.getAttribute("help.shown")==null)
+        {
 %>
 
 <script>
 (function()
 {
+  // TODO hier das overlay einpflegen
   var div = document.createElement('div');
+  div.setAttribute("id","welcome-overlay");
   
-  div.innerHTML = '<div style="position:absolute; top:0px; left:0px; right:0px; bottom:0px; z-index:10000000000; background-color:#ccc; opacity:0.7"><img style="position:absolute; top:0px; left:0px; right:0px; bottom:0px; width:100%; height:100%;" src="<%= renderRequest.getContextPath()%>/images/helpoverlay.svg" alt="" /></div>';
-  
+  div.innerHTML = 
+      '<div class="overlay">' +
+          '<img alt="Welcomeoverlay" src="<%= renderRequest.getContextPath()%>/pix/overlay.png"/>' +
+          '<a class="close icon-remove" title="close" href="<portlet:actionURL portletMode="view"/>&action=closeOwerview"></a>' + 
+      '</div>';
+      
   document.body.insertBefore(div, null);
 })(); 
 </script>

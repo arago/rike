@@ -22,6 +22,7 @@
  */
 package de.arago.rike.report;
 
+import de.arago.portlet.util.SecurityHelper;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -43,6 +44,12 @@ public class ReportDataServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        /*if (SecurityHelper.getUserFromRequest(request) == null)
+        {
+          response.setStatus(403);
+          return;
+        } */
 
         String action = request.getParameter("action");
         action = action == null || action.length() == 0 ? "graph" : action;

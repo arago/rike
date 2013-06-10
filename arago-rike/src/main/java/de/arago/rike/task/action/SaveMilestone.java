@@ -31,9 +31,11 @@ import de.arago.portlet.util.SecurityHelper;
 import de.arago.data.IDataWrapper;
 import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.Milestone;
+import de.arago.rike.util.ActivityLogHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.apache.commons.lang.StringEscapeUtils;
 
 public class SaveMilestone implements Action {
 
@@ -42,15 +44,19 @@ public class SaveMilestone implements Action {
 
         DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
         Milestone milestone = null;
+        boolean newMilestoneCreated = false;
 
         if (data.getRequestAttribute("id") != null && !data.getRequestAttribute("id").isEmpty()) {
             milestone = helper.find(data.getRequestAttribute("id"));
         }
 
-        if (milestone == null) milestone = new Milestone();
+        if (milestone == null) {
+            newMilestoneCreated = true;
+            milestone = new Milestone();
+        }
 
         try {
-            SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             milestone.setDueDate(format.parse(data.getRequestAttribute("due_date")));
         } catch(Exception ignored) {}
 
@@ -58,6 +64,12 @@ public class SaveMilestone implements Action {
         milestone.setUrl(data.getRequestAttribute("url"));
         milestone.setCreated(new Date());
         milestone.setCreator(SecurityHelper.getUser(data.getUser()).getEmailAddress());
+
+        milestone.setPerformance(0);
+
+        try {
+            milestone.setPerformance(Integer.valueOf(data.getRequestAttribute("performance"), 10));
+        } catch(Exception ignored) {}
 
         milestone.setRelease("");
 
@@ -71,6 +83,16 @@ public class SaveMilestone implements Action {
 
         helper.save(milestone);
 
-        data.removeSessionAttribute("targetView");
+        data.setSessionAttribute("milestone", milestone);
+        data.setSessionAttribute("targetView", "viewMilestone");
+
+        String message = " changed Milestone #";
+        if (newMilestoneCreated) {
+            message = " created Milestone #";
+        }
+
+
+        ActivityLogHelper.log(message + milestone.getId() + " <a href=\"/web/guest/rike/-/show/milestone/" + milestone.getId() + "\">" + StringEscapeUtils.escapeHtml(milestone.getTitle()) + "</a>", "", milestone.getCreator(), data, milestone.toMap());
+
     }
 }

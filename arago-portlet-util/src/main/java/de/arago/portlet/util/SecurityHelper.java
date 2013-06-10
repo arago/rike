@@ -23,11 +23,16 @@
 package de.arago.portlet.util;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.KeyValuePair;
+import com.liferay.portal.model.Role;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
+import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.UserGroupLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.util.PortalUtil;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -101,7 +106,6 @@ public class SecurityHelper {
 
         if (userId != null && password != null && companyId != null) {
             final KeyValuePair kvp = UserLocalServiceUtil.decryptUserId(Long.parseLong(companyId), userId, password);
-
             return getUser(kvp.getKey());
         }
 
@@ -138,8 +142,9 @@ public class SecurityHelper {
 
     public static User getUserFromRequest(HttpServletRequest request) {
         try {
-            User user = getUserFromAuthHeader(request);
+            User user = getUserFromLiferay(request);
 
+            if (user == null) user = getUserFromAuthHeader(request);
             if (user == null) user = getUserFromCookies(request);
 
             return user;
@@ -222,6 +227,21 @@ public class SecurityHelper {
         }
         return result.toArray(new String[0]);
     }
+    
+    public static String[] getUserRoles(String userId) {
+        if (userId == null || userId.isEmpty()) return new String[0];
+        ArrayList<String> result = new ArrayList<String>();
+
+        try {
+            List<Role> roles = RoleLocalServiceUtil.getUserRoles(Long.valueOf(userId,10));
+            for(Role g: roles) {
+                result.add(g.getName());
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(SecurityHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result.toArray(new String[0]);
+    }
 
     public static List<String[]> getUserGroupsWithNames(String user) {
         if (user == null || user.isEmpty()) return Collections.EMPTY_LIST;
@@ -237,5 +257,15 @@ public class SecurityHelper {
             throw new RuntimeException(ex);
         }
         return result;
+    }
+
+    private static User getUserFromLiferay(HttpServletRequest request) {
+        try {
+            return PortalUtil.getUser(request);
+        } catch (PortalException ex) {
+            return null;
+        } catch (SystemException ex) {
+            return null;
+        }
     }
 }

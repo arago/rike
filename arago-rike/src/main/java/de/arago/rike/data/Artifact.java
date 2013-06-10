@@ -26,12 +26,13 @@ import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Artifact implements Serializable {
 
     private long id;
     private String name;
-    private String shortName;
     private String url;
     private String creator;
     private String client;
@@ -51,14 +52,6 @@ public class Artifact implements Serializable {
 
     public String getName() {
         return name;
-    }
-
-    public String getShortName() {
-        return shortName;
-    }
-
-    public void setShortName(String what) {
-        shortName = what;
     }
 
     public void setUrl(String what) {
@@ -93,17 +86,28 @@ public class Artifact implements Serializable {
         return created;
     }
 
-    /**
-     * @return the client
-     */
     public String getClient() {
         return client;
     }
 
-    /**
-     * @param client the client to set
-     */
     public void setClient(String client) {
         this.client = client;
+    }
+
+    public Map toMap() {
+        Map map = new HashMap();
+
+        map.put("type", "Artifact");
+        map.put("id" , getId().toString());
+        map.put("name", name);
+        map.put("url", url);
+        map.put("creator", creator);
+        map.put("client", client);
+
+        if (created != null) {
+            map.put("created", created.getTime() + "");
+        }
+
+        return map;
     }
 }

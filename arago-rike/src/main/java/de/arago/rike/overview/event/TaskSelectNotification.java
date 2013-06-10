@@ -26,12 +26,21 @@ package de.arago.rike.overview.event;
 import de.arago.portlet.Event;
 import de.arago.data.IEventWrapper;
 import de.arago.rike.util.TaskHelper;
+import de.arago.rike.util.TaskListFilter;
 
 public class TaskSelectNotification implements Event {
 
+    @Override
     public void execute(IEventWrapper event) throws Exception {
         if (event.getEventAttribute("id") != null) {
             event.setSessionAttribute("task", TaskHelper.getTask((String) event.getEventAttribute("id")));
+            event.setSessionAttribute("targetView", "defaultView");
+            if(event.getSessionAttribute("taskList")==null) {
+                Object taskListFilterObject = event.getSessionAttribute("taskListFilter");
+                if (taskListFilterObject != null) {
+                    event.setSessionAttribute("taskList", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
+                }
+            }
         }
     }
 }

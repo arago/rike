@@ -34,8 +34,29 @@ import java.io.IOException;
 import javax.portlet.PortletException;
 
 import de.arago.portlet.util.SecurityHelper;
+import de.arago.rike.data.GlobalConfig;
+import de.arago.rike.util.StatisticHelper;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Overview extends AragoPortlet {
+
+    private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+    @Override
+    public void init() throws PortletException {
+        super.init();
+
+        scheduler.scheduleAtFixedRate(new StatisticHelper(), 1, 1, TimeUnit.HOURS);
+        GlobalConfig.fetchFromDatabase();
+        StatisticHelper.update();
+    }
+
+    @Override
+    public void destroy() {
+        scheduler.shutdownNow();
+    }
 
     @Override
     public void initSession(IDataWrapper data) throws PortletException, IOException {
@@ -67,7 +88,7 @@ public class Overview extends AragoPortlet {
             }
 
             data.setSessionAttribute("taskListFilter", taskListFilterObject);
-            data.setSessionAttribute("list", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
+            data.setSessionAttribute("taskList", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
         } catch(Throwable t) {
             t.printStackTrace(System.err);
         }
@@ -82,7 +103,7 @@ public class Overview extends AragoPortlet {
         Object taskListFilterObject = data.getSessionAttribute("taskListFilter");
 
         if (taskListFilterObject != null) {
-            data.setSessionAttribute("list", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
+            data.setSessionAttribute("taskList", TaskHelper.getAllTasks((TaskListFilter) taskListFilterObject));
         }
 
         return true;

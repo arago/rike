@@ -31,24 +31,30 @@ import de.arago.portlet.util.SecurityHelper;
 import de.arago.data.IDataWrapper;
 import de.arago.rike.data.Artifact;
 import de.arago.rike.data.DataHelperRike;
+import de.arago.rike.util.ActivityLogHelper;
 
 import java.util.Date;
+import org.apache.commons.lang.StringEscapeUtils;
 
 public class SaveArtifact implements Action {
 
+    @Override
     public void execute(IDataWrapper data) throws Exception {
 
         DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
         Artifact artifact = null;
+        boolean newArtifactCreated = false;
 
         if (data.getRequestAttribute("id") != null && !data.getRequestAttribute("id").isEmpty()) {
             artifact = helper.find(data.getRequestAttribute("id"));
         }
 
-        if (artifact == null) artifact = new Artifact();
+        if (artifact == null) {
+            newArtifactCreated = true;
+            artifact = new Artifact();
+        }
 
         artifact.setName(data.getRequestAttribute("name"));
-        artifact.setShortName(data.getRequestAttribute("short_name"));
         artifact.setUrl(data.getRequestAttribute("url"));
         artifact.setCreated(new Date());
         artifact.setCreator(SecurityHelper.getUser(data.getUser()).getEmailAddress());
@@ -56,6 +62,14 @@ public class SaveArtifact implements Action {
 
         helper.save(artifact);
 
-        data.removeSessionAttribute("targetView");
+        data.setSessionAttribute("artifact", artifact);
+        data.setSessionAttribute("targetView", "viewArtifact");
+
+        String message = " changed Artifact #";
+        if (newArtifactCreated) {
+            message = " created Artifact #";
+        }
+
+        ActivityLogHelper.log(message + artifact.getId() + " <a href=\"/web/guest/rike/-/show/artifact/" + artifact.getId() + "\">" + StringEscapeUtils.escapeHtml(artifact.getName()) + "</a>", "", artifact.getCreator(), data, artifact.toMap());
     }
 }

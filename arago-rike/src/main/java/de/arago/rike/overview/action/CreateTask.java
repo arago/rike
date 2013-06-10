@@ -20,23 +20,16 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-/**
- *
- */
 package de.arago.rike.overview.action;
 
 import de.arago.portlet.Action;
-
 import de.arago.data.IDataWrapper;
 import java.util.HashMap;
 
 public class CreateTask implements Action {
 
+    @Override
     public void execute(IDataWrapper data) throws Exception {
-
-        HashMap<String, Object> notificationParam = new HashMap<String, Object>();
-
-        data.setEvent("TaskCreateNotification", notificationParam);
-
+        data.setEvent("TaskSelectNotification", new HashMap<String, Object>());
     }
 }

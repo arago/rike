@@ -25,14 +25,29 @@ package de.arago.rike.task.event;
 
 import de.arago.portlet.Event;
 import de.arago.data.IEventWrapper;
+import de.arago.rike.data.Artifact;
+import de.arago.rike.data.DataHelperRike;
+import de.arago.rike.data.Milestone;
+import de.arago.rike.data.Task;
+import de.arago.rike.util.MilestoneHelper;
 import de.arago.rike.util.TaskHelper;
+import org.hibernate.criterion.Order;
 
 public class TaskSelectNotification implements Event {
 
+    @Override
     public void execute(IEventWrapper event) throws Exception {
         if (event.getEventAttribute("id") != null) {
             event.setSessionAttribute("task", TaskHelper.getTask((String) event.getEventAttribute("id")));
             event.removeSessionAttribute("targetView");
+        } else {
+            DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
+            DataHelperRike<Milestone> stoneHelper = new DataHelperRike<Milestone>(Milestone.class);
+
+            event.setSessionAttribute("task", new Task());
+            event.setSessionAttribute("artifacts", helper.list(helper.filter().addOrder(Order.asc("name"))));
+            event.setSessionAttribute("targetView", "viewCreate");
+            event.setSessionAttribute("milestones", MilestoneHelper.listNotExpired());          
         }
     }
 }

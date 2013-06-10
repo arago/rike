@@ -27,7 +27,9 @@
     <!-- head -->
     <div class="head">
       <h1>
-        New Task
+        <div class="ellipsis">
+          New Task
+        </div>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
@@ -48,18 +50,37 @@
 
             <tr>
               <th class="shrink">Title:</th>
-              <td class="shrink"><input type="text" name="title" /></td>
+              <td class="shrink"><input placeholder="title of the task" class="rike-input" type="text" name="title" /></td>
             </tr>
 
             <tr>
               <th class="shrink">URL:</th>
-              <td class="shrink"><input type="text" name="url" /></td>
+              <td class="shrink"><input placeholder="URL of the task" class="rike-input" type="text" name="url" /></td>
             </tr>
+            
+            <tr>
+              <th class="shrink">Description:</th>
+              <td class="shrink">
+                <textarea placeholder="Optional description of the task" class="rike-textarea"></textarea>
+              </td>
+            </tr>
+            
+            <tr>
+              <th class="shrink">Time:</th>
+              <td class="shrink">
+                <input type="number" min="1" placeholder="Estimated hours to finish" class="rike-input" name="size_estimated" value="" />
+              </td>
+            </tr>
+            
+            <!--<tr>
+                <th class="shrink">Date:</th>
+                <td class="shrink"><input class="rike-input" placeholder="due date of the task, YYYY-MM-DD" type="text" name="due_date" value=""/></td>
+              </tr>-->
 
             <tr>
               <th class="shrink">Artifact:</th>
               <td class="shrink">
-                <select name="artifact" style="width:150px">
+                <select name="artifact" class="rike-select">
                   <% for (Artifact artifact: artifacts) {%>
                   <option value="<%= artifact.getId()%>"><%= StringEscapeUtils.escapeHtml(artifact.getName())%></option>
                   <% }%>
@@ -71,7 +92,7 @@
               <th class="shrink">Milestone:</th>
               <td class="shrink">
                 <% boolean haveMilestone = false;%>
-                <select name="milestone" style="max-width:150px">
+                <select name="milestone" class="rike-select">
                   <% for (Milestone milestone: milestones) {%>
                   <option <% if (milestone.getDueDate() != null && !haveMilestone) {
                       out.print("selected='selected'");
@@ -82,12 +103,7 @@
               </td>
             </tr>
 
-            <tr>
-              <th class="shrink">Size:</th>
-              <td class="shrink">
-                <input type="text" class="positive-integer" name="size_estimated" value="" />
-              </td>
-            </tr>
+            
 
             <tr>
               <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abortCreate';"/></td>
@@ -97,26 +113,7 @@
         </table>
       </form>
 
-      <script type="text/javascript">
-        $(function()
-        {
-          var normalize = function()
-          {
-            if (!this.value.length) return;
-
-            this.value = this.value.replace(/\D+/g, "");
-          };
-
-          $('#<portlet:namespace/>Form .positive-integer').keydown(normalize)
-          .keyup(normalize)
-          .change(normalize)
-          .blur(normalize)
-          .focus(normalize);
-
-        });
-
-      </script>
-
+      
       <script type="text/javascript">
         (function()
         {

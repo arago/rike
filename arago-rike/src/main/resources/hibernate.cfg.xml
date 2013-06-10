@@ -13,7 +13,7 @@
     <property name="hibernate.c3p0.idle_test_period">30</property>
     <!-- Sessions and transactions -->
     <property name="current_session_context_class">thread</property>
-    <property name="hibernate.show_sql">false</property>
+    <property name="hibernate.show_sql">true</property>
     <property name="format_sql">true</property>
     <property name="hibernate.c3p0.validationQuery"> = SELECT 1</property>
     <property name="hibernate.c3p0.maxIdle">5</property>
@@ -29,7 +29,8 @@
     <mapping resource="de/arago/rike/data/Milestone.hbm.xml"/>
     <mapping resource="de/arago/rike/data/Artifact.hbm.xml"/>
     <mapping resource="de/arago/rike/data/TaskUser.hbm.xml"/>
-    <mapping resource="de/arago/rike/data/TaskLog.hbm.xml"/>
+    <mapping resource="de/arago/rike/data/ActivityLog.hbm.xml"/>
     <mapping resource="de/arago/rike/data/Dependency.hbm.xml"/>
+    <mapping resource="de/arago/rike/data/GlobalConfig.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

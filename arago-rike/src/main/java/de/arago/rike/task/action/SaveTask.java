@@ -32,14 +32,18 @@ import de.arago.data.IDataWrapper;
 import de.arago.rike.util.TaskHelper;
 import de.arago.rike.data.Artifact;
 import de.arago.rike.data.DataHelperRike;
+import de.arago.rike.data.GlobalConfig;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
 import de.arago.rike.data.Task.Status;
-import de.arago.rike.task.StatisticHelper;
+import de.arago.rike.util.StatisticHelper;
+import de.arago.rike.util.ActivityLogHelper;
+import java.text.SimpleDateFormat;
 
 import java.util.Date;
 import java.util.HashMap;
 import org.apache.commons.lang.StringEscapeUtils;
+import static de.arago.rike.data.GlobalConfig.PRIORITY_NORMAL;
 
 public class SaveTask implements Action {
 
@@ -55,8 +59,8 @@ public class SaveTask implements Action {
         task.setArtifact(artifact);
         task.setCreated(new Date());
         task.setCreator(user);
-        task.setChallenge(Task.Challenge.AVERAGE);
-        task.setPriority(Task.Priority.LOW);
+        task.setDescription(data.getRequestAttribute("description"));
+
         task.setStatus(Status.UNKNOWN);
         task.setMilestone(new DataHelperRike<Milestone>(Milestone.class).find(data.getRequestAttribute("milestone")));
 
@@ -64,6 +68,15 @@ public class SaveTask implements Action {
             task.setSizeEstimated(Integer.valueOf(data.getRequestAttribute("size_estimated"), 10));
         } catch (Exception ignored) {
         }
+
+        int priority = Integer.parseInt(GlobalConfig.get(PRIORITY_NORMAL));
+
+        task.setPriority(priority);
+
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            task.setDueDate(format.parse(data.getRequestAttribute("due_date")));
+        } catch(Exception ignored) {}
 
         TaskHelper.save(task);
         StatisticHelper.update();
@@ -74,6 +87,6 @@ public class SaveTask implements Action {
         data.setEvent("TaskUpdateNotification", notificationParam);
         data.setEvent("TaskSelectNotification", notificationParam);
 
-        TaskHelper.log(" created Task #" + task.getId().toString() + " <a href=\"[selectTask:" + task.getId().toString() + "]\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a>", task, user, data);
+        ActivityLogHelper.log(" created Task #" + task.getId() + " <a href=\"/web/guest/rike/-/show/task/" + task.getId() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a>", task.getStatus(), user, data, task.toMap());
     }
 }

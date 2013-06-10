@@ -44,8 +44,8 @@ public class SelectMilestone implements Action {
         Milestone m                      = helper.find(helper.filter().add(Restrictions.eq("title", milestone)));
 
         if (m != null) {
-            notificationParam.put("milestone", "milestone_" + m.getId());
-            data.setEvent("SelectMilestoneRequest", notificationParam);
+            notificationParam.put("id", "" + m.getId());
+            data.setEvent("MilestoneSelectNotification", notificationParam);
         }
     }
 }

@@ -24,6 +24,7 @@
             <h1>
                 <%= typeName%>
                 <span class="right">
+                    <a id="<portlet:namespace />whole" href="javascript:;">whole period</a>
                     <% if (type.equals("taskstatus")) {%>
                     <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.taskstatus');" title="Help"><span class="icon">S</span></a>
                     <% } else {%>
@@ -41,7 +42,7 @@
         <div class="content nohead nofooter">
             <div class="inner" id="<portlet:namespace />PortletContent">
                 <div id="<portlet:namespace />chart"></div>
-                <p><input id="<portlet:namespace />whole" type="button" value="Whole period" /></p>
+                <!--<p><input id="<portlet:namespace />whole" type="button" value="Whole period" /></p>-->
             </div>
 
             <script type="text/javascript">
@@ -68,7 +69,7 @@
 
                         poll = function(noRepoll)
                         {
-                            $("#<portlet:namespace />chart").width($('#<portlet:namespace />PortletContent').width() - 40).height($("div.portletbox").height()-80).show();
+                            $("#<portlet:namespace />chart").width($('#<portlet:namespace />PortletContent').width() - 20).height($("div.portletbox").height()-40).show();
                             var placeholder = $("#<portlet:namespace />chart");            
                             try
                             {
@@ -106,7 +107,7 @@
                                             },
                                             grid:{hoverable:true,clickable:true},
                                             xaxis: { mode:"time"},
-                                            yaxis: { min:null,tickFormatter:function(m,n){return(m/1000)+"k LOC"}},
+                                            yaxis: { min:null,tickFormatter:function(m,n){return m +" hrs"}},
                                             selection: { mode: "x" }
                                         };                     
 
@@ -173,7 +174,7 @@
                                                     y = item.datapoint[1];
 
                                                     showTooltip(item.pageX, item.pageY,
-                                                    (item.series.label || '') + "  " + x + " = " + (y / 1000) + "k");
+                                                    (item.series.label || '') + "  " + x + " = " + y + " hrs");
                                                 }
                                             }
                                             else {

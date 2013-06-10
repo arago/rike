@@ -29,18 +29,26 @@ import de.arago.portlet.Action;
 import de.arago.portlet.util.SecurityHelper;
 
 import de.arago.data.IDataWrapper;
+import de.arago.rike.data.Artifact;
 import de.arago.rike.util.TaskHelper;
 import de.arago.rike.data.DataHelperRike;
+import de.arago.rike.data.GlobalConfig;
 import de.arago.rike.data.Milestone;
 import de.arago.rike.data.Task;
-import de.arago.rike.task.StatisticHelper;
+import de.arago.rike.util.StatisticHelper;
+import de.arago.rike.util.ActivityLogHelper;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import org.apache.commons.lang.StringEscapeUtils;
+import static de.arago.rike.data.GlobalConfig.*;
 
 public class EvaluateTask implements Action {
 
+    @Override
     public void execute(IDataWrapper data) throws Exception {
 
         if (data.getRequestAttribute("id") != null) {
@@ -51,14 +59,42 @@ public class EvaluateTask implements Action {
 
             if (task.getStatusEnum() == Task.Status.UNKNOWN || task.getStatusEnum() == Task.Status.OPEN) {
                 task.setMilestone(new DataHelperRike<Milestone>(Milestone.class).find(data.getRequestAttribute("milestone")));
-                task.setSizeEstimated(Integer.valueOf(data.getRequestAttribute("size_estimated")));
-                task.setChallenge(data.getRequestAttribute("challenge"));
-                task.setPriority(data.getRequestAttribute("priority"));
-                task.setCreated(new Date());
-                task.setCreator(user);
+                task.setArtifact(new DataHelperRike<Artifact>(Artifact.class).find(data.getRequestAttribute("artifact")));
+
+                task.setDescription(data.getRequestAttribute("description"));
+
+                try {
+                    task.setSizeEstimated(Integer.valueOf(data.getRequestAttribute("size_estimated"), 10));
+                } catch (Exception ignored) {
+                }
+
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                    task.setDueDate(format.parse(data.getRequestAttribute("due_date")));
+                } catch(Exception ignored) {}
+
+                task.setTitle(data.getRequestAttribute("title"));
+                task.setUrl(data.getRequestAttribute("url"));
+                int priority = Integer.parseInt(GlobalConfig.get(PRIORITY_NORMAL));
+
+                try {
+                    priority = Integer.valueOf(data.getRequestAttribute("priority"), 10);
+                } catch (Exception ignored) {
+                }
+
+                task.setPriority(priority);
+                task.setRated(new Date());
+                task.setRatedBy(user);
                 task.setStatus(Task.Status.OPEN);
+                if(GlobalConfig.get(WORKFLOW_TYPE).equalsIgnoreCase("arago Technologies")&&priority==1) {
+                    GregorianCalendar c = new GregorianCalendar();
+                    c.setTime(task.getRated());
+                    c.add(Calendar.DAY_OF_MONTH, Integer.parseInt(GlobalConfig.get(WORKFLOW_DAYS_TOP_PRIO_TASK)));
+                    task.setDueDate(c.getTime());
+                }
 
                 TaskHelper.save(task);
+
                 StatisticHelper.update();
 
                 data.setSessionAttribute("task", task);
@@ -70,7 +106,7 @@ public class EvaluateTask implements Action {
 
                 data.removeSessionAttribute("targetView");
 
-                TaskHelper.log(" rated Task #" + task.getId().toString() + " <a href=\"[selectTask:" + task.getId().toString() + "]\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task, SecurityHelper.getUserEmail(data.getUser()), data);
+                ActivityLogHelper.log(" rated Task #" + task.getId() + " <a href=\"/web/guest/rike/-/show/task/" + task.getId() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), SecurityHelper.getUserEmail(data.getUser()), data, task.toMap());
             }
         }
     }

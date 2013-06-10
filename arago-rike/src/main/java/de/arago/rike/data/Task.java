@@ -24,6 +24,9 @@ package de.arago.rike.data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import static de.arago.rike.data.GlobalConfig.PRIORITY_MAXIMAL_NUMBER;
 
 
 public class Task implements Serializable {
@@ -37,27 +40,20 @@ public class Task implements Serializable {
     private String creator;
     private Date created;
     private Integer sizeEstimated;
-    private Integer size;
     private Integer hoursSpent;
     private Milestone milestone;
     private Artifact artifact;
-    private String priority;
-    private String challenge;
+    private Integer priority;
     private String status;
+    private Date rated;
+    private String ratedBy;
+    private Date dueDate;
+    private String description;
+
 
     public static enum Status {
 
         UNKNOWN, OPEN, IN_PROGRESS, DONE
-    }
-
-    public static enum Challenge {
-
-        DIFFICULT, AVERAGE, EASY
-    }
-
-    public static enum Priority {
-
-        HIGH, NORMAL, LOW
     }
 
     public void setId(Long id) {
@@ -132,12 +128,28 @@ public class Task implements Serializable {
         return creator;
     }
 
+    public String getRatedBy() {
+        return ratedBy;
+    }
+
+    public void setRatedBy(String user) {
+        this.ratedBy = user;
+    }
+
     public void setCreated(Date created) {
         this.created = created;
     }
 
+    public void setRated(Date rated) {
+        this.rated = rated;
+    }
+
     public Date getCreated() {
         return created;
+    }
+
+    public Date getRated() {
+        return rated;
     }
 
     public Integer getSizeEstimated() {
@@ -148,16 +160,8 @@ public class Task implements Serializable {
         this.sizeEstimated = sizeEstimated;
     }
 
-    public Integer getSize() {
-        return size;
-    }
-
-    public void setSize(Integer size) {
-        this.size = size;
-    }
-
     public Integer getHoursSpent() {
-        return hoursSpent;
+        return hoursSpent == null?0:hoursSpent;
     }
 
     public void setHoursSpent(Integer spent) {
@@ -172,37 +176,18 @@ public class Task implements Serializable {
         this.milestone = milestone;
     }
 
-    public String getPriority() {
+    public int getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
-        setPriority(Priority.valueOf(priority.toUpperCase()));
+    public void setPriority(Integer priority) {
+        if(priority<=0)
+            priority = 1;
+        if(priority>Integer.parseInt(GlobalConfig.get(PRIORITY_MAXIMAL_NUMBER)))
+            priority = Integer.parseInt(GlobalConfig.get(PRIORITY_MAXIMAL_NUMBER));
+        this.priority = priority;
     }
 
-    public String getChallenge() {
-        return challenge;
-    }
-
-    public Challenge getChallengeEnum() {
-        return Challenge.valueOf(challenge.toUpperCase());
-    }
-
-    public void setChallenge(String challenge) {
-        setChallenge(Challenge.valueOf(challenge.toUpperCase()));
-    }
-
-    public void setChallenge(Challenge s) {
-        challenge = s.toString().toLowerCase();
-    }
-
-    public void setPriority(Priority p) {
-        priority = p.toString().toLowerCase();
-    }
-
-    public Priority getPriorityEnum() {
-        return Priority.valueOf(priority.toUpperCase());
-    }
 
     public void setArtifact(Artifact what) {
         artifact = what;
@@ -210,5 +195,66 @@ public class Task implements Serializable {
 
     public Artifact getArtifact() {
         return artifact;
+    }
+
+    public void setDueDate(Date when) {
+        dueDate = when;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public String getDescription() {
+        return description == null?"":description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null?"":description;
+    }
+
+    public Map toMap() {
+        Map map = new HashMap();
+
+        map.put("type", "Task");
+        map.put("id", getId().toString());
+        map.put("title", title);
+        map.put("url", url);
+        map.put("owner", owner);
+        if (start != null) {
+            map.put("start", start.getTime() + "");
+        }
+        if (end != null) {
+            map.put("end", end.getTime() + "");
+        }
+        map.put("creator", creator);
+        if (created != null) {
+            map.put("created", created.getTime() + "");
+        }
+
+        map.put("sizeEstimated", sizeEstimated);
+        map.put("hoursSpent", hoursSpent);
+
+        if (milestone != null) {
+            map.put("milestoneId", milestone.getId());
+        }
+        if (artifact != null) {
+            map.put("artifact", artifact.getId().toString());
+        }
+
+        map.put("priority", priority);
+        map.put("status", status);
+
+        if (rated != null) {
+            map.put("rated", rated.getTime() + "");
+        }
+
+        map.put("ratedBy", ratedBy);
+        if (dueDate != null) {
+            map.put("dueDate", dueDate.getTime() + "");
+        }
+        map.put("description", description);
+
+        return map;
     }
 }
