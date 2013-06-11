@@ -35,6 +35,12 @@ input.auto { width: auto; }
 #welcome-overlay .overlay .close { position:absolute; top:0; right:0; margin-top:20px; width:50px; height:50px; ackground:#fff; z-index:999; color:#fff; font-size:2em;}
 #welcome-overlay .overlay label {color:#fff; margin-left:0.5em;}
 
+/* table styles  */
+.bold {font-weight:bold;}
+.red {color:#cc0000;}
+.green {color:green}
+.nowrap {white-space:nowrap}
+
 /* -- logo ---
 #logo {background:red; position:relative; right:0; top:0; margin:2em; width:50px; height:50px; }
  */

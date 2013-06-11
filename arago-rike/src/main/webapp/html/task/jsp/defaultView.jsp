@@ -94,12 +94,12 @@
           
           <tr>
             <th class="shrink">Title:</th>
-            <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></td>
+            <td ><%= StringEscapeUtils.escapeHtml(task.getTitle())%></td>
           </tr>
 
           <tr>
             <th class="shrink">Status:</th>
-            <td class="shrink">
+            <td>
               <%
                 switch (task.getStatusEnum()) {
                   case DONE:
@@ -124,31 +124,31 @@
 
           <tr>
             <th class="shrink">URL:</th>
-            <td class="shrink"><%= ViewHelper.formatURL(task.getUrl())%></td>
+            <td><%= ViewHelper.formatURL(task.getUrl())%></td>
           </tr>
           
           <% if (task.getStatusEnum() != Task.Status.UNKNOWN) {%>
           <tr>
             <th class="shrink">Time:</th>
-            <td class="shrink"><%= task.getSizeEstimated()%> hours estimated, <%= task.getHoursSpent()%> hours spent</td>
+            <td><%= task.getSizeEstimated()%> hours estimated, <%= task.getHoursSpent()%> hours spent</td>
           </tr>
 
           <tr> 
             <th class="shrink">Priority:</th>
-            <td class="shrink"><%= ViewHelper.getPriority(task.getPriority())%></td>
+            <td><%= ViewHelper.getPriority(task.getPriority())%></td>
           </tr>
           <% }%>
 
           <tr>
             <th class="shrink">Artifact:</th>
-            <td class="shrink"><a href="/web/guest/rike/-/show/artifact/<%= task.getArtifact().getId()%>">
+            <td><a href="/web/guest/rike/-/show/artifact/<%= task.getArtifact().getId()%>">
                 <%= StringEscapeUtils.escapeHtml(task.getArtifact().getName())%></a></td>
           </tr>
 
           <% if (task.getMilestone() != null) {%>
           <tr>
             <th class="shrink">Milestone:</th>
-            <td class="shrink"><a href="/web/guest/rike/-/show/milestone/<%= task.getMilestone().getId()%>">
+            <td><a href="/web/guest/rike/-/show/milestone/<%= task.getMilestone().getId()%>">
                 <%= StringEscapeUtils.escapeHtml(task.getMilestone().getTitle())%></a></td>
           </tr>
           <%  }%>
@@ -156,7 +156,7 @@
           <% if (task.getDescription()!=null && !task.getDescription().isEmpty()) {%>
           <tr>
             <th class="shrink">Description:</th>
-            <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getDescription()) %></td>
+            <td><%= StringEscapeUtils.escapeHtml(task.getDescription()) %></td>
           </tr>
           <% }%>
 

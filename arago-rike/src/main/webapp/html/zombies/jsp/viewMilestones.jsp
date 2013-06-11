@@ -34,11 +34,11 @@
         
         <span>Exceeded date (<span style="color:<%= milestones.isEmpty() && tasks.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() + tasks.size() %></span>)</span>
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.zombies');" title="Help"><span class="icon">S</span></a> 
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.zombies');" title="Help" class="icon-question"></a>  
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
-            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize" class="icon-resize-small"></a>
           <% } else { %>
-            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize" class="icon-resize-full"></a>
           <% } %>
         </span>
       </h1>
@@ -59,10 +59,10 @@
       <table>
         <thead>
           <tr>  
-            <th>#</th>
-            <th>Title</th>
-            <th>Summary</th>
-            <th>ETA</th>
+            <th class="id shrink" title="ID">#</th>
+            <th class="name" title="Name">Name</th>
+            <th class="shrink nowrap" title="ETA">ETA</th>
+            <th class="shrink" title="days overdue">+ days</th>
           </tr>
           
         </thead>
@@ -75,23 +75,24 @@
           
           <tr>
             <td><%= stone.getId() %> </td>
-            <td><a href="/web/guest/rike/-/show/milestone/<%= stone.getId() %>"><%= StringEscapeUtils.escapeHtml(stone.getTitle()) %></a></td>
-            <td style="white-space:nowrap">
-              work left <%= o.getWorkLeftInHours()%>h<br />
-              time left <%= o.getDaysLeft() %>d<br />
-              work done in <%= o.getWorkDoneInDays() %>d<br />
-               
-              <% if (o.getLate()<=0) { %>
-                <span style="color:green">in time</span>
-              <% } else { %>
-                <span style="color:red"><%= o.getLate() %> days late</span>
-              <% } %>
-              </td>
-              <td style="white-space:nowrap">  
+            <td><a href="/web/guest/rike/-/show/milestone/<%= stone.getId() %>"><%= StringEscapeUtils.escapeHtml(stone.getTitle()) %></a>
+            <div>work left <span class="bold"> <%= o.getWorkLeftInHours()%>h </span>, time left <span class="bold"><%= o.getDaysLeft() %>d</span>, work done in <span class="bold"><%= o.getWorkDoneInDays() %>d</span></div>
+            </td>
+            <td class="nowrap">  
               <%=
                 service.formatDate(o.getEstimatedDoneDate(), "yyyy-MM-dd")
               %>
               </td>
+            <td class="nowrap">
+              
+               
+              <% if (o.getLate()<=0) { %>
+                <span class="green">in time</span>
+              <% } else { %>
+                <span class="red" title="<%= o.getLate() %> days late">+ <%= o.getLate() %></span>
+              <% } %>
+              </td>
+              
           </tr>
           
           

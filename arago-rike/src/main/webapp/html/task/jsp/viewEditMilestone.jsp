@@ -36,11 +36,11 @@
         <% } %>
         </div>
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help" class="icon-question"></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
-            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize" class="icon-resize-small"></a>
           <% } else { %>
-            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize" class="icon-resize-full"></a>
           <% } %>
         </span>
       </h1>
@@ -56,27 +56,27 @@
 
               <tr>
                 <th class="shrink">Title:</th>
-                <td class="shrink"><input class="rike-input" placeholder="title of the milestone" type="text" name="title" value="<%= StringEscapeUtils.escapeHtml(milestone == null ? "" : milestone.getTitle())%>" /></td>
+                <td><input class="rike-input" placeholder="title of the milestone" type="text" name="title" value="<%= StringEscapeUtils.escapeHtml(milestone == null ? "" : milestone.getTitle())%>" /></td>
               </tr>
 
               <tr>
                 <th class="shrink">URL:</th>
-                <td class="shrink"><input class="rike-input" placeholder="URL of the milestone, if any" type="text" name="url" value="<%= StringEscapeUtils.escapeHtml(milestone == null ? "" : milestone.getUrl())%>"/></td>
+                <td><input class="rike-input" placeholder="URL of the milestone, if any" type="text" name="url" value="<%= StringEscapeUtils.escapeHtml(milestone == null ? "" : milestone.getUrl())%>"/></td>
               </tr>
 
               <tr>
                 <th class="shrink">Date:</th>
-                <td class="shrink"><input class="rike-input" placeholder="due date of the milestone, YYYY-MM-DD" type="text" name="due_date" value="<%= StringEscapeUtils.escapeHtml(milestone == null || milestone.getDueDate() == null ? "" : service.formatDate(milestone.getDueDate(), "yyyy-MM-dd"))%>"/></td>
+                <td><input class="rike-input" placeholder="due date of the milestone, YYYY-MM-DD" type="text" name="due_date" value="<%= StringEscapeUtils.escapeHtml(milestone == null || milestone.getDueDate() == null ? "" : service.formatDate(milestone.getDueDate(), "yyyy-MM-dd"))%>"/></td>
               </tr>
               
               <tr>
                 <th class="shrink">Performance:</th>
-                <td class="shrink"><input class="rike-input" placeholder="capacity per week in hours" type="text" name="performance" value=""/></td>
+                <td><input class="rike-input" placeholder="capacity per week in hours" type="text" name="performance" value=""/></td>
               </tr>
 
               <tr>
                 <th class="shrink">Release:</th>
-                <td class="shrink">
+                <td>
                   <select name="release" id="<portlet:namespace />Release" class="rike-select">
                     <option value="">[No Release]</option>
                     <% for (String r: ViewHelper.getAvailableReleases()) {%>
@@ -105,7 +105,7 @@
 
               <tr>
                 <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abortEditMilestone';"/></td>
-                <td class="shrink" style="text-align:right"><input type="submit" value="Save" /></td>
+                <td class="right"><input type="submit" value="Save" /></td>
               </tr>
             </tbody>
           </table>

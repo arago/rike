@@ -31,11 +31,11 @@
         <% } %>
         </div>
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help" class="icon-question"></a> 
           <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
-          <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+          <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize" class="icon-resize-small"></a>
           <% } else {%>
-          <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+          <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize" class="icon-resize-full"></a>
           <% }%>
         </span>
       </h1>
@@ -47,12 +47,12 @@
 
         <tr>
           <th class="shrink">Title:</th>
-          <td class="shrink"><%= StringEscapeUtils.escapeHtml(artifact.getName())%></td>
+          <td><%= StringEscapeUtils.escapeHtml(artifact.getName())%></td>
         </tr>
 
         <tr>
           <th class="shrink">URL:</th>
-          <td class="shrink"><%= ViewHelper.formatURL(artifact.getUrl())%></td>
+          <td><%= ViewHelper.formatURL(artifact.getUrl())%></td>
         </tr>
 
         <!--<tr>

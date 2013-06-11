@@ -31,11 +31,11 @@
         <% } %>
         </div>
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help" class="icon-question"></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
-            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize" class="icon-resize-small"></a>
           <% } else { %>
-            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize" class="icon-resize-full"></a>
           <% } %>
         </span>
       </h1>
@@ -52,19 +52,19 @@
 
               <tr>
                 <th class="shrink">Name:</th>
-                <td class="shrink"><input class="rike-input" placeholder="name of the artifact" type="text" name="name" value="<%= StringEscapeUtils.escapeHtml(artifact == null ? "" : artifact.getName())%>" /></td>
+                <td><input class="rike-input" placeholder="name of the artifact" type="text" name="name" value="<%= StringEscapeUtils.escapeHtml(artifact == null ? "" : artifact.getName())%>" /></td>
               </tr>
 
               <tr>
                 <th class="shrink">URL:</th>
-                <td class="shrink"><input class="rike-input" placeholder="URL of the artifact" type="text" name="url" value="<%= StringEscapeUtils.escapeHtml(artifact == null ? "" : artifact.getUrl())%>"/></td>
+                <td><input class="rike-input" placeholder="URL of the artifact" type="text" name="url" value="<%= StringEscapeUtils.escapeHtml(artifact == null ? "" : artifact.getUrl())%>"/></td>
               </tr>
 
 
 
               <tr>
                 <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abortEditArtifact';"/></td>
-                <td class="shrink" style="text-align:right"><input type="submit" value="Save" /></td>
+                <td class="right"><input type="submit" value="Save" /></td>
               </tr>
             </tbody>
           </table>

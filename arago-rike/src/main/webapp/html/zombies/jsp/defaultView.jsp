@@ -42,7 +42,6 @@
 
         <span>Exceeded date (<span style="color:<%= milestones.isEmpty() && tasks.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() + tasks.size() %></span>)</span>
         <span class="right">
-          <a id="<portlet:namespace />whole" href="javascript:;">whole period</a>
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.zombies');" title="Help" class="icon-question"></a> 
           <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
           <a href="<portlet:actionURL portletMode="view" windowState="normal"/>"  title="Minimize" class="icon-resize-small"></a>
@@ -64,7 +63,7 @@
 
 
     </div>
-    <div class="content nofooter">
+    <div class="content">
 
       <div class="inner" id="<portlet:namespace />PortletContent">
         <div id="<portlet:namespace />chart"></div>
@@ -119,7 +118,9 @@
             });
       </script>
     </div>
-
+		<div class="footer">
+          <div class="inner"><a id="<portlet:namespace />whole" href="javascript:;" class="button" title="whole period">whole period</a></div>
+          </div>
 
       </div>
 </div>

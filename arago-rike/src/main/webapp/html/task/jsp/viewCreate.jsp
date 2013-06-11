@@ -31,11 +31,11 @@
           New Task
         </div>
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help" class="icon-question"></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
-            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize" class="icon-resize-small"></a>
           <% } else { %>
-            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize" class="icon-resize-full"></a>
           <% } %>
         </span>
       </h1>
@@ -50,24 +50,24 @@
 
             <tr>
               <th class="shrink">Title:</th>
-              <td class="shrink"><input placeholder="title of the task" class="rike-input" type="text" name="title" /></td>
+              <td><input placeholder="title of the task" class="rike-input" type="text" name="title" /></td>
             </tr>
 
             <tr>
               <th class="shrink">URL:</th>
-              <td class="shrink"><input placeholder="URL of the task" class="rike-input" type="text" name="url" /></td>
+              <td><input placeholder="URL of the task" class="rike-input" type="text" name="url" /></td>
             </tr>
             
             <tr>
               <th class="shrink">Description:</th>
-              <td class="shrink">
+              <td>
                 <textarea placeholder="Optional description of the task" class="rike-textarea"></textarea>
               </td>
             </tr>
             
             <tr>
               <th class="shrink">Time:</th>
-              <td class="shrink">
+              <td>
                 <input type="number" min="1" placeholder="Estimated hours to finish" class="rike-input" name="size_estimated" value="" />
               </td>
             </tr>
@@ -79,7 +79,7 @@
 
             <tr>
               <th class="shrink">Artifact:</th>
-              <td class="shrink">
+              <td>
                 <select name="artifact" class="rike-select">
                   <% for (Artifact artifact: artifacts) {%>
                   <option value="<%= artifact.getId()%>"><%= StringEscapeUtils.escapeHtml(artifact.getName())%></option>
@@ -90,7 +90,7 @@
 
             <tr>
               <th class="shrink">Milestone:</th>
-              <td class="shrink">
+              <td>
                 <% boolean haveMilestone = false;%>
                 <select name="milestone" class="rike-select">
                   <% for (Milestone milestone: milestones) {%>
@@ -107,7 +107,7 @@
 
             <tr>
               <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abortCreate';"/></td>
-              <td class="shrink" style="text-align:right"><input type="submit" value="Create" /></td>
+              <td class="right"><input type="submit" value="Create" /></td>
             </tr>
           </tbody>
         </table>

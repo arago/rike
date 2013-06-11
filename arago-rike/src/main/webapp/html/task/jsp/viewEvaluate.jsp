@@ -37,11 +37,11 @@
         <% }%>
         </div>
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help" class="icon-question"></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
-            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize" class="icon-resize-small"></a>
           <% } else { %>
-            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize" class="icon-resize-full"></a>
           <% } %>
         </span>
       </h1>
@@ -57,24 +57,24 @@
               
               <tr>
                 <th class="shrink">Title:</th>
-                <td class="shrink"><input class="rike-input" placeholder="Title of the task" type="text" name="title" value="<%= StringEscapeUtils.escapeHtml(task.getTitle())%>"></td>
+                <td><input class="rike-input" placeholder="Title of the task" type="text" name="title" value="<%= StringEscapeUtils.escapeHtml(task.getTitle())%>"></td>
               </tr>
 
             <tr>
               <th class="shrink">URL:</th>
-              <td class="shrink"><input class="rike-input" placeholder="URL of the task" type="text" name="url" value="<%= StringEscapeUtils.escapeHtml(task.getUrl())%>" /></td>
+              <td><input class="rike-input" placeholder="URL of the task" type="text" name="url" value="<%= StringEscapeUtils.escapeHtml(task.getUrl())%>" /></td>
             </tr>
             
             <tr>
               <th class="shrink">Description:</th>
-              <td class="shrink">
+              <td>
                 <textarea placeholder="Optional description of the task" class="rike-textarea" ><%= StringEscapeUtils.escapeHtml(task.getDescription())%></textarea>
               </td>
             </tr>
             
             <tr>
                 <th class="shrink">Time:</th>
-                <td class="shrink">
+                <td>
                   <input type="number" min="1" class="rike-input" placeholder="Estimated hours to finish" name="size_estimated" value="<%= task.getSizeEstimated() == null ? 8 : task.getSizeEstimated()%>" />
                 </td>
               </tr>
@@ -87,7 +87,7 @@
               
               <tr>
                 <th class="shrink">Milestone:</th>
-                <td class="shrink">
+                <td >
                   <select name="milestone"  class="rike-select">
                     <% for (Milestone milestone: milestones) {%>
                     <option <%= task.getMilestone() != null && task.getMilestone().getId().equals(milestone.getId()) ? "selected='selected'" : ""%> value="<%= milestone.getId()%>">[<%= milestone.getDueDate() == null ? "?" : service.formatDate(milestone.getDueDate(), "dd.MM.yyyy")%>] <%= StringEscapeUtils.escapeHtml(milestone.getTitle())%></option>
@@ -99,7 +99,7 @@
               
               <tr>
               <th class="shrink">Artifact:</th>
-              <td class="shrink">
+              <td>
                 <select name="artifact"  class="rike-select">
                   <% for (Artifact artifact: artifacts) {%>
                   <option <%= task.getArtifact()!= null && task.getArtifact().getId().equals(artifact.getId()) ? "selected='selected'" : ""%> value="<%= artifact.getId()%>"><%= StringEscapeUtils.escapeHtml(artifact.getName())%></option>
@@ -110,7 +110,7 @@
 
               <tr>
                 <th class="shrink">Priority:</th>
-                <td class="shrink">
+                <td>
                   <select name="priority" class="rike-select">
                     <% for (String priority: ViewHelper.getPriorities()) {%>
                     <option <%= priority.equals(task.getPriority() + "") ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(priority)%>"><%= StringEscapeUtils.escapeHtml(ViewHelper.getPriority(priority))%></option>
@@ -121,7 +121,7 @@
 
               <tr>
                 <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abortEvaluate';"/></td>
-                <td class="shrink" style="text-align:right"><input type="submit" value="Rate" /></td>
+                <td class="right"><input type="submit" value="Rate" /></td>
               </tr>
             </tbody>
           </table>

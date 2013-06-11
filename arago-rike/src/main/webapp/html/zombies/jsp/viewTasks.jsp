@@ -34,11 +34,11 @@
         
         <span>Exceeded date (<span style="color:<%= milestones.isEmpty() && tasks.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() + tasks.size() %></span>)</span>
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.zombies');" title="Help"><span class="icon">S</span></a> 
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.zombies');" title="Help" class="icon-question"></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
-            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize" class="icon-resize-small"></a>
           <% } else { %>
-            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize" class="icon-resize-full"></a>
           <% } %>
         </span>
       </h1>
@@ -59,11 +59,11 @@
          <table>
         <thead>
           <tr>
-            <th>#</th>
-            <th>?</th>
-            <th>Title</th>
-            <th>Due Date</th>
-            <th>Days overdue</th>
+            <th class="shrink" title="ID">#</th>
+            <th class="shrink" title="Status">?</th>
+            <th class="name" title="Name">Name</th>
+            <th class="shrink" title="Due Date">Due date</th>
+            <th class="shrink" title="Days overdue">+ days</th>
           </tr>
           
         </thead>
@@ -74,10 +74,10 @@
           
           <tr>
             <td><%= task.getId() %> </td>
-            <td class="shrink <%= ViewHelper.getTaskStatusColorClass(task)%>"></td>
+            <td><span class="<%= ViewHelper.getTaskStatusColorClass(task)%>"></span></td>
             <td><a href="<portlet:actionURL portletMode="view" />&action=selectTask&id=<%= URLEncoder.encode(task.getId().toString(), "UTF-8")%>"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></td>
-            <td><%= service.formatDate(task.getDueDate(), "yyyy-MM-dd") %></td>
-            <td><%= Math.abs(ViewHelper.getDayDifference(task.getDueDate())) %></td>  
+            <td class="nowrap bold"><%= service.formatDate(task.getDueDate(), "yyyy-MM-dd") %></td>
+            <td class="red bold">+ <%= Math.abs(ViewHelper.getDayDifference(task.getDueDate())) %></td>  
           </tr>
           
           <% } %>
