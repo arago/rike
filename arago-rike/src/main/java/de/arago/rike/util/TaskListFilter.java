@@ -134,7 +134,7 @@ public class TaskListFilter extends MapOptionFilter {
         return (String) getOr("creator", "");
     }
 
-    public String getInfo(UserService service) {
+    public String getInfo() {
         LinkedList<String> parts = new LinkedList<String>();
         String info = "";
         if(!isActive())
@@ -142,7 +142,7 @@ public class TaskListFilter extends MapOptionFilter {
         else {
             if(getMilestone().length()>0) {
                 String mid = getMilestone();
-                for(String[] iter:ViewHelper.getAvailableMilestones(service))
+                for(String[] iter:ViewHelper.getAvailableMilestones())
                     if(mid.equals(iter[0])) {
                         parts.add(iter[1]);
                         break;

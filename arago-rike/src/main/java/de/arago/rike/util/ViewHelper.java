@@ -48,6 +48,7 @@ import java.util.TreeSet;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.hibernate.criterion.Order;
 import static de.arago.rike.data.GlobalConfig.*;
+import java.text.SimpleDateFormat;
 
 public class ViewHelper {
 
@@ -184,7 +185,7 @@ public class ViewHelper {
         return releases;
     }
 
-    public static List<String[]> getAvailableMilestones(UserService service) {
+    public static List<String[]> getAvailableMilestones() {
         List<String[]> data = new ArrayList<String[]>();
 
         List<Milestone> list = MilestoneHelper.list();
@@ -197,8 +198,14 @@ public class ViewHelper {
                 releases.add(id);
                 data.add(new String[] {"release_" + id, "[RELEASE] " + id});
             }
+            
+            String dateString = "[?]";
+            if(m.getDueDate()!=null){
+                SimpleDateFormat f = new SimpleDateFormat("[dd.MM.yyyy] ");
+                dateString = f.format(m.getDueDate());
+            }
 
-            data.add(new String[] {"milestone_" + m.getId().toString(), (m.getDueDate() != null ? "[" + service.formatDate(m.getDueDate(), "dd.MM.yyyy") + "] " : "[?] ") + m.getTitle()});
+            data.add(new String[] {"milestone_" + m.getId().toString(), dateString + m.getTitle()});
         }
         return data;
     }

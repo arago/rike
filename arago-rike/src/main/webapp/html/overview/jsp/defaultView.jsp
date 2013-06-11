@@ -1,5 +1,3 @@
-<%@page import="de.arago.portlet.jsp.UserService"%>
-<%@page import="de.arago.portlet.jsp.JspUserService"%>
 <%@page import="de.arago.rike.data.Artifact"%>
 <%@page import="de.arago.rike.data.Milestone"%>
 <%@page import="de.arago.rike.data.TaskUser"%>
@@ -17,7 +15,6 @@
 
 <%
     try {
-        UserService service = new JspUserService(renderRequest, portletSession);
         List<Task> tasks = (List<Task>) portletSession.getAttribute("taskList");
         TaskListFilter filter = (TaskListFilter) portletSession.getAttribute("taskListFilter");
         Task currentTask = (Task) portletSession.getAttribute("task");
@@ -114,7 +111,7 @@
                   <td>
                     <select name="milestone"  class="rike-select">
                       <option <%= filter.getMilestone().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
-                      <% for (String[] data : ViewHelper.getAvailableMilestones(service)) {%>
+                      <% for (String[] data : ViewHelper.getAvailableMilestones()) {%>
 
                       <option <%= filter.getMilestone().equals(data[0]) ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(data[0])%>"><%= StringEscapeUtils.escapeHtml(data[1])%></option>
 
