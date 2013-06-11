@@ -58,7 +58,7 @@
 
               %>
               <tr>
-                <td class="rike-activity-<%= log.getIcon() %>" style="width:10px"></td>
+                <td class="shrink"><span class="rike-activity-<%= log.getIcon() %>"></span></td>
                 <td>
                   <%= ViewHelper.formatUser(log.getUser())%>
                   <%-- the content has been escaped before putting it into the model --%>
