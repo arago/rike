@@ -67,7 +67,7 @@
 
       <div class="inner graph" id="<portlet:namespace />PortletContent">
         <div id="<portlet:namespace />chart"></div>
-        <a id="<portlet:namespace />whole" href="javascript:;" class="button" title="whole period"><span class="icon-zoom-out"></span></a>
+        <a id="<portlet:namespace />whole" href="javascript:;" class="button icon-zoom-out" title="whole period"></a>
       </div>
 
       <script type="text/javascript">
