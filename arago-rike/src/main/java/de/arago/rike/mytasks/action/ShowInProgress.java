@@ -24,9 +24,9 @@ package de.arago.rike.mytasks.action;
 
 import de.arago.portlet.Action;
 import de.arago.data.IDataWrapper;
-import de.arago.rike.util.TaskHelper;
-import de.arago.rike.util.TaskListFilter;
-import de.arago.rike.data.Task;
+import de.arago.rike.commons.util.TaskHelper;
+import de.arago.rike.commons.util.TaskListFilter;
+import de.arago.rike.commons.data.Task;
 
 
 public class ShowInProgress implements Action {

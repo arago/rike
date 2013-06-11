@@ -20,19 +20,31 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-/**
- *
- */
+
 package de.arago.rike.help.action;
 
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
+import de.arago.portlet.util.SecurityHelper;
+import de.arago.rike.commons.data.DataHelperRike;
+import de.arago.rike.commons.data.TaskUser;
+import java.util.List;
+import org.hibernate.criterion.Restrictions;
 
 public class CloseOwerview implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {
         data.setSessionAttribute("help.shown", "true");
+        if ("true".equals(data.getRequestAttribute("hide"))) {
+            DataHelperRike<TaskUser> userHelper = new DataHelperRike<TaskUser>(TaskUser.class);
+            String email = SecurityHelper.getUserEmail(data.getUser());
+            List<TaskUser> userData = userHelper.list(userHelper.filter().add(Restrictions.eq("email", email)));
+            if (userData.size() > 0) {
+                userData.get(0).setFlags("DisableOverlay");
+                userHelper.save(userData.get(0));
+            }
+        }
     }
 }

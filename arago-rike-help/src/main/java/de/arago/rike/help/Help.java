@@ -20,9 +20,33 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package de.arago.rike.help;
 
+import de.arago.data.IDataWrapper;
 import de.arago.portlet.AragoPortlet;
+import de.arago.portlet.util.SecurityHelper;
+import de.arago.rike.commons.data.TaskUser;
+import de.arago.rike.commons.util.TaskHelper;
 
 public final class Help extends AragoPortlet {
+
+    @Override
+    protected boolean checkViewData(IDataWrapper data) {
+        if(!SecurityHelper.isLoggedIn(data.getUser())){
+            return false;
+        }
+        
+        if(data.getSessionAttribute("help.shown")==null){
+            data.setSessionAttribute("help.shown", "false");                    
+            String user = SecurityHelper.getUserEmail(data.getUser());
+            if (user != null && !user.isEmpty()) {
+                TaskUser tu = TaskHelper.checkIfUserExists(user);
+                if (tu != null && tu.getFlags()!=null&&tu.getFlags().contains("DisableOverlay")) {
+                    data.setSessionAttribute("help.shown", "true");
+                }
+            }            
+        }
+        return true;
+    }
 }

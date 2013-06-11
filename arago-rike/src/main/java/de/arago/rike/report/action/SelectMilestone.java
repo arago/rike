@@ -28,8 +28,8 @@ package de.arago.rike.report.action;
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.data.DataHelperRike;
-import de.arago.rike.data.Milestone;
+import de.arago.rike.commons.data.DataHelperRike;
+import de.arago.rike.commons.data.Milestone;
 import java.util.HashMap;
 import org.hibernate.criterion.Restrictions;
 

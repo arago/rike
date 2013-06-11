@@ -1,11 +1,9 @@
-<%@page import="de.arago.portlet.jsp.UserService"%>
-<%@page import="de.arago.portlet.jsp.JspUserService"%>
-<%@page import="de.arago.rike.data.Artifact"%>
-<%@page import="de.arago.rike.data.Milestone"%>
-<%@page import="de.arago.rike.data.TaskUser"%>
-<%@page import="de.arago.rike.util.TaskListFilter"%>
-<%@page import="de.arago.rike.util.ViewHelper"%>
-<%@page import="de.arago.rike.data.Task"%>
+<%@page import="de.arago.rike.commons.data.Artifact"%>
+<%@page import="de.arago.rike.commons.data.Milestone"%>
+<%@page import="de.arago.rike.commons.data.TaskUser"%>
+<%@page import="de.arago.rike.commons.util.TaskListFilter"%>
+<%@page import="de.arago.rike.commons.util.ViewHelper"%>
+<%@page import="de.arago.rike.commons.data.Task"%>
 <%@page import="javax.portlet.WindowState"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="org.apache.commons.lang.StringEscapeUtils"%>
@@ -17,7 +15,6 @@
 
 <%
     try {
-        UserService service = new JspUserService(renderRequest, portletSession);
         List<Task> tasks = (List<Task>) portletSession.getAttribute("taskList");
         TaskListFilter filter = (TaskListFilter) portletSession.getAttribute("taskListFilter");
         Task currentTask = (Task) portletSession.getAttribute("task");
@@ -31,11 +28,11 @@
       <h1>
         Overview: Tasks
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.overview');" title="Help"><span class="icon">S</span></a> 
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.overview');" title="Help" class="icon-question"></a>
           <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
-          <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+          <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize" class="icon-resize-small"></a>
           <% } else {%>
-          <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+          <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize" class="icon-resize-full"></a>
           <% }%>
         </span>
       </h1>
@@ -114,7 +111,7 @@
                   <td>
                     <select name="milestone"  class="rike-select">
                       <option <%= filter.getMilestone().length() == 0 ? "selected='selected'" : ""%> value="">All</option>
-                      <% for (String[] data : ViewHelper.getAvailableMilestones(service)) {%>
+                      <% for (String[] data : ViewHelper.getAvailableMilestones()) {%>
 
                       <option <%= filter.getMilestone().equals(data[0]) ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(data[0])%>"><%= StringEscapeUtils.escapeHtml(data[1])%></option>
 
@@ -237,10 +234,11 @@
         <table class="list">
           <thead>
             <tr>
-              <th class="shrink center"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.ID.toString()%>">#</a></th>
-              <th class="shrink center"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.STATUS.toString()%>" title="Status">?</a></th>
-              <th class="shrink center"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.PRIORITY.toString()%>" title="Priority">Prio</a></th>
-              <th class="shrink center"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.TITLE.toString()%>">Title</a></th>
+              <th class="id shrink center" title="ID">#</th>
+              <th class="status shrink center" title="Status">?</th>
+              <th class="prio shrink center" title="Priority">Prio</th>
+              <th class="name" title="Name">Name</th>
+              <th class="shrink center"></th>
             </tr>
           </thead>
           <tbody>
@@ -250,16 +248,16 @@
 
             %>
             <tr<%= currentTask != null && currentTask.getId().equals(task.getId()) ? " class=\"selected\"" : ""%>>
-              <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getId().toString())%></td>
-              <td class="shrink <%= ViewHelper.getTaskStatusColorClass(task)%>"></td>
-              <td class="shrink"><%= task.getPriority()%></td>
-              <td class="last shrink"><a href="<portlet:actionURL portletMode="view" />&action=selectTask&id=<%= URLEncoder.encode(task.getId().toString(), "UTF-8")%>"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></a>
+              <td class="id shrink"><%= StringEscapeUtils.escapeHtml(task.getId().toString())%></td>
+              <td class="status shrink"><span class="<%= ViewHelper.getTaskStatusColorClass(task)%>"></span></td>
+              <td class="prio shrink"><%= task.getPriority()%></td>
+              <td class="name"><a href="<portlet:actionURL portletMode="view" />&action=selectTask&id=<%= URLEncoder.encode(task.getId().toString(), "UTF-8")%>"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></a>
                 <% if (task.getOwner() != null && !task.getOwner().isEmpty()) {%>
                 <br />
                 <%= ViewHelper.formatUser(task)%>
                 <% }%>
               </td>
-
+			 <td class="arrow shrink"><span class="icon-chevron-right"></span></td>
             </tr>
             <%
                 }

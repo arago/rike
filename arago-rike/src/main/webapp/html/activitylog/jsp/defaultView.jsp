@@ -3,14 +3,14 @@
 <%@page import="de.arago.portlet.jsp.JspUserService"%>
 <%@page import="java.util.Locale"%>
 <%@page import="javax.portlet.RenderResponse"%>
-<%@page import="de.arago.rike.data.ActivityLog"%>
-<%@page import="de.arago.rike.util.TaskListFilter"%>
+<%@page import="de.arago.rike.commons.data.ActivityLog"%>
+<%@page import="de.arago.rike.commons.util.TaskListFilter"%>
 <%@page import="com.liferay.portal.model.User"%>
 <%@page import="de.arago.portlet.util.SecurityHelper"%>
-<%@page import="de.arago.rike.data.TaskUser"%>
-<%@page import="de.arago.rike.util.ViewHelper"%>
+<%@page import="de.arago.rike.commons.data.TaskUser"%>
+<%@page import="de.arago.rike.commons.util.ViewHelper"%>
 <%@page import="com.liferay.portal.service.UserLocalServiceUtil"%>
-<%@page import="de.arago.rike.data.Task"%>
+<%@page import="de.arago.rike.commons.data.Task"%>
 <%@page import="javax.portlet.WindowState"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="org.apache.commons.lang.StringEscapeUtils"%>
@@ -37,11 +37,11 @@
       <h1>
         Activity Log <a id="<portlet:namespace />NewUpdates" href="<portlet:actionURL />&action=reload" style="display:none; color:#cc0000"></a>
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.activitylog');" title="Help"><span class="icon">S</span></a>
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.activitylog');" title="Help" class="icon-question"></a>
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
-            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+          <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize" class="icon-resize-small"></a>
           <% } else { %>
-            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+          <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize" class="icon-resize-full"></a>
           <% } %>
         </span>
       </h1>
@@ -58,7 +58,7 @@
 
               %>
               <tr>
-                <td class="rike-activity-<%= log.getIcon() %>" style="width:10px"></td>
+                <td class="shrink"><span class="rike-activity-<%= log.getIcon() %>"></span></td>
                 <td>
                   <%= ViewHelper.formatUser(log.getUser())%>
                   <%-- the content has been escaped before putting it into the model --%>

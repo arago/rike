@@ -27,11 +27,11 @@ package de.arago.rike.task.action;
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.data.Artifact;
-import de.arago.rike.util.TaskHelper;
-import de.arago.rike.data.DataHelperRike;
-import de.arago.rike.data.Task;
-import de.arago.rike.util.MilestoneHelper;
+import de.arago.rike.commons.data.Artifact;
+import de.arago.rike.commons.util.TaskHelper;
+import de.arago.rike.commons.data.DataHelperRike;
+import de.arago.rike.commons.data.Task;
+import de.arago.rike.commons.util.MilestoneHelper;
 import org.hibernate.criterion.Order;
 
 public class ViewEvaluateTask implements Action {

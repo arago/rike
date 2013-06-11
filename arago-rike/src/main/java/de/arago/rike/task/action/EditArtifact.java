@@ -28,7 +28,7 @@ package de.arago.rike.task.action;
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.util.ArtifactHelper;
+import de.arago.rike.commons.util.ArtifactHelper;
 
 public class EditArtifact implements Action {
 

@@ -4,16 +4,16 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="de.arago.rike.zombie.OverdueMilestone"%>
-<%@page import="de.arago.rike.data.Milestone"%>
-<%@page import="de.arago.rike.util.TaskHelper"%>
+<%@page import="de.arago.rike.commons.data.Milestone"%>
+<%@page import="de.arago.rike.commons.util.TaskHelper"%>
 <%@page import="de.arago.portlet.jsp.UserService"%>
 <%@page import="de.arago.portlet.jsp.JspUserService"%>
-<%@page import="de.arago.rike.util.ViewHelper"%>
+<%@page import="de.arago.rike.commons.util.ViewHelper"%>
 <%@page import="com.liferay.portal.model.User"%>
 <%@page import="de.arago.portlet.util.SecurityHelper"%>
-<%@page import="de.arago.rike.data.Task.Status"%>
+<%@page import="de.arago.rike.commons.data.Task.Status"%>
 <%@page import="com.liferay.portal.service.UserLocalServiceUtil"%>
-<%@page import="de.arago.rike.data.Task"%>
+<%@page import="de.arago.rike.commons.data.Task"%>
 <%@page import="javax.portlet.WindowState"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="org.apache.commons.lang.StringEscapeUtils"%>
@@ -42,12 +42,11 @@
 
         <span>Exceeded date (<span style="color:<%= milestones.isEmpty() && tasks.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() + tasks.size() %></span>)</span>
         <span class="right">
-          <a id="<portlet:namespace />whole" href="javascript:;">whole period</a>
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.zombies');" title="Help"><span class="icon">S</span></a> 
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.zombies');" title="Help" class="icon-question"></a> 
           <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
-          <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+          <a href="<portlet:actionURL portletMode="view" windowState="normal"/>"  title="Minimize" class="icon-resize-small"></a>
           <% } else {%>
-          <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+          <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize" class="icon-resize-full"></a>
           <% }%>
         </span>
       </h1>
@@ -66,8 +65,9 @@
     </div>
     <div class="content nofooter">
 
-      <div class="inner" id="<portlet:namespace />PortletContent">
+      <div class="inner graph" id="<portlet:namespace />PortletContent">
         <div id="<portlet:namespace />chart"></div>
+        <a id="<portlet:namespace />whole" href="javascript:;" class="button icon-zoom-out" title="whole period"></a>
       </div>
 
       <script type="text/javascript">
@@ -119,7 +119,6 @@
             });
       </script>
     </div>
-
 
       </div>
 </div>

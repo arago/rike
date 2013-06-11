@@ -47,8 +47,6 @@ public class PortletDataWrapper implements IDataWrapper {
         m_response = response;
     }
 
-
-
     public PortletDataWrapper(ActionRequest request, ActionResponse response) {
         m_request = request;
         m_response = response;

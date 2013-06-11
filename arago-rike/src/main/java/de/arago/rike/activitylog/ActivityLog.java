@@ -25,9 +25,9 @@ package de.arago.rike.activitylog;
 import de.arago.data.IDataWrapper;
 import de.arago.portlet.AragoPortlet;
 import de.arago.portlet.util.SecurityHelper;
-import de.arago.rike.data.GlobalConfig;
-import static de.arago.rike.data.GlobalConfig.CHECK_PERIOD_SECONDS;
-import de.arago.rike.util.TaskHelper;
+import de.arago.rike.commons.data.GlobalConfig;
+import static de.arago.rike.commons.data.GlobalConfig.CHECK_PERIOD_SECONDS;
+import de.arago.rike.commons.util.TaskHelper;
 
 public class ActivityLog extends AragoPortlet {
 

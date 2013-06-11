@@ -1,13 +1,13 @@
 <%@page import="com.liferay.portal.util.PortalUtil"%>
 <%@page import="de.arago.portlet.jsp.UserService"%>
 <%@page import="de.arago.portlet.jsp.JspUserService"%>
-<%@page import="de.arago.rike.data.Artifact"%>
-<%@page import="de.arago.rike.data.Milestone"%>
-<%@page import="de.arago.rike.util.TaskListFilter"%>
+<%@page import="de.arago.rike.commons.data.Artifact"%>
+<%@page import="de.arago.rike.commons.data.Milestone"%>
+<%@page import="de.arago.rike.commons.util.TaskListFilter"%>
 <%@page import="de.arago.portlet.util.SecurityHelper"%>
-<%@page import="de.arago.rike.data.TaskUser"%>
-<%@page import="de.arago.rike.util.ViewHelper"%>
-<%@page import="de.arago.rike.data.Task"%>
+<%@page import="de.arago.rike.commons.data.TaskUser"%>
+<%@page import="de.arago.rike.commons.util.ViewHelper"%>
+<%@page import="de.arago.rike.commons.data.Task"%>
 <%@page import="javax.portlet.WindowState"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="org.apache.commons.lang.StringEscapeUtils"%>
@@ -21,6 +21,7 @@
   UserService service = new JspUserService(renderRequest, portletSession);
   TaskListFilter filter = (TaskListFilter) portletSession.getAttribute("taskListFilter");
   String lastActivity = "" + portletSession.getAttribute("lastActivity");
+  String portletTitle = "" + portletSession.getAttribute("portletTitle");
 %>
 
 
@@ -29,13 +30,15 @@
     <!-- head -->
     <div class="head">
       <h1>
-        Dependencies
+        <div class="ellipsis">
+          <%= portletTitle%>
+        </div>
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.dependencies');" title="Help"><span class="icon">S</span></a> 
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.dependencies');" title="Help" class="icon-question"></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
-            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+            <a href="<portlet:actionURL portletMode="view" windowState="normal"/>"  title="Minimize" class="icon-resize-small"></a>
           <% } else { %>
-            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+            <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize" class="icon-resize-full"></a>
           <% } %>
         </span>
       </h1>

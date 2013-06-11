@@ -1,12 +1,12 @@
-<%@page import="de.arago.rike.util.TaskHelper"%>
+<%@page import="de.arago.rike.commons.util.TaskHelper"%>
 <%@page import="de.arago.portlet.jsp.UserService"%>
 <%@page import="de.arago.portlet.jsp.JspUserService"%>
-<%@page import="de.arago.rike.util.ViewHelper"%>
+<%@page import="de.arago.rike.commons.util.ViewHelper"%>
 <%@page import="com.liferay.portal.model.User"%>
 <%@page import="de.arago.portlet.util.SecurityHelper"%>
-<%@page import="de.arago.rike.data.Task.Status"%>
+<%@page import="de.arago.rike.commons.data.Task.Status"%>
 <%@page import="com.liferay.portal.service.UserLocalServiceUtil"%>
-<%@page import="de.arago.rike.data.Task"%>
+<%@page import="de.arago.rike.commons.data.Task"%>
 <%@page import="javax.portlet.WindowState"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="org.apache.commons.lang.StringEscapeUtils"%>
@@ -37,11 +37,11 @@
         <% }%>
         </div>
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help" class="icon-question"></a> 
           <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
-          <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+          <a href="<portlet:actionURL portletMode="view" windowState="normal"/>"  title="Minimize" class="icon-resize-small"></a>
           <% } else {%>
-          <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+          <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize" class="icon-resize-full"></a>
           <% }%>
         </span>
       </h1>
@@ -94,12 +94,12 @@
           
           <tr>
             <th class="shrink">Title:</th>
-            <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></td>
+            <td ><%= StringEscapeUtils.escapeHtml(task.getTitle())%></td>
           </tr>
 
           <tr>
             <th class="shrink">Status:</th>
-            <td class="shrink">
+            <td>
               <%
                 switch (task.getStatusEnum()) {
                   case DONE:
@@ -124,31 +124,31 @@
 
           <tr>
             <th class="shrink">URL:</th>
-            <td class="shrink"><%= ViewHelper.formatURL(task.getUrl())%></td>
+            <td><%= ViewHelper.formatURL(task.getUrl())%></td>
           </tr>
           
           <% if (task.getStatusEnum() != Task.Status.UNKNOWN) {%>
           <tr>
             <th class="shrink">Time:</th>
-            <td class="shrink"><%= task.getSizeEstimated()%> hours estimated, <%= task.getHoursSpent()%> hours spent</td>
+            <td><%= task.getSizeEstimated()%> hours estimated, <%= task.getHoursSpent()%> hours spent</td>
           </tr>
 
           <tr> 
             <th class="shrink">Priority:</th>
-            <td class="shrink"><%= ViewHelper.getPriority(task.getPriority())%></td>
+            <td><%= ViewHelper.getPriority(task.getPriority())%></td>
           </tr>
           <% }%>
 
           <tr>
             <th class="shrink">Artifact:</th>
-            <td class="shrink"><a href="/web/guest/rike/-/show/artifact/<%= task.getArtifact().getId()%>">
+            <td><a href="/web/guest/rike/-/show/artifact/<%= task.getArtifact().getId()%>">
                 <%= StringEscapeUtils.escapeHtml(task.getArtifact().getName())%></a></td>
           </tr>
 
           <% if (task.getMilestone() != null) {%>
           <tr>
             <th class="shrink">Milestone:</th>
-            <td class="shrink"><a href="/web/guest/rike/-/show/milestone/<%= task.getMilestone().getId()%>">
+            <td><a href="/web/guest/rike/-/show/milestone/<%= task.getMilestone().getId()%>">
                 <%= StringEscapeUtils.escapeHtml(task.getMilestone().getTitle())%></a></td>
           </tr>
           <%  }%>
@@ -156,7 +156,7 @@
           <% if (task.getDescription()!=null && !task.getDescription().isEmpty()) {%>
           <tr>
             <th class="shrink">Description:</th>
-            <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getDescription()) %></td>
+            <td><%= StringEscapeUtils.escapeHtml(task.getDescription()) %></td>
           </tr>
           <% }%>
 
