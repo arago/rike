@@ -24,7 +24,7 @@ package de.arago.rike.activitylog.event;
 
 import de.arago.data.IEventWrapper;
 import de.arago.portlet.Event;
-import de.arago.rike.util.TaskHelper;
+import de.arago.rike.commons.util.TaskHelper;
 
 
 public class ActivityLogNotification  implements Event {

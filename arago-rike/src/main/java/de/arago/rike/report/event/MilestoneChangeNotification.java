@@ -25,7 +25,7 @@ package de.arago.rike.report.event;
 
 import de.arago.portlet.Event;
 import de.arago.data.IEventWrapper;
-import de.arago.rike.util.PortletTitleWithMilestone;
+import de.arago.rike.commons.util.PortletTitleWithMilestone;
 
 public class MilestoneChangeNotification implements Event {
 

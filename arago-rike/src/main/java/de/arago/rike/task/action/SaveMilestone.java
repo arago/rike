@@ -29,9 +29,9 @@ import de.arago.portlet.Action;
 import de.arago.portlet.util.SecurityHelper;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.data.DataHelperRike;
-import de.arago.rike.data.Milestone;
-import de.arago.rike.util.ActivityLogHelper;
+import de.arago.rike.commons.data.DataHelperRike;
+import de.arago.rike.commons.data.Milestone;
+import de.arago.rike.commons.util.ActivityLogHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -24,14 +24,13 @@
  */
 package de.arago.rike.overview.action;
 
-import com.liferay.portal.model.User;
 import de.arago.data.IDataWrapper;
 import de.arago.portlet.Action;
 import de.arago.portlet.util.SecurityHelper;
-import de.arago.rike.data.DataHelperRike;
-import de.arago.rike.data.TaskUser;
-import de.arago.rike.util.TaskHelper;
-import de.arago.rike.util.TaskListFilter;
+import de.arago.rike.commons.data.DataHelperRike;
+import de.arago.rike.commons.data.TaskUser;
+import de.arago.rike.commons.util.TaskHelper;
+import de.arago.rike.commons.util.TaskListFilter;
 import java.util.HashMap;
 import java.util.List;
 import org.hibernate.criterion.Restrictions;
@@ -87,8 +86,7 @@ public class FilterTasks implements Action {
         data.setEvent("MilestoneChangeNotification", eventData);
 
         DataHelperRike<TaskUser> userHelper = new DataHelperRike<TaskUser>(TaskUser.class);
-        User liferay_user = SecurityHelper.getUser(data.getUser());
-        String email = liferay_user.getEmailAddress();
+        String email = SecurityHelper.getUserEmail(data.getUser());
         List<TaskUser> userData = userHelper.list(userHelper.filter().add(Restrictions.eq("email", email)));
         if (userData.size() > 0) {
             userData.get(0).setLast_ms(milestone);

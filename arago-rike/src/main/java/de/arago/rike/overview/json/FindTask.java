@@ -2,7 +2,7 @@ package de.arago.rike.overview.json;
 
 import de.arago.data.IDataWrapper;
 import de.arago.portlet.JsonAction;
-import de.arago.rike.util.TaskFinder;
+import de.arago.rike.commons.util.TaskFinder;
 import org.json.simple.JSONObject;
 
 public class FindTask implements JsonAction {

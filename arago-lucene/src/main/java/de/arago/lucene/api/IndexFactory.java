@@ -34,8 +34,8 @@ public final class IndexFactory {
         Properties p = new Properties();
         p.put("index.marsValidierer.converterClass", "de.arago.lucene.xmlschema.MarsSchemaConverter");
         p.put("index.marsValidierer.creatorClass", "de.arago.lucene.xmlschema.MarsSchemaIndexCreator");
-        p.put("index.rike-tasks.creatorClass", "de.arago.rike.util.TaskIndexCreator");
-        p.put("index.rike-tasks.converterClass", "de.arago.rike.util.TaskIndexConverter");
+        p.put("index.rike-tasks.creatorClass", "de.arago.rike.commons.util.TaskIndexCreator");
+        p.put("index.rike-tasks.converterClass", "de.arago.rike.commons.util.TaskIndexConverter");
         p.put("index.mars-schema.creatorClass", "de.arago.lucene.xmlschema.MarsSchemaIndexCreator");
         p.put("index.mars-schema.converterClass", "de.arago.lucene.xmlschema.MarsSchemaConverter");
         p.put("index.issue-condition.creatorClass", "de.arago.lucene.ki.IssueConditionIndexCreator");

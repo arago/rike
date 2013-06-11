@@ -1,11 +1,7 @@
-<%@page import="de.arago.rike.util.PortraitHelper"%>
 <%@page import="javax.portlet.RenderResponse"%>
-<%@page import="de.arago.rike.data.ActivityLog"%>
-<%@page import="de.arago.rike.util.TaskListFilter"%>
 <%@page import="de.arago.portlet.util.SecurityHelper"%>
-<%@page import="de.arago.rike.data.TaskUser"%>
-<%@page import="de.arago.rike.util.ViewHelper"%>
-<%@page import="de.arago.rike.data.Task"%>
+<%@page import="de.arago.rike.commons.data.TaskUser"%>
+<%@page import="de.arago.rike.commons.util.ViewHelper"%>
 <%@page import="javax.portlet.WindowState"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="org.apache.commons.lang.StringEscapeUtils"%>
@@ -77,7 +73,7 @@
                     %>
                     <tr style="border-bottom: 1px solid black;">
                       <td style="width:70px">
-                        <img style="width:70px; display:block" onerror="this.src = '<%= StringEscapeUtils.escapeHtml(PortraitHelper.getUserPortraitByEmail(user.getEmail()))%>';" src="/arago-rike/avatar/<%= StringEscapeUtils.escapeHtml(user.getEmail().replaceFirst("@.+$", "") + "-" + klass + ".png")%>" alt="" />
+                        <img style="width:70px; display:block" src="/arago-rike/avatar/<%= StringEscapeUtils.escapeHtml(user.getEmail().replaceFirst("@.+$", "") + "-" + klass + ".png")%>" alt="" />
                       </td>
                       <td style="white-space:nowrap; width:50px; text-align:right" title="Current points">
                         <div style="font-weight:bold; text-shadow:1px 1px white"> <%= i%>. <%= ViewHelper.formatUser(user.getEmail())%></div><br />

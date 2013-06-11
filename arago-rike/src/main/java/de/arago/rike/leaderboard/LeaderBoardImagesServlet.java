@@ -16,7 +16,7 @@
  */
 package de.arago.rike.leaderboard;
 
-import de.arago.rike.data.GlobalConfig;
+import de.arago.rike.commons.data.GlobalConfig;
 import de.arago.rike.svg.SVGDataServlet;
 import java.io.File;
 import java.io.IOException;

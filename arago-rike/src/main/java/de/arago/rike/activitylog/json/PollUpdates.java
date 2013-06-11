@@ -24,8 +24,8 @@ package de.arago.rike.activitylog.json;
 
 import de.arago.portlet.JsonAction;
 import de.arago.data.IDataWrapper;
-import de.arago.rike.data.DataHelperRike;
-import de.arago.rike.data.ActivityLog;
+import de.arago.rike.commons.data.DataHelperRike;
+import de.arago.rike.commons.data.ActivityLog;
 
 import java.util.List;
 import java.util.Map;

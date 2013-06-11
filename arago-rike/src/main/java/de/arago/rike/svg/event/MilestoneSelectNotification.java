@@ -24,8 +24,8 @@ package de.arago.rike.svg.event;
 
 import de.arago.portlet.Event;
 import de.arago.data.IEventWrapper;
-import de.arago.rike.util.PortletTitleWithMilestone;
-import de.arago.rike.util.TaskListFilter;
+import de.arago.rike.commons.util.PortletTitleWithMilestone;
+import de.arago.rike.commons.util.TaskListFilter;
 
 public class MilestoneSelectNotification implements Event {
 

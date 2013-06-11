@@ -16,6 +16,7 @@
     <module>arago-lucene</module>
     <module>arago-portlet-util</module>
     <module>arago-rike</module>
+    <module>arago-rike-commons</module>
     <module>arago-rike-help</module>
   </modules>
 

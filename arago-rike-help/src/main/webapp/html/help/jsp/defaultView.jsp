@@ -1,26 +1,12 @@
-<%@page import="javax.portlet.PortletPreferences"%>
 <%@page import="java.util.List"%>
 <%@page import="org.apache.commons.lang.StringEscapeUtils"%>
 <%@ page import="java.util.Date" %>
 <%@ taglib uri="http://java.sun.com/portlet" prefix="portlet" %>
 
 <portlet:defineObjects />
-<!--<script type="text/javascript">
-$.globalPortletJS
-	([
-		'/arago-rike/js/help/help.js'
-	]);
-</script>-->
-
 
 <%
-//      PortletPreferences prefs = renderRequest.getPreferences();
-
-//      if ("false".equals(prefs.getValue("de.arago.rike.help.shown", "false")))
-//      {
-//          prefs.setValue("de.arago.rike.help.shown", "true");
-
-        if(portletSession.getAttribute("help.shown")==null)
+        if(!"true".equals(portletSession.getAttribute("help.shown")))
         {
 %>
 
@@ -33,9 +19,17 @@ $.globalPortletJS
   
   div.innerHTML = 
       '<div class="overlay">' +
-          '<img alt="Welcomeoverlay" src="<%= renderRequest.getContextPath()%>/pix/overlay.png"/>' +
-          '<a class="close icon-remove" title="close" href="<portlet:actionURL portletMode="view"/>&action=closeOwerview"></a>' + 
-		  '<div class="right"><input type="checkbox" name="" id="hide" /><label for="hide">Hide overlay</label></div>'+
+          '<img alt="Welcomeoverlay" src="<%= renderRequest.getContextPath()%>/pix/overlay.png" />' +
+          '<a class="close icon-remove" title="close" href="javascript:void(0)" ' +
+            'onclick="window.location=\'<portlet:actionURL portletMode="view"/>&action=closeOwerview&hide=\'+' +
+            'document.<portlet:namespace/>IsHide.TheCheckBox.checked">' +
+          '</a>' +
+  	      '<div class="right">' +
+              '<form name="<portlet:namespace/>IsHide">' +
+                  '<input type="checkbox" name="TheCheckBox"/>' +
+                  '<label for="hide">Hide overlay</label>' +
+              '</form>' +
+          '</div>'+
       '</div>';
       
   document.body.insertBefore(div, null);

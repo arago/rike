@@ -25,17 +25,17 @@ package de.arago.rike.overview;
 import de.arago.portlet.AragoPortlet;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.util.TaskHelper;
-import de.arago.rike.util.TaskListFilter;
-import de.arago.rike.data.TaskUser;
+import de.arago.rike.commons.util.TaskHelper;
+import de.arago.rike.commons.util.TaskListFilter;
+import de.arago.rike.commons.data.TaskUser;
 
 import java.io.IOException;
 
 import javax.portlet.PortletException;
 
 import de.arago.portlet.util.SecurityHelper;
-import de.arago.rike.data.GlobalConfig;
-import de.arago.rike.util.StatisticHelper;
+import de.arago.rike.commons.data.GlobalConfig;
+import de.arago.rike.commons.util.StatisticHelper;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;

@@ -26,10 +26,10 @@ import de.arago.portlet.AragoPortlet;
 import de.arago.portlet.util.SecurityHelper;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.util.TaskHelper;
-import de.arago.rike.data.TaskUser;
-import de.arago.rike.util.PortletTitleWithMilestone;
-import de.arago.rike.util.ViewHelper;
+import de.arago.rike.commons.util.TaskHelper;
+import de.arago.rike.commons.data.TaskUser;
+import de.arago.rike.commons.util.PortletTitleWithMilestone;
+import de.arago.rike.commons.util.ViewHelper;
 
 import java.io.IOException;
 import javax.portlet.PortletException;
