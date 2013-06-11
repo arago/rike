@@ -25,12 +25,12 @@ package de.arago.rike.task.event;
 
 import de.arago.portlet.Event;
 import de.arago.data.IEventWrapper;
-import de.arago.rike.data.Artifact;
-import de.arago.rike.data.DataHelperRike;
-import de.arago.rike.data.Milestone;
-import de.arago.rike.data.Task;
-import de.arago.rike.util.MilestoneHelper;
-import de.arago.rike.util.TaskHelper;
+import de.arago.rike.commons.data.Artifact;
+import de.arago.rike.commons.data.DataHelperRike;
+import de.arago.rike.commons.data.Milestone;
+import de.arago.rike.commons.data.Task;
+import de.arago.rike.commons.util.MilestoneHelper;
+import de.arago.rike.commons.util.TaskHelper;
 import org.hibernate.criterion.Order;
 
 public class TaskSelectNotification implements Event {

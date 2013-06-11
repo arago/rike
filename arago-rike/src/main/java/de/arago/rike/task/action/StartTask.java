@@ -26,12 +26,12 @@ import de.arago.portlet.Action;
 import de.arago.portlet.util.SecurityHelper;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.data.GlobalConfig;
-import static de.arago.rike.data.GlobalConfig.*;
-import de.arago.rike.util.TaskHelper;
-import de.arago.rike.data.Task;
-import de.arago.rike.util.ActivityLogHelper;
-import de.arago.rike.util.StatisticHelper;
+import de.arago.rike.commons.data.GlobalConfig;
+import static de.arago.rike.commons.data.GlobalConfig.*;
+import de.arago.rike.commons.util.TaskHelper;
+import de.arago.rike.commons.data.Task;
+import de.arago.rike.commons.util.ActivityLogHelper;
+import de.arago.rike.commons.util.StatisticHelper;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;

@@ -28,7 +28,7 @@ package de.arago.rike.svg.action;
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.util.TaskListFilter;
+import de.arago.rike.commons.util.TaskListFilter;
 
 public class FilterTasks implements Action {
 

@@ -25,10 +25,15 @@ package de.arago.rike.report.event;
 
 import de.arago.portlet.Event;
 import de.arago.data.IEventWrapper;
+import de.arago.rike.commons.util.PortletTitleWithMilestone;
 
 public class MilestoneChangeNotification implements Event {
 
+    @Override
     public void execute(IEventWrapper event) throws Exception {
-        event.setSessionAttribute("milestone", event.getEventAttribute("milestone"));
+        String milestone = (String)event.getEventAttribute("milestone");
+        event.setSessionAttribute("milestone", milestone);
+        event.setSessionAttribute("portletTitle", 
+                new PortletTitleWithMilestone(milestone, (String)event.getSessionAttribute("typeName")));
     }
 }

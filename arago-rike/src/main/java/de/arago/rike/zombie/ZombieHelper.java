@@ -22,10 +22,10 @@
  */
 package de.arago.rike.zombie;
 
-import de.arago.rike.data.DataHelperRike;
-import de.arago.rike.data.Milestone;
-import de.arago.rike.data.Task;
-import de.arago.rike.util.ViewHelper;
+import de.arago.rike.commons.data.DataHelperRike;
+import de.arago.rike.commons.data.Milestone;
+import de.arago.rike.commons.data.Task;
+import de.arago.rike.commons.util.ViewHelper;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;

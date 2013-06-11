@@ -1,0 +1,237 @@
+-- MySQL dump 10.13  Distrib 5.5.28, for Linux (x86_64)
+--
+-- Host: localhost    Database: rike
+-- ------------------------------------------------------
+-- Server version	5.5.28
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `activity_log`
+--
+
+DROP TABLE IF EXISTS `activity_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `activity_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `content` text NOT NULL,
+  `log_user` varchar(100) NOT NULL,
+  `icon` varchar(50) NOT NULL DEFAULT 'unknown',
+  `created` datetime NOT NULL,
+  `json_data` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `artifacts`
+--
+
+DROP TABLE IF EXISTS `artifacts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `artifacts` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `short_name` varchar(50) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `url` varchar(500) DEFAULT NULL,
+  `creator` varchar(100) NOT NULL,
+  `created` datetime NOT NULL,
+  `client` varchar(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `dependencies`
+--
+
+DROP TABLE IF EXISTS `dependencies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dependencies` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `premise` bigint(20) NOT NULL,
+  `sequel` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=760 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `global_config`
+--
+
+DROP TABLE IF EXISTS `global_config`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `global_config` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `key` varchar(50) NOT NULL,
+  `value` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `milestones`
+--
+
+DROP TABLE IF EXISTS `milestones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `milestones` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `due_date` date DEFAULT NULL,
+  `url` varchar(500) DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `creator` varchar(255) NOT NULL,
+  `release_name` varchar(50) NOT NULL,
+  `performance` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `due_date` (`due_date`)
+) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `releases_archive`
+--
+
+DROP TABLE IF EXISTS `releases_archive`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `releases_archive` (
+  `name` varchar(32) NOT NULL,
+  `finished` date DEFAULT NULL,
+  `task_count` bigint(20) NOT NULL,
+  `estimated_size` bigint(20) NOT NULL,
+  `real_size` bigint(20) DEFAULT '0',
+  `hours_spent` bigint(20) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `task_log`
+--
+
+DROP TABLE IF EXISTS `task_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `task_log` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `content` text NOT NULL,
+  `task_status` enum('unknown','open','in_progress','done') DEFAULT NULL,
+  `task_user` varchar(100) NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `created` (`created`)
+) ENGINE=InnoDB AUTO_INCREMENT=7198 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `task_stat`
+--
+
+DROP TABLE IF EXISTS `task_stat`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `task_stat` (
+  `milestone_id` int(11) NOT NULL,
+  `artifact_id` int(11) NOT NULL,
+  `task_status` set('unknown','open','in_progress','done') NOT NULL,
+  `count_id` int(11) NOT NULL,
+  `summe_size` bigint(20) NOT NULL,
+  `moment` date NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `task_user`
+--
+
+DROP TABLE IF EXISTS `task_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `task_user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `last_ms` varchar(100) NOT NULL,
+  `account` bigint(20) NOT NULL DEFAULT '0',
+  `yesterday` bigint(20) NOT NULL DEFAULT '0',
+  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `payment` int(11) NOT NULL DEFAULT '0',
+  `today` bigint(20) NOT NULL DEFAULT '0',
+  `flags` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `tasks`
+--
+
+DROP TABLE IF EXISTS `tasks`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tasks` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(512) NOT NULL,
+  `url` varchar(500) NOT NULL,
+  `start` datetime DEFAULT NULL,
+  `end` datetime DEFAULT NULL,
+  `hours_spent` int(11) DEFAULT '0',
+  `owner` varchar(255) DEFAULT NULL,
+  `size` int(11) DEFAULT '0',
+  `size_estimated` int(11) DEFAULT '0',
+  `task_status` set('unknown','open','in_progress','done') NOT NULL DEFAULT 'unknown',
+  `challenge` set('difficult','average','easy') NOT NULL DEFAULT 'average',
+  `priority` int(11) NOT NULL DEFAULT '5',
+  `artifact_id` bigint(20) DEFAULT '18',
+  `milestone_id` bigint(20) DEFAULT NULL,
+  `creator` varchar(255) NOT NULL,
+  `created` datetime NOT NULL,
+  `size_adjusted` int(11) DEFAULT NULL,
+  `due_date` date DEFAULT NULL,
+  `rated_by` varchar(255) DEFAULT NULL,
+  `rated` datetime DEFAULT NULL,
+  `description` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3073 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `user_stat`
+--
+
+DROP TABLE IF EXISTS `user_stat`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_stat` (
+  `user_id` int(11) NOT NULL,
+  `account` bigint(20) NOT NULL,
+  `moment` date NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2013-06-03 14:32:07

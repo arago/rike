@@ -11,7 +11,7 @@
 <%
     try {
         String type = (String) portletSession.getAttribute("type");
-        String typeName = (String) portletSession.getAttribute("typeName");
+        String portletTitle = "" + portletSession.getAttribute("portletTitle");
         String milestone = (String) portletSession.getAttribute("milestone");
 
         milestone = milestone == null ? "" : milestone;
@@ -22,18 +22,20 @@
         <!-- head -->
         <div class="head">
             <h1>
-                <%= typeName%>
+                <div class="ellipsis">
+                    <%= portletTitle%>
+                </div>
                 <span class="right">
                     <a id="<portlet:namespace />whole" href="javascript:;">whole period</a>
                     <% if (type.equals("taskstatus")) {%>
-                    <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.taskstatus');" title="Help"><span class="icon">S</span></a>
+                    <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.taskstatus');" title="Help" class="icon-question"></a>
                     <% } else {%>
-                    <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.burndown');" title="Help"><span class="icon">S</span></a>
+                    <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.burndown');" title="Help" class="icon-question"></a>
                     <% }%>
                     <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
-                    <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+                    <a href="<portlet:actionURL portletMode="view" windowState="normal"/>"  title="Minimize" class="icon-resize-small"></a>
                     <% } else {%>
-                    <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+                    <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize" class="icon-resize-full"></a>
                     <% }%>
                 </span>
             </h1>

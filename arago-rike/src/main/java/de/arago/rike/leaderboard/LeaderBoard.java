@@ -26,17 +26,17 @@ import de.arago.portlet.AragoPortlet;
 import de.arago.portlet.util.SecurityHelper;
 import de.arago.data.IDataWrapper;
 
-import de.arago.rike.data.DataHelperRike;
-import de.arago.rike.data.GlobalConfig;
-import static de.arago.rike.data.GlobalConfig.CHECK_PERIOD_SECONDS;
-import de.arago.rike.data.TaskUser;
+import de.arago.rike.commons.data.DataHelperRike;
+import de.arago.rike.commons.data.GlobalConfig;
+import static de.arago.rike.commons.data.GlobalConfig.CHECK_PERIOD_SECONDS;
+import de.arago.rike.commons.data.TaskUser;
 import java.math.BigInteger;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import org.hibernate.criterion.Restrictions;
-import static de.arago.rike.data.GlobalConfig.PRIORITY_MAXIMAL_NUMBER;
+import static de.arago.rike.commons.data.GlobalConfig.PRIORITY_MAXIMAL_NUMBER;
 
 public class LeaderBoard extends AragoPortlet {
     final static String query_now =
@@ -101,12 +101,14 @@ public class LeaderBoard extends AragoPortlet {
             String email = a[0].toString();
             Integer prio = (Integer)a[1];
             BigInteger count = (BigInteger)a[2];
-            int[] points = map.get(email).getEnded_tasks();
-            if(prio<1)
-                prio = 1;
-            if(prio>points.length)
-                prio = points.length;
-            points[prio-1] = (int) count.longValue();
+            if(map.containsKey(email)){
+                int[] points = map.get(email).getEnded_tasks();
+                if(prio<1)
+                    prio = 1;
+                if(prio>points.length)
+                    prio = points.length;
+                points[prio-1] = (int) count.longValue();
+            }
         }
     }
 
