@@ -36,10 +36,10 @@ input.auto { width: auto; }
 #welcome-overlay .overlay label {color:#fff; margin-left:0.5em;}
 
 /* table styles  */
-td.bold, .bold {color:#cc0000;}
-td.red {color:#cc0000;}
-td.green {color:green}
-td.nowrap {white-space:nowrap}
+.bold {font-weight:bold;}
+.red {color:#cc0000;}
+.green {color:green}
+.nowrap {white-space:nowrap}
 
 /* -- logo ---
 #logo {background:red; position:relative; right:0; top:0; margin:2em; width:50px; height:50px; }

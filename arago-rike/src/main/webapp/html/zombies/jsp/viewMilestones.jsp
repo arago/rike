@@ -76,9 +76,9 @@
           <tr>
             <td><%= stone.getId() %> </td>
             <td><a href="/web/guest/rike/-/show/milestone/<%= stone.getId() %>"><%= StringEscapeUtils.escapeHtml(stone.getTitle()) %></a>
-            <span>work left <span class="bold"> <%= o.getWorkLeftInHours()%>h </span></span>
+            <div><span>work left <span class="bold"> <%= o.getWorkLeftInHours()%>h </span></span>
             <span>time left <span class="bold"><%= o.getDaysLeft() %>d</span></span>
-            <span>work done in <span class="bold"><%= o.getWorkDoneInDays() %>d</span></span>
+            <span>work done in <span class="bold"><%= o.getWorkDoneInDays() %>d</span></span></div>
             </td>
             <td class="nowrap">  
               <%=
@@ -91,7 +91,7 @@
               <% if (o.getLate()<=0) { %>
                 <span class="green">in time</span>
               <% } else { %>
-                <span class="red">+ <%= o.getLate() %> days late</span>
+                <span class="red" title="<%= o.getLate() %> days late">+ <%= o.getLate() %></span>
               <% } %>
               </td>
               
