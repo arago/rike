@@ -44,7 +44,7 @@ public class LeaderBoardImagesServlet extends HttpServlet {
             int pos = request.getRequestURL().lastIndexOf("/");
             String name = request.getRequestURL().substring(pos+1);
             File tmp = new File(System.getProperty("java.io.tmpdir"),name);
-            if(!tmp.exists()){
+            if(!tmp.exists()) {
                 String uri = GlobalConfig.get(GlobalConfig.PATH_TO_PERSONAL_PICS);
                 URL resource = (new URI(uri+name)).toURL();
                 FileUtils.copyURLToFile(resource, tmp);
