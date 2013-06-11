@@ -89,7 +89,7 @@
               <% if (o.getLate()<=0) { %>
                 <span class="green">in time</span>
               <% } else { %>
-                <span class="red" title="<%= o.getLate() %> days late"><%= o.getLate() %> d</span>
+                <span class="red bold" title="<%= o.getLate() %> days late"><%= o.getLate() %> d</span>
               <% } %>
               </td>
               

@@ -117,7 +117,7 @@
               ;
             });
       </script>
-      <a id="<portlet:namespace />whole" href="javascript:;" class="button" title="whole period">whole period</a>
+      <a id="<portlet:namespace />whole" href="javascript:;" class="button" title="whole period"><span class="icon-zoom-out"></span></a>
     </div>
 
       </div>
