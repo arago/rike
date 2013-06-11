@@ -34,11 +34,11 @@
         <% } %>
         </div>
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help" class="icon-question"></a> 
           <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
-          <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
+          <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize" class="icon-resize-small"></a>
           <% } else {%>
-          <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize"><span class="icon">%</span></a>
+          <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize" class="icon-resize-full"></a>
           <% }%>
         </span>
       </h1>
@@ -50,33 +50,33 @@
 
         <tr>
           <th class="shrink">Title:</th>
-          <td class="shrink"><%= StringEscapeUtils.escapeHtml(milestone.getTitle())%></td>
+          <td><%= StringEscapeUtils.escapeHtml(milestone.getTitle())%></td>
         </tr>
 
         <tr>
           <th class="shrink">URL:</th>
-          <td class="shrink"><%= ViewHelper.formatURL(milestone.getUrl())%></td>
+          <td><%= ViewHelper.formatURL(milestone.getUrl())%></td>
         </tr>
         
         <tr>
           <th class="shrink">Due Date:</th>
-          <td class="shrink"><%= (milestone.getDueDate() != null)?service.formatDate(milestone.getDueDate(), "yyyy-MM-dd"):"[none]"%></td>
+          <td><%= (milestone.getDueDate() != null)?service.formatDate(milestone.getDueDate(), "yyyy-MM-dd"):"[none]"%></td>
         </tr>
         
         
         <tr>
           <th class="shrink">Performance:</th>
-          <td class="shrink"><%= milestone.getPerformance() == null?"[none]":(milestone.getPerformance() + "h per week") %></td>
+          <td><%= milestone.getPerformance() == null?"[none]":(milestone.getPerformance() + "h per week") %></td>
         </tr>
         
         <tr>
           <th class="shrink">Release:</th>
-          <td class="shrink"><%= milestone.getRelease() == null || milestone.getRelease().isEmpty()?"[none]":StringEscapeUtils.escapeHtml(milestone.getRelease()) %></td>
+          <td><%= milestone.getRelease() == null || milestone.getRelease().isEmpty()?"[none]":StringEscapeUtils.escapeHtml(milestone.getRelease()) %></td>
         </tr>
         
         <tr>
           <th class="shrink">Created:</th>
-          <td class="shrink">on <%= StringEscapeUtils.escapeHtml(service.formatDate(milestone.getCreated()))%> by <%= ViewHelper.formatUser(milestone.getCreator())%></td>
+          <td>on <%= StringEscapeUtils.escapeHtml(service.formatDate(milestone.getCreated()))%> by <%= ViewHelper.formatUser(milestone.getCreator())%></td>
         </tr>
 
       </table>
