@@ -62,30 +62,6 @@ ul.horizontal li { float: right; display: inline; padding: 0 2px; }
 html, body { background: #f0f0f0 url(../images/bg.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; }
 #container { max-width: 90%; min-width: 1000px; margin: 0 auto; }
 .portlet.big { width: 100%; }
-/* --- toolbar --- */
-.toolbar { background: #004481 url(../images/bg-mainmenu.gif) repeat-x; color: #fff; padding: 0 12px; box-shadow: 0px 1px 4px #575757; -moz-box-shadow: 0px 1px 4px #575757; -webkit-box-shadow: 0px 1px 4px #575757; font-size: 1.25em; }
-.toolbar a { color: #fff; font-size: 1em; text-shadow: 1px 1px 2px #000; }
-.rightmenu { float: right; }
-.leftmenu { float: left; }
-.toolbar ul { float: left; list-style: none; margin: 1em 1.5em 1em 0; }
-.toolbar ul.last { float: left; margin-right: 0; }
-.toolbar ul li:hover .submenu { display: block; }
-.toolbar ul .submenu { display: none; }
-.toolbar ul .submenu { position: absolute; bottom: 30px; margin-left: -12px; z-index: 999; }
-.toolbar ul ul, .toolbar ul ul { margin: 0 0 30px 0; border: 1px solid #CCC; background: #004481; min-width: 100px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; box-shadow: 0px 1px 8px #575757; -moz-box-shadow: 0px 1px 8px #575757; -webkit-box-shadow: 0px 1px 8px #575757; }
-.toolbar ul ul:after, .actionbar ul ul:after { content: ""; position: absolute; z-index: 1000; bottom: 23px; left: 10%; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 8px solid #004481; }
-.toolbar ul ul:before { border-top-color: #ccc; bottom: -8px; }
-.toolbar ul li { padding: 0.25em 0.8em; }
-.toolbar ul ul li a { padding: 0.25em 0; display: block; }
-.toolbar ul ul li:last-child { border-bottom: 0; }
-.toolbar ul ul a, .toolbar ul ul { display: block; color: #fff; }
-.toolbar ul ul a:hover { color: #CCC; }
-.dropshadow { border: 1px solid #003366; border-radius: 12px; -moz-border-radius: 12px; -webkit-border-radius: 12px; box-shadow: inset 1px 2px 8px #003366, 0px 1px 1px #CCC; -moz-box-shadow: inset 1px 2px 8px #003366, 0px 1px 1px #CCC; -webkit-box-shadow: inset 1px 2px 8px #003366, 0px 1px 1px #CCC; }
-.dropshadow:hover, .dropshadow li.active { background: #189CDA; border: 1px solid #003366; box-shadow: inset 1px 1px 1px #FFF; -moz-box-shadow: inset 0px 1px 1px #FFF; -webkit-box-shadow: inset 1px 1px 1px #FFF; }
-.dropshadow.link { border: 1px solid #003366; cursor: pointer; }
-.dropshadow a.link { color: #fff; }
-.dropshadow a:hover { color: #fff; }
-.id { display: block; border: 1px solid #ccc; padding: 0px 2px; background: #f0f0f0; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; }
 
 /* --- portlet styles --- */
 .portletbox { margin: 0; padding: 0; position: relative; height: 100%; background: #fff; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; }
@@ -130,6 +106,7 @@ html, body { background: #f0f0f0 url(../images/bg.jpg) no-repeat center center f
 .portletbox tbody tr:hover td.arrow .icon-chevron-right{ display: block; color:#999;}
 .portletbox tbody tr td.arrow{ vertical-align: middle!important; }
 .portletbox tbody tr td.arrow .icon-chevron-right { display: none; }
+.portletbox table .name {width:80%;}
 
 .portletbox table tfoot { border-top: 1px solid #333; border-bottom: 2px solid #666; padding: 4px 0; }
 .portletbox table thead a { text-decoration: none; padding-right: 8px; }
@@ -167,6 +144,7 @@ a:hover { color: #E4342D; text-decoration: none; }
 .right { float: right }
 .left { float: left; }
 .bold { font-weight: bold; }
+.shrink {width:1%}
 .clearfix:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
 .clearfix { display: inline-block; }
 html[xmlns] .clearfix { display: block; }

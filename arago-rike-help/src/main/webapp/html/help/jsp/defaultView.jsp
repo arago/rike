@@ -11,11 +11,6 @@ $.globalPortletJS
 		'/arago-rike/js/help/help.js'
 	]);
 </script>-->
-<style>
- .help-left-pane {padding:0px}
- .help-left-pane iframe {overflow:auto}
- .help-right-pane {padding:3px}
-</style>
 
 
 <%
@@ -40,6 +35,7 @@ $.globalPortletJS
       '<div class="overlay">' +
           '<img alt="Welcomeoverlay" src="<%= renderRequest.getContextPath()%>/pix/overlay.png"/>' +
           '<a class="close icon-remove" title="close" href="<portlet:actionURL portletMode="view"/>&action=closeOwerview"></a>' + 
+		  '<div class="right"><input type="checkbox" name="" id="hide" /><label for="hide">Hide overlay</label></div>'+
       '</div>';
       
   document.body.insertBefore(div, null);

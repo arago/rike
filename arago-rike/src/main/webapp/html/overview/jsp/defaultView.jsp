@@ -237,11 +237,11 @@
         <table class="list">
           <thead>
             <tr>
-              <th class="shrink center"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.ID.toString()%>">#</a></th>
-              <th class="shrink center"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.STATUS.toString()%>" title="Status">?</a></th>
-              <th class="shrink center"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.PRIORITY.toString()%>" title="Priority">Prio</a></th>
-              <th class="shrink center"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.TITLE.toString()%>">Title</a></th>
-            <th class="shrink center"></th>
+              <th class="id shrink center" title="ID">#</th>
+              <th class="status shrink center" title="Status">?</th>
+              <th class="prio shrink center" title="Priority">Prio</th>
+              <th class="name" title="Name">Name</th>
+              <th class="shrink center"></th>
             </tr>
           </thead>
           <tbody>
@@ -251,10 +251,10 @@
 
             %>
             <tr<%= currentTask != null && currentTask.getId().equals(task.getId()) ? " class=\"selected\"" : ""%>>
-              <td class="shrink"><%= StringEscapeUtils.escapeHtml(task.getId().toString())%></td>
-              <td class="shrink"><span class="<%= ViewHelper.getTaskStatusColorClass(task)%>"></span></td>
-              <td class="shrink"><%= task.getPriority()%></td>
-              <td class="last shrink"><a href="<portlet:actionURL portletMode="view" />&action=selectTask&id=<%= URLEncoder.encode(task.getId().toString(), "UTF-8")%>"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></a>
+              <td class="id shrink"><%= StringEscapeUtils.escapeHtml(task.getId().toString())%></td>
+              <td class="status shrink"><span class="<%= ViewHelper.getTaskStatusColorClass(task)%>"></span></td>
+              <td class="prio shrink"><%= task.getPriority()%></td>
+              <td class="name"><a href="<portlet:actionURL portletMode="view" />&action=selectTask&id=<%= URLEncoder.encode(task.getId().toString(), "UTF-8")%>"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></a>
                 <% if (task.getOwner() != null && !task.getOwner().isEmpty()) {%>
                 <br />
                 <%= ViewHelper.formatUser(task)%>
