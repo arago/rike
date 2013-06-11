@@ -36,7 +36,7 @@ input.auto { width: auto; }
 #welcome-overlay .overlay label {color:#fff; margin-left:0.5em;}
 
 /* table styles  */
-.bold {font-weight:bold;}
+.bold {font-weight:bold!important;}
 .red {color:#cc0000;}
 .green {color:green}
 .nowrap {white-space:nowrap}
