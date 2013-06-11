@@ -167,6 +167,7 @@ a:hover { color: #E4342D; text-decoration: none; }
 .right { float: right }
 .left { float: left; }
 .bold { font-weight: bold; }
+.shrink {width:1%}
 .clearfix:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
 .clearfix { display: inline-block; }
 html[xmlns] .clearfix { display: block; }
