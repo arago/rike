@@ -107,7 +107,7 @@
 
             <tr>
               <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abortCreate';"/></td>
-              <td class="shrink" style="text-align:right"><input type="submit" value="Create" /></td>
+              <td class="right"><input type="submit" value="Create" /></td>
             </tr>
           </tbody>
         </table>

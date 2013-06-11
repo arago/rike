@@ -64,7 +64,7 @@
 
               <tr>
                 <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abortEditArtifact';"/></td>
-                <td class="shrink" style="text-align:right"><input type="submit" value="Save" /></td>
+                <td class="right"><input type="submit" value="Save" /></td>
               </tr>
             </tbody>
           </table>

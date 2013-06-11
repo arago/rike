@@ -121,7 +121,7 @@
 
               <tr>
                 <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abortEvaluate';"/></td>
-                <td class="shrink" style="text-align:right"><input type="submit" value="Rate" /></td>
+                <td class="right"><input type="submit" value="Rate" /></td>
               </tr>
             </tbody>
           </table>
