@@ -63,7 +63,7 @@
 
 
     </div>
-    <div class="content">
+    <div class="content nofooter">
 
       <div class="inner" id="<portlet:namespace />PortletContent">
         <div id="<portlet:namespace />chart"></div>
@@ -117,10 +117,8 @@
               ;
             });
       </script>
+      <a id="<portlet:namespace />whole" href="javascript:;" class="button" title="whole period">whole period</a>
     </div>
-		<div class="footer">
-          <div class="inner"><a id="<portlet:namespace />whole" href="javascript:;" class="button" title="whole period">whole period</a></div>
-          </div>
 
       </div>
 </div>

@@ -62,7 +62,7 @@
             <th class="id shrink" title="ID">#</th>
             <th class="name" title="Name">Name</th>
             <th class="shrink nowrap" title="ETA">ETA</th>
-            <th class="shrink" title="days overdue">+ days</th>
+            <th class="shrink" title="delay">Delay</th>
           </tr>
           
         </thead>
@@ -89,7 +89,7 @@
               <% if (o.getLate()<=0) { %>
                 <span class="green">in time</span>
               <% } else { %>
-                <span class="red" title="<%= o.getLate() %> days late">+ <%= o.getLate() %></span>
+                <span class="red" title="<%= o.getLate() %> days late"><%= o.getLate() %> d</span>
               <% } %>
               </td>
               
