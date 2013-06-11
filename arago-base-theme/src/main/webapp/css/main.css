@@ -158,8 +158,8 @@ input[type=text], textarea { padding: 0.25em; }
 input[type=submit], input[type=button], input[type=reset], .button, button { display: inline-block; padding: 0.5em; line-height: 1em; font-weight: bold; border: 1px solid #ccc; }
 input[type=submit], button[type=submit], .submit { border: 1px solid #004581; color: #FFF; background: #004581; background: -moz-linear-gradient( top, #009EE0 0%, #004581); background: -webkit-gradient( linear, left top, left bottom, from(#009EE0), to(#004581)); text-shadow: 0px -1px 0px rgba(000,000,000,0.1), 0px 1px 0px rgba(000,000,000,0.1); }
 input[type=button], input[type=reset], .button { color: #575757; background: #ccc; background: -moz-linear-gradient( top, #ffffff 0%, #d6d6d6); background: -webkit-gradient( linear, left top, left bottom, from(#ffffff), to(#d6d6d6)); text-shadow: 0px -1px 0px #fff, 0px 1px 0px rgba(255,255,255,1); }
-input[type=submit]:hover, .button:hover, button:hover, .submit:hover { color: #fff; background: #009EE0; box-shadow: inset 1px 2px 3px #004581; -moz-box-shadow: inset 1px 2px 3px #004581; -webkit-box-shadow: inset 1px 2px 3px #004581 }
-input[type=button]:hover, input[type=reset]:hover { background: #f0f0f0; box-shadow: inset 1px 2px 3px #CCC; -moz-box-shadow: inset 1px 2px 3px #CCC; -webkit-box-shadow: inset 1px 2px 3px #CCC; }
+input[type=submit]:hover, button:hover, .submit:hover { color: #fff; background: #009EE0; box-shadow: inset 1px 2px 3px #004581; -moz-box-shadow: inset 1px 2px 3px #004581; -webkit-box-shadow: inset 1px 2px 3px #004581 }
+input[type=button]:hover, input[type=reset]:hover, .button:hover { background: #f0f0f0; box-shadow: inset 1px 2px 3px #CCC; -moz-box-shadow: inset 1px 2px 3px #CCC; -webkit-box-shadow: inset 1px 2px 3px #CCC; }
 input[type=button].small { font-weight: normal; padding: 2px 4px; }
 
 
