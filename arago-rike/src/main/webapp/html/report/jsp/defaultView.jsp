@@ -11,7 +11,7 @@
 <%
     try {
         String type = (String) portletSession.getAttribute("type");
-        String typeName = (String) portletSession.getAttribute("typeName");
+        String portletTitle = "" + portletSession.getAttribute("portletTitle");
         String milestone = (String) portletSession.getAttribute("milestone");
 
         milestone = milestone == null ? "" : milestone;
@@ -22,7 +22,9 @@
         <!-- head -->
         <div class="head">
             <h1>
-                <%= typeName%>
+                <div class="ellipsis">
+                    <%= portletTitle%>
+                </div>
                 <span class="right">
                     <a id="<portlet:namespace />whole" href="javascript:;">whole period</a>
                     <% if (type.equals("taskstatus")) {%>

@@ -21,6 +21,7 @@
   UserService service = new JspUserService(renderRequest, portletSession);
   TaskListFilter filter = (TaskListFilter) portletSession.getAttribute("taskListFilter");
   String lastActivity = "" + portletSession.getAttribute("lastActivity");
+  String portletTitle = "" + portletSession.getAttribute("portletTitle");
 %>
 
 
@@ -29,7 +30,9 @@
     <!-- head -->
     <div class="head">
       <h1>
-        Dependencies
+        <div class="ellipsis">
+          <%= portletTitle%>
+        </div>
         <span class="right">
           <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.dependencies');" title="Help" class="icon-question"></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>

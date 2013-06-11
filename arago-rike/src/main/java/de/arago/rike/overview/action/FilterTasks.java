@@ -38,6 +38,7 @@ import org.hibernate.criterion.Restrictions;
 
 public class FilterTasks implements Action {
 
+    @Override
     public void execute(IDataWrapper data) throws Exception {
 
         TaskListFilter filter = (TaskListFilter) data.getSessionAttribute("taskListFilter");
