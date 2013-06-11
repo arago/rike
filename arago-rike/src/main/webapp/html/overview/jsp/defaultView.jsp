@@ -239,7 +239,7 @@
             <tr>
               <th class="id shrink center" title="ID">#</th>
               <th class="status shrink center" title="Status">?</th>
-              <th class="prio shrink center" title="Priority">Prio<</th>
+              <th class="prio shrink center" title="Priority">Prio</th>
               <th class="name" title="Name">Name</th>
               <th class="shrink center"></th>
             </tr>
