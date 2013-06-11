@@ -24,6 +24,7 @@ package de.arago.rike.svg.event;
 
 import de.arago.portlet.Event;
 import de.arago.data.IEventWrapper;
+import de.arago.rike.util.PortletTitleWithMilestone;
 import de.arago.rike.util.TaskListFilter;
 
 public class MilestoneSelectNotification implements Event {
@@ -32,11 +33,13 @@ public class MilestoneSelectNotification implements Event {
     public void execute(IEventWrapper event) throws Exception {
         TaskListFilter filter = (TaskListFilter) event.getSessionAttribute("taskListFilter");
 
-        String milestone = (String) event.getEventAttribute("id");
+        String milestone = "milestone_" + event.getEventAttribute("id");
 
         filter.setDefaultOptions();
 
-        filter.setMilestone("milestone_" + milestone);
+        filter.setMilestone(milestone);
         filter.setIsActive(true);
+        
+        event.setSessionAttribute("portletTitle", new PortletTitleWithMilestone(milestone, "Dependencies"));     
     }
 }

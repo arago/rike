@@ -25,6 +25,8 @@ import de.arago.rike.data.DataHelperRike;
 import de.arago.rike.data.GlobalConfig;
 import static de.arago.rike.data.GlobalConfig.CHECK_PERIOD_SECONDS;
 import de.arago.rike.data.Milestone;
+import de.arago.rike.report.Report;
+import de.arago.rike.util.PortletTitleWithMilestone;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.criterion.Order;
@@ -65,6 +67,10 @@ public class SVG extends AragoPortlet {
             data.setSessionAttribute("nextUpdate",
                                      System.currentTimeMillis() + Long.parseLong(GlobalConfig.get(CHECK_PERIOD_SECONDS))*1000);
             data.setSessionAttribute("lastActivity", lastChange());
+        }
+        if(data.getSessionAttribute("portletTitle")==null){
+            String milestone = ((TaskListFilter)data.getSessionAttribute("taskListFilter")).getMilestone();
+            data.setSessionAttribute("portletTitle", new PortletTitleWithMilestone(milestone, "Dependencies"));
         }
 
         return true;

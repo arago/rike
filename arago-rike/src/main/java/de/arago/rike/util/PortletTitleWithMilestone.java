@@ -20,20 +20,31 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+package de.arago.rike.util;
 
-package de.arago.rike.report.event;
+/**
+ *
+ * @author vvoss
+ */
+public class PortletTitleWithMilestone {
+    String value;
 
-import de.arago.portlet.Event;
-import de.arago.data.IEventWrapper;
-import de.arago.rike.util.PortletTitleWithMilestone;
-
-public class MilestoneChangeNotification implements Event {
+    public PortletTitleWithMilestone(String milestone, String type){
+        String name = null;
+        for(String[] s:ViewHelper.getAvailableMilestones()){
+            if(s[0].equals(milestone)){
+                name = s[1];
+                break;
+            }
+        }
+        value = type;
+        if(name != null){
+            value = value + ": " + name;
+        }
+    }
 
     @Override
-    public void execute(IEventWrapper event) throws Exception {
-        String milestone = (String)event.getEventAttribute("milestone");
-        event.setSessionAttribute("milestone", milestone);
-        event.setSessionAttribute("portletTitle", 
-                new PortletTitleWithMilestone(milestone, (String)event.getSessionAttribute("typeName")));
+    public String toString(){
+        return value;    
     }
 }
