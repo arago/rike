@@ -203,7 +203,7 @@
                           {
                             var item = text.items[i];
                             parsed[parsed.length] = {
-                              data: '<span class="' + statusColors[item.status] + '"></span> <span class="priority-' + item.priority.toLowerCase() + '"></span> <span class="name">#' + item.id + ' ' + item.name + '</span><span class="status">' + (item.owner ? 'completed by ' + item.owner : 'not completed') + '</span>',
+                              data: '<span class="' + statusColors[item.status] + '">&nbsp;</span> <span class="priority-' + item.priority.toLowerCase() + '">&nbsp;</span> <span class="name">#' + item.id + ' ' + item.name + '</span><span class="status">' + (item.owner ? 'completed by ' + item.owner : 'not completed') + '</span>',
                               value: text.items[i].id,
                               result: text.items[i].id
                             };
