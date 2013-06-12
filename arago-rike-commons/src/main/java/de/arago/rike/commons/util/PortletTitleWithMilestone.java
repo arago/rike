@@ -29,22 +29,22 @@ package de.arago.rike.commons.util;
 public class PortletTitleWithMilestone {
     String value;
 
-    public PortletTitleWithMilestone(String milestone, String type){
+    public PortletTitleWithMilestone(String milestone, String type) {
         String name = null;
-        for(String[] s:ViewHelper.getAvailableMilestones()){
-            if(s[0].equals(milestone)){
+        for(String[] s:ViewHelper.getAvailableMilestones()) {
+            if(s[0].equals(milestone)) {
                 name = s[1];
                 break;
             }
         }
         value = type;
-        if(name != null){
+        if(name != null) {
             value = value + ": " + name;
         }
     }
 
     @Override
-    public String toString(){
-        return value;    
+    public String toString() {
+        return value;
     }
 }
