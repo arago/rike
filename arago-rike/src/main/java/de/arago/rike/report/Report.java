@@ -57,14 +57,14 @@ public class Report extends AragoPortlet {
 
     @Override
     protected boolean checkViewData(IDataWrapper data) {
-        if(!SecurityHelper.isLoggedIn(data.getUser())){
+        if(!SecurityHelper.isLoggedIn(data.getUser())) {
             return false;
         }
-        if(data.getSessionAttribute("portletTitle")==null){
-            data.setSessionAttribute("portletTitle", 
-                    new PortletTitleWithMilestone(
-                        (String)data.getSessionAttribute("milestone"), 
-                        getPortletConfig().getInitParameter("typeName")));
+        if(data.getSessionAttribute("portletTitle")==null) {
+            data.setSessionAttribute("portletTitle",
+                                     new PortletTitleWithMilestone(
+                                         (String)data.getSessionAttribute("milestone"),
+                                         getPortletConfig().getInitParameter("typeName")));
         }
         return true;
     }

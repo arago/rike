@@ -39,7 +39,7 @@ public class MilestoneSelectNotification implements Event {
 
         filter.setMilestone(milestone);
         filter.setIsActive(true);
-        
-        event.setSessionAttribute("portletTitle", new PortletTitleWithMilestone(milestone, "Dependencies"));     
+
+        event.setSessionAttribute("portletTitle", new PortletTitleWithMilestone(milestone, "Dependencies"));
     }
 }
