@@ -77,7 +77,7 @@
             <td><span class="<%= ViewHelper.getTaskStatusColorClass(task)%>"></span></td>
             <td><a href="<portlet:actionURL portletMode="view" />&action=selectTask&id=<%= URLEncoder.encode(task.getId().toString(), "UTF-8")%>"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></td>
             <td class="nowrap bold"><%= service.formatDate(task.getDueDate(), "yyyy-MM-dd") %></td>
-            <td class="red bold"> <%= Math.abs(ViewHelper.getDayDifference(task.getDueDate())) %> d</td>  
+            <td class="red bold"> <%= Math.abs(ViewHelper.getDayDifference(task.getDueDate())) %>d</td>  
           </tr>
           
           <% } %>
