@@ -28,7 +28,7 @@ package de.arago.rike.overview.action;
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.util.MilestoneHelper;
+import de.arago.rike.commons.util.MilestoneHelper;
 
 public class ShowMilestones implements Action {
 

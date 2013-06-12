@@ -1,14 +1,14 @@
 <%@page import="de.arago.rike.zombie.OverdueMilestone"%>
-<%@page import="de.arago.rike.data.Milestone"%>
-<%@page import="de.arago.rike.util.TaskHelper"%>
+<%@page import="de.arago.rike.commons.data.Milestone"%>
+<%@page import="de.arago.rike.commons.util.TaskHelper"%>
 <%@page import="de.arago.portlet.jsp.UserService"%>
 <%@page import="de.arago.portlet.jsp.JspUserService"%>
-<%@page import="de.arago.rike.util.ViewHelper"%>
+<%@page import="de.arago.rike.commons.util.ViewHelper"%>
 <%@page import="com.liferay.portal.model.User"%>
 <%@page import="de.arago.portlet.util.SecurityHelper"%>
-<%@page import="de.arago.rike.data.Task.Status"%>
+<%@page import="de.arago.rike.commons.data.Task.Status"%>
 <%@page import="com.liferay.portal.service.UserLocalServiceUtil"%>
-<%@page import="de.arago.rike.data.Task"%>
+<%@page import="de.arago.rike.commons.data.Task"%>
 <%@page import="javax.portlet.WindowState"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="org.apache.commons.lang.StringEscapeUtils"%>
@@ -77,7 +77,7 @@
             <td><span class="<%= ViewHelper.getTaskStatusColorClass(task)%>"></span></td>
             <td><a href="<portlet:actionURL portletMode="view" />&action=selectTask&id=<%= URLEncoder.encode(task.getId().toString(), "UTF-8")%>"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></td>
             <td class="nowrap bold"><%= service.formatDate(task.getDueDate(), "yyyy-MM-dd") %></td>
-            <td class="red bold"> <%= Math.abs(ViewHelper.getDayDifference(task.getDueDate())) %> d</td>  
+            <td class="red bold"> <%= Math.abs(ViewHelper.getDayDifference(task.getDueDate())) %>d</td>  
           </tr>
           
           <% } %>

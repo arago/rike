@@ -25,7 +25,7 @@ package de.arago.rike.task.event;
 
 import de.arago.portlet.Event;
 import de.arago.data.IEventWrapper;
-import de.arago.rike.util.ArtifactHelper;
+import de.arago.rike.commons.util.ArtifactHelper;
 
 public class ArtifactSelectNotification implements Event {
 

@@ -28,8 +28,8 @@ package de.arago.rike.overview.action;
 import de.arago.portlet.Action;
 
 import de.arago.data.IDataWrapper;
-import de.arago.rike.util.TaskHelper;
-import de.arago.rike.util.TaskListFilter;
+import de.arago.rike.commons.util.TaskHelper;
+import de.arago.rike.commons.util.TaskListFilter;
 
 public class Refresh implements Action {
 

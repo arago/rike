@@ -22,11 +22,11 @@
  */
 package de.arago.rike.svg;
 
-import de.arago.rike.data.Artifact;
-import de.arago.rike.data.DataHelperRike;
-import de.arago.rike.data.Dependency;
-import de.arago.rike.data.Milestone;
-import de.arago.rike.data.Task;
+import de.arago.rike.commons.data.Artifact;
+import de.arago.rike.commons.data.DataHelperRike;
+import de.arago.rike.commons.data.Dependency;
+import de.arago.rike.commons.data.Milestone;
+import de.arago.rike.commons.data.Task;
 
 import java.io.BufferedReader;
 import java.io.File;

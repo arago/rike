@@ -1,10 +1,10 @@
 <%@page import="de.arago.portlet.jsp.UserService"%>
 <%@page import="de.arago.portlet.jsp.JspUserService"%>
-<%@page import="de.arago.rike.data.Artifact"%>
-<%@page import="de.arago.rike.data.Milestone"%>
-<%@page import="de.arago.rike.util.ViewHelper"%>
-<%@page import="de.arago.rike.data.Task.Status"%>
-<%@page import="de.arago.rike.data.Task"%>
+<%@page import="de.arago.rike.commons.data.Artifact"%>
+<%@page import="de.arago.rike.commons.data.Milestone"%>
+<%@page import="de.arago.rike.commons.util.ViewHelper"%>
+<%@page import="de.arago.rike.commons.data.Task.Status"%>
+<%@page import="de.arago.rike.commons.data.Task"%>
 <%@page import="javax.portlet.WindowState"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="org.apache.commons.lang.StringEscapeUtils"%>

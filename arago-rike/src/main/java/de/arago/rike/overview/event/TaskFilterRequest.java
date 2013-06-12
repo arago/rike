@@ -24,8 +24,8 @@ package de.arago.rike.overview.event;
 
 import de.arago.portlet.Event;
 import de.arago.data.IEventWrapper;
-import de.arago.rike.util.TaskHelper;
-import de.arago.rike.util.TaskListFilter;
+import de.arago.rike.commons.util.TaskHelper;
+import de.arago.rike.commons.util.TaskListFilter;
 
 public class TaskFilterRequest implements Event {
     @Override

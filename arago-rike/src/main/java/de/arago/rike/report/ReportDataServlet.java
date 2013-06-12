@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import de.arago.rike.data.ChartTimeSeries;
+import de.arago.rike.commons.data.ChartTimeSeries;
 
 
 /**

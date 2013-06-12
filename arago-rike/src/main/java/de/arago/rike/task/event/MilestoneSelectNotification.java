@@ -25,7 +25,7 @@ package de.arago.rike.task.event;
 
 import de.arago.portlet.Event;
 import de.arago.data.IEventWrapper;
-import de.arago.rike.util.MilestoneHelper;
+import de.arago.rike.commons.util.MilestoneHelper;
 
 public class MilestoneSelectNotification implements Event {
 

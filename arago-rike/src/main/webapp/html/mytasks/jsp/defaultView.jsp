@@ -1,9 +1,9 @@
-<%@page import="de.arago.rike.util.TaskListFilter"%>
+<%@page import="de.arago.rike.commons.util.TaskListFilter"%>
 <%@page import="com.liferay.portal.model.User"%>
 <%@page import="de.arago.portlet.util.SecurityHelper"%>
-<%@page import="de.arago.rike.data.TaskUser"%>
-<%@page import="de.arago.rike.util.ViewHelper"%>
-<%@page import="de.arago.rike.data.Task"%>
+<%@page import="de.arago.rike.commons.data.TaskUser"%>
+<%@page import="de.arago.rike.commons.util.ViewHelper"%>
+<%@page import="de.arago.rike.commons.data.Task"%>
 <%@page import="javax.portlet.WindowState"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="org.apache.commons.lang.StringEscapeUtils"%>
