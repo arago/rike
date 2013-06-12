@@ -38,7 +38,7 @@
     <div class="content nohead nofooter">
 
       <div class="tablescroll max" id="<portlet:namespace />TableScroll">
-        
+           <ol class="toplist">
               <% for (int k = 0; k < 2; k++) {%>
             
                     <%
@@ -65,7 +65,7 @@
                                 }
                     %>
                    
-                      <ol class="toplist">
+                   
                            <li>
                            	<div class="inner">
                               <img class="avatar" src="/arago-rike/avatar/<%= StringEscapeUtils.escapeHtml(user.getEmail().replaceFirst("@.+$", "") + "-" + klass + ".png")%>" alt="" />
@@ -74,14 +74,14 @@
                                <div class="lastweek" title="Place last week: ">Place last week: <span class="icon-arrow-up green"></span>(<%=user.getYesterday()%>)</div>
                            	</div>
                            </li>
-                      </ol>
+                      
                     <%
                             }
                             ++i;
                         }
                     %>
               <% }%>
-
+</ol>
       </div>
 
       <script type="text/javascript">
