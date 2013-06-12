@@ -68,7 +68,7 @@ public class SVG extends AragoPortlet {
                                      System.currentTimeMillis() + Long.parseLong(GlobalConfig.get(CHECK_PERIOD_SECONDS))*1000);
             data.setSessionAttribute("lastActivity", lastChange());
         }
-        if(data.getSessionAttribute("portletTitle")==null){
+        if(data.getSessionAttribute("portletTitle")==null) {
             String milestone = ((TaskListFilter)data.getSessionAttribute("taskListFilter")).getMilestone();
             data.setSessionAttribute("portletTitle", new PortletTitleWithMilestone(milestone, "Dependencies"));
         }

@@ -197,9 +197,9 @@ public class ViewHelper {
                 releases.add(id);
                 data.add(new String[] {"release_" + id, "[RELEASE] " + id});
             }
-            
+
             String dateString = "[?]";
-            if(m.getDueDate()!=null){
+            if(m.getDueDate()!=null) {
                 SimpleDateFormat f = new SimpleDateFormat("[dd.MM.yyyy] ");
                 dateString = f.format(m.getDueDate());
             }
