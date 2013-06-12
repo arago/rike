@@ -15,16 +15,16 @@ body.portal-iframe { padding: 0; }
 body.html-editor { background: #FFF; color: #000; }
 blockquote, ul, ol, dl { margin: 1em; }
 ol, ul, dl { margin-left: 2em; }
-ol { list-style: decimal outside; }
+ol { list-style: decimal outside}
 ul { list-style: disc outside; }
 ul ul { list-style-type: circle; }
 ol ol { list-style-type: upper-roman; }
 dl dd { margin-left: 1em; }
-ul, li { margin: 0; padding: 0; list-style: none; }
+ul, ul li { margin: 0; padding: 0; list-style: none; }
 caption { margin-bottom: .5em; text-align: center; }
 p { margin-bottom: 1em; }
 b, strong { font-weight: bold; }
-i, em { font-style: italic; }
+i, em { font-style: italic; } 
 /* --- arago styles ---- */
 
 div.portlet { position: relative; float: left; margin: 0.5em 0.25em; height: 300px; width: 390px; background: #FFF; border: 1px solid #CCC; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; overflow: hidden; }

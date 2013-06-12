@@ -37,19 +37,12 @@
     </div>
     <div class="content nohead nofooter">
 
-      <div class="tablescroll max" style="height:200px" id="<portlet:namespace />TableScroll">
-        <table>
-          <tbody>
-            <tr>
+      <div class="tablescroll max" id="<portlet:namespace />TableScroll">
+        
               <% for (int k = 0; k < 2; k++) {%>
-              <td style="border-bottom: 0px;">
-                <table>
-                  <tbody>
+            
                     <%
-                        if (k == 1) {
-                    %>
-                    <tr style="border-bottom: 1px solid black; height: 43px;"><td/><td/></tr>
-                    <%                }
+                       
                         int i = 1;
                         for (TaskUser user : list) {
                             if (i % 2 != k) {
@@ -71,29 +64,23 @@
                                     str += "/" + points[j];
                                 }
                     %>
-                    <tr style="border-bottom: 1px solid black;">
-                      <td style="width:70px">
-                        <img style="width:70px; display:block" src="/arago-rike/avatar/<%= StringEscapeUtils.escapeHtml(user.getEmail().replaceFirst("@.+$", "") + "-" + klass + ".png")%>" alt="" />
-                      </td>
-                      <td style="white-space:nowrap; width:50px; text-align:right" title="Current points">
-                        <div style="font-weight:bold; text-shadow:1px 1px white"> <%= i%>. <%= ViewHelper.formatUser(user.getEmail())%></div><br />
-
-                        <%=str%> <br />
-                        <span class="info" title="Place last week: ">(<%=user.getYesterday()%>)</span>
-                      </td>
-                    </tr>
+                   
+                      <ol class="toplist">
+                           <li>
+                           	<div class="inner">
+                              <img class="avatar" src="/arago-rike/avatar/<%= StringEscapeUtils.escapeHtml(user.getEmail().replaceFirst("@.+$", "") + "-" + klass + ".png")%>" alt="" />
+                     		<h2> <%= i%>. <%= ViewHelper.formatUser(user.getEmail())%></h2>
+                               <div class="current">Current points: <%=str%> </div>
+                               <div class="lastweek" title="Place last week: ">Place last week: <span class="icon-arrow-up green"></span>(<%=user.getYesterday()%>)</div>
+                           	</div>
+                           </li>
+                      </ol>
                     <%
                             }
                             ++i;
                         }
                     %>
-                  </tbody>
-                </table>
-              </td>
               <% }%>
-            </tr>
-          </tbody>
-        </table>
 
       </div>
 
