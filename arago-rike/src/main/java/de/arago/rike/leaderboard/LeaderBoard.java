@@ -101,7 +101,7 @@ public class LeaderBoard extends AragoPortlet {
             String email = a[0].toString();
             Integer prio = (Integer)a[1];
             BigInteger count = (BigInteger)a[2];
-            if(map.containsKey(email)){
+            if(map.containsKey(email)) {
                 int[] points = map.get(email).getEnded_tasks();
                 if(prio<1)
                     prio = 1;

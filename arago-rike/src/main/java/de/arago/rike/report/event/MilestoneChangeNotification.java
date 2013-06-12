@@ -33,7 +33,7 @@ public class MilestoneChangeNotification implements Event {
     public void execute(IEventWrapper event) throws Exception {
         String milestone = (String)event.getEventAttribute("milestone");
         event.setSessionAttribute("milestone", milestone);
-        event.setSessionAttribute("portletTitle", 
-                new PortletTitleWithMilestone(milestone, (String)event.getSessionAttribute("typeName")));
+        event.setSessionAttribute("portletTitle",
+                                  new PortletTitleWithMilestone(milestone, (String)event.getSessionAttribute("typeName")));
     }
 }
