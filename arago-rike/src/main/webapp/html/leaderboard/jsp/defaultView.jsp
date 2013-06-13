@@ -41,7 +41,7 @@
 
 				if (sum > 0) {
 					klass = "place-down";
-					arraw = "icon-arrow-down red";
+					arrow = "icon-arrow-down red";
 				} else if (sum < 0) {
 					klass = "place-up";
 					arrow = "icon-arrow-up green";
