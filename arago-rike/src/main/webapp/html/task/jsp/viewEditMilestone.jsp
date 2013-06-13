@@ -71,7 +71,7 @@
               
               <tr>
                 <th class="shrink">Performance:</th>
-                <td><input class="rike-input" placeholder="capacity per week in hours" type="text" name="performance" value=""/></td>
+                <td><input class="rike-input" placeholder="capacity per week in hours" type="text" name="performance" value="<%= milestone == null ? "" : milestone.getPerformance() %>"/></td>
               </tr>
 
               <tr>

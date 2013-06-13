@@ -96,6 +96,8 @@ public class Milestone {
     }
 
     public Integer getPerformance() {
+        if(performance<=0)
+            return 42;
         return performance;
     }
 
