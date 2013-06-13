@@ -55,11 +55,10 @@
 				for (int j = 1; j < points.length; j++) {
 					str += "/" + points[j];
 				}
-				String userName = ViewHelper.formatUser(user.getEmail());
           %>
           <li>
-            <div class="inner"> <img class="avatar" src="/arago-rike/avatar/<%=userName + "-" + klass + ".png" %>" alt="<%=userName %>" />
-              <h2> <%=userName %></h2>
+            <div class="inner"> <img class="avatar" src="/arago-rike/avatar/<%=user.getAlias() + "-" + klass + ".png" %>" alt="<%=user.getAlias() %>" />
+              <h2> <%=user.getAlias() %></h2>
               <div class="current">Current points: <%=str%> </div>
               <div class="lastweek" title="Place last week: ">Place last week: <span class="<%=arrow %>"></span>(<%=user.getYesterday()%>)</div>
             </div>
