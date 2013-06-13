@@ -10,7 +10,6 @@
 <%@ taglib uri="http://java.sun.com/portlet" prefix="portlet" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <portlet:defineObjects />
-
 <%
     try {
         List<TaskUser> list = (List<TaskUser>) portletSession.getAttribute("list");
@@ -18,76 +17,64 @@
 %>
 
 <div class="portlet big <%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "maximized" : ""%>" style="" id="<portlet:namespace />Portlet">
-  <div class="portletbox">
+  <div class="portletbox"> 
     <!-- head -->
     <div class="head">
       <h1>
-        <div class="ellipsis">
-          Leaderboard
-        </div>
-        <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.leaderboard');" title="Help" class="icon-question"></a> 
-          <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
-          <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize" class="icon-resize-small"></a>
-          <% } else {%>
-          <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize" class="icon-resize-full"></a>
-          <% }%>
-        </span>
-      </h1>
+        <div class="ellipsis"> Leaderboard </div>
+        <span class="right"> <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.leaderboard');" title="Help" class="icon-question"></a>
+        <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
+        <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize" class="icon-resize-small"></a>
+        <% } else {%>
+        <a href="<portlet:actionURL portletMode="view" windowState="maximized"/>" title="Maximize" class="icon-resize-full"></a>
+        <% }%>
+        </span> </h1>
     </div>
     <div class="content nohead nofooter">
-
       <div class="tablescroll max" id="<portlet:namespace />TableScroll">
-           <ol class="toplist">
-              <% for (int k = 0; k < 2; k++) {%>
-            
-                    <%
-                       
-                        int i = 1;
-                        for (TaskUser user : list) {
-                            if (i % 2 != k) {
+        <ol class="toplist">
+          <%
+			for (TaskUser user : list) {
+				String klass = "";
+				String arrow = "";
+				long sum = user.getAccount() - user.getYesterday();
 
-                                String klass = "";
-                                long sum = user.getAccount() - user.getYesterday();
+				if (sum > 0) {
+					klass = "place-down";
+					arraw = "icon-arrow-down red";
+				} else if (sum < 0) {
+					klass = "place-up";
+					arrow = "icon-arrow-up green";
+				} else {
+					klass = "place-unchanged";
+					arrow = "icon-arrow-right gray";
+				}
 
-                                if (sum > 0) {
-                                    klass = "place-down";
-                                } else if (sum < 0) {
-                                    klass = "place-up";
-                                } else {
-                                    klass = "place-unchanged";
-                                }
-
-                                int[] points = user.getEnded_tasks();
-                                String str = "" + points[0];
-                                for (int j = 1; j < points.length; j++) {
-                                    str += "/" + points[j];
-                                }
-                    %>
-                    <li>
-                           	<div class="inner">
-                              <img class="avatar" src="/arago-rike/avatar/<%= StringEscapeUtils.escapeHtml(user.getEmail().replaceFirst("@.+$", "") + "-" + klass + ".png")%>" alt="" />
-                     		<h2> <%= i%>. <%= ViewHelper.formatUser(user.getEmail())%></h2>
-                               <div class="current">Current points: <%=str%> </div>
-                               <div class="lastweek" title="Place last week: ">Place last week: <span class="icon-arrow-up green"></span>(<%=user.getYesterday()%>)</div>
-                           	</div>
-                     </li>
-                      
-                    <%
-                            }
-                            ++i;
-                        }
-                    %>
-              <% }%>
-</ol>
+				int[] points = user.getEnded_tasks();
+				String str = "" + points[0];
+				for (int j = 1; j < points.length; j++) {
+					str += "/" + points[j];
+				}
+				String userName = ViewHelper.formatUser(user.getEmail());
+          %>
+          <li>
+            <div class="inner"> <img class="avatar" src="/arago-rike/avatar/<%=userName + "-" + klass + ".png" %>" alt="<%=userName %>" />
+              <h2> <%=userName %></h2>
+              <div class="current">Current points: <%=str%> </div>
+              <div class="lastweek" title="Place last week: ">Place last week: <span class="<%=arrow %>"></span>(<%=user.getYesterday()%>)</div>
+            </div>
+          </li>
+          <%
+		    }
+		  %>
+        </ol>
       </div>
-
       <script type="text/javascript">
             $(function()
             {
               $('#<portlet:namespace/>TableScroll').height($('#<portlet:namespace />Portlet').height() - 36).show();
             });
-      </script>
+      </script> 
     </div>
   </div>
 </div>
