@@ -47,11 +47,11 @@ input.auto { width: auto; }
 /* leaderboard */
 
 ol.toplist { padding:0; margin:1em; list-style-position:inside}
-ol.toplist li { font-weight:bold; font-size:1.25em; float:left; width:50%; padding:0.25em; border:1px solid #ccc; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; }
+ol.toplist li { font-weight:bold; font-size:1.15em; float:left; width:50%; padding:0.15em; border-top:2px solid #ccc; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; }
 ol.toplist li div.inner { font-size:11px; font-weight:normal;}
-ol.toplist li div h2 { font-size:1.25em;  font-weight:normal;}
-ol.toplist li div.inner img.avatar {width:30%; float:right;}
-
+ol.toplist li div h2 { font-weight:bold;  margin-bottom:0}
+ol.toplist li div.inner img.avatar {width:30%; max-width:90px; float:right;}
+ol.toplist li:nth-child(2n) {margin-top:1em;}
 /* feedback */
 #feedback { color:#fff; position: fixed; bottom: 0; width: 100%; margin: 0; padding: 0; z-index:999 }
 #feedback .inner-wrapper { box-shadow:-1px 0 20px #000; background:#011c35; padding: 20px 0 30px 0; height: 100%;  position:relative; z-index:1}
