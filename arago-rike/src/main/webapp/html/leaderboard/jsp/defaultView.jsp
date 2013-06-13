@@ -64,16 +64,14 @@
                                     str += "/" + points[j];
                                 }
                     %>
-                   
-                   
-                           <li>
+                    <li>
                            	<div class="inner">
                               <img class="avatar" src="/arago-rike/avatar/<%= StringEscapeUtils.escapeHtml(user.getEmail().replaceFirst("@.+$", "") + "-" + klass + ".png")%>" alt="" />
                      		<h2> <%= i%>. <%= ViewHelper.formatUser(user.getEmail())%></h2>
                                <div class="current">Current points: <%=str%> </div>
                                <div class="lastweek" title="Place last week: ">Place last week: <span class="icon-arrow-up green"></span>(<%=user.getYesterday()%>)</div>
                            	</div>
-                           </li>
+                     </li>
                       
                     <%
                             }
