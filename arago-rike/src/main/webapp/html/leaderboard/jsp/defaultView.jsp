@@ -60,7 +60,7 @@
             <div class="inner"> <img class="avatar" src="/arago-rike/avatar/<%=user.getAlias() + "-" + klass + ".png" %>" alt="<%=user.getAlias() %>" />
               <h2> <%=user.getAlias() %></h2>
               <div class="current">Points: <%=str%> </div>
-              <div class="lastweek" title="Place last week: <%=user.getYesterday()%>"><span class="<%=arrow %>"></span><%=user.getYesterday()%></div>
+              <div class="lastweek" title="Place last week: <%=user.getYesterday()%>"><span class="<%=arrow %>"></span> <%=user.getYesterday()%></div>
             </div>
           </li>
           <%
