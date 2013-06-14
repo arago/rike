@@ -62,7 +62,7 @@
               <th class="shrink center">#</th>
               <th class="shrink center" title="Status">?</th>
               <th class="shrink center" title="Priority">!</th>
-              <th class="shrink center">Title</th>
+              <th class="name">Name</th>
             </tr>
           </thead>
           <tbody>
@@ -73,9 +73,9 @@
             %>
             <tr>
               <td class="shrink center"><%= StringEscapeUtils.escapeHtml(task.getId().toString())%></td>
-              <td class="shrink <%= ViewHelper.getTaskStatusColorClass(task)%>"></td>
+              <td class="shrink"><span class="<%= ViewHelper.getTaskStatusColorClass(task)%>"></span></td>
               <td class="shrink <%= ViewHelper.getTaskPriorityColorClass(task)%>"></td>
-              <td class="last shrink"><a href="<portlet:actionURL portletMode="view" />&action=selectTask&id=<%= URLEncoder.encode(task.getId().toString(), "UTF-8")%>"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></a></td>
+              <td class="name"><a href="<portlet:actionURL portletMode="view" />&action=selectTask&id=<%= URLEncoder.encode(task.getId().toString(), "UTF-8")%>"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></a></td>
             </tr>
             <%
               }

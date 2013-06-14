@@ -94,21 +94,14 @@ public class ViewHelper {
 
     public static String formatUser(String user) {
         if (user.contains("@")) {
-            return "<a style='color:#333; font-weight:bold' href='mailto:" + encode(user) + "'>" + escape(user.replaceAll("\\@.*$", "")) + "</a>";
+            user = user.replaceAll("\\@.*$", "");
         }
 
         return escape(user);
     }
 
     public static String formatUser(Task task) {
-        String user = task.getOwner();
-        if (user == null || user.isEmpty()) return "";
-
-        if (user.contains("@")) {
-            return "<a style='color:#333; font-weight:bold' href='mailto:" + encode(user) + "?subject=" + encode("Task " + task.getId().toString() + " " + task.getTitle()) + "'>" + escape(user.replaceAll("\\@.*$", "")) + "</a>";
-        }
-
-        return escape(user);
+        return formatUser(task.getOwner());
     }
 
     public static String formatURL(String path) {
