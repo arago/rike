@@ -101,9 +101,9 @@ public class TaskUser {
     public void setFlags(String flags) {
         this.flags = flags;
     }
-    
-    public String getAlias(){
-        return email.replaceAll("\\@.*$", "");    
-    } 
+
+    public String getAlias() {
+        return email.replaceAll("\\@.*$", "");
+    }
 
 }

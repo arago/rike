@@ -21,7 +21,7 @@
       '<div class="overlay">' +
           '<img alt="Welcomeoverlay" src="<%= renderRequest.getContextPath()%>/pix/overlay.png" />' +
           '<a class="close icon-remove" title="close" href="javascript:void(0)" ' +
-            'onclick="window.location=\'<portlet:actionURL portletMode="view"/>&action=closeOwerview&hide=\'+' +
+            'onclick="window.location=\'<portlet:actionURL portletMode="view"/>&action=closeOverview&hide=\'+' +
             'document.<portlet:namespace/>IsHide.TheCheckBox.checked">' +
           '</a>' +
   	      '<div class="right">' +
