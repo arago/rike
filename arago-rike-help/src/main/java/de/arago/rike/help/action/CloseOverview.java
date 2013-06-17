@@ -32,7 +32,7 @@ import de.arago.rike.commons.data.TaskUser;
 import java.util.List;
 import org.hibernate.criterion.Restrictions;
 
-public class CloseOwerview implements Action {
+public class CloseOverview implements Action {
 
     @Override
     public void execute(IDataWrapper data) throws Exception {

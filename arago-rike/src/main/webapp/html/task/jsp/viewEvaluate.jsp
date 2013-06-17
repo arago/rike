@@ -1,3 +1,4 @@
+<%@page import="de.arago.rike.commons.data.GlobalConfig"%>
 <%@page import="de.arago.rike.commons.data.Artifact"%>
 <%@page import="de.arago.portlet.jsp.UserService"%>
 <%@page import="de.arago.portlet.jsp.JspUserService"%>
@@ -66,26 +67,37 @@
             </tr>
             
             <tr>
-              <th class="shrink">Description:</th>
-              <td>
-                <textarea placeholder="Optional description of the task" class="rike-textarea" ><%= StringEscapeUtils.escapeHtml(task.getDescription())%></textarea>
-              </td>
-            </tr>
-            
-            <tr>
                 <th class="shrink">Time:</th>
                 <td>
                   <input type="number" min="1" class="rike-input" placeholder="Estimated hours to finish" name="size_estimated" value="<%= task.getSizeEstimated() == null ? 8 : task.getSizeEstimated()%>" />
                 </td>
-              </tr>
-              
-            <!-- <tr>
+            </tr>
+
+            <tr>
+                <th class="shrink">Priority:</th>
+                <td>
+                  <select name="priority" class="rike-select">
+                    <% for (String priority: ViewHelper.getPriorities()) {%>
+                    <option <%= priority.equals(task.getPriority() + "") ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(priority)%>"><%= StringEscapeUtils.escapeHtml(ViewHelper.getPriority(priority))%></option>
+                    <% }%>
+                  </select>
+                </td>
+            </tr>
+
+            <% 
+                if("arago Technologies".equals(GlobalConfig.get(GlobalConfig.WORKFLOW_TYPE))){
+            %>
+            <tr>
                 <th class="shrink">Date:</th>
-                <td class="shrink"><input class="rike-input" placeholder="optional due date of the task, YYYY-MM-DD" type="text" name="due_date" value="<%= StringEscapeUtils.escapeHtml(task == null || task.getDueDate() == null ? "" : service.formatDate(task.getDueDate(), "yyyy-MM-dd"))%>"/></td>
-              </tr>-->
-             
-              
-              <tr>
+                <td>
+                  <input class="rike-input" placeholder="optional due date of the task, YYYY-MM-DD" type="text" name="due_date" value="<%= StringEscapeUtils.escapeHtml(task == null || task.getDueDate() == null ? "" : service.formatDate(task.getDueDate(), "yyyy-MM-dd"))%>"/>
+                </td>
+            </tr>
+            <%
+                }
+            %>
+                     
+            <tr>
                 <th class="shrink">Milestone:</th>
                 <td >
                   <select name="milestone"  class="rike-select">
@@ -94,10 +106,9 @@
                     <% }%>
                   </select>
                 </td>
-              </tr>
-              
-              
-              <tr>
+            </tr>
+                          
+            <tr>
               <th class="shrink">Artifact:</th>
               <td>
                 <select name="artifact"  class="rike-select">
@@ -108,21 +119,17 @@
               </td>
             </tr>
 
-              <tr>
-                <th class="shrink">Priority:</th>
+            <tr>
+                <th class="shrink">Description:</th>
                 <td>
-                  <select name="priority" class="rike-select">
-                    <% for (String priority: ViewHelper.getPriorities()) {%>
-                    <option <%= priority.equals(task.getPriority() + "") ? "selected='selected'" : ""%> value="<%= StringEscapeUtils.escapeHtml(priority)%>"><%= StringEscapeUtils.escapeHtml(ViewHelper.getPriority(priority))%></option>
-                    <% }%>
-                  </select>
+                  <textarea placeholder="Optional description of the task" class="rike-textarea" name="description"><%= StringEscapeUtils.escapeHtml(task.getDescription())%></textarea>
                 </td>
-              </tr>
-
-              <tr>
+            </tr>
+            
+            <tr>
                 <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abortEvaluate';"/></td>
                 <td class="right"><input type="submit" value="Rate" /></td>
-              </tr>
+            </tr>
             </tbody>
           </table>
         </form>

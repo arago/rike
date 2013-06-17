@@ -135,7 +135,7 @@
 
           <tr> 
             <th class="shrink">Priority:</th>
-            <td><%= ViewHelper.getPriority(task.getPriority())%></td>
+            <td><%= ViewHelper.getPriority(task.getPriority())%><%= task.getDueDate()==null ? "" : (", should be finished by " + service.formatDate(task.getDueDate())) %></td>
           </tr>
           <% }%>
 

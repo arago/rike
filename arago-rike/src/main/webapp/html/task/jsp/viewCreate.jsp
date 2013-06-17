@@ -59,24 +59,12 @@
             </tr>
             
             <tr>
-              <th class="shrink">Description:</th>
-              <td>
-                <textarea placeholder="Optional description of the task" class="rike-textarea"></textarea>
-              </td>
-            </tr>
-            
-            <tr>
               <th class="shrink">Time:</th>
               <td>
                 <input type="number" min="1" placeholder="Estimated hours to finish" class="rike-input" name="size_estimated" value="" />
               </td>
             </tr>
             
-            <!--<tr>
-                <th class="shrink">Date:</th>
-                <td class="shrink"><input class="rike-input" placeholder="due date of the task, YYYY-MM-DD" type="text" name="due_date" value=""/></td>
-              </tr>-->
-
             <tr>
               <th class="shrink">Artifact:</th>
               <td>
@@ -103,7 +91,12 @@
               </td>
             </tr>
 
-            
+            <tr>
+              <th class="shrink">Description:</th>
+              <td>
+                <textarea placeholder="Optional description of the task" class="rike-textarea" name="description"></textarea>
+              </td>
+            </tr>
 
             <tr>
               <td class="shrink"><input type="reset" value="Close" onclick="document.location= '<portlet:actionURL portletMode="view" />&action=abortCreate';"/></td>
