@@ -33,7 +33,7 @@ System Requirements:
 - mysql (>= 5)
 - [graphviz](http://www.graphviz.org/) (dot)
 - java (>= 1.6)
-- [liferay](http://www.liferay.com/) (= 6.0.6, with jquery)
+- [liferay](http://www.liferay.com/) (= 6.1.1, with jquery)
 - [maven](http://maven.apache.org/) (>= 3) is needed for assembly
 
 License:
