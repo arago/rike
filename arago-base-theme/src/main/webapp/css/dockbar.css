@@ -26,9 +26,16 @@
 .dockbar ul li {
 	display: inline-block;
 }
+.dockbar .aui-menu ul {
+	background:#5299dd;
+}
 .dockbar .aui-menu ul li {
 	display: block;
 	padding:0.5em;
+	background:#5299dd;
+}
+.dockbar .aui-menu ul li a:hover{
+	outline:none;
 }
 .dockbar:after {
 	clear: both;
