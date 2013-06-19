@@ -1,63 +1,83 @@
-<!doctype html>
+<!DOCTYPE html>
 
 #parse ($init)
 
-<html dir="#language ("lang.dir")" xmlns="http://www.w3.org/1999/xhtml">
+<html class="#language("lang.dir")" dir="#language("lang.dir")" lang="$w3c_language_id">
 
 <head>
-	#css ($css_main_file)
-
-	<title>$the_title - arago Rike 4.1</title>
+  <title>$the_title - arago Rike 4.1</title>
 
 	$theme.include($top_head_include)
-
-#js ($js_main_file)
-
-
-	<script type="text/javascript">
-		// <![CDATA
-			$page_javascript_1
-			$page_javascript_2
-			$page_javascript_3
-		// ]]>
-	</script>
-
 </head>
 
 <body class="$css_class">
 
-$theme.include($top_messages_include)
+$theme.include($body_top_include)
 
-<a name="scrolltop"></a> 
-<div id="container"> 
+#if ($is_signed_in)
+	#dockbar()
+#end
 
-  	<div class="clear"></div> 
-	
-	<div id="logo"></div>
+<div id="wrapper">
+	<a href="#main-content" id="skip-to-content">#language("skip-to-content")</a>
 
-	#if ($has_navigation)
-		#parse ("$full_templates_path/navigation.vm")
-	#end
+	<header id="banner" role="banner">
+		<div id="heading">
+			<h1 class="site-title">
+				<a class="$logo_css_class" href="$site_default_url" title="#language("go-to") $site_name">
+					<img alt="$logo_description" height="$site_logo_height" src="$site_logo" width="$site_logo_width" />
+				</a>
 
+				#if ($show_site_name)
+					<span class="site-name" title="#language("go-to") $site_name">
+						$site_name
+					</span>
+				#end
+			</h1>
 
-  <div id="content">
-	#if ($selectable)
-		$theme.include($content_include)
-	#else
-		$portletDisplay.recycle()
+			<h2 class="page-title">
+				<span>$the_title</span>
+			</h2>
+		</div>
 
-		$portletDisplay.setTitle($the_title)
+		#if (!$is_signed_in)
+			<a href="$sign_in_url" id="sign-in" rel="nofollow">$sign_in_text</a>
+		#end
 
-		$theme.wrapPortlet("portlet.vm", $content_include)
-	#end
+		#if ($has_navigation || $is_signed_in)
+			#parse ("$full_templates_path/navigation.vm")
+		#end
+	</header>
 
-  </div>
-  <div id="footer">
-    #dockbar()
-  </div>
+	<div id="content">
+		<nav class="site-breadcrumbs" id="breadcrumbs">
+			<h1>
+				<span>#language("breadcrumbs")</span>
+			</h1>
+
+			#breadcrumbs()
+		</nav>
+
+		#if ($selectable)
+			$theme.include($content_include)
+		#else
+			$portletDisplay.recycle()
+
+			$portletDisplay.setTitle($the_title)
+
+			$theme.wrapPortlet("portlet.vm", $content_include)
+		#end
+	</div>
+
+	<footer id="footer" role="contentinfo">
+
+	</footer>
 </div>
 
-$theme.include($bottom_ext_include)
+$theme.include($body_bottom_include)
+
 </body>
+
+$theme.include($bottom_include)
 
 </html>
