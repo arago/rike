@@ -29,7 +29,7 @@
 	z-index: 300;
 }
 .dockbar ul li {display:inline-block;}
-.dockbar ul ul li {display:block;}
+.dockbar .aui-menu ul li {display:block;}
 .dockbar:after {
 	clear: both;
 	content: ".";
