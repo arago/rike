@@ -28,7 +28,7 @@ b, strong { font-weight: bold; }
 i, em { font-style: italic; }
 /* --- arago styles ---- */
 /* hidden objects */
-header#banner, h2.page-title, #skip-to-content, #breadcrumbs {display:none;}
+#heading, h2.page-title, #skip-to-content, #breadcrumbs {display:none;}
 
 div.portlet { position: relative; float: left; margin: 0.5em 0.25em; height: 300px; width: 390px; background: #FFF; border: 1px solid #CCC; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; overflow: hidden; }
 div.hasPortletShadow, div.portlet { moz-box-shadow: 1px 1px 12px #CCC; -webkit-box-shadow: 1px 1px 12px #CCC; box-shadow: 1px 1px 12px #CCC; }
