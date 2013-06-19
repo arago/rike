@@ -29,6 +29,7 @@
 	z-index: 300;
 }
 .dockbar ul li {display:inline-block;}
+.dockbar ul ul li {display:block;}
 .dockbar:after {
 	clear: both;
 	content: ".";
@@ -49,9 +50,9 @@
 }
 
 .dockbar a {
-	color: #2C2F34;
+	color: #fff;
 	font-weight: bold;
-	text-shadow: 1px 1px #FFF;
+	text-shadow: 1px 1px #000;
 }
 
 .dockbar .menu-button-active {
