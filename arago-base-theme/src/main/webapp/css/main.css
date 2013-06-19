@@ -139,6 +139,7 @@ div.portlet .dropDown {
 	margin-right: 15px;
 }
 #navigation ul.options li {
+	position: relative;
 	display: inline;
 	font-weight: bold;
 	float: left;
@@ -180,10 +181,15 @@ div.portlet .dropDown {
 	-webkit-border-radius: 0 12px 12px 0;
 	border-radius: 0 12px 12px 0;
 }
-#navigation ul.options li span.right {
-	font-weight: normal;
-	float: right;
-	display: none;
+#navigation ul.options li span {
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 4px;
+	background: #E4342D;
+	color: #fff;
+	cursor: pointer;
+	text-shadow: none;
 }
 #navigation ul.options li:hover span.right {
 	display: block;
