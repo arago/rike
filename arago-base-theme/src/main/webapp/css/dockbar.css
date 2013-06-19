@@ -21,14 +21,14 @@
 }
 
 .dockbar {
-	background: #97A1AE url(../images/dockbar/dockbar_bg.png) repeat-x 0 0;
-	border-bottom: 1px solid #636364;
+	background: #97A1AE url(../images/dockbar/bg-mainmenu.gif) repeat-x 0 0;
+	border-bottom: 1px solid #ccc;
 	font-size: 13px;
 	padding: 1px 5px;
 	position: relative;
 	z-index: 300;
 }
-
+.dockbar ul li {display:inline-block;}
 .dockbar:after {
 	clear: both;
 	content: ".";
