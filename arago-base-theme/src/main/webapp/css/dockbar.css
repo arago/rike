@@ -28,7 +28,6 @@
 }
 .dockbar .aui-menu ul li {
 	display: block;
-	padding:0.25em 0;
 }
 .dockbar .aui-menu .dockbar:after {
 	clear: both;
@@ -153,7 +152,7 @@ html > .lfr-dockbar-pinned {
 	padding-left: 0;
 }
 
- .workflow-status-ready-for-publication {
+.workflow-status-ready-for-publication {
  color: #41801d;
  font-weight: bold;
 }
