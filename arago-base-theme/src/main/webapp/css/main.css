@@ -659,15 +659,18 @@ html, body {
 /* -- defaults -- */
 
 h1 {
+	font-size:1.15em;
 	color: #333;
 	margin: 0 0 8px 0;
 }
 h2 {
+	font-size:1em;
 	position: relative;
 	margin: 0 0 8px 0;
 	font-size: 12px;
 }
 h3 {
+	font-size:1.9em;
 	color: #333;
 	font-size: 11px;
 	margin: 4px 0;
