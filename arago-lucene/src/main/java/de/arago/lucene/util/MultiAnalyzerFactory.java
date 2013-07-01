@@ -3,10 +3,10 @@ package de.arago.lucene.util;
 import de.arago.lucene.api.AnalyzerFactory;
 import java.util.Properties;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.PerFieldAnalyzerWrapper;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.lucene.analysis.KeywordAnalyzer;
+import org.apache.lucene.analysis.core.KeywordAnalyzer;
+import org.apache.lucene.analysis.miscellaneous.PerFieldAnalyzerWrapper;
 
 public class MultiAnalyzerFactory implements AnalyzerFactory {
     @Override
