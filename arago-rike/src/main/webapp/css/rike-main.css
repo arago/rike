@@ -443,3 +443,7 @@ ol.toplist li:nth-child(2n) {
 #feedback a:hover {
 	color: #004481
 }
+
+/* logo */
+
+#heading h1 img {width:300px;}
