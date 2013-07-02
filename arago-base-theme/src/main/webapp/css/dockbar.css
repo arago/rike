@@ -1,8 +1,7 @@
 .portlet-dockbar, .portlet-staging-bar {
-	background: url(../images/application/loading_indicator.gif) no-repeat 50%;
+	background:#044881 url(../images/application/loading_indicator.gif) no-repeat 50%;
 }
 .portlet-dockbar {
-	background-color: #E0E7F1;
 	border-bottom: 1px solid #636364;
 }
 .dockbar, .staging-bar {
@@ -16,8 +15,9 @@
 	border-width: 0;
 }
 .dockbar {
-	background: #97A1AE url(../images/dockbar/bg-mainmenu.gif) repeat-x 0 0;
-	border-bottom: 1px solid #ccc;
+	background:#044881;
+	/*url(../images/dockbar/bg-mainmenu.gif) repeat-x 0 0;
+	border-bottom: 1px solid #ccc;*/
 	font-size: 13px;
 	padding: 1px 5px;
 	position: relative;
