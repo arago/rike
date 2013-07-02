@@ -1,12 +1,16 @@
 /* RIIKE Styles */
 
 /* portlet general styles */
+.portlet {
+	padding:0;
+}
 .portletbox {
 	margin: 0;
 	padding: 0;
 	position: relative;
 	height: 100%;
 	border: 0px none none;
+	background:#fff;
 
 }
 .portletbox, .portletbox a, .portletbox p, .portletbox input, .portletbox a, .portletbox select, .portletbox table td {
@@ -26,8 +30,9 @@
 	position: relative;
 	font-size: 1.15em;
 	padding: 0.25em 0.5em;
-	color: #044881;
-	text-shadow: 1px 1px 1px #fff;
+	margin:0;
+	color: #fff;
+	background:#414445;
 	-webkit-border-radius: 4px 4px 0 0;
 	-moz-border-radius: 4px 4px 0 0;
 	border-radius: 4px 4px 0 0
@@ -67,6 +72,56 @@
 	border-radius: 0 0 4px 4px; /* z-index:2;*/
 	border-top: 1px solid #ccc;
 }
+
+.porletbox table {
+	margin:1em;
+	}
+.porletbox table td, .portletbox table, th {
+	padding:0.25em;
+	}
+/* -- tabbar  -- */
+.tabbar {
+	position: absolute;
+	bottom: 0;
+	text-align: left;
+	list-style: none;
+	margin: 12px 0 0 12px;
+	line-height: 20px;
+}
+.tabbar.right {
+	right: 0;
+	margin-right: 30px;
+}
+.tabbar li {
+	position: relative;
+	float: left;
+	z-index: 0;
+	margin: 0 10px;
+	border: 1px solid #ccc;
+	background: #ECECEC;
+	display: inline-block;
+}
+.tabbar li.selected {
+	background: #FFF;
+	color: #000;
+	
+}
+.tabbar li.selected a {
+	color: #333;
+	font-weight: bold;
+}
+.tabbar:before {
+	z-index: 1;
+}
+.tabbar li {
+	margin: 0 -5px;
+}
+.tabbar a {
+	display: block;
+	padding: 0 12px;
+	text-shadow: 0 1px #FFF;
+}
+
 /* ------status -------*/
 .place-unchanged, .status-warning, .rike-activity-in_progress, .rike-activity-modified.status-unknown, .rike-activity-unknown, .rike-activity-new, .place-up, .status-ok, .rike-activity-done, .place-down, .status-critical, .rike-activity-open {
 	-moz-border-radius: 3px;
