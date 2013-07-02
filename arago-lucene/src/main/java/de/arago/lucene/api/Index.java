@@ -195,6 +195,7 @@ public class Index<T> implements Closeable {
             if (remove != null) {
                 w.deleteDocuments(remove);
                 w.commit();
+                closeSearcher();
             }
         } catch (Exception e) {
             e.printStackTrace(System.err);
