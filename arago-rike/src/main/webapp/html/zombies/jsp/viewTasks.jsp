@@ -47,7 +47,7 @@
            <ul class="aui-tabview-list">
               <li class="aui-tab aui-state-default">
                 <span class="aui-tab-content">
-                    <a class="aui-tab-label"href="<portlet:actionURL portletMode="view"/>&action=showGraph">Graph</a>
+                    <a class="aui-tab-label" href="<portlet:actionURL portletMode="view"/>&action=showGraph">Graph</a>
                 </span>
               </li>
               <li class="aui-tab aui-state-default">

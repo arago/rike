@@ -68,7 +68,7 @@
             </li>
             <li class="aui-tab aui-state-default">
             	<span class="aui-tab-content">
-            		<a href="<portlet:actionURL portletMode="view"/>&action=showTasks">Tasks (<span style="color:<%= tasks.isEmpty()?"#000":"#cc0000" %>"><%= tasks.size() %></span>)</a>
+            		<a class="aui-tab-label" href="<portlet:actionURL portletMode="view"/>&action=showTasks">Tasks (<span style="color:<%= tasks.isEmpty()?"#000":"#cc0000" %>"><%= tasks.size() %></span>)</a>
                 </span>  
               </li>
           </ul>
