@@ -47,8 +47,8 @@
           </form>
         </div>
         <div class="left">
-          <ul class="tabbar">
-            <li class="selected"><a href="#">In Progress</a></li>
+          <ul class="aui-tabview-list">
+            <li class="aui-tab aui-state-default first aui-tab-active"><a href="#">In Progress</a></li>
             <li><a href="<portlet:actionURL portletMode="view"/>&action=showEvaluated">Rated</a></li>
           </ul>
         </div>
