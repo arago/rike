@@ -3,7 +3,7 @@
 /* portlet general styles */
 .portlet {
 	padding:0!important;
-	border:none;
+	border:none!important;
 }
 .portletbox {
 	margin: 0;
@@ -11,18 +11,20 @@
 	position: relative;
 	height: 100%;
 	border: 0px none none;
-}/*
+}
+
 .portletbox, .portletbox a, .portletbox p, .portletbox input, .portletbox a, .portletbox select, .portletbox table td {
 	font-size: 11px;
 	font-weight: normal;
-}*/
+}
+
 .portletbox .head {
 	position: absolute;
 	top: 0;
 	width: 100%;
 	border-bottom: 1px solid #ccc;
 }
-.portletbox h1 {
+.portletbox .head h1{
 	position: relative;
 	font-size:1em;
 	padding: 5px 10px 4px;
