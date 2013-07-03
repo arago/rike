@@ -43,6 +43,8 @@
 	bottom: 30px;
 	overflow: auto;
 	width: 100%;
+	background:#fff;
+	border-bottom:1px solid #ccc;
 }
 .portletbox .content.nohead {
 	top: 24px;
