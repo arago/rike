@@ -12,7 +12,6 @@ div.portlet {
 	float: left;
 	/*margin: 0.5em 0.25em;*/
 	height: 300px;
-	width: 390px;
 	overflow: hidden;
 	border:none;
 	box-sizing:border-box;
