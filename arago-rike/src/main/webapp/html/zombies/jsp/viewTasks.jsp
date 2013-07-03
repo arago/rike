@@ -44,23 +44,23 @@
       </h1>
       <div class="inner">
         <div class="left">
-        <ul class="tabbar">
-          <li class="aui-tab aui-state-default">
-         	<span class="aui-tab-content">
-          		<a class="aui-tab-label"href="<portlet:actionURL portletMode="view"/>&action=showGraph">Graph</a>
-            </span>
-          </li>
-          <li class="aui-tab aui-state-default">
-            <span class="aui-tab-content">
-                <a class="aui-tab-label" href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones  (<span style="color:<%= milestones.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() %></span>)</a>
-            </span>
-          </li>
-          <li class="aui-tab aui-state-default first aui-tab-active">
-           <span class="aui-tab-content"> 
-               <a class="aui-tab-label"><strong>Tasks </strong> (<span style="color:<%= tasks.isEmpty()?"#000":"#cc0000" %>"><%= tasks.size() %></span>)</a>
-           </span>
-          </li>
-        </ul>
+           <ul class="aui-tabview-list">
+              <li class="aui-tab aui-state-default">
+                <span class="aui-tab-content">
+                    <a class="aui-tab-label"href="<portlet:actionURL portletMode="view"/>&action=showGraph">Graph</a>
+                </span>
+              </li>
+              <li class="aui-tab aui-state-default">
+                <span class="aui-tab-content">
+                    <a class="aui-tab-label" href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones  (<span style="color:<%= milestones.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() %></span>)</a>
+                </span>
+              </li>
+              <li class="aui-tab aui-state-default first aui-tab-active last">
+               <span class="aui-tab-content"> 
+                   <a class="aui-tab-label"><strong>Tasks </strong> (<span style="color:<%= tasks.isEmpty()?"#000":"#cc0000" %>"><%= tasks.size() %></span>)</a>
+               </span>
+              </li>
+            </ul>
         </div>
       </div>
         

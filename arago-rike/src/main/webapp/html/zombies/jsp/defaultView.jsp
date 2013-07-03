@@ -54,7 +54,7 @@
         <div class="left">
 
            <ul class="aui-tabview-list">
-            <li class="aui-tab aui-state-default first aui-tab-active">
+            <li class="aui-tab aui-state-default aui-tab-active first">
                <span class="aui-tab-content"> 
                    <a class="aui-tab-label">
                    	<strong>Graph</strong>
