@@ -13,6 +13,7 @@ div.portlet {
 	height: 300px;
 	width: 390px;
 	overflow: hidden;
+	border:none!important;
 }
 div.portlet .dropDown {
 	position: absolute;
