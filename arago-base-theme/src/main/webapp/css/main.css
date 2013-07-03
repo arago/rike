@@ -1,6 +1,8 @@
+/* arago theme */
 @import url(font-awesome.min.css);
 @import url(font-awesome.min.css);
 @import url(dockbar.css);
+
 /* normalize */
 article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
 	display: block;
@@ -95,37 +97,6 @@ i, em {
 #heading, h2.page-title, #skip-to-content, #breadcrumbs {
 	display: none;
 }
-div.portlet {
-	position: relative;
-	float: left;
-	margin: 0.5em 0.25em;
-	height: 300px;
-	width: 390px;
-	background: #FFF;
-	border: 1px solid #CCC;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
-	overflow: hidden;
-}
-div.hasPortletShadow, div.portlet {
-	moz-box-shadow: 1px 1px 12px #CCC;
-	-webkit-box-shadow: 1px 1px 12px #CCC;
-	box-shadow: 1px 1px 12px #CCC;
-}
-div.portlet .dropDown {
-	-moz-box-shadow: 0 5px 4px -4px #888;
-	-webkit-box-shadow: 0 5px 4px -4px #888;
-	box-shadow: 0 5px 4px -4px #888;
-	position: absolute;
-	z-index: 1;
-	background: #F0F0F0;
-	padding: 4px;
-	border-bottom: 1px solid #999;
-	left: -8px;
-	right: -8px;
-	top: 28px;
-}
 /* ---  navigation ---- */
 #navigation ul.options {
 	margin: 2em 0 0.5em 0.5em;
@@ -197,7 +168,7 @@ div.portlet .dropDown {
 #navigation ul.options span a:hover {
 	color: #E4342D;
 }
-/* --- content options ---*/
+/* --- content options ---
 ul.contentoptions {
 	list-style: none;
 	margin: 0;
@@ -264,6 +235,7 @@ ul.contentoptions li.active {
 ul.contentoptions li.active a {
 	color: #fff;
 }
+*/
 /* --- lists ---- */
 ul.vertical {
 	margin: 0;
@@ -295,58 +267,29 @@ html, body {
 	min-width: 1000px;
 	margin: 0 auto;
 }
-.portlet.big {
-	width: 100%;
-}
+
 /* --- portlet styles --- */
 .portletbox {
-	margin: 0;
-	padding: 0;
-	position: relative;
-	height: 100%;
 	background: #fff;
 	border-radius: 4px;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 }
-.portletbox, .portletbox a, .portletbox p, .portletbox input, .portletbox a, .portletbox select, .portletbox table td {
-	font-size: 11px;
-	font-weight: normal;
-}
 .portletbox .head {
-	position: absolute;
-	top: 0;
-	width: 100%;
 	-moz-box-shadow: 0px 0px 8px #999;
 	-webkit-box-shadow: 0 0px 8px #999;
 	box-shadow: 0 0px 8px #999;
 	border-bottom: 1px solid #ccc;
 	-webkit-border-radius: 4px 4px 0 0;
 	-moz-border-radius: 4px 4px 0 0;
-	border-radius: 4px 4px 0 0; /*height:55px;*/
+	border-radius: 4px 4px 0 0;
 }
-.portletbox .head .inner {
-	position: relative;
-	height: 22px;
-	line-height: 2em;
-}
+
 .portletbox .content {
-	display: block;
-	overflow: auto;
-	top: 55px;
-	position: absolute;
-	bottom: 30px;
-	overflow: auto;
-	width: 100%;
+	background:#fff;
+	border-bottom:1px solid #ccc;
 }
-.portletbox .content.nohead {
-	top: 24px;
-	border-top: 0;
-}
-.portletbox .content.nofooter {
-	bottom: 0;
-	border: 0;
-}
+
 .portletbox .footer {
 	display: block;
 	position: absolute;
@@ -595,7 +538,7 @@ html, body {
 	text-decoration: line-through!important;
 	color: #666;
 }
-/* -- tabbar  -- */
+/* -- tabbar  --
 .tabbar {
 	position: absolute;
 	bottom: 0;
@@ -631,7 +574,7 @@ html, body {
 	background-image: -moz-linear-gradient(bottom, #CCCCCC 0%, #FFFFFF 52%);
 	background-image: -webkit-linear-gradient(bottom, #CCCCCC 0%, #FFFFFF 52%);
 	background-image: -ms-linear-gradient(bottom, #CCCCCC 0%, #FFFFFF 52%);
-	background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0, #CCCCCC), color-stop(0.52, #FFFFFF) );/*z-index: 2;*/
+	background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0, #CCCCCC), color-stop(0.52, #FFFFFF) );
 }
 .tabbar li.selected a {
 	color: #333;
@@ -656,6 +599,7 @@ html, body {
 	padding: 0 12px;
 	text-shadow: 0 1px #FFF;
 }
+ */
 /* -- defaults -- */
 
 h1 {
@@ -681,51 +625,7 @@ a:hover {
 	color: #E4342D;
 	text-decoration: none;
 }
-.clear {
-	clear: both;
-	display: block;
-}
-.center {
-	text-align: center!important;
-}
-.rightalign {
-	float: right!important;
-}
-.leftalign {
-	float: left;
-}
-.textalignright {
-	text-align: right;
-}
-.right {
-	float: right
-}
-.left {
-	float: left;
-}
-.bold {
-	font-weight: bold;
-}
-.shrink {
-	width: 1%
-}
-.clearfix:after {
-	content: ".";
-	display: block;
-	clear: both;
-	visibility: hidden;
-	line-height: 0;
-	height: 0;
-}
-.clearfix {
-	display: inline-block;
-}
-html[xmlns] .clearfix {
-	display: block;
-}
-* html .clearfix {
-	height: 1%;
-}
+
 /* --- forms ---- */
 body, textarea, input, select, button {
 	color: #575757;
@@ -793,44 +693,19 @@ label.block {
 label.small {
 	font-size: 11px;
 }
-/* -- portlet layout -- */
-.portlet-layout {
-	border-collapse: collapse;
-	clear: both;
-	display: table;
-	border-spacing: 0;
-	table-layout: auto;
-	width: 100%;
-}
-.portlet-column {
-	display: table-cell;
-	vertical-align: top!important;
-}
-.portlet-column-content {
-	padding: 5px;
-}
-.portlet-column-content-only, .ltr .portlet-column-content-first, .rtl .portlet-column-content-last {
-	padding-left: 0;
-}
-.portlet-column-content-only, .ltr .portlet-column-content-last, .rtl .portlet-column-content-first {
-	padding-right: 0;
-}
-.portlet-column-content.empty {
-	padding: 50px;
-}
 
 /* Scrollbars */
 ::-webkit-scrollbar {
-width: 10px;
-height:10px;
+	width: 10px;
+	height:10px;
 }
 ::-webkit-scrollbar-track {
--webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-border-radius: 10px;
--webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 .portlet-topper-toolbar {
 	margin: 0;
