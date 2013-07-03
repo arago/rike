@@ -7,13 +7,17 @@
 /* portlet */
 
 div.portlet {
+	width: 100%;
 	position: relative;
 	float: left;
-	margin: 0.5em 0.25em;
+	/*margin: 0.5em 0.25em;*/
 	height: 300px;
 	width: 390px;
 	overflow: hidden;
-	border:none!important;
+	border:none;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
 }
 div.portlet .dropDown {
 	position: absolute;
@@ -23,15 +27,12 @@ div.portlet .dropDown {
 	right: -8px;
 	top: 28px;
 }
-.portlet.big {
-	width: 100%;
-}
 .portletbox {
 	margin: 0;
 	padding: 0;
 	position: relative;
 	height: 100%;
-	border: 0px none none;
+	border:none;
 }
 
 .portletbox, .portletbox a, .portletbox p, .portletbox input, .portletbox a, .portletbox select, .portletbox table td {
@@ -44,6 +45,7 @@ div.portlet .dropDown {
 	top: 0;
 	width: 100%;
 	border-bottom: 1px solid #ccc;
+	z-index:2;
 }
 .portletbox .head h1{
 	position: relative;
@@ -57,13 +59,13 @@ div.portlet .dropDown {
 	line-height: 2em;
 }
 .portletbox .content {
+	position: absolute;
+	top: 55px;
+	bottom: 30px;
+	width: 100%;
 	display: block;
 	overflow: auto;
-	top: 55px;
-	position: absolute;
-	bottom: 30px;
-	overflow: auto;
-	width: 100%;
+	z-index:1;
 }
 .portletbox .content.nohead {
 	top: 24px;
@@ -74,12 +76,13 @@ div.portlet .dropDown {
 	border: 0;
 }
 .portletbox .footer {
-	display: block;
 	position: absolute;
 	bottom: 0;
 	height: 25px;
+	display: block;
 	text-align: center;
 	width: 100%;
+	z-index:2;
 }
 
 
