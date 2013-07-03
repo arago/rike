@@ -1,5 +1,9 @@
 /* rike general */
 
+/* import icons */
+@import url(font-awesome.min.css);
+@import url(font-awesome-ie7.min.css);
+
 /* portlet */
 
 div.portlet {
@@ -50,7 +54,7 @@ div.portlet .dropDown {
 	position: relative;
 	height: 22px;
 	line-height: 2em;
-}.
+}
 .portletbox .content {
 	display: block;
 	overflow: auto;
@@ -210,6 +214,7 @@ div.portlet .dropDown {
 	vertical-align: top;
 	text-align: left;
 }
+
 .portletbox table table th {
 	border-bottom: 1px solid #ccc;
 	color: #000;
