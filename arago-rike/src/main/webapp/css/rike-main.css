@@ -4,7 +4,7 @@
 .portlet {
 	padding:0;
 }
-.portletbox {
+/*.portletbox {
 	margin: 0;
 	padding: 0;
 	position: relative;
@@ -14,7 +14,7 @@
 .portletbox, .portletbox a, .portletbox p, .portletbox input, .portletbox a, .portletbox select, .portletbox table td {
 	font-size: 11px;
 	font-weight: normal;
-}
+}*/
 .portletbox .head {
 	position: absolute;
 	top: 0;
@@ -66,7 +66,7 @@
 	border-radius: 0 0 4px 4px; /* z-index:2;*/
 	border-top: 1px solid #ccc;
 }
-
+/*
 .content table {
 	margin:1em;
 	}
@@ -89,7 +89,7 @@ h3 {
 	color: #333;
 	margin: 0 0 4px 0;
 }
-
+*/
 /* ------status -------*/
 .place-unchanged, .status-warning, .rike-activity-in_progress, .rike-activity-modified.status-unknown, .rike-activity-unknown, .rike-activity-new, .place-up, .status-ok, .rike-activity-done, .place-down, .status-critical, .rike-activity-open {
 	-moz-border-radius: 3px;
