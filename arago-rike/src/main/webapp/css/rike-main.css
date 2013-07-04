@@ -26,6 +26,8 @@ div.portlet .dropDown {
 	position: absolute;
 	z-index: 1;
 	padding: 4px;
+	left:0;
+	right:0;
 	/*left: -8px;
 	right: -8px;*/
 	top: 28px;
@@ -55,11 +57,12 @@ div.portlet .dropDown {
 	border-bottom: 1px solid #ccc;
 	z-index:2;
 }
-.portletbox .head h1{
+.portletbox .head h1 {
 	position: relative;
 	font-size:1.15em;
 	margin:0;
 	padding-left:10px;
+	line-height:25px;
 }
 .portletbox .head .inner {
 	position: relative;
