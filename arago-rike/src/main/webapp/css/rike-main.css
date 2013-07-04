@@ -26,10 +26,10 @@ div.portlet .dropDown {
 	position: absolute;
 	z-index: 1;
 	padding: 4px;
-	left: -8px;
-	right: -8px;
+	/*left: -8px;
+	right: -8px;*/
 	top: 28px;
-	background:#fff;
+	background:#f0f0f0;
 }
 .portletbox {
 	margin: 0;
