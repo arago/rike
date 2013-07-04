@@ -270,7 +270,7 @@ html, body {
 .portlet {
 	border:1px solid #ccc;
 }
-.portlet-body {
+.portletbox {
 	margin:0.25em 0.25em 0 0.25em;
 	}
 .portletbox .head {
