@@ -167,7 +167,7 @@ a.aui-tab-label:hover {
 	border: 0;
 }
 .portletbox table td, .portletbox table th {
-	padding: 4px 4px 4px 8px;
+	padding: 3px 8px;
 	vertical-align: top;
 }
 .portletbox table thead th {
@@ -337,7 +337,7 @@ html[xmlns] .clearfix {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	width: 100%;
-	padding: 0.35em 0.5em;
+	padding: 0.25em;
 }
 .rike-search {
 	width: 50%;
@@ -348,7 +348,7 @@ html[xmlns] .clearfix {
 	text-align: center;
 }
 .rike-input {
-	padding: 0.35em 0.5em!important;
+	padding: 0.25em;
 	box-shadow: inset 2px 2px 3px #CCC;
 	-moz-box-shadow: inset 2px 2px 3px #CCC;
 	-webkit-box-shadow: inset 2px 2px 3px #CCC;
