@@ -415,14 +415,19 @@ ul.aui-tabview-list {
 	width:100%;
 }
 li.aui-tab-active {
-	background: #878787;
+	background: #044881;
 	border-color: #4b4b4b #4d4d4d;
+	font-weight:normal;
 }
 a.aui-tab-label {
 	padding:0 1em;
+	color: #044881;
 	}
 a.aui-tab-label:hover {
 	color:#e4342d;
+	}
+li.aui-tab-active a.aui-tab-label:hover {
+	color:#000
 	}
 /* -- tables  -- */
 .portletbox table {

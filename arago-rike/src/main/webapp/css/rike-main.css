@@ -138,7 +138,21 @@ div.portlet .dropDown {
 	color: #666;
 	font-size: .95em;
 }
-
+/* -- tabs -- */
+ul.aui-tabview-list {
+	margin-bottom: 0.25em;
+	width:100%;
+}
+li.aui-tab-active {
+	background: #878787;
+	border-color: #4b4b4b #4d4d4d;
+}
+a.aui-tab-label {
+	padding:0 1em;
+	}
+a.aui-tab-label:hover {
+	color:#e4342d;
+	}
 /* -- tables  -- */
 .portletbox table {
 	width: 100%;
