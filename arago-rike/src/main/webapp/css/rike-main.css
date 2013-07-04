@@ -32,6 +32,10 @@ div.portlet .dropDown {
 	position: relative;
 	height: 100%;
 	border:none;
+	background:#fff;
+	border-radius:4px;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
 }
 
 .portletbox, .portletbox a, .portletbox p, .portletbox input, .portletbox a, .portletbox select, .portletbox table td {
