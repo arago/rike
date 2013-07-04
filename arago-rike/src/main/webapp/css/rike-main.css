@@ -61,9 +61,12 @@ div.portlet .dropDown {
 	position: relative;
 	font-size:1.15em;
 	margin:0;
-	padding-left:10px;
+	padding-left:8px;
 	line-height:25px;
+	white-space: nowrap;
+	overflow: hidden;
 }
+
 .portletbox .head .inner {
 	position: relative;
 	height: 22px;
@@ -97,10 +100,6 @@ div.portlet .dropDown {
 }
 
 
-.portletbox .head h1 {
-	white-space: nowrap;
-	overflow: hidden;
-}
 .portletbox h1 span.rightalign {
 	position: absolute;
 	right: 4px;
@@ -116,8 +115,10 @@ div.portlet .dropDown {
 	position: absolute;
 	right: 0px;
 	top: 0;
-	margin: 2px 2px 2px 0;
+	margin-right:4px;
 	border-radius: 0 3px;
+	-webkit-border-radius: 0 3px;
+	-moz-border-radius: 0 3px;
 }
 .portletbox h1 span.right a {
 	text-align: center;
