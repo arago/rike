@@ -269,6 +269,7 @@ html, body {
 /* --- portlet styles --- */
 .portlet {
 	border:1px solid #ccc;
+	margin: 0 2.5em 0.5em 0.25em;
 }
 .portletbox {
 	background: #fff;
