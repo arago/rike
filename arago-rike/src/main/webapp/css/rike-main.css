@@ -47,7 +47,7 @@ div.portlet .dropDown {
 }
 .portletbox .head h1{
 	position: relative;
-	font-size:1em;
+	font-size:1.15em;
 	padding: 5px 10px 4px;
 	margin:0;
 }
@@ -122,8 +122,6 @@ div.portlet .dropDown {
 	border: 1px solid #999
 }
 .portletbox h1 span.right a:hover {
-	color: #044881;
-	text-shadow: none;
 	background: #FFF;
 	box-shadow: inset 0 0 8px #999;
 	-webkit-box-shadow: inset 0 0 8px #999;
@@ -140,6 +138,7 @@ div.portlet .dropDown {
 	color: #666;
 	font-size: .95em;
 }
+
 /* -- tables  -- */
 .portletbox table {
 	width: 100%;
