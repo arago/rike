@@ -415,10 +415,11 @@ ul.aui-tabview-list {
 	width:100%;
 }
 li.aui-tab-active {
-	background: #044881!important;
 	border-color: #4b4b4b #4d4d4d;
-	font-weight:normal!important;
 }
+li.aui-tab-active .aui-tab-content {
+	background: #044881
+	}
 a.aui-tab-label {
 	padding:0 1em;
 	color: #044881;
