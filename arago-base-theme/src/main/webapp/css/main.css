@@ -269,10 +269,11 @@ html, body {
 /* --- portlet styles --- */
 .portlet {
 	border:1px solid #ccc;
-}
-.portletbox {
 	margin:0.25em 0.25em 0 0.25em;
-	}
+}
+/*.portletbox {
+	margin:0.25em 0.25em 0 0.25em;
+	}*/
 .portletbox .head {
 	border-bottom: 1px solid #ccc;
 	-webkit-border-radius: 4px 4px 0 0;
