@@ -53,8 +53,8 @@ div.portlet .dropDown {
 .portletbox .head h1{
 	position: relative;
 	font-size:1.15em;
-	padding: 5px 10px 4px;
 	margin:0;
+	padding-left:10px;
 }
 .portletbox .head .inner {
 	position: relative;
@@ -71,7 +71,7 @@ div.portlet .dropDown {
 	z-index:1;
 }
 .portletbox .content.nohead {
-	top: 24px;
+	top: 25px;
 	border-top: 0;
 }
 .portletbox .content.nofooter {
