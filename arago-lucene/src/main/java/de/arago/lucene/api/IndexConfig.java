@@ -48,7 +48,7 @@ public class IndexConfig {
 
     public Analyzer getAnalyzer() {
         if(analyzer==null)
-            analyzer = new StandardAnalyzer(Version.LUCENE_36);
+            analyzer = new StandardAnalyzer(Version.LUCENE_43);
         return analyzer;
     }
 
