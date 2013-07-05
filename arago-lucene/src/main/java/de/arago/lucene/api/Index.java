@@ -10,8 +10,8 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.queryParser.ParseException;
-import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.TopDocsCollector;
@@ -70,7 +70,7 @@ public class Index<T> implements Closeable {
                     IndexWriter.unlock(directory);
                 }
 
-                writer = new IndexWriter(directory, new IndexWriterConfig(Version.LUCENE_36,config.getAnalyzer()));
+                writer = new IndexWriter(directory, new IndexWriterConfig(Version.LUCENE_43,config.getAnalyzer()));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -138,16 +138,7 @@ public class Index<T> implements Closeable {
     }
 
     private synchronized void closeSearcher() {
-        if (searcher != null) {
-            try {
-                searcher.close();
-            } catch (Exception ex) {
-                ex.printStackTrace(System.err);
-            } finally {
-                searcher = null;
-            }
-
-        }
+        searcher = null;
     }
 
     @Override
@@ -204,6 +195,7 @@ public class Index<T> implements Closeable {
             if (remove != null) {
                 w.deleteDocuments(remove);
                 w.commit();
+                closeSearcher();
             }
         } catch (Exception e) {
             e.printStackTrace(System.err);
@@ -212,7 +204,7 @@ public class Index<T> implements Closeable {
 
     public Query parse(final String q) {
         try {
-            return new QueryParser(Version.LUCENE_36,Converter.FIELD_CONTENT, config.getAnalyzer()).parse(q);
+            return new QueryParser(Version.LUCENE_43,Converter.FIELD_CONTENT, config.getAnalyzer()).parse(q);
         } catch(ParseException ex) {
             throw new RuntimeException("could not parse query " + q, ex);
         }
@@ -261,7 +253,7 @@ public class Index<T> implements Closeable {
 
     public synchronized void delete() {
         try {
-            File directory = ((FSDirectory) getWriter().getDirectory()).getFile();
+            File directory = ((FSDirectory) getWriter().getDirectory()).getDirectory();
 
             close();
             FileUtils.deleteDirectory(directory);
