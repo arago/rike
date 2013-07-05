@@ -2,7 +2,7 @@ package de.arago.rike.commons.util;
 
 import de.arago.lucene.api.Converter;
 import de.arago.lucene.api.IndexFactory;
-import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.queryparser.classic.QueryParser;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
 

@@ -5,7 +5,7 @@ import de.arago.lucene.api.IndexFactory;
 import java.util.List;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONValue;
-import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.queryparser.classic.QueryParser;
 
 
 public class NodeSearcher {

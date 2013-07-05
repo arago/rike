@@ -23,11 +23,11 @@
 package de.arago.portlet.jsp;
 
 import com.liferay.portal.model.User;
-import com.ocpsoft.pretty.time.PrettyTime;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+import org.ocpsoft.prettytime.PrettyTime;
 
 public abstract class AbstractUserService implements UserService {
     abstract public User getUser();
