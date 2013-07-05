@@ -1,7 +1,7 @@
 /* RIIKE MAIN CSS */
 
 /* ------status -------*/
-.place-unchanged, .status-warning, .rike-activity-in_progress, .rike-activity-modified.status-unknown, .rike-activity-unknown, .rike-activity-new, .place-up, .status-ok, .rike-activity-done, .place-down, .status-critical, .rike-activity-open{ -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; display: inline-block;  border:1px solid #d6d6d6; padding:0.15em; float:left; width: 10px; height: 10px; }
+.place-unchanged, .status-warning, .rike-activity-in_progress, .rike-activity-modified, .status-unknown, .rike-activity-unknown, .rike-activity-new, .place-up, .status-ok, .rike-activity-done, .place-down, .status-critical, .rike-activity-open{ -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; display: inline-block;  border:1px solid #d6d6d6; padding:0.15em; float:left; width: 10px; height: 10px; }
 .place-unchanged, .status-warning, .rike-activity-in_progress, .rike-activity-modified { background-image: url(../pix/icon-ampel-orange.png); background-repeat: no-repeat; background-position: center center; }
 .place-down, .status-critical, .rike-activity-open { background-image: url(../pix/icon-ampel-rot.png); background-repeat: no-repeat; background-position: center center; }
 .place-up, .status-ok, .rike-activity-done { background-image: url(../pix/icon-ampel-gruen.png); background-repeat: no-repeat; background-position: center center; }
