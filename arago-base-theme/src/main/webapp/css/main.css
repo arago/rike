@@ -349,7 +349,6 @@ html, body {
 }
 .portletbox .head h1 {
 	position: relative;
-	padding: 0.25em 0.5em;
 	color: #044881;
 	text-shadow: 1px 1px 1px #fff;
 	-webkit-border-radius: 4px 4px 0 0;
