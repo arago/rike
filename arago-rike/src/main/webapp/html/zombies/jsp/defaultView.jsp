@@ -53,10 +53,24 @@
       <div class="inner">
         <div class="left">
 
-          <ul class="tabbar">
-            <li class="selected"><a href="#">Graph</a></li>
-            <li><a href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones (<span style="color:<%= milestones.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() %></span>)</a></li>
-            <li><a href="<portlet:actionURL portletMode="view"/>&action=showTasks">Tasks (<span style="color:<%= tasks.isEmpty()?"#000":"#cc0000" %>"><%= tasks.size() %></span>)</a></li>
+           <ul class="aui-tabview-list">
+            <li class="aui-tab aui-state-default aui-tab-active first">
+               <span class="aui-tab-content"> 
+                   <a class="aui-tab-label">
+                   	<strong>Graph</strong>
+                   </a>
+               </span>
+             </li>
+            <li class="aui-tab aui-state-default">
+                <span class="aui-tab-content">
+                	<a class="aui-tab-label" href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones (<span style="color:<%= milestones.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() %></span>)</a>
+            	</span>
+            </li>
+            <li class="aui-tab aui-state-default">
+            	<span class="aui-tab-content">
+            		<a class="aui-tab-label" href="<portlet:actionURL portletMode="view"/>&action=showTasks">Tasks (<span style="color:<%= tasks.isEmpty()?"#000":"#cc0000" %>"><%= tasks.size() %></span>)</a>
+                </span>  
+              </li>
           </ul>
         </div>
       </div>
