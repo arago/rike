@@ -24,28 +24,17 @@ import de.arago.rike.commons.data.Milestone;
 import de.arago.rike.commons.data.Task;
 import de.arago.rike.commons.data.ActivityLog;
 import de.arago.rike.commons.data.Dependency;
+import de.arago.rike.commons.data.GlobalConfig;
+import static de.arago.rike.commons.data.GlobalConfig.WORKFLOW_TIME_OFFSET;
 import de.arago.rike.commons.data.TaskUser;
 import java.util.HashMap;
 
 import java.util.List;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 public class TaskHelper {
-
-    private static final String POST_HOOK = System.getProperty(TaskHelper.class.getName() + ".postLogHook", "").trim();
-    public static final long OTHER_ARTEFACT_ID = 18;
-    private static final int hourOffsetToStartTask;
-
-    static {
-        try {
-            hourOffsetToStartTask = Integer.valueOf(System.getProperty("de.arago.rike.timeOffset", "0"), 10) * 60 * 60 * 1000;
-        } catch (Exception ex) {
-            throw new ExceptionInInitializerError(ex);
-        }
-    }
 
     private static DataHelperRike<Task> taskHelper() {
         return new DataHelperRike<Task>(Task.class);
@@ -155,23 +144,6 @@ public class TaskHelper {
         }
     }
 
-    public static boolean changeAccount(String user, long change) {
-        try {
-            TaskUser data = checkIfUserExists(user);
-
-            if (data != null) {
-                System.err.println("{balance} " + user + " balance was: " + data.getAccount() + " and will be set to " + (data.getAccount() + change));
-                data.setAccount(data.getAccount().longValue() + change);
-                new DataHelperRike<TaskUser>(TaskUser.class).save(data);
-
-                return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace(System.err);
-        }
-        return false;
-    }
-
     public static boolean canDoTask(String user, Task task) {
         if (task.getStatusEnum() != Task.Status.OPEN) {
             return false;
@@ -180,8 +152,10 @@ public class TaskHelper {
         if (!task.getRatedBy().equals(user)) {
             return true;
         }
-
-        if (task.getCreated().getTime() < (System.currentTimeMillis() - hourOffsetToStartTask)) {
+    
+        int hourOffsetToStartTask = Integer.valueOf(GlobalConfig.get(WORKFLOW_TIME_OFFSET), 10) * 60 * 60 * 1000;
+  
+        if (task.getRated().getTime() < (System.currentTimeMillis() - hourOffsetToStartTask)) {
             return true;
         }
 

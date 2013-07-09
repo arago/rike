@@ -75,7 +75,7 @@
           
           <tr>
             <td><%= stone.getId() %> </td>
-            <td><a href="/web/guest/rike/-/show/milestone/<%= stone.getId() %>"><%= StringEscapeUtils.escapeHtml(stone.getTitle()) %></a>
+            <td><a href="<portlet:actionURL portletMode="view"/>&action=selectMilestone&id=<%= stone.getId() %>"><%= StringEscapeUtils.escapeHtml(stone.getTitle()) %></a>
             <div>work left <span class="bold"> <%= o.getWorkLeftInHours()%>h </span>, time left <span class="bold"><%= o.getDaysLeft() %>d</span>, work done in <span class="bold"><%= o.getWorkDoneInDays() %>d</span></div>
             </td>
             <td class="nowrap">  

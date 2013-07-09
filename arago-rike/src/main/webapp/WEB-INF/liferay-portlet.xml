@@ -4,9 +4,6 @@
 <liferay-portlet-app>
   <portlet>
     <portlet-name>arago-rike-overview</portlet-name>
-    <friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper</friendly-url-mapper-class>  
-    <friendly-url-mapping>show</friendly-url-mapping>  
-    <friendly-url-routes>de/arago/rike/urlmapping/friendly-url-router.xml</friendly-url-routes>  
     <use-default-template>true</use-default-template>
     <instanceable>false</instanceable>
     <header-portlet-css>/css/rike-main.css</header-portlet-css>
@@ -42,6 +39,9 @@
 
   <portlet>
     <portlet-name>arago-rike-task</portlet-name>
+    <friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper</friendly-url-mapper-class>  
+    <friendly-url-mapping>show</friendly-url-mapping>  
+    <friendly-url-routes>de/arago/rike/urlmapping/friendly-url-router.xml</friendly-url-routes>  
     <use-default-template>true</use-default-template>
     <instanceable>false</instanceable>
     <header-portlet-css>/css/rike-main.css</header-portlet-css>
@@ -63,7 +63,6 @@
     <use-default-template>true</use-default-template>
     <instanceable>false</instanceable>
     <header-portlet-javascript>/js/jquery.js</header-portlet-javascript>
-    <header-portlet-javascript>/js/main/main.js</header-portlet-javascript>
   </portlet>
 
   <portlet>

@@ -47,7 +47,7 @@
 
     top.openRikeTask = function(id)
     {
-      window.location = '/web/guest/rike/-/show/task/' + (id * 1);
+      window.location = '<portlet:actionURL portletMode="view"/>&action=selectTask&id=' + (id * 1);
       return false;
     };
 
