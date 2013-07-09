@@ -4,7 +4,7 @@
 <routes>  
   <route>  
     <pattern>/task/{id}</pattern>  
-    <implicit-parameter name="p_p_id">aragorikeoverview_WAR_aragorike</implicit-parameter>  
+    <implicit-parameter name="p_p_id">aragoriketask_WAR_aragorike</implicit-parameter>  
     <implicit-parameter name="p_p_lifecycle">1</implicit-parameter>  
     <implicit-parameter name="p_p_state">normal</implicit-parameter>  
     <implicit-parameter name="p_p_mode">view</implicit-parameter>  
@@ -12,18 +12,18 @@
   </route>  
   <route>  
     <pattern>/milestone/{id}</pattern>  
-    <implicit-parameter name="p_p_id">aragorikeoverview_WAR_aragorike</implicit-parameter>  
+    <implicit-parameter name="p_p_id">aragoriketask_WAR_aragorike</implicit-parameter>  
     <implicit-parameter name="p_p_lifecycle">1</implicit-parameter>  
     <implicit-parameter name="p_p_state">normal</implicit-parameter>  
     <implicit-parameter name="p_p_mode">view</implicit-parameter>  
-    <implicit-parameter name="action">showMilestone</implicit-parameter>  
+    <implicit-parameter name="action">selectMilestone</implicit-parameter>  
   </route>  
   <route>  
     <pattern>/artifact/{id}</pattern>  
-    <implicit-parameter name="p_p_id">aragorikeoverview_WAR_aragorike</implicit-parameter>  
+    <implicit-parameter name="p_p_id">aragoriketask_WAR_aragorike</implicit-parameter>  
     <implicit-parameter name="p_p_lifecycle">1</implicit-parameter>  
     <implicit-parameter name="p_p_state">normal</implicit-parameter>  
     <implicit-parameter name="p_p_mode">view</implicit-parameter>  
-    <implicit-parameter name="action">showArtifact</implicit-parameter>  
+    <implicit-parameter name="action">selectArtifact</implicit-parameter>  
   </route>  
 </routes>

@@ -23,6 +23,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %> 
 
 <portlet:defineObjects />
+<portlet:actionURL portletMode="view" var="viewURL" />
 
 <%
   try {
@@ -30,7 +31,17 @@
     List<OverdueMilestone> milestones = (List) portletSession.getAttribute("overdue-milestones");
     List<Task> tasks = (List) portletSession.getAttribute("overdue-tasks");
     String data = (String) portletSession.getAttribute("overdue-json");
-    List ticks = (List) portletSession.getAttribute("overdue-ms-names");
+    List names = (List) portletSession.getAttribute("overdue-ms-names");
+    List ticks = new ArrayList();
+    int i = 1;
+    for(Object t : names){
+        final List tick = new ArrayList();
+        tick.add(i);
+        tick.add(t.toString().replaceAll("/web/guest/rike/-/show/milestone/", viewURL + "&action=selectMilestone&id="));
+        ticks.add(tick);
+        ++i;
+    }
+    String msNames = JSONArray.toJSONString(ticks);
     long now = new Date().getTime();
 %>
 
@@ -107,7 +118,7 @@
                   },
                   grid: {hoverable: true, clickable: true, markings: markings},
                   xaxis: {mode: "time"},
-                  yaxis: {ticks:<%= JSONArray.toJSONString(ticks)%>},
+                  yaxis: {ticks:<%= msNames %>},
                   selection: {mode: "x"}
                 };
 

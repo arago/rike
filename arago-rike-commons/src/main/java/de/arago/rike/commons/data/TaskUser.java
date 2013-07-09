@@ -26,8 +26,6 @@ import java.util.HashMap;
 import java.util.Map;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
-import net.minidev.json.parser.ParseException;
-
 
 public class TaskUser {
 

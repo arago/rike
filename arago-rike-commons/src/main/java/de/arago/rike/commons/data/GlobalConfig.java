@@ -33,6 +33,7 @@ public class GlobalConfig {
     public static final String WORKFLOW_DAYS_TO_FINISH_TASK = "WORKFLOW_DAYS_TO_FINISH_TASK";
     public static final String WORKFLOW_DAYS_TOP_PRIO_TASK  = "WORKFLOW_DAYS_TOP_PRIO_TASK";
     public static final String WORKFLOW_WIP_LIMIT           = "WORKFLOW_WIP_LIMIT";
+    public static final String WORKFLOW_TIME_OFFSET         = "WORKFLOW_TIME_OFFSET";
     public static final String CHECK_PERIOD_SECONDS         = "CHECK_PERIOD_SECONDS";
     public static final String PATH_TO_PERSONAL_PICS        = "PATH_TO_PERSONAL_PICS";
 
@@ -76,6 +77,10 @@ public class GlobalConfig {
 
         if (map.get(WORKFLOW_WIP_LIMIT) == null) {
             map.put(WORKFLOW_WIP_LIMIT, "3");
+        }
+
+        if (map.get(WORKFLOW_TIME_OFFSET) == null) {
+            map.put(WORKFLOW_TIME_OFFSET, "24");
         }
 
         if (map.get(CHECK_PERIOD_SECONDS) == null) {
