@@ -75,8 +75,7 @@ public class SecurityHelper {
     /**
      * enable this if your frontend proxy does basic authentication
      */
-    private static final boolean basicAuthEnabled = "true".equals(System.getProperty("de.arago.security.basicauth"));
-
+    private static final boolean trustReverseProxyAuth = "true".equals(System.getProperty("de.arago.security.trustReverseProxy"));
 
     private static void refreshUsers() throws Exception {
         for (User user: UserLocalServiceUtil.getUsers(0, QueryUtil.ALL_POS)) {
@@ -84,8 +83,6 @@ public class SecurityHelper {
             emailCache.put(user.getEmailAddress(), new UserContainer(user));
         }
     }
-
-
 
     private static User getUserFromCookies(HttpServletRequest request) throws Exception {
         // https://www.everit.biz/web/guest/everit-blog/-/blogs/getting-current-liferay-user-in-a-standalone-webapp
@@ -113,9 +110,16 @@ public class SecurityHelper {
     }
 
     private static User lookupUserFromCache(String name, String pass, boolean mayRefreshCache) throws Exception {
-        UserContainer container = cache.get(name);
+        UserContainer container = name.contains("@")?emailCache.get(name):cache.get(name);
 
-        if (container != null && !container.isExpired()) return container.getUser();
+        if (container != null && !container.isExpired()) {
+            // if the reverseproxy has already done authentication, we don't need to do it again
+            if (!trustReverseProxyAuth && !container.getUser().getDigest().equals(container.getUser().getDigest(pass))) {
+                return null;
+            }
+
+            return container.getUser();
+        }
 
         if (mayRefreshCache) {
             refreshUsers();
@@ -127,25 +131,21 @@ public class SecurityHelper {
     }
 
     private static User getUserFromAuthHeader(HttpServletRequest request) throws Exception {
-        if (!basicAuthEnabled) return null;
-
         String auth					 = request.getHeader("Authorization");
         if (auth == null) return null;
 
         auth = new String(Base64.decodeBase64(auth.replaceAll("^Basic\\ +", "")));
 
-        final String[] parts = auth.split(":");
-        if (parts == null || parts.length == 0 || parts[0] == null || parts[0].isEmpty()) return null;
-
-        return lookupUserFromCache(parts[0], parts[1], true);
+        return lookupUserFromCache(auth.substring(0, auth.indexOf(":")), auth.substring(auth.indexOf(":") + 1), true);
     }
 
     public static User getUserFromRequest(HttpServletRequest request) {
         try {
             User user = getUserFromLiferay(request);
 
-            if (user == null) user = getUserFromAuthHeader(request);
             if (user == null) user = getUserFromCookies(request);
+            if (user == null) user = getUserFromAuthHeader(request);
+
 
             return user;
         } catch (Exception e) {
