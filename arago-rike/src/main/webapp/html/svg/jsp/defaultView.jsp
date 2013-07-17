@@ -248,7 +248,7 @@
     <div class="content nofooter nohead">
       <div style="position:relative; height:100%" id="<portlet:namespace/>PortletContent">
         <div id="<portlet:namespace />controlNode" style="<%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "" : "display:none;"%> position:absolute; top:0px; left:0px; width:170px; height:150px"></div>
-        <embed src="<%=renderRequest.getContextPath()%>/svg?action=graph&user=<%= URLEncoder.encode(filter.getUser(), "UTF-8")%>&lastActivity=<%=lastActivity %>&milestone=<%= URLEncoder.encode(filter.getMilestone(), "UTF-8")%>" id="<portlet:namespace />SVG"  type="image/svg+xml" style="width:300px; height:200px;" />
+        <embed src="<%=renderRequest.getContextPath()%>/svg?action=graph&user=<%= URLEncoder.encode(filter.getUser(), "UTF-8")%>&lastActivity=<%=lastActivity %>&milestone=<%= URLEncoder.encode(filter.getMilestone(), "UTF-8")%>" id="<portlet:namespace />SVG"  type="image/svg+xml" />
       </div>
     </div>
   </div>
