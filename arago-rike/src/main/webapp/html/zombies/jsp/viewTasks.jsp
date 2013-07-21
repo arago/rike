@@ -34,7 +34,7 @@
         
         <span>Exceeded date (<span style="color:<%= milestones.isEmpty() && tasks.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() + tasks.size() %></span>)</span>
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.zombies');" title="Help" class="icon-question"></a> 
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.exceeded');" title="Help" class="icon-question"></a> 
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
             <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize" class="icon-resize-small"></a>
           <% } else { %>

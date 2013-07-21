@@ -625,7 +625,7 @@ input, .button, .submit, textarea, select, button {
   -webkit-border-radius: 3px;
   font-size: 1em;
 }
-input[type=text], textarea {
+input[type=text], input[type=password], textarea {
   padding: 0.25em;
 }
 /* --- buttons --- */
