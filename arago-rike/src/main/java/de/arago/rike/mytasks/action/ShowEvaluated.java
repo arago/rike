@@ -33,6 +33,7 @@ import de.arago.rike.commons.data.Task;
 
 public class ShowEvaluated implements Action {
 
+    @Override
     public void execute(IDataWrapper data) throws Exception {
         TaskListFilter filter = new TaskListFilter();
 
@@ -41,6 +42,7 @@ public class ShowEvaluated implements Action {
 
         data.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
         data.setSessionAttribute("targetView", "viewEvaluated");
+        data.setSessionAttribute("taskListFilter",filter);
     }
 
 }
