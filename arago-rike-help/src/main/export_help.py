@@ -81,6 +81,13 @@ def extractImgs(page, resources):
         imgURL = rob[:ind]
         rob = rob[ind:]
         resources.append(('img', imgURL, None))
+
+def replace_links(content):
+    pos = content.find('<a href="help.')
+    if pos < 0:
+        return content
+    end = content.find('"',pos + 13);
+    return content[:pos] + '<a href="javascript:void(0);" onclick="return de.arago.help.Provider.show(\'' + content[pos+14:end] + '\');' + replace_links(content[end:])
             
 #use template index.html and resources to create new contents
 def save_resources(dest_path, tmpl_dir, resources):
@@ -90,7 +97,8 @@ def save_resources(dest_path, tmpl_dir, resources):
         if r[0] == 'html':
             newpage = template            
             newpage = newpage.replace("%title%", r[1])
-            newpage = newpage.replace("%content%", r[2])
+            content = r[2].replace('https://raw.github.com/arago/rike/master/arago-rike-help/src/main/webapp/help/','/arago-rike-help/help/')
+            newpage = newpage.replace("%content%", replace_links(content))
             fout = open(dest_path + '/' + r[1] + '.html','w')
             fout.write(newpage)
             fout.close()

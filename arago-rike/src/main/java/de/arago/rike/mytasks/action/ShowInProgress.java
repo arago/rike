@@ -31,6 +31,7 @@ import de.arago.rike.commons.data.Task;
 
 public class ShowInProgress implements Action {
 
+    @Override
     public void execute(IDataWrapper data) throws Exception {
         TaskListFilter filter = new TaskListFilter();
 
@@ -39,6 +40,7 @@ public class ShowInProgress implements Action {
 
         data.setSessionAttribute("list", TaskHelper.getAllTasks(filter));
         data.removeSessionAttribute("targetView");
+        data.setSessionAttribute("taskListFilter",filter);
     }
 
 }
