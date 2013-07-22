@@ -209,6 +209,15 @@ public class SecurityHelper {
         return "";
     }
 
+    public static String getUserScreenName(String user) {
+        try {
+            User u = getUser(user);
+            if(u!=null)
+                return u.getScreenName();
+        } catch(Exception e) {}
+        return "";
+    }
+
     public static boolean isLoggedIn(String user) {
         return user != null && user.length() > 0;
     }

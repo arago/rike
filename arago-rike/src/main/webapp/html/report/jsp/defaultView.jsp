@@ -26,7 +26,6 @@
                     <%= portletTitle%>
                 </div>
                 <span class="right">
-                    <a id="<portlet:namespace />whole" href="javascript:;">whole period</a>
                     <% if (type.equals("taskstatus")) {%>
                     <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.taskstatus');" title="Help" class="icon-question"></a>
                     <% } else {%>
@@ -42,9 +41,9 @@
         </div>
 
         <div class="content nohead nofooter">
-            <div class="inner" id="<portlet:namespace />PortletContent">
+            <div class="inner graph" id="<portlet:namespace />PortletContent">
                 <div id="<portlet:namespace />chart"></div>
-                <!--<p><input id="<portlet:namespace />whole" type="button" value="Whole period" /></p>-->
+                <a id="<portlet:namespace />whole" href="javascript:;" class="button icon-zoom-out" title="whole period"></a>
             </div>
 
             <script type="text/javascript">

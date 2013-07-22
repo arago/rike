@@ -42,7 +42,7 @@ public final class Help extends AragoPortlet {
             String user = SecurityHelper.getUserEmail(data.getUser());
             if (user != null && !user.isEmpty()) {
                 TaskUser tu = TaskHelper.checkIfUserExists(user);
-                if (tu != null && tu.getFlags()!=null&&tu.getFlags().contains("DisableOverlay")) {
+                if (tu != null && "true".equals(tu.getFlagsAsMap().get("DisableOverlay"))) {
                     data.setSessionAttribute("help.shown", "true");
                 }
             }

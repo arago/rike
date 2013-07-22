@@ -47,22 +47,32 @@
           </form>
         </div>
         <div class="left">
-          <ul class="tabbar">
-            <li class="selected"><a href="#">In Progress</a></li>
-            <li><a href="<portlet:actionURL portletMode="view"/>&action=showEvaluated">Rated</a></li>
+          <ul class="aui-tabview-list">
+            <li class="aui-tab aui-state-default first aui-tab-active">
+               <span class="aui-tab-content"> 
+                   <a class="aui-tab-label">
+                    <strong> In Progress</strong>
+                    </a> 
+              </span>
+            </li>
+            <li class="aui-tab aui-state-default">
+                <span class="aui-tab-content">
+                    <a class="aui-tab-label" href="<portlet:actionURL portletMode="view"/>&action=showEvaluated">Rated</a>
+                </span>
+            </li>
           </ul>
         </div>
       </div>
 
     </div>
     <div class="content">
-        <table>
+        <table class="list">
           <thead>
             <tr>
-              <th class="shrink center">#</th>
-              <th class="shrink center" title="Status">?</th>
-              <th class="shrink center" title="Priority">!</th>
-              <th class="name">Name</th>
+              <th class="id shrink center" title="ID">#</th>
+              <th class="status shrink center" title="Status">?</th>
+              <th class="prio shrink center" title="Priority">Prio</th>
+              <th class="name" title="Name">Name</th>
             </tr>
           </thead>
           <tbody>
@@ -72,9 +82,9 @@
 
             %>
             <tr>
-              <td class="shrink center"><%= StringEscapeUtils.escapeHtml(task.getId().toString())%></td>
-              <td class="shrink"><span class="<%= ViewHelper.getTaskStatusColorClass(task)%>"></span></td>
-              <td class="shrink <%= ViewHelper.getTaskPriorityColorClass(task)%>"></td>
+              <td class="id shrink"><%= StringEscapeUtils.escapeHtml(task.getId().toString())%></td>
+              <td class="status shrink"><span class="<%= ViewHelper.getTaskStatusColorClass(task)%>"></span></td>
+              <td class="prio shrink"><%= task.getPriority()%></td>
               <td class="name"><a href="<portlet:actionURL portletMode="view" />&action=selectTask&id=<%= URLEncoder.encode(task.getId().toString(), "UTF-8")%>"><%= StringEscapeUtils.escapeHtml(task.getTitle())%></a></td>
             </tr>
             <%
@@ -82,6 +92,7 @@
             %>
           </tbody>
         </table>
+
     </div>     
 
     <div class="footer">
@@ -93,7 +104,7 @@
           }
         %>
 
-        Time of my tasks: <%= size%>
+        Time of all tasks: <%= size%>
       </div>  
     </div>
   </div>
