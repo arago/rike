@@ -13,7 +13,8 @@
     {
       $(this.providers).each(function()
       {
-        this(topic);
+        this.hide();
+        this.show(topic);
       });
       
       return false;
