@@ -28,7 +28,7 @@
 
     ActivityLog first = logs.isEmpty() ? null : logs.get(0);
 %>
-
+<portlet:actionURL portletMode="view" var="viewURL" />
 
 <div class="portlet big <%= renderRequest.getWindowState().equals(WindowState.MAXIMIZED) ? "maximized" : ""%>" id="<portlet:namespace />Portlet">
   <div class="portletbox">
@@ -62,7 +62,12 @@
                 <td>
                   <%= ViewHelper.formatUser(log.getUser())%>
                   <%-- the content has been escaped before putting it into the model --%>
-                  <%= log.getContent() %> <br />
+                  <%
+                      String text = log.getContent();
+                      text = text.replaceAll("/web/guest/rike/-/show/task/", viewURL + "&action=selectTask&id=");
+                      text = text.replaceAll("/web/guest/rike/-/show/milestone/", viewURL + "&action=selectMilestone&id=");
+                  %>
+                  <%= text %> <br />
                   <span style="color:#999; font-size:0.9em"><%= service.formatHumanDate(log.getCreated())%></span>
                 </td>
               </tr>

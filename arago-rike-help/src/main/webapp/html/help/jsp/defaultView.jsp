@@ -42,41 +42,57 @@
 <script type="text/javascript">
   $(function()
   {
-    de.arago.help.Provider.register('', function(topic)
+    de.arago.help.Provider.register('', 
     {
-      AUI().ready('aui-dialog', 'aui-overlay-manager', 'dd-constrain', function(A) 
+      overlay: null,
+      show:  function(topic)
       {
-        $.ajax('<%= renderRequest.getContextPath()%>/help/help.'+encodeURIComponent(topic)+'.html', 
+        var local = this;
+        
+        AUI().ready('aui-dialog', 'aui-overlay-manager', 'dd-constrain', function(A) 
         {
-          complete: function(ret)
+          $.ajax('<%= renderRequest.getContextPath()%>/help/help.'+encodeURIComponent(topic)+'.html', 
           {
-            if (ret.responseText)
+            complete: function(ret)
             {
-              var instance = new A.Dialog({
-                bodyContent: ret.responseText,
-                centered: true,
-                constrain2view: true,
-                destroyOnClose: true,
-                draggable: false,
-                modal:true,
-                height: '75%',
-                resizable: false,
-                stack: true,
-                title: 'Help',
-                width: '75%'
-              });
-
-              instance.on('close', function()
+              if (ret.responseText)
               {
+                var instance = new A.Dialog({
+                  bodyContent: ret.responseText,
+                  centered: true,
+                  constrain2view: true,
+                  destroyOnClose: true,
+                  draggable: false,
+                  modal:true,
+                  height: '75%',
+                  resizable: false,
+                  stack: true,
+                  title: 'Help',
+                  width: '75%'
+                });
 
-              });
-
-              instance.render();
-            };  
-          }
+                instance.on('close', function()
+                {
+                  local.overlay = null;
+                });
+                
+                local.overlay = instance;
+                instance.render();
+              };  
+            }
+          });
         });
-      });
+      },
+      hide: function()
+      {
+        if (this.overlay) 
+        {
+          this.overlay.close();
+          this.overlay = null;
+        };
+      }
     });
+    
   });
 </script>
 

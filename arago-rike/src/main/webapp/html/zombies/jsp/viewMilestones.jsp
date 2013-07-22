@@ -34,7 +34,7 @@
         
         <span>Exceeded date (<span style="color:<%= milestones.isEmpty() && tasks.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() + tasks.size() %></span>)</span>
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.zombies');" title="Help" class="icon-question"></a>  
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.exceeded');" title="Help" class="icon-question"></a>  
           <% if(renderRequest.getWindowState().equals(WindowState.MAXIMIZED)){ %>
             <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize" class="icon-resize-small"></a>
           <% } else { %>
@@ -44,11 +44,23 @@
       </h1>
       <div class="inner">
         <div class="left">
-        <ul class="tabbar">
-          <li><a href="<portlet:actionURL portletMode="view"/>&action=showGraph">Graph</a></li>
-          <li class="selected"><a href="#">Milestones  (<span style="color:<%= milestones.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() %></span>)</a></li>
-          <li><a href="<portlet:actionURL portletMode="view"/>&action=showTasks">Tasks (<span style="color:<%= tasks.isEmpty()?"#000":"#cc0000" %>"><%= tasks.size() %></span>)</a></li>
-        </ul>
+           <ul class="aui-tabview-list">
+              <li class="aui-tab aui-state-default">
+                <span class="aui-tab-content">
+                    <a class="aui-tab-label" href="<portlet:actionURL portletMode="view"/>&action=showGraph">Graph</a>
+                </span>
+              </li>
+              <li class="aui-tab aui-state-default first aui-tab-active">
+               <span class="aui-tab-content"> 
+                   <a class="aui-tab-label"><strong>Milestones</strong>  (<span style="color:<%= milestones.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() %></span>)</a>
+               </span>
+              </li>
+              <li class="aui-tab aui-state-default last">
+                <span class="aui-tab-content">
+                    <a class="aui-tab-label" href="<portlet:actionURL portletMode="view"/>&action=showTasks">Tasks (<span style="color:<%= tasks.isEmpty()?"#000":"#cc0000" %>"><%= tasks.size() %></span>)</a>
+                </span>
+              </li>
+            </ul>
         </div>
       </div>
         
@@ -75,7 +87,7 @@
           
           <tr>
             <td><%= stone.getId() %> </td>
-            <td><a href="/web/guest/rike/-/show/milestone/<%= stone.getId() %>"><%= StringEscapeUtils.escapeHtml(stone.getTitle()) %></a>
+            <td><a href="<portlet:actionURL portletMode="view"/>&action=selectMilestone&id=<%= stone.getId() %>"><%= StringEscapeUtils.escapeHtml(stone.getTitle()) %></a>
             <div>work left <span class="bold"> <%= o.getWorkLeftInHours()%>h </span>, time left <span class="bold"><%= o.getDaysLeft() %>d</span>, work done in <span class="bold"><%= o.getWorkDoneInDays() %>d</span></div>
             </td>
             <td class="nowrap">  

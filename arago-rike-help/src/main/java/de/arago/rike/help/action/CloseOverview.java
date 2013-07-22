@@ -42,8 +42,9 @@ public class CloseOverview implements Action {
             String email = SecurityHelper.getUserEmail(data.getUser());
             List<TaskUser> userData = userHelper.list(userHelper.filter().add(Restrictions.eq("email", email)));
             if (userData.size() > 0) {
-                userData.get(0).setFlags("DisableOverlay");
-                userHelper.save(userData.get(0));
+                TaskUser tu = userData.get(0);
+                tu.addFlag("DisableOverlay", "true");
+                userHelper.save(tu);
             }
         }
     }
