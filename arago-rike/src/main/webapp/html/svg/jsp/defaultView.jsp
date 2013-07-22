@@ -165,11 +165,26 @@
 
       <% }%>
 
-        function <portlet:namespace />enrichSVG(evt)
+        function <portlet:namespace />enrichSVG(evt, counter)
         {
           var theSVG = window.document.getElementById('<portlet:namespace />SVG');
           var doc       = theSVG.getSVGDocument();
-					
+          
+          counter = counter || 0;
+          
+          if (counter > 100) return;
+          
+          if (!doc)
+          {
+            window.setTimeout(function()
+            {
+              ++counter;
+              <portlet:namespace />enrichSVG(evt, counter);
+            }, 50);
+            
+            return;
+          };  
+          
           var svgNode = $('svg', doc).get(0);
 
           var outer_width = $('#<portlet:namespace/>Portlet').width() - 12;
