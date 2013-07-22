@@ -172,7 +172,6 @@
           
           counter = counter || 0;
           
-					
           if (counter > 100) return;
           
           if (!doc)
