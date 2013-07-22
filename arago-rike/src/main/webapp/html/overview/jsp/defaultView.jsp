@@ -180,7 +180,7 @@
                         width: '250px',
                         selectFirst: false,
                         widthNode: document.getElementById('<portlet:namespace/>Searchbox'),
-                        offsetRight: 148,
+                        offsetRight: 250,
                         onstart: function()
                         {
                           //$('#<portlet:namespace/>SearchboxButton').get(0).style.backgroundImage = 'url(/wisdome-theme/pix/ajax-loader.gif)';
