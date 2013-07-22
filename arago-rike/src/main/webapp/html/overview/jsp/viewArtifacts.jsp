@@ -34,7 +34,7 @@
       <h1>
         Overview: Artifacts
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.overview');" title="Help" class="icon-question"></a>
           <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
           <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
           <% } else {%>

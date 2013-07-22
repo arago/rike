@@ -34,7 +34,7 @@
       <h1>
         Overview: Milestones
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.task');" title="Help"><span class="icon">S</span></a> 
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.overview');" title="Help" class="icon-question"></a>
           <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
           <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize"><span class="icon">%</span></a>
           <% } else {%>
@@ -67,7 +67,7 @@
 
           <tr<%= currentMilestone != null && currentMilestone.getId().equals(stone.getId()) ? " class=\"selected\"" : ""%>>
             <td><%=stone.getId()%></td>
-            <td><a href="/web/guest/rike/-/show/milestone/<%= stone.getId()%>"><%=StringEscapeUtils.escapeHtml(stone.getTitle())%></a></td>
+            <td><a href="<portlet:actionURL portletMode="view"/>&action=showMilestone&id=<%= stone.getId()%>"><%=StringEscapeUtils.escapeHtml(stone.getTitle())%></a></td>
             <td><%= ViewHelper.formatURL(stone.getUrl())%></td>
           </tr>
 

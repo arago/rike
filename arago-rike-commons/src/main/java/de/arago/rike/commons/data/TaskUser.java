@@ -22,6 +22,10 @@
  */
 package de.arago.rike.commons.data;
 
+import java.util.HashMap;
+import java.util.Map;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
 
 public class TaskUser {
 
@@ -100,6 +104,23 @@ public class TaskUser {
 
     public void setFlags(String flags) {
         this.flags = flags;
+    }
+
+    public Map getFlagsAsMap() {
+        if (flags != null && !flags.isEmpty()) {
+            JSONParser parser = new JSONParser();
+            try {
+                return (Map) parser.parse(flags);
+            } catch (Exception ex) {
+            }
+        }
+        return new HashMap();
+    }
+
+    public void addFlag(String name, String value) {
+        Map map = getFlagsAsMap();
+        map.put(name, value);
+        this.flags = JSONObject.toJSONString(map);
     }
 
     public String getAlias() {

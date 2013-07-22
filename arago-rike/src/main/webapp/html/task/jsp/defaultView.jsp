@@ -141,14 +141,14 @@
 
           <tr>
             <th class="shrink">Artifact:</th>
-            <td><a href="/web/guest/rike/-/show/artifact/<%= task.getArtifact().getId()%>">
+            <td><a href="<portlet:actionURL portletMode="view"/>&action=selectArtifact&id=<%= task.getArtifact().getId()%>">
                 <%= StringEscapeUtils.escapeHtml(task.getArtifact().getName())%></a></td>
           </tr>
 
           <% if (task.getMilestone() != null) {%>
           <tr>
             <th class="shrink">Milestone:</th>
-            <td><a href="/web/guest/rike/-/show/milestone/<%= task.getMilestone().getId()%>">
+            <td><a href="<portlet:actionURL portletMode="view"/>&action=selectMilestone&id=<%= task.getMilestone().getId()%>">
                 <%= StringEscapeUtils.escapeHtml(task.getMilestone().getTitle())%></a></td>
           </tr>
           <%  }%>

@@ -22,7 +22,7 @@
     <div class="head">
       <h1>
         <div class="ellipsis"> Leaderboard </div>
-        <span class="right"> <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.leaderboard');" title="Help" class="icon-question"></a>
+        <span class="right"> 
         <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
         <a href="<portlet:actionURL portletMode="view" windowState="normal"/>" title="Minimize" class="icon-resize-small"></a>
         <% } else {%>

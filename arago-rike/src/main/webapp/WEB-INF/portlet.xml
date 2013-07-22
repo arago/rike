@@ -6,10 +6,6 @@
 		<portlet-name>arago-rike-overview</portlet-name>
 		<display-name>Overview</display-name>
 		<portlet-class>de.arago.rike.overview.Overview</portlet-class>
-    <init-param>
-      <name>check-auth-token</name>
-      <value>false</value>
-    </init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
@@ -155,6 +151,10 @@
 		<portlet-name>arago-rike-task</portlet-name>
 		<display-name>Task</display-name>
 		<portlet-class>de.arago.rike.task.Task</portlet-class>
+    <init-param>
+      <name>check-auth-token</name>
+      <value>false</value>
+    </init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
@@ -217,6 +217,12 @@
 		</supported-publishing-event>
 		<supported-publishing-event>
 			<qname>ActivityLogNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>MilestoneSelectNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>ArtifactSelectNotification</qname>
 		</supported-publishing-event>
 	</portlet>
 	<portlet>
@@ -371,6 +377,9 @@
     </supported-publishing-event>
 		<supported-publishing-event>
 			<qname>ActivityLogNotification</qname>
+		</supported-publishing-event>
+		<supported-publishing-event>
+			<qname>TaskSelectNotification</qname>
 		</supported-publishing-event>
   </portlet>
   <portlet>

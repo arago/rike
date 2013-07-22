@@ -125,10 +125,7 @@ public class ZombieHelper {
         for (OverdueMilestone o : milestones) {
             Milestone stone = o.getMilestone();
 
-            final List tick = new ArrayList();
-            tick.add(i);
-            tick.add("<a href='/web/guest/rike/-/show/milestone/"+stone.getId()+"'>"+StringEscapeUtils.escapeHtml(stone.getTitle()) + "</a>");
-            ticks.add(tick);
+            ticks.add("<a href='/web/guest/rike/-/show/milestone/"+stone.getId()+"'>"+StringEscapeUtils.escapeHtml(stone.getTitle()) + "</a>");
 
             GregorianCalendar c = new GregorianCalendar();
             c.setTime(stone.getDueDate());

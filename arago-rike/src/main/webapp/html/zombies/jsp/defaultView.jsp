@@ -23,6 +23,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %> 
 
 <portlet:defineObjects />
+<portlet:actionURL portletMode="view" var="viewURL" />
 
 <%
   try {
@@ -30,7 +31,17 @@
     List<OverdueMilestone> milestones = (List) portletSession.getAttribute("overdue-milestones");
     List<Task> tasks = (List) portletSession.getAttribute("overdue-tasks");
     String data = (String) portletSession.getAttribute("overdue-json");
-    List ticks = (List) portletSession.getAttribute("overdue-ms-names");
+    List names = (List) portletSession.getAttribute("overdue-ms-names");
+    List ticks = new ArrayList();
+    int i = 1;
+    for(Object t : names){
+        final List tick = new ArrayList();
+        tick.add(i);
+        tick.add(t.toString().replaceAll("/web/guest/rike/-/show/milestone/", viewURL + "&action=selectMilestone&id="));
+        ticks.add(tick);
+        ++i;
+    }
+    String msNames = JSONArray.toJSONString(ticks);
     long now = new Date().getTime();
 %>
 
@@ -42,7 +53,7 @@
 
         <span>Exceeded date (<span style="color:<%= milestones.isEmpty() && tasks.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() + tasks.size() %></span>)</span>
         <span class="right">
-          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.zombies');" title="Help" class="icon-question"></a> 
+          <a href="javascript:void(0);" onclick="return de.arago.help.Provider.show('rike.exceeded');" title="Help" class="icon-question"></a> 
           <% if (renderRequest.getWindowState().equals(WindowState.MAXIMIZED)) {%>
           <a href="<portlet:actionURL portletMode="view" windowState="normal"/>"  title="Minimize" class="icon-resize-small"></a>
           <% } else {%>
@@ -53,10 +64,24 @@
       <div class="inner">
         <div class="left">
 
-          <ul class="tabbar">
-            <li class="selected"><a href="#">Graph</a></li>
-            <li><a href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones (<span style="color:<%= milestones.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() %></span>)</a></li>
-            <li><a href="<portlet:actionURL portletMode="view"/>&action=showTasks">Tasks (<span style="color:<%= tasks.isEmpty()?"#000":"#cc0000" %>"><%= tasks.size() %></span>)</a></li>
+           <ul class="aui-tabview-list">
+            <li class="aui-tab aui-state-default aui-tab-active first">
+               <span class="aui-tab-content"> 
+                   <a class="aui-tab-label">
+                   	<strong>Graph</strong>
+                   </a>
+               </span>
+             </li>
+            <li class="aui-tab aui-state-default">
+                <span class="aui-tab-content">
+                	<a class="aui-tab-label" href="<portlet:actionURL portletMode="view"/>&action=showMilestones">Milestones (<span style="color:<%= milestones.isEmpty()?"#000":"#cc0000" %>"><%= milestones.size() %></span>)</a>
+            	</span>
+            </li>
+            <li class="aui-tab aui-state-default">
+            	<span class="aui-tab-content">
+            		<a class="aui-tab-label" href="<portlet:actionURL portletMode="view"/>&action=showTasks">Tasks (<span style="color:<%= tasks.isEmpty()?"#000":"#cc0000" %>"><%= tasks.size() %></span>)</a>
+                </span>  
+              </li>
           </ul>
         </div>
       </div>
@@ -93,7 +118,7 @@
                   },
                   grid: {hoverable: true, clickable: true, markings: markings},
                   xaxis: {mode: "time"},
-                  yaxis: {ticks:<%= JSONArray.toJSONString(ticks)%>},
+                  yaxis: {ticks:<%= msNames %>},
                   selection: {mode: "x"}
                 };
 
