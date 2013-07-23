@@ -48,9 +48,6 @@ public class AddHoursToTask implements Action {
 
                 TaskHelper.save(task);
                 StatisticHelper.update();
-                if(task.getArtifact().getId().longValue()==TaskHelper.OTHER_ARTEFACT_ID) {
-                    TaskHelper.changeAccount(user, hours*50/8);
-                }
 
                 data.setSessionAttribute("task", task);
 

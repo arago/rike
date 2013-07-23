@@ -32,14 +32,18 @@ public class MilestoneSelectNotification implements Event {
     @Override
     public void execute(IEventWrapper event) throws Exception {
         TaskListFilter filter = (TaskListFilter) event.getSessionAttribute("taskListFilter");
+        try{
+            int id = Integer.parseInt(event.getEventAttribute("id").toString());
+            String milestone = "milestone_" + id;
 
-        String milestone = "milestone_" + event.getEventAttribute("id");
+            filter.setDefaultOptions();
 
-        filter.setDefaultOptions();
+            filter.setMilestone(milestone);
+            filter.setIsActive(true);
 
-        filter.setMilestone(milestone);
-        filter.setIsActive(true);
-
-        event.setSessionAttribute("portletTitle", new PortletTitleWithMilestone(milestone, "Dependencies"));
+            event.setSessionAttribute("portletTitle", new PortletTitleWithMilestone(milestone, "Dependencies"));
+        }catch(Exception ignore){
+            
+        }
     }
 }

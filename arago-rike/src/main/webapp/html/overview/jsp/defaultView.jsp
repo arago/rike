@@ -180,7 +180,7 @@
                         width: '250px',
                         selectFirst: false,
                         widthNode: document.getElementById('<portlet:namespace/>Searchbox'),
-                        offsetRight: 148,
+                        offsetRight: 250,
                         onstart: function()
                         {
                           //$('#<portlet:namespace/>SearchboxButton').get(0).style.backgroundImage = 'url(/wisdome-theme/pix/ajax-loader.gif)';
@@ -234,10 +234,10 @@
         <table class="list">
           <thead>
             <tr>
-              <th class="id shrink center" title="ID">#</th>
-              <th class="status shrink center" title="Status">?</th>
-              <th class="prio shrink center" title="Priority">Prio</th>
-              <th class="name" title="Name">Name</th>
+              <th class="id shrink center" title="ID"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.ID.toString()%>">#</a></th>
+              <th class="status shrink center" title="Status"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.STATUS.toString()%>" title="Status">?</a></th>
+              <th class="prio shrink center" title="Priority"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.PRIORITY.toString()%>" title="Priority">Prio</a></th>
+              <th class="name" title="Name"><a href="<portlet:actionURL portletMode="view" />&action=orderBy&field=<%= TaskListFilter.SortField.TITLE.toString()%>">Name</a></th>
               <th class="shrink center"></th>
             </tr>
           </thead>
