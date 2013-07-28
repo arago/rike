@@ -6,7 +6,7 @@
   <packaging>jar</packaging>
   <name>arago-lucene</name>
   <groupId>de.arago</groupId>
-  <version>4.1</version>
+  <version>4.2-SNAPSHOT</version>
   <dependencies>
     <dependency>
       <groupId>org.apache.lucene</groupId>
