@@ -67,15 +67,16 @@ final class UserContainer {
         return user;
     }
 }
-public class SecurityHelper {
 
-    private static final ConcurrentMap<String, UserContainer> cache      = new ConcurrentHashMap<String, UserContainer>();
-    private static final ConcurrentMap<String, UserContainer> emailCache = new ConcurrentHashMap<String, UserContainer>();
+public final class SecurityHelper {
+
+    private static ConcurrentMap<String, UserContainer> cache      = new ConcurrentHashMap<String, UserContainer>();
+    private static ConcurrentMap<String, UserContainer> emailCache = new ConcurrentHashMap<String, UserContainer>();
 
     /**
      * enable this if your frontend proxy does basic authentication
      */
-    private static final boolean trustReverseProxyAuth = "true".equals(System.getProperty("de.arago.security.trustReverseProxy"));
+    private static boolean trustReverseProxyAuth = "true".equals(System.getProperty("de.arago.security.trustReverseProxy"));
 
     private SecurityHelper() {
         //not called
@@ -88,7 +89,7 @@ public class SecurityHelper {
         }
     }
 
-    private static User getUserFromCookies(HttpServletRequest request) throws PortalException, SystemException {
+    private static User getUserFromCookies(HttpServletRequest request) throws SystemException, PortalException {
         // https://www.everit.biz/web/guest/everit-blog/-/blogs/getting-current-liferay-user-in-a-standalone-webapp
         final Cookie[] cookies	= request.getCookies() == null?new Cookie[0]:request.getCookies();
         String userId			= null;
@@ -136,20 +137,25 @@ public class SecurityHelper {
 
     private static User getUserFromAuthHeader(HttpServletRequest request) throws SystemException {
         String auth					 = request.getHeader("Authorization");
-        if (auth == null) return null;
+        if (auth == null){
+            return null;
+        }
 
         auth = new String(Base64.decodeBase64(auth.replaceAll("^Basic\\ +", "")));
 
-        return lookupUserFromCache(auth.substring(0, auth.indexOf(":")), auth.substring(auth.indexOf(":") + 1), true);
+        return lookupUserFromCache(auth.substring(0, auth.indexOf(':')), auth.substring(auth.indexOf(':') + 1), true);
     }
 
     public static User getUserFromRequest(HttpServletRequest request) {
         try {
             User user = getUserFromLiferay(request);
 
-            if (user == null) user = getUserFromCookies(request);
-            if (user == null) user = getUserFromAuthHeader(request);
-
+            if (user == null){
+                user = getUserFromCookies(request);
+            }
+            if (user == null){
+                user = getUserFromAuthHeader(request);
+            }
 
             return user;
         } catch (Exception e) {
@@ -171,11 +177,12 @@ public class SecurityHelper {
     private static User lookupUserFromEmailCache(String email, boolean mayRefreshCache) throws SystemException {
         UserContainer container = emailCache.get(email);
 
-        if (container != null && !container.isExpired()) return container.getUser();
+        if (container != null && !container.isExpired()){
+            return container.getUser();
+        }
 
         if (mayRefreshCache) {
             refreshUsers();
-
             return lookupUserFromEmailCache(email, false);
         }
 
@@ -207,8 +214,9 @@ public class SecurityHelper {
     public static String getUserEmail(String user) {
         try {
             User u = getUser(user);
-            if(u!=null)
+            if(u!=null){
                 return u.getEmailAddress();
+            }
         } catch(Exception e) {}
         return "";
     }
@@ -216,8 +224,9 @@ public class SecurityHelper {
     public static String getUserScreenName(String user) {
         try {
             User u = getUser(user);
-            if(u!=null)
+            if(u!=null){
                 return u.getScreenName();
+            }
         } catch(Exception e) {}
         return "";
     }
@@ -227,7 +236,9 @@ public class SecurityHelper {
     }
 
     public static String[] getUserGroups(String userId) {
-        if (userId == null || userId.isEmpty()) return new String[0];
+        if (userId == null || userId.isEmpty()){
+            return new String[0];
+        }
         ArrayList<String> result = new ArrayList<String>();
 
         try {
@@ -242,7 +253,9 @@ public class SecurityHelper {
     }
 
     public static String[] getUserRoles(String userId) {
-        if (userId == null || userId.isEmpty()) return new String[0];
+        if (userId == null || userId.isEmpty()){
+            return new String[0];
+        }
         ArrayList<String> result = new ArrayList<String>();
 
         try {
@@ -257,7 +270,9 @@ public class SecurityHelper {
     }
 
     public static List<String[]> getUserGroupsWithNames(String user) {
-        if (user == null || user.isEmpty()) return Collections.EMPTY_LIST;
+        if (user == null || user.isEmpty()){
+            return Collections.EMPTY_LIST;
+        }
 
         ArrayList<String[]> result = new ArrayList<String[]>();
 
