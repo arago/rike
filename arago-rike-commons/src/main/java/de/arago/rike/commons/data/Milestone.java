@@ -48,7 +48,7 @@ public class Milestone {
     }
 
     public void setDueDate(Date what) {
-        dueDate = what;
+        dueDate.setTime(what.getTime());
     }
 
     public Date getDueDate() {
@@ -84,7 +84,7 @@ public class Milestone {
     }
 
     public void setCreated(Date created) {
-        this.created = created;
+        this.created.setTime(created.getTime());
     }
 
     public Date getCreated() {

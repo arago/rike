@@ -33,7 +33,7 @@ import de.arago.rike.commons.util.ArtifactHelper;
 public class ShowArtifacts implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
 
         data.setSessionAttribute("artifacts", ArtifactHelper.list());
         data.setSessionAttribute("targetView", "viewArtifacts");

@@ -29,7 +29,7 @@ import de.arago.rike.commons.util.ArtifactHelper;
 public class ArtifactSelectNotification implements Event {
 
     @Override
-    public void execute(IEventWrapper event) throws Exception {
+    public void execute(IEventWrapper event) {
         if (event.getEventAttribute("id") != null) {
             event.setSessionAttribute("artifact", ArtifactHelper.getArtifact((String) event.getEventAttribute("id")));
             if(event.getSessionAttribute("artifacts")==null) {

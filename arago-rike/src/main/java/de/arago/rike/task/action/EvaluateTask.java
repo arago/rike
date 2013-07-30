@@ -49,7 +49,7 @@ import static de.arago.rike.commons.data.GlobalConfig.*;
 public class EvaluateTask implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
 
         if (data.getRequestAttribute("id") != null) {
 

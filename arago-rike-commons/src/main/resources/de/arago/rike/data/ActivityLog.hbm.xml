@@ -9,6 +9,6 @@
     <property column="log_user" name="user"/>
     <property column="icon" name="icon"/>
     <property name="created"/>
-    <property column="json_data" name="json_data"/>
+    <property column="json_data" name="jsonData"/>
   </class>
 </hibernate-mapping>

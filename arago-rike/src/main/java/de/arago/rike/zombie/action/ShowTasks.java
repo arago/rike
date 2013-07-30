@@ -32,7 +32,7 @@ import de.arago.data.IDataWrapper;
 public class ShowTasks implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
 
         data.setSessionAttribute("targetView", "viewTasks");
 

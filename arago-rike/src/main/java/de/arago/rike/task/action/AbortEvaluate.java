@@ -31,7 +31,7 @@ import de.arago.data.IDataWrapper;
 
 public class AbortEvaluate implements Action {
 
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
         data.removeSessionAttribute("targetView");
     }
 }

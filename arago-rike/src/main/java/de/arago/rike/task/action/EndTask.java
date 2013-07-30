@@ -40,7 +40,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 public class EndTask implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
 
         if (data.getRequestAttribute("id") != null) {
             Task task = TaskHelper.getTask(data.getRequestAttribute("id"));

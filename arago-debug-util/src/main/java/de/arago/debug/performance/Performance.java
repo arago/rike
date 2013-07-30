@@ -35,6 +35,10 @@ public final class Performance {
 
     private static final StatsdClient client;
 
+    private Performance() {
+        //not called
+    }
+
     static {
         final String host = System.getProperty(configPrefix + "host", "");
 

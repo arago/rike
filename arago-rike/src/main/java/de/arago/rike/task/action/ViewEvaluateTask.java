@@ -37,7 +37,7 @@ import org.hibernate.criterion.Order;
 public class ViewEvaluateTask implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
 
         if (data.getRequestAttribute("id") != null) {
 

@@ -34,7 +34,7 @@ import de.arago.rike.commons.util.TaskListFilter;
 public class OrderBy implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
 
         TaskListFilter filter = (TaskListFilter) data.getSessionAttribute("taskListFilter");
 

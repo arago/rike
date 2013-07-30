@@ -34,7 +34,7 @@ import de.arago.rike.commons.data.Task;
 public class ShowEvaluated implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
         TaskListFilter filter = new TaskListFilter();
 
         filter.setStatus(Task.Status.OPEN.toString());

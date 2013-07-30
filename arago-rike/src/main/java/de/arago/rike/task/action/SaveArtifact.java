@@ -39,7 +39,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 public class SaveArtifact implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
 
         DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
         Artifact artifact = null;

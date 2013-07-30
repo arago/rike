@@ -33,6 +33,11 @@ import org.hibernate.criterion.Restrictions;
  *
  */
 public final class MilestoneHelper {
+
+    private MilestoneHelper() {
+        //not called
+    }
+
     public static List<Milestone> list() {
         DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
 

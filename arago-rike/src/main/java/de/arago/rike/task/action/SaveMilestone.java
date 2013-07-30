@@ -40,7 +40,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 public class SaveMilestone implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
 
         DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
         Milestone milestone = null;

@@ -33,7 +33,7 @@ import de.arago.rike.commons.util.MilestoneHelper;
 public class ShowMilestones implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
 
         data.setSessionAttribute("milestones", MilestoneHelper.list());
         data.setSessionAttribute("targetView", "viewMilestones");

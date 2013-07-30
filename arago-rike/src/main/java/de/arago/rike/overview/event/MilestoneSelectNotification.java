@@ -29,7 +29,7 @@ import de.arago.rike.commons.util.MilestoneHelper;
 public class MilestoneSelectNotification implements Event {
 
     @Override
-    public void execute(IEventWrapper event) throws Exception {
+    public void execute(IEventWrapper event) {
         if (event.getEventAttribute("id") != null) {
             event.setSessionAttribute("milestone", MilestoneHelper.getMilestone((String) event.getEventAttribute("id")));
             if(event.getSessionAttribute("milestones")==null) {

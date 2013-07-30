@@ -36,6 +36,10 @@ import org.hibernate.criterion.Restrictions;
 
 public class TaskHelper {
 
+    private TaskHelper() {
+        //not called
+    }
+
     private static DataHelperRike<Task> taskHelper() {
         return new DataHelperRike<Task>(Task.class);
     }

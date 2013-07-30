@@ -48,7 +48,7 @@ import static de.arago.rike.commons.data.GlobalConfig.PRIORITY_NORMAL;
 public class SaveTask implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
 
         Task task = new Task();
         String user = SecurityHelper.getUserEmail(data.getUser());

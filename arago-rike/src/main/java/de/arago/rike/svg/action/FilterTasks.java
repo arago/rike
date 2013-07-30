@@ -33,7 +33,7 @@ import de.arago.rike.commons.util.TaskListFilter;
 public class FilterTasks implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
 
         // filtering happens in the view, just persist chosen options in the session
 

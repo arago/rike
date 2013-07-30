@@ -77,14 +77,18 @@ public class SecurityHelper {
      */
     private static final boolean trustReverseProxyAuth = "true".equals(System.getProperty("de.arago.security.trustReverseProxy"));
 
-    private static void refreshUsers() throws Exception {
+    private SecurityHelper() {
+        //not called
+    }
+
+    private static void refreshUsers() throws SystemException {
         for (User user: UserLocalServiceUtil.getUsers(0, QueryUtil.ALL_POS)) {
             cache.put(user.getScreenName(), new UserContainer(user));
             emailCache.put(user.getEmailAddress(), new UserContainer(user));
         }
     }
 
-    private static User getUserFromCookies(HttpServletRequest request) throws Exception {
+    private static User getUserFromCookies(HttpServletRequest request) throws PortalException, SystemException {
         // https://www.everit.biz/web/guest/everit-blog/-/blogs/getting-current-liferay-user-in-a-standalone-webapp
         final Cookie[] cookies	= request.getCookies() == null?new Cookie[0]:request.getCookies();
         String userId			= null;
@@ -109,7 +113,7 @@ public class SecurityHelper {
         return null;
     }
 
-    private static User lookupUserFromCache(String name, String pass, boolean mayRefreshCache) throws Exception {
+    private static User lookupUserFromCache(String name, String pass, boolean mayRefreshCache) throws SystemException {
         UserContainer container = name.contains("@")?emailCache.get(name):cache.get(name);
 
         if (container != null && !container.isExpired()) {
@@ -130,7 +134,7 @@ public class SecurityHelper {
         return null;
     }
 
-    private static User getUserFromAuthHeader(HttpServletRequest request) throws Exception {
+    private static User getUserFromAuthHeader(HttpServletRequest request) throws SystemException {
         String auth					 = request.getHeader("Authorization");
         if (auth == null) return null;
 
@@ -164,7 +168,7 @@ public class SecurityHelper {
         }
     }
 
-    private static User lookupUserFromEmailCache(String email, boolean mayRefreshCache) throws Exception {
+    private static User lookupUserFromEmailCache(String email, boolean mayRefreshCache) throws SystemException {
         UserContainer container = emailCache.get(email);
 
         if (container != null && !container.isExpired()) return container.getUser();

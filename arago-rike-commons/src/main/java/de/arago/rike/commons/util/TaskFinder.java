@@ -7,6 +7,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
 
 public class TaskFinder {
+
+    private TaskFinder() {
+        //not called
+    }
+
     /**
      * find tasks in a freetext index
      *

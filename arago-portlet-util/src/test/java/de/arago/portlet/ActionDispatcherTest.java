@@ -94,23 +94,23 @@ public class ActionDispatcherTest {
     }
 
     @Test
-    public void testDispatchDoesNotExist() throws Exception {
+    public void testDispatchDoesNotExist() throws IllegalAccessException {
         ActionDispatcher a 					 = new ActionDispatcher(testClass.class);
         HashMap<Object, Object> data = new HashMap<Object, Object>();
 
         a.dispatch("testActionDoesNotExist", new TestDataWrapper(data));
 
-        if (data.containsKey("testActionExecuted")) throw new Exception("action was executed");
+        if (data.containsKey("testActionExecuted")) throw new IllegalAccessException("action was executed");
     }
 
     @Test
-    public void testDispatch() throws Exception {
+    public void testDispatch() throws IllegalAccessException {
         ActionDispatcher a 					 = new ActionDispatcher(testClass.class);
         HashMap<Object, Object> data = new HashMap<Object, Object>();
 
         a.dispatch("dispatcherTestAction", new TestDataWrapper(data));
 
-        if (!data.containsKey("testActionExecuted")) throw new Exception("action was not executed");
+        if (!data.containsKey("testActionExecuted")) throw new IllegalAccessException("action was not executed");
     }
 
 }

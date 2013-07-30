@@ -1,5 +1,6 @@
 package de.arago.lucene.util;
 
+import static de.arago.lucene.api.Converter.FIELD_CONTENT;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,21 +27,19 @@ public class TextMapConverter extends BaseConverter<Map<String, String>> {
 
         all.setLength(0);
 
-        for (String o : cond.keySet()) {
-            String value = cond.get(o);
-            if (value == null) {
+        for (Map.Entry<String, String> o : cond.entrySet()) {
+            if (o.getValue() == null) {
                 continue;
             }
 
-            if (!FIELD_ID.equals(o)) {
-                doc.add(new Field(o, value, Field.Store.YES, Field.Index.ANALYZED));
-                all.append(value);
+            if (!FIELD_ID.equals(o.getKey())) {
+                doc.add(new Field(o.getKey(), o.getValue(), Field.Store.YES, Field.Index.ANALYZED));
+                all.append(o.getValue());
                 all.append(' ');
             }
-
-            doc.add(new Field(FIELD_CONTENT, all.toString(), Field.Store.NO, Field.Index.ANALYZED));
         }
-
+        
+        doc.add(new Field(FIELD_CONTENT, all.toString(), Field.Store.NO, Field.Index.ANALYZED));
         return doc;
     }
 

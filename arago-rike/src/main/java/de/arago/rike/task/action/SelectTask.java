@@ -32,7 +32,7 @@ import java.util.HashMap;
 
 public class SelectTask implements Action {
 
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
 
         if (data.getRequestAttribute("id") != null) {
             HashMap<String, Object> notificationParam = new HashMap<String, Object>();

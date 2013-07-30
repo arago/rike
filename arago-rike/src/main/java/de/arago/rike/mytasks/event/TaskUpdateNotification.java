@@ -31,7 +31,7 @@ import de.arago.rike.commons.data.Task;
 
 public class TaskUpdateNotification  implements Event {
 
-    public void execute(IEventWrapper event) throws Exception {
+    public void execute(IEventWrapper event) {
         TaskListFilter filter = new TaskListFilter();
 
         filter.setStatus(Task.Status.IN_PROGRESS.toString());

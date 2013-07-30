@@ -33,7 +33,7 @@ import de.arago.rike.commons.util.TaskHelper;
 public class Disconnect implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
         TaskHelper.changeConnections(data, false);
     }
 }

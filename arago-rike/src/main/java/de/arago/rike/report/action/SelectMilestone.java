@@ -35,7 +35,7 @@ import org.hibernate.criterion.Restrictions;
 
 public class SelectMilestone implements Action {
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
         HashMap<String, Object> notificationParam = new HashMap<String, Object>();
 
         String milestone = data.getRequestAttribute("milestone");

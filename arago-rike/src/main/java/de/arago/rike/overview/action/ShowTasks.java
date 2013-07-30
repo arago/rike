@@ -34,7 +34,7 @@ import de.arago.rike.commons.util.TaskListFilter;
 public class ShowTasks implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
 
         Object taskListFilterObject = data.getSessionAttribute("taskListFilter");
 

@@ -31,6 +31,11 @@ import org.hibernate.criterion.Order;
  *
  */
 public final class ArtifactHelper {
+
+    private ArtifactHelper() {
+        //not called
+    }
+
     public static List<Artifact> list() {
         DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
 

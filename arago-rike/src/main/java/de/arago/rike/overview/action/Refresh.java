@@ -34,7 +34,7 @@ import de.arago.rike.commons.util.TaskListFilter;
 public class Refresh implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
         data.setSessionAttribute("taskList", TaskHelper.getAllTasks((TaskListFilter) data.getSessionAttribute("taskListFilter")));
     }
 }

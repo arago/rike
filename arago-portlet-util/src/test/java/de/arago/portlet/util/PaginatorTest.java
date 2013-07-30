@@ -35,17 +35,6 @@ public class PaginatorTest extends TestCase {
         super(testName);
     }
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
-
-
     public void testNormal() {
         List<Object> page1 = Arrays.asList(new Object[] {1, 2, 3});
         List<Object> page2 = Arrays.asList(new Object[] {4, 5, 6});

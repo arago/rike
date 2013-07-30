@@ -30,7 +30,7 @@ import de.arago.rike.commons.util.PortletTitleWithMilestone;
 public class MilestoneChangeNotification implements Event {
 
     @Override
-    public void execute(IEventWrapper event) throws Exception {
+    public void execute(IEventWrapper event) {
         String milestone = (String)event.getEventAttribute("milestone");
         event.setSessionAttribute("milestone", milestone);
         event.setSessionAttribute("portletTitle",

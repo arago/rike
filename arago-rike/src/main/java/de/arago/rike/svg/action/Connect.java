@@ -32,7 +32,7 @@ import de.arago.rike.commons.util.TaskHelper;
 public class Connect implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
         TaskHelper.changeConnections(data, true);
     }
 }

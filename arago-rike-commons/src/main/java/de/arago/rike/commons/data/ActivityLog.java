@@ -27,11 +27,11 @@ import java.util.Date;
 
 public class ActivityLog implements Serializable {
     private long id;
-    private String log_user;
+    private String logUser;
     private String content;
     private Date created;
     private String icon;
-    private String json_data;
+    private String jsonData;
 
     public void setId(Long id) {
         this.id = id;
@@ -42,11 +42,11 @@ public class ActivityLog implements Serializable {
     }
 
     public void setUser(String name) {
-        this.log_user = name;
+        this.logUser = name;
     }
 
     public String getUser() {
-        return log_user;
+        return logUser;
     }
 
     public String getContent() {
@@ -74,10 +74,10 @@ public class ActivityLog implements Serializable {
     }
 
     public String getJson_data() {
-        return json_data;
+        return jsonData;
     }
 
     public void setJson_data(String json_data) {
-        this.json_data = json_data;
+        this.jsonData = json_data;
     }
 }

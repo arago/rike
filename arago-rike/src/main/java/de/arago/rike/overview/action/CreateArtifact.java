@@ -32,7 +32,7 @@ import java.util.HashMap;
 public class CreateArtifact implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
         data.setEvent("ArtifactSelectNotification", new HashMap<String, Object>());
     }
 }

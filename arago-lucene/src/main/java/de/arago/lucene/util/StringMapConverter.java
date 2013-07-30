@@ -21,11 +21,11 @@ public class StringMapConverter extends BaseConverter<Map<String,String>> {
         }
 
         doc.add(new Field(FIELD_ID, id.toString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-        for (Object o : cond.keySet()) {
-            if (o == null || cond.get(o) == null) continue;
+        for (Map.Entry<String, String> e : cond.entrySet()) {
+            if (e.getKey() == null || e.getValue() == null) continue;
 
-            if (!"id".equals(o)) {
-                doc.add(new Field(o.toString(), cond.get(o).toString(), Field.Store.YES, Field.Index.ANALYZED));
+            if (!"id".equals(e.getKey())) {
+                doc.add(new Field(e.getKey().toString(), e.getValue().toString(), Field.Store.YES, Field.Index.ANALYZED));
             }
         }
 

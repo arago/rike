@@ -9,6 +9,11 @@ import org.apache.lucene.queryparser.classic.QueryParser;
 
 
 public class NodeSearcher {
+
+    private NodeSearcher() {
+        //not called
+    }
+    
     /**
      * find nodes in a freetext index
      *

@@ -29,22 +29,25 @@ import org.hibernate.Hibernate;
 
 public class ChartTimeSeries {
 
-    //private static final SessionFactory factory;
-    public static String releaseTasksStatus =
+    private ChartTimeSeries() {
+        //not called
+    }
+
+    public final static String releaseTasksStatus =
         "SELECT sum(summe_size) as value, task_status as name, moment "
         + "FROM task_stat,milestones "
         + "WHERE milestone_id=milestones.id AND milestones.release_name=? "
         + "GROUP BY task_status, moment";
-    public static String milestoneTasksStatus =
+    public final static String milestoneTasksStatus =
         "SELECT sum(summe_size) as value, task_status as name, moment "
         + "FROM task_stat "
         + "WHERE milestone_id = ? "
         + "GROUP BY task_status, moment";
-    public static String allTasksStatus =
+    public final static String allTasksStatus =
         "SELECT sum(summe_size) as value, task_status as name, moment "
         + "FROM task_stat "
         + "GROUP BY task_status, moment";
-    public static String milestoneBurndown =
+    public final static String milestoneBurndown =
         "SELECT sum( summe_size ) as value, milestones.title as name, moment "
         + "FROM task_stat, milestones "
         + "WHERE milestone_id = milestones.id "
@@ -53,7 +56,7 @@ public class ChartTimeSeries {
         + "and milestones.id = ? "
         + "GROUP BY milestones.title, moment "
         + "ORDER BY due_date, moment";
-    public static String allBurndown =
+    public final static String allBurndown =
         "SELECT sum( summe_size ) as value, milestones.release_name as name, moment "
         + "FROM task_stat, milestones "
         + "WHERE milestone_id = milestones.id "
@@ -61,7 +64,7 @@ public class ChartTimeSeries {
         + "AND due_date IS NOT NULL "
         + "GROUP BY milestones.release_name, moment "
         + "ORDER BY moment";
-    public static String releaseBurndown =
+    public final static String releaseBurndown =
         "SELECT sum( summe_size ) as value, milestones.title as name, moment "
         + "FROM task_stat, milestones "
         + "WHERE milestone_id = milestones.id "
@@ -72,8 +75,6 @@ public class ChartTimeSeries {
         + "ORDER BY due_date, moment";
 
     public static Map<String, List<List<Long>>> query(String str, Object[] parameters) {
-        //Session s = factory.getCurrentSession();
-        //Transaction tr = s.beginTransaction();
         DataHelperRike<Object> helper = new DataHelperRike<Object>(Object.class);
         org.hibernate.SQLQuery query = helper.createSQLQuery(str).addScalar("name", Hibernate.STRING).addScalar("value", Hibernate.LONG).addScalar("moment", Hibernate.DATE);
 
@@ -104,7 +105,6 @@ public class ChartTimeSeries {
         }
 
         helper.finish(query);
-        //tr.commit();
         return data;
     }
 
@@ -113,8 +113,8 @@ public class ChartTimeSeries {
         ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>(data.size());
         List<String> stats = new ArrayList<String>(ViewHelper.getStatus());
         Collections.reverse(stats);
-        for (String upper_name : stats) {
-            String name = upper_name.toLowerCase();
+        for (String u : stats) {
+            String name = u.toLowerCase();
             if (data.containsKey(name)) {
                 TreeMap<String, Object> map = new TreeMap<String, Object>();
                 map.put("label", ViewHelper.getStatus(name));
@@ -136,9 +136,9 @@ public class ChartTimeSeries {
                 if (dates.containsKey(l.get(0))) {
                     sum = dates.get(l.get(0));
                 } else {
-                    sum = new Long(0);
+                    sum = Long.valueOf(0);
                 }
-                sum = new Long(sum.longValue() + l.get(1).longValue());
+                sum = Long.valueOf(sum.longValue() + l.get(1).longValue());
                 l.set(1, sum);
                 dates.put(l.get(0), sum);
             }
@@ -185,9 +185,9 @@ public class ChartTimeSeries {
             for (List<Long> l : tmp) {
                 Long sum;
                 if (dates.containsKey(l.get(0))) {
-                    sum = new Long(dates.get(l.get(0)).longValue() + 1);
+                    sum = Long.valueOf(dates.get(l.get(0)).longValue() + 1);
                 } else {
-                    sum = new Long(0);
+                    sum = Long.valueOf(0);
                 }
                 dates.put(l.get(0), sum);
             }
@@ -209,11 +209,11 @@ public class ChartTimeSeries {
     public static List<Map<String, Object>> toBurndownJSON(String query, Object[] parameters) {
         Map<String, List<List<Long>>> data = query(query, parameters);
         ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>(data.size());
-        for (String name : data.keySet()) {
+        for (Entry<String, List<List<Long>>> e : data.entrySet()) {
             TreeMap<String, Object> map = new TreeMap<String, Object>();
-            map.put("label", name);
-            map.put("key", name);
-            map.put("data", data.get(name));
+            map.put("label", e.getKey());
+            map.put("key", e.getKey());
+            map.put("data", e.getValue());
             list.add(map);
         }
         return list;

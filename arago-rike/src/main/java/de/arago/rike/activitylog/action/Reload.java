@@ -33,7 +33,7 @@ import java.util.HashMap;
 public class Reload implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
         HashMap<String, Object> notificationParam = new HashMap<String, Object>();
         data.setEvent("ActivityLogNotification", notificationParam);
     }

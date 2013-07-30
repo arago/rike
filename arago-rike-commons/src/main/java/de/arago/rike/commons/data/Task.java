@@ -105,7 +105,7 @@ public class Task implements Serializable {
     }
 
     public void setStart(Date start) {
-        this.start = start;
+        this.start.setTime(start.getTime());
     }
 
     public Date getStart() {
@@ -137,11 +137,11 @@ public class Task implements Serializable {
     }
 
     public void setCreated(Date created) {
-        this.created = created;
+        this.created.setTime(created.getTime());
     }
 
     public void setRated(Date rated) {
-        this.rated = rated;
+        this.rated.setTime(rated.getTime());
     }
 
     public Date getCreated() {
@@ -198,7 +198,7 @@ public class Task implements Serializable {
     }
 
     public void setDueDate(Date when) {
-        dueDate = when;
+        dueDate.setTime(when.getTime());
     }
 
     public Date getDueDate() {

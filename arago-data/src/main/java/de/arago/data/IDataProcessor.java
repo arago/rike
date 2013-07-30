@@ -23,7 +23,7 @@
 package de.arago.data;
 
 public interface IDataProcessor {
-    public void initSession(IDataWrapper data) throws Exception;
-    public void action(IDataWrapper data) throws Exception;
-    public void event(IEventWrapper data) throws Exception;
+    void initSession(IDataWrapper data) throws Exception;
+    void action(IDataWrapper data) throws Exception;
+    void event(IEventWrapper data) throws Exception;
 }

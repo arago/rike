@@ -81,14 +81,6 @@ public class EventDispatcherTest {
     public EventDispatcherTest() {
     }
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
     @Before
     public void setUp() {
     }
@@ -104,14 +96,14 @@ public class EventDispatcherTest {
     }
 
     @Test
-    public void testDispatchDoesNotExist() throws Exception {
+    public void testDispatchDoesNotExist() {
         EventDispatcher a = new EventDispatcher(testClass.class);
         Map<Object,Object> data = new HashMap<Object,Object>();
         a.dispatch("testEventDoesNotExist", new TestDataWrapper(data));
     }
 
     @Test
-    public void testDispatch() throws Exception {
+    public void testDispatch() {
         EventDispatcher a = new EventDispatcher(testClass.class);
         Map<Object,Object> data = new HashMap<Object,Object>();
 

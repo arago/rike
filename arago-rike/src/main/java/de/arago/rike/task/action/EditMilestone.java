@@ -33,7 +33,7 @@ import de.arago.rike.commons.util.MilestoneHelper;
 public class EditMilestone implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
         data.setSessionAttribute("milestone", MilestoneHelper.getMilestone(data.getRequestAttribute("id")));
         data.setSessionAttribute("targetView", "viewEditMilestone");
     }

@@ -38,76 +38,76 @@ import javax.portlet.ResourceResponse;
 import javax.portlet.WindowState;
 
 public class PortletDataWrapper implements IDataWrapper {
-    private PortletRequest m_request;
-    private PortletResponse m_response;
-    private ActionResponse m_actionResponse = null;
+    private PortletRequest request;
+    private PortletResponse response;
+    private ActionResponse actionResponse = null;
 
     public PortletDataWrapper(ResourceRequest request, ResourceResponse response) {
-        m_request = request;
-        m_response = response;
+        this.request = request;
+        this.response = response;
     }
 
     public PortletDataWrapper(ActionRequest request, ActionResponse response) {
-        m_request = request;
-        m_response = response;
-        m_actionResponse = response;
+        this.request = request;
+        this.response = response;
+        actionResponse = response;
     }
 
     public PortletDataWrapper(RenderRequest request, RenderResponse response) {
-        m_request = request;
-        m_response = response;
+        this.request = request;
+        this.response = response;
     }
 
     public WindowState getWindowState() {
-        if (m_request != null) return m_request.getWindowState();
-        if (m_actionResponse != null) return m_actionResponse.getWindowState();
+        if (request != null) return request.getWindowState();
+        if (actionResponse != null) return actionResponse.getWindowState();
 
         return WindowState.NORMAL;
     }
 
     @Override
     public void setSessionAttribute(String key, Object value) {
-        m_request.getPortletSession().setAttribute(key, value);
+        request.getPortletSession().setAttribute(key, value);
     }
 
     @Override
     public Enumeration<String> getSessionAttributeNames() {
-        return m_request.getPortletSession().getAttributeNames();
+        return request.getPortletSession().getAttributeNames();
     }
 
     @Override
     public Object getSessionAttribute(String key) {
-        return m_request.getPortletSession().getAttribute(key);
+        return request.getPortletSession().getAttribute(key);
     }
 
     @Override
     public void removeSessionAttribute(String key) {
-        m_request.getPortletSession().removeAttribute(key);
+        request.getPortletSession().removeAttribute(key);
     }
 
     @Override
     public Enumeration<String> getRequestAttributeNames() {
-        return m_request.getParameterNames();
+        return request.getParameterNames();
     }
 
     @Override
     public String getRequestAttribute(String key) {
-        return m_request.getParameter(key);
+        return request.getParameter(key);
     }
 
     @Override
     public void setRequestAttribute(String key, Object value) {
-        m_request.setAttribute(key, value);
+        request.setAttribute(key, value);
     }
 
     @Override
     public void setEvent(String key, HashMap<String, Object> event) {
-        m_actionResponse.setEvent(key, event);
+        actionResponse.setEvent(key, event);
     }
 
     @Override
     public String getUser() {
-        return m_request.getRemoteUser();
+        return request.getRemoteUser();
     }
 
 }

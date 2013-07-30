@@ -32,7 +32,7 @@ import de.arago.rike.commons.data.Task;
 public class ShowInProgress implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
         TaskListFilter filter = new TaskListFilter();
 
         filter.setStatus(Task.Status.IN_PROGRESS.toString());

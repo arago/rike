@@ -29,7 +29,7 @@ import javax.portlet.RenderRequest;
 import javax.servlet.http.HttpServletRequest;
 
 public class JspUserService extends AbstractUserService {
-    private final String USER_IN_SESSION = "de.arago.user.loggedin";
+    private final static String USER_IN_SESSION = "de.arago.user.loggedin";
     private final RenderRequest request;
     private final PortletSession session;
     private final HttpServletRequest servletRequest;

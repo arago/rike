@@ -35,7 +35,7 @@ import org.hibernate.criterion.Restrictions;
 public class CloseOverview implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
         data.setSessionAttribute("help.shown", "true");
         if ("true".equals(data.getRequestAttribute("hide"))) {
             DataHelperRike<TaskUser> userHelper = new DataHelperRike<TaskUser>(TaskUser.class);

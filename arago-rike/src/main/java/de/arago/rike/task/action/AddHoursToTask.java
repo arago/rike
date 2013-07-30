@@ -35,7 +35,7 @@ import java.util.HashMap;
 public class AddHoursToTask implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
 
         if (data.getRequestAttribute("id") != null) {
             Task task = TaskHelper.getTask(data.getRequestAttribute("id"));

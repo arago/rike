@@ -75,9 +75,8 @@ public class SVGGraphCreator {
      *
      * @param id
      * @return SVG content
-     * @throws Exception
      */
-    public static String getGraph(SvgFilter filter) throws Exception {
+    public static String getGraph(SvgFilter filter) throws IOException, InterruptedException {
 
         SVGContainer container = cache.get(filter.getId());
 

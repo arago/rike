@@ -34,7 +34,7 @@ import org.hibernate.criterion.Restrictions;
 
 public class PollUpdates implements JsonAction {
     @Override
-    public Map execute(IDataWrapper data) throws Exception {
+    public Map execute(IDataWrapper data) {
         JSONObject result = new JSONObject();
 
         result.put("count", 0);

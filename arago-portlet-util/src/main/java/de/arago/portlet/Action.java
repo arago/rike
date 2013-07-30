@@ -31,8 +31,6 @@ package de.arago.portlet;
 
 import de.arago.data.IDataWrapper;
 
-
-
 public interface Action {
-    public void execute(IDataWrapper data) throws Exception;
+    void execute(IDataWrapper data) throws Exception;
 }

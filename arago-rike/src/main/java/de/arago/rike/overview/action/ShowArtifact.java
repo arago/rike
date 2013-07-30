@@ -33,7 +33,7 @@ import java.util.HashMap;
 public class ShowArtifact implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
         if (data.getRequestAttribute("id") != null) {
             HashMap<String, Object> notificationParam = new HashMap<String, Object>();
 

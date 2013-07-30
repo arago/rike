@@ -33,7 +33,7 @@ import de.arago.data.IEventWrapper;
 public class DispatcherTestEvent  implements Event {
 
     @Override
-    public void execute(IEventWrapper event) throws Exception {
+    public void execute(IEventWrapper event) {
         event.setEventAttribute("ok", "event executed");
     }
 }

@@ -8,7 +8,7 @@ import org.json.simple.JSONObject;
 public class FindTask implements JsonAction {
 
     @Override
-    public JSONObject execute(IDataWrapper data) throws Exception {
+    public JSONObject execute(IDataWrapper data) {
         JSONObject result = new JSONObject();
         result.put("items", TaskFinder.findTasksWithFreetextQuery(data.getRequestAttribute("q"), 10));
         return result;

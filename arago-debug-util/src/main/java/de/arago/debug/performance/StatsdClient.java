@@ -42,16 +42,16 @@ public class StatsdClient {
 
     private static Random RNG = new Random();
     private static Logger log = Logger.getLogger(StatsdClient.class.getName());
-    private InetSocketAddress _address;
-    private DatagramChannel _channel;
+    private InetSocketAddress address;
+    private DatagramChannel channel;
 
     public StatsdClient(String host, int port) throws UnknownHostException, IOException {
         this(InetAddress.getByName(host), port);
     }
 
     public StatsdClient(InetAddress host, int port) throws IOException {
-        _address = new InetSocketAddress(host, port);
-        _channel = DatagramChannel.open();
+        address = new InetSocketAddress(host, port);
+        channel = DatagramChannel.open();
     }
 
     public boolean timing(String key, int value) {
@@ -141,21 +141,21 @@ public class StatsdClient {
         try {
             final byte[] data = stat.getBytes("utf-8");
             final ByteBuffer buff = ByteBuffer.wrap(data);
-            final int nbSentBytes = _channel.send(buff, _address);
+            final int nbSentBytes = channel.send(buff, address);
 
             if (data.length == nbSentBytes) {
                 return true;
             } else {
                 log.log(Level.SEVERE, String.format(
                             "Could not send entirely stat %s to host %s:%d. Only sent %i bytes out of %i bytes", stat,
-                            _address.getHostName(), _address.getPort(), nbSentBytes, data.length));
+                            address.getHostName(), address.getPort(), nbSentBytes, data.length));
                 return false;
             }
 
         } catch (IOException e) {
             log.log(Level.SEVERE,
-                    String.format("Could not send stat %s to host %s:%d", stat, _address.getHostName(),
-                                  _address.getPort()), e);
+                    String.format("Could not send stat %s to host %s:%d", stat, address.getHostName(),
+                                  address.getPort()), e);
             return false;
         }
     }

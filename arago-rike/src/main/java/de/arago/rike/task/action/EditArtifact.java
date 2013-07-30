@@ -33,7 +33,7 @@ import de.arago.rike.commons.util.ArtifactHelper;
 public class EditArtifact implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
         data.setSessionAttribute("artifact", ArtifactHelper.getArtifact(data.getRequestAttribute("id")));
         data.setSessionAttribute("targetView", "viewEditArtifact");
     }

@@ -6,7 +6,7 @@
       <generator class="native"/>
     </id>
     <property name="email"/>
-    <property name="last_ms"/>
+    <property name="lastms"/>
     <property name="account"/>
     <property name="yesterday"/>
     <property name="flags"/>

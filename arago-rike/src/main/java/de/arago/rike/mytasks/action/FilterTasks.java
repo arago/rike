@@ -32,7 +32,7 @@ import de.arago.data.IDataWrapper;
 public class FilterTasks implements Action {
 
     @Override
-    public void execute(IDataWrapper data) throws Exception {
+    public void execute(IDataWrapper data) {
         data.setSessionAttribute("currentUser", data.getRequestAttribute("user"));
 
         String targetView = (String) data.getSessionAttribute("targetView");

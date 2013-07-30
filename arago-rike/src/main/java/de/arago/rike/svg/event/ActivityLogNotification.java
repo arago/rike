@@ -29,7 +29,7 @@ import de.arago.rike.svg.SVG;
 public class ActivityLogNotification implements Event {
 
     @Override
-    public void execute(IEventWrapper event) throws Exception {
+    public void execute(IEventWrapper event) {
         event.setSessionAttribute("lastActivity", SVG.lastChange());
     }
 

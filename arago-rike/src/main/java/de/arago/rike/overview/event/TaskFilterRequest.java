@@ -29,7 +29,7 @@ import de.arago.rike.commons.util.TaskListFilter;
 
 public class TaskFilterRequest implements Event {
     @Override
-    public void execute(IEventWrapper event) throws Exception {
+    public void execute(IEventWrapper event) {
         TaskListFilter filter = (TaskListFilter) event.getSessionAttribute("taskListFilter");
 
         if (event.getEventAttribute("status") != null) filter.setStatus((String) event.getEventAttribute("status"));

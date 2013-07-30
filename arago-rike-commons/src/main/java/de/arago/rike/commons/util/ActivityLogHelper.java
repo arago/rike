@@ -39,6 +39,10 @@ import net.minidev.json.JSONValue;
 public class ActivityLogHelper {
     private static final String POST_HOOK = System.getProperty(TaskHelper.class.getName() + ".postLogHook", "").trim();
 
+    private ActivityLogHelper() {
+        //not called
+    }
+
     public static void log(String content, String icon, String user, IDataWrapper data, Map objectState) {
         final ActivityLog log = new ActivityLog();
 

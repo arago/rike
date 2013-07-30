@@ -31,19 +31,19 @@ public class TaskUser {
 
     private long id;
     private String email;
-    private String last_ms;
+    private String lastms;
     private long account;
     private long yesterday;
     private int isDeleted;
     private String flags;
-    private int[] ended_tasks;
+    private int[] endedTasks;
 
     public String getLast_ms() {
-        return last_ms;
+        return lastms;
     }
 
     public void setLast_ms(String lastMs) {
-        last_ms = lastMs;
+        lastms = lastMs;
     }
 
     public void setId(Long what) {
@@ -91,11 +91,11 @@ public class TaskUser {
     }
 
     public int[] getEnded_tasks() {
-        return ended_tasks;
+        return endedTasks;
     }
 
     public void setEnded_tasks(int[] ended_tasks) {
-        this.ended_tasks = ended_tasks;
+        this.endedTasks = ended_tasks;
     }
 
     public String getFlags() {

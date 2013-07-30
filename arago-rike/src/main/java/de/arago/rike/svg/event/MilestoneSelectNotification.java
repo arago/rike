@@ -30,7 +30,7 @@ import de.arago.rike.commons.util.TaskListFilter;
 public class MilestoneSelectNotification implements Event {
 
     @Override
-    public void execute(IEventWrapper event) throws Exception {
+    public void execute(IEventWrapper event) {
         TaskListFilter filter = (TaskListFilter) event.getSessionAttribute("taskListFilter");
         try{
             int id = Integer.parseInt(event.getEventAttribute("id").toString());

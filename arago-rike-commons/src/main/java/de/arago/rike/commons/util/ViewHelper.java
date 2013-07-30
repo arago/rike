@@ -51,6 +51,9 @@ import java.text.SimpleDateFormat;
 
 public class ViewHelper {
 
+    private ViewHelper() {
+        //not called
+    }
 
     private static final Map<String, String> priorityNames = new HashMap<String, String>();
     private static final List<String> priorities = new LinkedList<String>();

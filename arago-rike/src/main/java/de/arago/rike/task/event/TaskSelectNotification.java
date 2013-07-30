@@ -36,7 +36,7 @@ import org.hibernate.criterion.Order;
 public class TaskSelectNotification implements Event {
 
     @Override
-    public void execute(IEventWrapper event) throws Exception {
+    public void execute(IEventWrapper event) {
         if (event.getEventAttribute("id") != null) {
             event.setSessionAttribute("task", TaskHelper.getTask((String) event.getEventAttribute("id")));
             event.removeSessionAttribute("targetView");
