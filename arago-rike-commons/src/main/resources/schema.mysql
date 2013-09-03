@@ -171,7 +171,7 @@ CREATE TABLE `task_user` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
   `payment` int(11) NOT NULL DEFAULT '0',
   `today` bigint(20) NOT NULL DEFAULT '0',
-  `flags` varchar(255) DEFAULT NULL,
+  `flags` varchar(255) DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
