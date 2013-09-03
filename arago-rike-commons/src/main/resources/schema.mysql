@@ -110,7 +110,7 @@ DROP TABLE IF EXISTS `releases_archive`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `releases_archive` (
-  `name` varchar(32) NOT NULL,
+  `name` varchar(50) NOT NULL,
   `finished` date DEFAULT NULL,
   `task_count` bigint(20) NOT NULL,
   `estimated_size` bigint(20) NOT NULL,
