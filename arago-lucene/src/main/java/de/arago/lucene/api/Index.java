@@ -186,6 +186,25 @@ public class Index<T> implements Closeable {
         }
     }
 
+    /**
+     * remember to commit at the end of softRemove block if you want read changes from index
+     *
+     * @param o
+     */
+    public synchronized void softRemove(T o) {
+        Term remove = createConverter().toLuceneID(o);
+
+        try {
+            IndexWriter w = getWriter();
+
+            if (remove != null) {
+                w.deleteDocuments(remove);
+            }
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+    }
+
     public synchronized void remove(T o) {
         Term remove = createConverter().toLuceneID(o);
 
