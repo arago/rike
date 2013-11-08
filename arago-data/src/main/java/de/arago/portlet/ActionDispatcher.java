@@ -60,8 +60,6 @@ public class ActionDispatcher extends PortletDispatcher<Action> {
      * @param data the data passed to action
      */
     public void dispatch(String actionName, IDataWrapper data) {
-        long then = System.currentTimeMillis();
-
         Action action = getDispatchable(actionName);
 
         try {

@@ -20,10 +20,6 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package de.arago.portlet;
 
@@ -72,8 +68,6 @@ public class EventDispatcher extends PortletDispatcher<Event> {
      * @param data the data passed to event
      */
     public void dispatch(String name, IEventWrapper data) {
-        long then = System.currentTimeMillis();
-
         Event event = getDispatchable(name);
 
         try {

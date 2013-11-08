@@ -23,7 +23,6 @@
 package de.arago.data.test;
 
 import de.arago.data.IDataWrapper;
-import de.arago.data.test.action.DispatcherTestAction;
 import de.arago.portlet.ActionDispatcher;
 import java.util.Enumeration;
 import java.util.HashMap;
