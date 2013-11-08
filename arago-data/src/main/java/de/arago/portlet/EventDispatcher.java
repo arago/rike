@@ -27,12 +27,9 @@
 
 package de.arago.portlet;
 
-import de.arago.debug.performance.Performance;
 import de.arago.data.IEventWrapper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-
 
 
 /**
@@ -84,8 +81,5 @@ public class EventDispatcher extends PortletDispatcher<Event> {
         } catch(Throwable t) {
             logger.log(Level.SEVERE, "event " + name + " failed ", t);
         }
-
-        Performance.timing("arago.portlet.dispatch.event", System.currentTimeMillis() - then);
-        Performance.timing("arago.portlet.dispatch.event." + getNamespace() + name, System.currentTimeMillis() - then);
     }
 }

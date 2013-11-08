@@ -20,22 +20,18 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.arago.portlet;
+package de.arago.data.test;
 
-import java.util.Map;
 import de.arago.data.IEventWrapper;
+import de.arago.portlet.EventDispatcher;
 import java.util.HashMap;
+import java.util.Map;
 import org.junit.After;
-import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class EventDispatcherTest {
-
-    private static class testClass {
-    }
 
     private static class TestDataWrapper implements IEventWrapper {
 
@@ -45,34 +41,42 @@ public class EventDispatcherTest {
             this.data = data;
         }
 
+        @Override
         public String getName() {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
+        @Override
         public void setName(String name) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
+        @Override
         public Object getEventAttribute(String key) {
             return data.get(key);
         }
 
+        @Override
         public void setEventAttribute(String key, Object value) {
             data.put(key, value);
         }
 
+        @Override
         public Object getSessionAttribute(String key) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
+        @Override
         public void setSessionAttribute(String key, Object value) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
+        @Override
         public void removeSessionAttribute(String key) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
+        @Override
         public String getUser() {
             throw new UnsupportedOperationException("Not supported yet.");
         }
@@ -91,26 +95,22 @@ public class EventDispatcherTest {
 
     @Test
     public void testLoad() {
-        EventDispatcher a = new EventDispatcher(testClass.class);
-        assertEquals(a.getNamespace(), "de.arago.portlet.event.");
+        EventDispatcher a = new EventDispatcher(EventDispatcherTest.class);
+        assertEquals("de.arago.data.test.event.", a.getNamespace());
     }
 
     @Test
     public void testDispatchDoesNotExist() {
-        EventDispatcher a = new EventDispatcher(testClass.class);
+        EventDispatcher a = new EventDispatcher(EventDispatcherTest.class);
         Map<Object,Object> data = new HashMap<Object,Object>();
         a.dispatch("testEventDoesNotExist", new TestDataWrapper(data));
     }
 
     @Test
     public void testDispatch() {
-        EventDispatcher a = new EventDispatcher(testClass.class);
+        EventDispatcher a = new EventDispatcher(EventDispatcherTest.class);
         Map<Object,Object> data = new HashMap<Object,Object>();
-
         a.dispatch("DispatcherTestEvent", new TestDataWrapper(data));
-
-
         assertEquals("event executed", data.get("ok"));
-
     }
 }

@@ -22,7 +22,6 @@
  */
 package de.arago.portlet;
 
-import de.arago.debug.performance.Performance;
 import de.arago.data.IDataWrapper;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,8 +69,5 @@ public class ActionDispatcher extends PortletDispatcher<Action> {
         } catch(Throwable t) {
             logger.log(Level.SEVERE, "action "+actionName+" failed ", t);
         }
-
-        Performance.timing("arago.portlet.dispatch.action", System.currentTimeMillis() - then);
-        Performance.timing("arago.portlet.dispatch.action." + getNamespace() + actionName, System.currentTimeMillis() - then);
     }
 }

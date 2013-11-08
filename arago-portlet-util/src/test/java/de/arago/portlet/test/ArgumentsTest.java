@@ -20,19 +20,16 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.arago.portlet.util;
+package de.arago.portlet.test;
 
 import de.arago.data.IArguments;
 import de.arago.data.impl.MapArguments;
-
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.After;
-import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class ArgumentsTest {
 
