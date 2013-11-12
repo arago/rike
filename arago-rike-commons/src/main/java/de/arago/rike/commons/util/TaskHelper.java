@@ -156,9 +156,9 @@ public class TaskHelper {
         if (!task.getRatedBy().equals(user)) {
             return true;
         }
-    
+
         int hourOffsetToStartTask = Integer.valueOf(GlobalConfig.get(WORKFLOW_TIME_OFFSET), 10) * 60 * 60 * 1000;
-  
+
         if (task.getRated().getTime() < (System.currentTimeMillis() - hourOffsetToStartTask)) {
             return true;
         }

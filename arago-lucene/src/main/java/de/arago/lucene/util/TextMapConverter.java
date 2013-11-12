@@ -38,7 +38,7 @@ public class TextMapConverter extends BaseConverter<Map<String, String>> {
                 all.append(' ');
             }
         }
-        
+
         doc.add(new Field(FIELD_CONTENT, all.toString(), Field.Store.NO, Field.Index.ANALYZED));
         return doc;
     }
