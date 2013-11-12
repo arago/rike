@@ -70,13 +70,23 @@ final class UserContainer {
 
 public final class SecurityHelper {
 
-    private static ConcurrentMap<String, UserContainer> cache      = new ConcurrentHashMap<String, UserContainer>();
-    private static ConcurrentMap<String, UserContainer> emailCache = new ConcurrentHashMap<String, UserContainer>();
+    private static final ConcurrentMap<String, UserContainer> cache      = new ConcurrentHashMap<String, UserContainer>();
+    private static final ConcurrentMap<String, UserContainer> emailCache = new ConcurrentHashMap<String, UserContainer>();
 
     /**
      * enable this if your frontend proxy does basic authentication
      */
-    private static boolean trustReverseProxyAuth = "true".equals(System.getProperty("de.arago.security.trustReverseProxy"));
+    private static final boolean trustReverseProxyAuth = "true".equals(System.getProperty("de.arago.security.trustReverseProxy"));
+
+    /**
+     * trust siteminder auth
+     */
+    private static final boolean trustSiteMinder = "true".equals(System.getProperty("de.arago.security.trustSiteMinder"));
+
+    /**
+     * siteminder auth header
+     */
+    private static final String siteMinderHeader = System.getProperty("de.arago.security.siteMinderHeader", "HTTP_MAIL");
 
     private SecurityHelper() {
         //not called
@@ -137,7 +147,7 @@ public final class SecurityHelper {
 
     private static User getUserFromAuthHeader(HttpServletRequest request) throws SystemException {
         String auth					 = request.getHeader("Authorization");
-        if (auth == null){
+        if (auth == null) {
             return null;
         }
 
@@ -146,14 +156,33 @@ public final class SecurityHelper {
         return lookupUserFromCache(auth.substring(0, auth.indexOf(':')), auth.substring(auth.indexOf(':') + 1), true);
     }
 
+    private static User getUserFromSiteMinder(HttpServletRequest request) {
+        if (!trustSiteMinder) {
+            return null;
+        }
+
+        final String header = request.getHeader(siteMinderHeader);
+
+        if (header == null || header.isEmpty()) {
+            return null;
+        }
+
+        return getUserByEmail(header);
+    }
+
     public static User getUserFromRequest(HttpServletRequest request) {
         try {
-            User user = getUserFromLiferay(request);
+            User user = getUserFromSiteMinder(request);
 
-            if (user == null){
+            if (user == null) {
+                user = getUserFromLiferay(request);
+            }
+
+            if (user == null) {
                 user = getUserFromCookies(request);
             }
-            if (user == null){
+
+            if (user == null) {
                 user = getUserFromAuthHeader(request);
             }
 
@@ -177,7 +206,7 @@ public final class SecurityHelper {
     private static User lookupUserFromEmailCache(String email, boolean mayRefreshCache) throws SystemException {
         UserContainer container = emailCache.get(email);
 
-        if (container != null && !container.isExpired()){
+        if (container != null && !container.isExpired()) {
             return container.getUser();
         }
 
@@ -214,7 +243,7 @@ public final class SecurityHelper {
     public static String getUserEmail(String user) {
         try {
             User u = getUser(user);
-            if(u!=null){
+            if(u!=null) {
                 return u.getEmailAddress();
             }
         } catch(Exception e) {}
@@ -224,7 +253,7 @@ public final class SecurityHelper {
     public static String getUserScreenName(String user) {
         try {
             User u = getUser(user);
-            if(u!=null){
+            if(u!=null) {
                 return u.getScreenName();
             }
         } catch(Exception e) {}
@@ -236,7 +265,7 @@ public final class SecurityHelper {
     }
 
     public static String[] getUserGroups(String userId) {
-        if (userId == null || userId.isEmpty()){
+        if (userId == null || userId.isEmpty()) {
             return new String[0];
         }
         ArrayList<String> result = new ArrayList<String>();
@@ -253,7 +282,7 @@ public final class SecurityHelper {
     }
 
     public static String[] getUserRoles(String userId) {
-        if (userId == null || userId.isEmpty()){
+        if (userId == null || userId.isEmpty()) {
             return new String[0];
         }
         ArrayList<String> result = new ArrayList<String>();
@@ -270,7 +299,7 @@ public final class SecurityHelper {
     }
 
     public static List<String[]> getUserGroupsWithNames(String user) {
-        if (user == null || user.isEmpty()){
+        if (user == null || user.isEmpty()) {
             return Collections.EMPTY_LIST;
         }
 
