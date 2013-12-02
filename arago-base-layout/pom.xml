@@ -4,7 +4,7 @@
 	<packaging>war</packaging>
 	<name>${project.artifactId}</name>
     <groupId>de.arago</groupId>
-    <version>4.3-SNAPSHOT</version>
+    <version>5.0-SNAPSHOT</version>
 	<build>
 	  <finalName>${project.artifactId}</finalName>
     <plugins><plugin> 
