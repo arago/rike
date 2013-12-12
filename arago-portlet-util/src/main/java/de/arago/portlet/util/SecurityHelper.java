@@ -60,6 +60,11 @@ final class UserContainer {
         return (timestamp + (5 * 60 * 1000)) < System.currentTimeMillis();
     }
 
+    @Override
+    public String toString() {
+        return "UserContainer{" + "user=" + user + ", timestamp=" + timestamp + '}';
+    }
+
     /**
      * @return the user
      */
@@ -88,12 +93,40 @@ public final class SecurityHelper {
      */
     private static final String siteMinderHeader = System.getProperty("de.arago.security.siteMinderHeader", "HTTP_MAIL");
 
+    /**
+     * enable debug logging
+     */
+    private static final boolean debug           = "true".equals(System.getProperty("de.arago.security.debug")) || true;
+
+    private static final Logger LOG = Logger.getLogger(SecurityHelper.class.getName());
+
+    static {
+        if (debug) {
+            log("trustReverseProxyAuth=" + trustReverseProxyAuth);
+            log("trustSiteMinder=" + trustSiteMinder);
+            log("siteMinderHeader=" + siteMinderHeader);
+        }
+    }
+
+
+    private static void log(String message, Object ... parameters) {
+        LOG.log(Level.INFO, message, parameters);
+    }
+
     private SecurityHelper() {
         //not called
     }
 
     private static void refreshUsers() throws SystemException {
+
+        if (debug) {
+            log("refreshing users");
+        }
+
         for (User user: UserLocalServiceUtil.getUsers(0, QueryUtil.ALL_POS)) {
+            if (debug) {
+                log("have user " + user.getScreenName() + ", " + user.getEmailAddress());
+            }
             cache.put(user.getScreenName(), new UserContainer(user));
             emailCache.put(user.getEmailAddress(), new UserContainer(user));
         }
@@ -106,6 +139,10 @@ public final class SecurityHelper {
         String password		= null;
         String companyId	= null;
 
+        if (debug) {
+            log("getting user from cookies");
+        }
+
         for (Cookie c : cookies) {
             if ("COMPANY_ID".equals(c.getName())) {
                 companyId = c.getValue();
@@ -116,25 +153,55 @@ public final class SecurityHelper {
             }
         }
 
+        if (debug) {
+            log("have cookies {0} {1} {2}", userId, password, companyId);
+        }
+
+
         if (userId != null && password != null && companyId != null) {
             final KeyValuePair kvp = UserLocalServiceUtil.decryptUserId(Long.parseLong(companyId), userId, password);
             return getUser(kvp.getKey());
+        }
+
+        if (debug) {
+            log("no cookies found");
         }
 
         return null;
     }
 
     private static User lookupUserFromCache(String name, String pass, boolean mayRefreshCache) throws SystemException {
+        if (debug) {
+            log("looking up user from cache {0} (refresh: {1})", pass, mayRefreshCache);
+        }
         UserContainer container = name.contains("@")?emailCache.get(name):cache.get(name);
 
         if (container != null && !container.isExpired()) {
-            // if the reverseproxy has already done authentication, we don't need to do it again
-            if (!trustReverseProxyAuth && !container.getUser().getDigest().equals(container.getUser().getDigest(pass))) {
-                return null;
+            if (debug) {
+                log("found container " + container);
             }
+
+            if (trustReverseProxyAuth) {
+                if (debug) {
+                    log("trusting reverse proxy");
+                }
+            } else {
+                if (!container.getUser().getDigest().equals(container.getUser().getDigest(pass))) {
+                    if (debug) {
+                        log("password digests do not match");
+                    }
+                    return null;
+                }
+            }
+
 
             return container.getUser();
         }
+
+        if (debug) {
+            log("did not find a user");
+        }
+
 
         if (mayRefreshCache) {
             refreshUsers();
@@ -146,26 +213,49 @@ public final class SecurityHelper {
     }
 
     private static User getUserFromAuthHeader(HttpServletRequest request) throws SystemException {
+        if (debug) {
+            log("getting user from auth header");
+        }
+
         String auth					 = request.getHeader("Authorization");
         if (auth == null) {
+            if (debug) {
+                log("did not find an auth header");
+            }
             return null;
         }
 
         auth = new String(Base64.decodeBase64(auth.replaceAll("^Basic\\ +", "")));
 
+        if (debug) {
+            log("have auth header: " + auth.substring(0, auth.indexOf(':')));
+        }
+
         return lookupUserFromCache(auth.substring(0, auth.indexOf(':')), auth.substring(auth.indexOf(':') + 1), true);
     }
 
     private static User getUserFromSiteMinder(HttpServletRequest request) {
+        if (debug) {
+            log("getting user from siteminder");
+        }
+
         if (!trustSiteMinder) {
+            if(debug) {
+                log("siteminder disabled");
+            }
             return null;
         }
 
         final String header = request.getHeader(siteMinderHeader);
 
+        if (debug) {
+            log("have siteminder " + header);
+        }
+
         if (header == null || header.isEmpty()) {
             return null;
         }
+
 
         return getUserByEmail(header);
     }
@@ -186,9 +276,18 @@ public final class SecurityHelper {
                 user = getUserFromAuthHeader(request);
             }
 
+            if (debug) {
+                log("found user " + user.getEmailAddress());
+            }
+
             return user;
-        } catch (Exception e) {
-            Logger.getLogger(SecurityHelper.class.getName()).log(Level.SEVERE, null, e);
+        } catch (Throwable t) {
+            t.printStackTrace();
+            Logger.getLogger(SecurityHelper.class.getName()).log(Level.SEVERE, null, t);
+        }
+
+        if (debug) {
+            log("did not find a user in the request");
         }
 
         return null;
@@ -196,6 +295,10 @@ public final class SecurityHelper {
 
 
     public static User getUserByEmail(String email) {
+        if(debug) {
+            log("getting user by email " + email);
+        }
+
         try {
             return lookupUserFromEmailCache(email, true);
         } catch(Exception e) {
@@ -204,10 +307,21 @@ public final class SecurityHelper {
     }
 
     private static User lookupUserFromEmailCache(String email, boolean mayRefreshCache) throws SystemException {
+        if (debug) {
+            log("looking up user from email cache " + email);
+        }
+
         UserContainer container = emailCache.get(email);
 
         if (container != null && !container.isExpired()) {
+            if (debug) {
+                log("found user " + container);
+            }
             return container.getUser();
+        }
+
+        if (debug) {
+            log("did not find a user");
         }
 
         if (mayRefreshCache) {
@@ -233,6 +347,10 @@ public final class SecurityHelper {
 
 
     public static User getUser(String user) {
+        if (debug) {
+            log("getting user from liferay " + user);
+        }
+
         try {
             return UserLocalServiceUtil.getUserById(Long.valueOf(user,10));
         } catch (Exception ex) {
@@ -241,9 +359,16 @@ public final class SecurityHelper {
     }
 
     public static String getUserEmail(String user) {
+        if (debug) {
+            log("getting user email from liferay " + user);
+        }
+
         try {
             User u = getUser(user);
             if(u!=null) {
+                if (debug) {
+                    log("have user " + u.getEmailAddress());
+                }
                 return u.getEmailAddress();
             }
         } catch(Exception e) {}
@@ -251,9 +376,16 @@ public final class SecurityHelper {
     }
 
     public static String getUserScreenName(String user) {
+        if (debug) {
+            log("getting user screen name " + user);
+        }
+
         try {
             User u = getUser(user);
             if(u!=null) {
+                if (debug) {
+                    log("have user screenname " + u.getScreenName());
+                }
                 return u.getScreenName();
             }
         } catch(Exception e) {}
@@ -261,11 +393,21 @@ public final class SecurityHelper {
     }
 
     public static boolean isLoggedIn(String user) {
+        if (debug) {
+            log("isloggedin " + user);
+        }
+
         return user != null && user.length() > 0;
     }
 
     public static String[] getUserGroups(String userId) {
+        if (debug) {
+            log("getting user groups " + userId);
+        }
         if (userId == null || userId.isEmpty()) {
+            if (debug) {
+                log("returning empty user groups");
+            }
             return new String[0];
         }
         ArrayList<String> result = new ArrayList<String>();
@@ -278,11 +420,24 @@ public final class SecurityHelper {
         } catch (Exception ex) {
             Logger.getLogger(SecurityHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        if (debug) {
+            log("returning user groups " + result);
+        }
+
         return result.toArray(new String[0]);
     }
 
     public static String[] getUserRoles(String userId) {
+
+        if (debug) {
+            log("getting user roles " + userId);
+        }
+
         if (userId == null || userId.isEmpty()) {
+            if (debug) {
+                log("returning empty roles");
+            }
             return new String[0];
         }
         ArrayList<String> result = new ArrayList<String>();
@@ -295,11 +450,22 @@ public final class SecurityHelper {
         } catch (Exception ex) {
             Logger.getLogger(SecurityHelper.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        if (debug) {
+            log("returning roles " + result);
+        }
         return result.toArray(new String[0]);
     }
 
     public static List<String[]> getUserGroupsWithNames(String user) {
+        if (debug) {
+            log("getting user groups with names " + user);
+        }
         if (user == null || user.isEmpty()) {
+            if (debug) {
+                log("returning empty groups");
+            }
+
             return Collections.EMPTY_LIST;
         }
 
@@ -313,15 +479,28 @@ public final class SecurityHelper {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
+
+        if (debug) {
+            log("returning groups with names " + result);
+        }
+
         return result;
     }
 
     private static User getUserFromLiferay(HttpServletRequest request) {
+        if (debug) {
+            log("getting user from request");
+        }
+
         try {
+            if (debug) {
+                log("found liferay user " + PortalUtil.getUser(request).getEmailAddress());
+            }
             return PortalUtil.getUser(request);
-        } catch (PortalException ex) {
-            return null;
-        } catch (SystemException ex) {
+        } catch (Throwable ex) {
+            if (debug) {
+                log("no user in liferay found");
+            }
             return null;
         }
     }
