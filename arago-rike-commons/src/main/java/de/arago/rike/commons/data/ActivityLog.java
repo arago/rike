@@ -73,7 +73,7 @@ public class ActivityLog implements Serializable {
         icon = what;
     }
 
-    public String getJson_data() {
+    public String getJsonData() {
         return jsonData;
     }
 
