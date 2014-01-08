@@ -77,7 +77,7 @@ public class ActivityLog implements Serializable {
         return jsonData;
     }
 
-    public void setJson_data(String json_data) {
+    public void setJsonData(String json_data) {
         this.jsonData = json_data;
     }
 }
