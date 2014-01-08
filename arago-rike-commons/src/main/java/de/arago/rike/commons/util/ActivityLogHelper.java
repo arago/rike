@@ -54,7 +54,7 @@ public class ActivityLogHelper {
         objectState.put("log_content", content);
         objectState.put("log_user", user);
         objectState.put("log_time", log.getCreated().getTime() + "");
-        log.setJson_data(JSONValue.toJSONString(objectState));
+        log.setJsonData(JSONValue.toJSONString(objectState));
 
         new DataHelperRike<ActivityLog>(ActivityLog.class).save(log);
 
