@@ -78,7 +78,7 @@ public class Overview extends AragoPortlet {
                 if (user != null&&!user.isEmpty()) {
                     TaskUser tu = TaskHelper.checkIfUserExists(user);
                     if (tu != null) {
-                        String lastSelectedMilestone = tu.getLast_ms();
+                        String lastSelectedMilestone = tu.getLastMs();
                         if (lastSelectedMilestone != null && !lastSelectedMilestone.isEmpty()) {
                             taskListFilter.setMilestone(lastSelectedMilestone);
                         }

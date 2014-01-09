@@ -70,7 +70,7 @@ public class LeaderBoard extends AragoPortlet {
         int priorities = Integer.parseInt(GlobalConfig.get(PRIORITY_MAXIMAL_NUMBER));
         for(TaskUser task:list) {
             map.put(task.getEmail(), task);
-            task.setEnded_tasks(new int[priorities]);
+            task.setEndedTasks(new int[priorities]);
         }
 
         fillTasksCount(helper, map, query_last);
@@ -79,7 +79,7 @@ public class LeaderBoard extends AragoPortlet {
         int i=1;
         for(TaskUser task:list) {
             task.setYesterday(new Long(i++));
-            task.setEnded_tasks(new int[priorities]);
+            task.setEndedTasks(new int[priorities]);
         }
 
         fillTasksCount(helper, map, query_now);
@@ -102,7 +102,7 @@ public class LeaderBoard extends AragoPortlet {
             Integer prio = (Integer)a[1];
             BigInteger count = (BigInteger)a[2];
             if(map.containsKey(email)) {
-                int[] points = map.get(email).getEnded_tasks();
+                int[] points = map.get(email).getEndedTasks();
                 if(prio<1)
                     prio = 1;
                 if(prio>points.length)
@@ -116,9 +116,9 @@ public class LeaderBoard extends AragoPortlet {
 
         @Override
         public int compare(TaskUser t, TaskUser t1) {
-            for(int i=0; i<t.getEnded_tasks().length; i++) {
-                if(t.getEnded_tasks()[i]!=t1.getEnded_tasks()[i])
-                    return t1.getEnded_tasks()[i]-t.getEnded_tasks()[i];
+            for(int i=0; i<t.getEndedTasks().length; i++) {
+                if(t.getEndedTasks()[i]!=t1.getEndedTasks()[i])
+                    return t1.getEndedTasks()[i]-t.getEndedTasks()[i];
             }
             return (int) (t1.getId()-t.getId());
         }
