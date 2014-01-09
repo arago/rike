@@ -38,11 +38,11 @@ public class TaskUser {
     private String flags;
     private int[] endedTasks;
 
-    public String getLastMs() {
+    public String getLastms() {
         return lastms;
     }
 
-    public void setLastMs(String lastMs) {
+    public void setLastms(String lastMs) {
         lastms = lastMs;
     }
 
