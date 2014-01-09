@@ -45,7 +45,7 @@ public class Report extends AragoPortlet {
         if(user!=null&&!user.isEmpty()) {
             TaskUser tu = TaskHelper.checkIfUserExists(user);
             if(tu!=null) {
-                String lastSelectedMilestone = tu.getLastMs();
+                String lastSelectedMilestone = tu.getLastms();
                 if(lastSelectedMilestone!=null&&!lastSelectedMilestone.isEmpty())
                     data.setSessionAttribute("milestone",lastSelectedMilestone);
             }
