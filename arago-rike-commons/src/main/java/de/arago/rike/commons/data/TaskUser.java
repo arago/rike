@@ -38,11 +38,11 @@ public class TaskUser {
     private String flags;
     private int[] endedTasks;
 
-    public String getLast_ms() {
+    public String getLastMs() {
         return lastms;
     }
 
-    public void setLast_ms(String lastMs) {
+    public void setLastMs(String lastMs) {
         lastms = lastMs;
     }
 
@@ -90,11 +90,11 @@ public class TaskUser {
         return isDeleted == 1;
     }
 
-    public int[] getEnded_tasks() {
+    public int[] getEndedTasks() {
         return endedTasks;
     }
 
-    public void setEnded_tasks(int[] ended_tasks) {
+    public void setEndedTasks(int[] ended_tasks) {
         this.endedTasks = ended_tasks;
     }
 

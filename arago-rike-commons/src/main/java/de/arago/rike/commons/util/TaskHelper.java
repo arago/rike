@@ -136,7 +136,7 @@ public class TaskHelper {
         if (list.isEmpty()) {
             TaskUser newUser = new TaskUser();
             newUser.setEmail(user);
-            newUser.setLast_ms("");
+            newUser.setLastMs("");
 
             helper.save(newUser);
 
