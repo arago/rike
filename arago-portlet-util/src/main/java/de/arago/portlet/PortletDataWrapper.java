@@ -22,17 +22,15 @@
  */
 package de.arago.portlet;
 
+import de.arago.data.IDataWrapper;
 import java.util.Enumeration;
-
+import java.util.HashMap;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
-
-import de.arago.data.IDataWrapper;
-import java.util.HashMap;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 import javax.portlet.WindowState;
@@ -109,5 +107,11 @@ public class PortletDataWrapper implements IDataWrapper {
     public String getUser() {
         return request.getRemoteUser();
     }
+
+  @Override
+  public Object getRequestData(String name)
+  {
+    return null;
+  }
 
 }
