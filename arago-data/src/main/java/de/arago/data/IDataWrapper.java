@@ -37,4 +37,5 @@ public interface IDataWrapper {
 
     public void setEvent(String key, HashMap<String, Object> event);
     public String getUser();
+    public Object getRequestData(String name);
 }

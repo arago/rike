@@ -27,8 +27,9 @@ import de.arago.portlet.ActionDispatcher;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class ActionDispatcherTest {
 
@@ -90,6 +91,12 @@ public class ActionDispatcherTest {
         public String getUser() {
             throw new UnsupportedOperationException("Not supported yet.");
         }
+
+    @Override
+    public Object getRequestData(String name)
+    {
+      throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     }
 
     @Test
