@@ -5,7 +5,7 @@
 <html class="#language("lang.dir")" dir="#language("lang.dir")" lang="$w3c_language_id">
 
 <head>
-  <title>$the_title - arago Rike 4.1</title>
+  <title>$the_title - arago Rike 5.0</title>
 
 	$theme.include($top_head_include)
 </head>
