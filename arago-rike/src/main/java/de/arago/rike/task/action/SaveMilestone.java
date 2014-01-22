@@ -41,7 +41,7 @@ public class SaveMilestone implements Action {
 
     @Override
     public void execute(IDataWrapper data) {
-
+        
         DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
         Milestone milestone = null;
         boolean newMilestoneCreated = false;
@@ -58,7 +58,8 @@ public class SaveMilestone implements Action {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             milestone.setDueDate(format.parse(data.getRequestAttribute("due_date")));
-        } catch(Exception ignored) {}
+        } catch(Exception ignored) {
+        }
 
         milestone.setTitle(data.getRequestAttribute("title"));
         milestone.setUrl(data.getRequestAttribute("url"));
@@ -66,7 +67,7 @@ public class SaveMilestone implements Action {
         milestone.setCreator(SecurityHelper.getUser(data.getUser()).getEmailAddress());
 
         milestone.setPerformance(0);
-
+        
         try {
             milestone.setPerformance(Integer.valueOf(data.getRequestAttribute("performance"), 10));
         } catch(Exception ignored) {}

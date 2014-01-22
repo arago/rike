@@ -40,7 +40,6 @@ public class SaveArtifact implements Action {
 
     @Override
     public void execute(IDataWrapper data) {
-
         DataHelperRike<Artifact> helper = new DataHelperRike<Artifact>(Artifact.class);
         Artifact artifact = null;
         boolean newArtifactCreated = false;
@@ -69,7 +68,6 @@ public class SaveArtifact implements Action {
         if (newArtifactCreated) {
             message = " created Artifact #";
         }
-
         ActivityLogHelper.log(message + artifact.getId() + " <a href=\"/web/guest/rike/-/show/artifact/" + artifact.getId() + "\">" + StringEscapeUtils.escapeHtml(artifact.getName()) + "</a>", "", artifact.getCreator(), data, artifact.toMap());
     }
 }
