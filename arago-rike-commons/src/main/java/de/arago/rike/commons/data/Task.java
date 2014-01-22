@@ -50,6 +50,13 @@ public class Task implements Serializable {
     private Date dueDate;
     private String description;
 
+    public Task() {
+        this.created = new Date();
+        this.dueDate = new Date();
+        this.end = new Date();
+        this.rated = new Date();
+        this.start = new Date();
+    }
 
     public static enum Status {
 
