@@ -91,6 +91,10 @@ public class GlobalConfig {
     public static String get(final String key) {
         return (String) keyValues.get(key);
     }
+    
+    public static void set(final String key, final String value) {
+        keyValues.put(key, value);
+    }
 
     public long getId() {
         return id;
