@@ -32,8 +32,7 @@ public class Milestone {
     private Integer performance;
     
     public Milestone() {
-        this.dueDate = new Date();
-        this.created = new Date();
+        
     }
 
     public void setId(Long id) {
@@ -53,7 +52,7 @@ public class Milestone {
     }
 
     public void setDueDate(Date what) {
-        dueDate.setTime(what.getTime());
+      dueDate = what;
     }
 
     public Date getDueDate() {
@@ -89,7 +88,7 @@ public class Milestone {
     }
 
     public void setCreated(Date created) {
-        this.created.setTime(created.getTime());
+      this.created = created;
     }
 
     public Date getCreated() {

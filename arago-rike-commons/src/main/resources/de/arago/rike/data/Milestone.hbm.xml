@@ -11,6 +11,6 @@
     <property name="creator"/>
     <property name="created"/>
     <property name="performance" />
-    <property column="due_date" name="dueDate"/>
+    <property column="due_date" name="dueDate" not-null="false"/>
   </class>
 </hibernate-mapping>

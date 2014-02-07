@@ -14,12 +14,12 @@
     <property name="created"/>
     <property name="description"/>
     <property column="rated_by" name="ratedBy"/>
-    <property name="rated"/>
+    <property name="rated"  not-null="false"/>
     <property column="task_status" name="status"/>
     <property column="size_estimated" name="sizeEstimated"/>
     <property column="hours_spent" name="hoursSpent"/>
     <property name="priority"/>
-    <property column="due_date" name="dueDate"/>
+    <property column="due_date" name="dueDate" not-null="false"/>
     <many-to-one class="de.arago.rike.commons.data.Milestone" column="milestone_id" name="milestone" not-null="false"/>
     <many-to-one class="de.arago.rike.commons.data.Artifact" column="artifact_id" name="artifact" not-null="false"/>
     <!--
