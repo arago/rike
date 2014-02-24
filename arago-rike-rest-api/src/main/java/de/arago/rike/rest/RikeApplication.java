@@ -32,20 +32,19 @@ import static de.arago.rike.commons.data.GlobalConfig.WORKFLOW_TIME_OFFSET;
  *
 
  */
-public class RikeApplication extends Application 
-{
-  @Override
-  public Restlet createInboundRoot() {
-    GlobalConfig.fetchFromDatabase();
-    GlobalConfig.set(WORKFLOW_TIME_OFFSET, "0");
-    
-    Router mainRouter = new Router(getContext());
-    mainRouter.attach("/milestones", MilestonesResource.class);
-    mainRouter.attach("/artifacts", ArtifactsResource.class);
-    
-    mainRouter.attach("/task/", NewTaskResource.class);
-    mainRouter.attach("/task/{id}", TaskResource.class);
+public class RikeApplication extends Application {
+    @Override
+    public Restlet createInboundRoot() {
+        GlobalConfig.fetchFromDatabase();
+        GlobalConfig.set(WORKFLOW_TIME_OFFSET, "0");
 
-    return mainRouter;
-  }
+        Router mainRouter = new Router(getContext());
+        mainRouter.attach("/milestones", MilestonesResource.class);
+        mainRouter.attach("/artifacts", ArtifactsResource.class);
+
+        mainRouter.attach("/task/", NewTaskResource.class);
+        mainRouter.attach("/task/{id}", TaskResource.class);
+
+        return mainRouter;
+    }
 }

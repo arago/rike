@@ -33,7 +33,7 @@ public class ActivityLog implements Serializable {
     private String icon;
     private String jsonData;
 
- 
+
     public void setId(Long id) {
         this.id = id;
     }

@@ -108,10 +108,9 @@ public class PortletDataWrapper implements IDataWrapper {
         return request.getRemoteUser();
     }
 
-  @Override
-  public Object getRequestData(String name)
-  {
-    return null;
-  }
+    @Override
+    public Object getRequestData(String name) {
+        return null;
+    }
 
 }

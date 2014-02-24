@@ -41,7 +41,7 @@ public class SaveMilestone implements Action {
 
     @Override
     public void execute(IDataWrapper data) {
-        
+
         DataHelperRike<Milestone> helper = new DataHelperRike<Milestone>(Milestone.class);
         Milestone milestone = null;
         boolean newMilestoneCreated = false;
@@ -67,7 +67,7 @@ public class SaveMilestone implements Action {
         milestone.setCreator(SecurityHelper.getUser(data.getUser()).getEmailAddress());
 
         milestone.setPerformance(0);
-        
+
         try {
             milestone.setPerformance(Integer.valueOf(data.getRequestAttribute("performance"), 10));
         } catch(Exception ignored) {}

@@ -30,9 +30,9 @@ public class Milestone {
     private String creator;
     private Date created;
     private Integer performance;
-    
+
     public Milestone() {
-        
+
     }
 
     public void setId(Long id) {
@@ -52,7 +52,7 @@ public class Milestone {
     }
 
     public void setDueDate(Date what) {
-      dueDate = what;
+        dueDate = what;
     }
 
     public Date getDueDate() {
@@ -88,7 +88,7 @@ public class Milestone {
     }
 
     public void setCreated(Date created) {
-      this.created = created;
+        this.created = created;
     }
 
     public Date getCreated() {
