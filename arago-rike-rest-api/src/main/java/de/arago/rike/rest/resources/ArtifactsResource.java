@@ -25,15 +25,13 @@ import org.restlet.resource.ServerResource;
 /**
  *
  */
-public class ArtifactsResource extends ServerResource 
-{ 
-  @Get("json")
-  public Map json() 
-  {
-    final Map ret = new HashMap();
-    
-    ret.put("items", ArtifactHelper.list());
-    
-    return ret;
-  }
+public class ArtifactsResource extends ServerResource {
+    @Get("json")
+    public Map json() {
+        final Map ret = new HashMap();
+
+        ret.put("items", ArtifactHelper.list());
+
+        return ret;
+    }
 }

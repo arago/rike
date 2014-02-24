@@ -45,186 +45,175 @@ import org.restlet.resource.ServerResource;
 
 import static de.arago.rike.commons.data.GlobalConfig.*;
 
-public class NewTaskResource extends ServerResource 
-{
-  @Post(":json")
-  public Map storeItem(Representation entity) throws IOException {
-    User user = SecurityHelper.getUserFromRequest(ServletUtils.getRequest(getRequest()));
-    
-    if (user == null)
-    {
-      setStatus(Status.CLIENT_ERROR_FORBIDDEN);
-      return Collections.EMPTY_MAP;
-    }
-    
-    Form form = new Form(entity);
-    Task task = create(form, user);
-    
-    if ("true".equals(getQuery().getFirstValue("doRateAndStartAndFinish")))
-    {
-      rateAndStartAndFinish(task, user, form);
-    } else if ("true".equals(getQuery().getFirstValue("doRateAndStart"))) {
-      rateAndStart(task, user);
-    } else if ("true".equals(getQuery().getFirstValue("doRate"))) {
-      rate(task, user);
-    }
-    
-    setStatus(Status.SUCCESS_CREATED);
-    
-    final Map ret = new HashMap();
-    
-    ret.put("id", task.getId());
-    
-    return ret;
-  }
-  
-  private Task create(Form form, User user)
-  {
-    Task task         = new Task();
-    String email      = user.getEmailAddress();
-    Artifact artifact = new DataHelperRike<Artifact>(Artifact.class).find(form.getFirstValue("artifact"));
+public class NewTaskResource extends ServerResource {
+    @Post(":json")
+    public Map storeItem(Representation entity) throws IOException {
+        User user = SecurityHelper.getUserFromRequest(ServletUtils.getRequest(getRequest()));
 
-    task.setTitle(form.getFirstValue("title"));
-    task.setUrl(form.getFirstValue("url"));
-    task.setArtifact(artifact);
-    task.setCreated(new Date());
-    task.setCreator(email);
-    task.setDescription(form.getFirstValue("description"));
+        if (user == null) {
+            setStatus(Status.CLIENT_ERROR_FORBIDDEN);
+            return Collections.EMPTY_MAP;
+        }
 
-    task.setStatus(Task.Status.UNKNOWN);
-    task.setMilestone(new DataHelperRike<Milestone>(Milestone.class).find(form.getFirstValue("milestone")));
+        Form form = new Form(entity);
+        Task task = create(form, user);
 
-    try {
-        task.setSizeEstimated(Integer.valueOf(form.getFirstValue("size_estimated"), 10));
-    } catch (Exception ignored) {
+        if ("true".equals(getQuery().getFirstValue("doRateAndStartAndFinish"))) {
+            rateAndStartAndFinish(task, user, form);
+        } else if ("true".equals(getQuery().getFirstValue("doRateAndStart"))) {
+            rateAndStart(task, user, form);
+        } else if ("true".equals(getQuery().getFirstValue("doRate"))) {
+            rate(task, user, form);
+        }
+
+        setStatus(Status.SUCCESS_CREATED);
+
+        final Map ret = new HashMap();
+
+        ret.put("id", task.getId());
+
+        return ret;
     }
 
-    int priority = Integer.parseInt(GlobalConfig.get(PRIORITY_NORMAL));
+    private Task create(Form form, User user) {
+        Task task         = new Task();
+        String email      = user.getEmailAddress();
+        Artifact artifact = new DataHelperRike<Artifact>(Artifact.class).find(form.getFirstValue("artifact"));
 
-    task.setPriority(priority);
+        task.setTitle(form.getFirstValue("title"));
+        task.setUrl(form.getFirstValue("url"));
+        task.setArtifact(artifact);
+        task.setCreated(new Date());
+        task.setCreator(email);
+        task.setDescription(form.getFirstValue("description"));
 
-    try 
-    {
-      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-      task.setDueDate(format.parse(form.getFirstValue("due_date")));
-    } catch(Exception ignored) {}
+        task.setStatus(Task.Status.UNKNOWN);
+        task.setMilestone(new DataHelperRike<Milestone>(Milestone.class).find(form.getFirstValue("milestone")));
 
-    TaskHelper.save(task);
-    StatisticHelper.update();
+        try {
+            task.setSizeEstimated(Integer.valueOf(form.getFirstValue("size_estimated"), 10));
+        } catch (Exception ignored) {
+        }
 
-    ActivityLogHelper.log(" created Task #" + task.getId() + " <a href=\"/web/guest/rike/-/show/task/" + task.getId() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a>", task.getStatus(), email, null, task.toMap());
-    
-    return task;
-  }
+        int priority = Integer.parseInt(GlobalConfig.get(PRIORITY_NORMAL));
 
-  private void rate(Task task, User user)
-  {
-    if (!rate(task, user.getEmailAddress()))
-    {
-      throw new IllegalStateException("could not rate task");
-    }  
-  }
+        task.setPriority(priority);
 
-  private void rateAndStart(Task task, User user)
-  {
-    rate(task, user);
-    
-    if (!start(task, user.getEmailAddress()))
-    {
-      throw new IllegalStateException("could not start task");
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            task.setDueDate(format.parse(form.getFirstValue("due_date")));
+        } catch(Exception ignored) {}
+
+        TaskHelper.save(task);
+        StatisticHelper.update();
+
+        ActivityLogHelper.log(" created Task #" + task.getId() + " <a href=\"/web/guest/rike/-/show/task/" + task.getId() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a>", task.getStatus(), email, null, task.toMap());
+
+        return task;
     }
-  }
 
-  private void rateAndStartAndFinish(Task task, User user, Form form)
-  {
-    rateAndStart(task, user);
-    
-    if (!finish(task, user.getEmailAddress(), form))
-    {
-      throw new IllegalStateException("could not finish task");
+    private void rate(Task task, User user, Form form) {
+        if (!rate(task, user.getEmailAddress(), form)) {
+            throw new IllegalStateException("could not rate task");
+        }
     }
-  }
-  
-  private boolean start(Task task, String email)
-  {
-    if (TaskHelper.getTasksInProgressForUser(email).size() < Integer.parseInt(GlobalConfig.get(WORKFLOW_WIP_LIMIT))) 
-    {
-      if (!TaskHelper.canDoTask(email, task) || task.getStatusEnum() != Task.Status.OPEN) {
-          return false;
-      }
 
-      task.setOwner(email);
-      task.setStart(new Date());
-      task.setStatus(Task.Status.IN_PROGRESS);
-      
-      if(GlobalConfig.get(WORKFLOW_TYPE).equalsIgnoreCase("arago Technologies")) {
-          GregorianCalendar c = new GregorianCalendar();
-          c.setTime(task.getStart());
-          c.add(Calendar.DAY_OF_MONTH, Integer.parseInt(GlobalConfig.get(WORKFLOW_DAYS_TO_FINISH_TASK)));
-          task.setDueDate(c.getTime());
-      }
+    private void rateAndStart(Task task, User user, Form form) {
+        rate(task, user, form);
 
-      TaskHelper.save(task);
-      StatisticHelper.update();
-
-      ActivityLogHelper.log(" started Task #" + task.getId() + " <a href=\"/web/guest/rike/-/show/task/" + task.getId() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), email, null, task.toMap());
-      return true;
+        if (!start(task, user.getEmailAddress())) {
+            throw new IllegalStateException("could not start task");
+        }
     }
-    
-    return false;
-  }
-  
-  private boolean rate(Task task, String email)
-  {
-    if (task.getStatusEnum() == Task.Status.UNKNOWN || task.getStatusEnum() == Task.Status.OPEN) 
-    {
-      task.setRated(new Date());
-      task.setRatedBy(email);
-      task.setStatus(Task.Status.OPEN);
-      
-      if (GlobalConfig.get(WORKFLOW_TYPE).equalsIgnoreCase("arago Technologies") && task.getPriority()==1) {
-          GregorianCalendar c = new GregorianCalendar();
-          c.setTime(task.getRated());
-          c.add(Calendar.DAY_OF_MONTH, Integer.parseInt(GlobalConfig.get(WORKFLOW_DAYS_TOP_PRIO_TASK)));
-          task.setDueDate(c.getTime());
-      }
 
-      TaskHelper.save(task);
-      StatisticHelper.update();
+    private void rateAndStartAndFinish(Task task, User user, Form form) {
+        rateAndStart(task, user, form);
 
-      ActivityLogHelper.log(" rated Task #" + task.getId() + " <a href=\"/web/guest/rike/-/show/task/" + task.getId() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), email, null, task.toMap());
-
-      return true;
+        if (!finish(task, user.getEmailAddress(), form)) {
+            throw new IllegalStateException("could not finish task");
+        }
     }
-    
-    return false;
-  }
 
-  private boolean finish(Task task, String user, Form form)
-  {
-      if (task.getStatusEnum() == Task.Status.IN_PROGRESS && task.getOwner().equals(user)) {
-          task.setEnd(new Date());
-          int hours = Integer.valueOf(form.getFirstValue("hours_spent"), 10);
-          task.setHoursSpent(hours);
-          task.setStatus(Task.Status.DONE);
+    private boolean start(Task task, String email) {
+        if (TaskHelper.getTasksInProgressForUser(email).size() < Integer.parseInt(GlobalConfig.get(WORKFLOW_WIP_LIMIT))) {
+            if (!TaskHelper.canDoTask(email, task) || task.getStatusEnum() != Task.Status.OPEN) {
+                return false;
+            }
 
-          TaskHelper.save(task);
-          StatisticHelper.update();
+            task.setOwner(email);
+            task.setStart(new Date());
+            task.setStatus(Task.Status.IN_PROGRESS);
 
-          ActivityLogHelper.log(" completed Task #" + task.getId() +
-                                " <a href=\"/web/guest/rike/-/show/task/" + task.getId() + "\">" +
-                                StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), user, null, task.toMap());
+            if(GlobalConfig.get(WORKFLOW_TYPE).equalsIgnoreCase("arago Technologies")) {
+                GregorianCalendar c = new GregorianCalendar();
+                c.setTime(task.getStart());
+                c.add(Calendar.DAY_OF_MONTH, Integer.parseInt(GlobalConfig.get(WORKFLOW_DAYS_TO_FINISH_TASK)));
+                task.setDueDate(c.getTime());
+            }
+
+            TaskHelper.save(task);
+            StatisticHelper.update();
+
+            ActivityLogHelper.log(" started Task #" + task.getId() + " <a href=\"/web/guest/rike/-/show/task/" + task.getId() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), email, null, task.toMap());
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean rate(Task task, String email, Form form) {
+        if (task.getStatusEnum() == Task.Status.UNKNOWN || task.getStatusEnum() == Task.Status.OPEN) {
+            task.setRated(new Date());
+            task.setRatedBy(email);
+            task.setStatus(Task.Status.OPEN);
+
+            try {
+                task.setPriority(Integer.valueOf(form.getFirstValue("priority"), 10));
+            } catch (Exception ignored) {
+            }
+
+            if (GlobalConfig.get(WORKFLOW_TYPE).equalsIgnoreCase("arago Technologies") && task.getPriority()==1) {
+                GregorianCalendar c = new GregorianCalendar();
+                c.setTime(task.getRated());
+                c.add(Calendar.DAY_OF_MONTH, Integer.parseInt(GlobalConfig.get(WORKFLOW_DAYS_TOP_PRIO_TASK)));
+                task.setDueDate(c.getTime());
+            }
+
+            TaskHelper.save(task);
+            StatisticHelper.update();
+
+            ActivityLogHelper.log(" rated Task #" + task.getId() + " <a href=\"/web/guest/rike/-/show/task/" + task.getId() + "\">" + StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), email, null, task.toMap());
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean finish(Task task, String user, Form form) {
+        if (task.getStatusEnum() == Task.Status.IN_PROGRESS && task.getOwner().equals(user)) {
+            task.setEnd(new Date());
+            int hours = Integer.valueOf(form.getFirstValue("hours_spent"), 10);
+            task.setHoursSpent(hours);
+            task.setStatus(Task.Status.DONE);
+
+            TaskHelper.save(task);
+            StatisticHelper.update();
+
+            ActivityLogHelper.log(" completed Task #" + task.getId() +
+                                  " <a href=\"/web/guest/rike/-/show/task/" + task.getId() + "\">" +
+                                  StringEscapeUtils.escapeHtml(task.getTitle()) + "</a> ", task.getStatus(), user, null, task.toMap());
 
 
-          Milestone milestone = task.getMilestone();
-          if (MilestoneHelper.isMilestoneDone(milestone)) {
-              ActivityLogHelper.log(" finished Milestone #" + milestone.getId() + " <a href=\"/web/guest/rike/-/show/milestone/" + milestone.getId() + "\">" + StringEscapeUtils.escapeHtml(milestone.getTitle()) + "</a>", "done", user, null, milestone.toMap());
-          }
-          
-          return true;
-      }
-      
-      return false;
+            Milestone milestone = task.getMilestone();
+            if (MilestoneHelper.isMilestoneDone(milestone)) {
+                ActivityLogHelper.log(" finished Milestone #" + milestone.getId() + " <a href=\"/web/guest/rike/-/show/milestone/" + milestone.getId() + "\">" + StringEscapeUtils.escapeHtml(milestone.getTitle()) + "</a>", "done", user, null, milestone.toMap());
+            }
 
-  }
+            return true;
+        }
+
+        return false;
+
+    }
 }

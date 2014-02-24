@@ -24,19 +24,16 @@ import org.restlet.resource.ServerResource;
 
 /**
  *
- 
+
  */
-public class TaskResource extends ServerResource 
-{
-  @Get("json")
-  public Task json() 
-  {
-    try
-    {  
-      return TaskHelper.getTask((String) getRequest().getAttributes().get("id"));
-    } catch(Exception ex) {
-      setStatus(Status.CLIENT_ERROR_NOT_FOUND);
-      return null;
+public class TaskResource extends ServerResource {
+    @Get("json")
+    public Task json() {
+        try {
+            return TaskHelper.getTask((String) getRequest().getAttributes().get("id"));
+        } catch(Exception ex) {
+            setStatus(Status.CLIENT_ERROR_NOT_FOUND);
+            return null;
+        }
     }
-  }
 }

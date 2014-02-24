@@ -25,20 +25,17 @@ import org.restlet.resource.ServerResource;
 /**
  *
  */
-public class MilestonesResource extends ServerResource 
-{ 
-  @Get("json")
-  public Map json() 
-  {
-    final Map ret = new HashMap();
-    
-    if ("true".equals(getQuery().getFirstValue("valid")))
-    {
-      ret.put("items", MilestoneHelper.listNotExpired());
-    } else {
-      ret.put("items", MilestoneHelper.list());  
-    } 
-    
-    return ret;
-  }
+public class MilestonesResource extends ServerResource {
+    @Get("json")
+    public Map json() {
+        final Map ret = new HashMap();
+
+        if ("true".equals(getQuery().getFirstValue("valid"))) {
+            ret.put("items", MilestoneHelper.listNotExpired());
+        } else {
+            ret.put("items", MilestoneHelper.list());
+        }
+
+        return ret;
+    }
 }
