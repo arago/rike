@@ -23,16 +23,21 @@
 package de.arago.portlet;
 
 import de.arago.data.IDataWrapper;
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
+import javax.portlet.ReadOnlyException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+import javax.portlet.ValidatorException;
 import javax.portlet.WindowState;
 
 public class PortletDataWrapper implements IDataWrapper {
@@ -98,6 +103,27 @@ public class PortletDataWrapper implements IDataWrapper {
         request.setAttribute(key, value);
     }
 
+    @Override
+    public String getPersistentPreference(String key, String def){
+        return request.getPreferences().getValue(key, def);
+    }
+    
+    @Override
+    public void setPersistentPreference(String key,String value){
+        try{
+            request.getPreferences().setValue(key, value);
+        } catch (    ReadOnlyException e) {
+            Logger.getLogger(PortletDataWrapper.class.getName()).log(Level.SEVERE, null, e);
+        }
+        try {
+            request.getPreferences().store();
+        } catch (IOException ex) {
+            Logger.getLogger(PortletDataWrapper.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ValidatorException ex) {
+            Logger.getLogger(PortletDataWrapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     @Override
     public void setEvent(String key, HashMap<String, Object> event) {
         actionResponse.setEvent(key, event);

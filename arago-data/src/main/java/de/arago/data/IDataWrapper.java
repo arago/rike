@@ -35,6 +35,9 @@ public interface IDataWrapper {
     public String getRequestAttribute(String key);
     public void setRequestAttribute(String key,Object value);
 
+    public String getPersistentPreference(String key, String def);
+    public void setPersistentPreference(String key,String value);
+    
     public void setEvent(String key, HashMap<String, Object> event);
     public String getUser();
     public Object getRequestData(String name);
