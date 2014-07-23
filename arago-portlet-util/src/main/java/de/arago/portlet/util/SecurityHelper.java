@@ -113,6 +113,8 @@ public final class SecurityHelper {
         LOG.log(Level.INFO, message, parameters);
     }
 
+
+
     private SecurityHelper() {
         //not called
     }
@@ -234,6 +236,12 @@ public final class SecurityHelper {
         return lookupUserFromCache(auth.substring(0, auth.indexOf(':')), auth.substring(auth.indexOf(':') + 1), true);
     }
 
+    private static boolean hasAuthHeader(HttpServletRequest request) {
+        final String auth					 = request.getHeader("Authorization");
+
+        return auth != null && !auth.isEmpty();
+    }
+
     private static User getUserFromSiteMinder(HttpServletRequest request) {
         if (debug) {
             log("getting user from siteminder");
@@ -262,6 +270,11 @@ public final class SecurityHelper {
 
     public static User getUserFromRequest(HttpServletRequest request) {
         try {
+            // if auth header is provided, do not try to resolve other methods
+            if (hasAuthHeader(request)) {
+                return getUserFromAuthHeader(request);
+            }
+
             User user = getUserFromSiteMinder(request);
 
             if (user == null) {
@@ -270,10 +283,6 @@ public final class SecurityHelper {
 
             if (user == null) {
                 user = getUserFromCookies(request);
-            }
-
-            if (user == null) {
-                user = getUserFromAuthHeader(request);
             }
 
             if (debug) {
