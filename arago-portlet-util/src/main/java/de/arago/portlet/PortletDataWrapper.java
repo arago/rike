@@ -104,13 +104,13 @@ public class PortletDataWrapper implements IDataWrapper {
     }
 
     @Override
-    public String getPersistentPreference(String key, String def){
+    public String getPersistentPreference(String key, String def) {
         return request.getPreferences().getValue(key, def);
     }
-    
+
     @Override
-    public void setPersistentPreference(String key,String value){
-        try{
+    public void setPersistentPreference(String key,String value) {
+        try {
             request.getPreferences().setValue(key, value);
         } catch (    ReadOnlyException e) {
             Logger.getLogger(PortletDataWrapper.class.getName()).log(Level.SEVERE, null, e);
@@ -123,7 +123,7 @@ public class PortletDataWrapper implements IDataWrapper {
             Logger.getLogger(PortletDataWrapper.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public void setEvent(String key, HashMap<String, Object> event) {
         actionResponse.setEvent(key, event);
@@ -134,10 +134,9 @@ public class PortletDataWrapper implements IDataWrapper {
         return request.getRemoteUser();
     }
 
-  @Override
-  public Object getRequestData(String name)
-  {
-    return null;
-  }
+    @Override
+    public Object getRequestData(String name) {
+        return null;
+    }
 
 }
