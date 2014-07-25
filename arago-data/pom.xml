@@ -18,13 +18,13 @@
       <id>tabtab</id>
       <uniqueVersion>false</uniqueVersion>
       <name>arago Repository</name>
-      <url>scp://repo.tabtab.org:/var/www/html/maven2/</url>
+      <url>$REPO</url>
     </repository>
     <snapshotRepository>
       <id>tabtab</id>
       <uniqueVersion>false</uniqueVersion>
       <name>arago Repository</name>
-      <url>scp://repo.tabtab.org:/var/www/html/maven2/</url>
+      <url>$REPO</url>
     </snapshotRepository>
   </distributionManagement>
   <build>
