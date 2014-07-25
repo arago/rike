@@ -143,7 +143,6 @@ public class Index<T> implements Closeable {
 
     @Override
     public void close() {
-        System.err.println("closing");
         closeSearcher();
         closeWriter();
     }
