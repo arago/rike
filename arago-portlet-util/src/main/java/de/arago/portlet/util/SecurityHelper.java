@@ -291,7 +291,6 @@ public final class SecurityHelper {
 
             return user;
         } catch (Throwable t) {
-            t.printStackTrace();
             Logger.getLogger(SecurityHelper.class.getName()).log(Level.SEVERE, null, t);
         }
 
