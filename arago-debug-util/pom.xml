@@ -4,7 +4,7 @@
 	<packaging>jar</packaging>
 	<name>${project.artifactId}</name>
     <groupId>de.arago</groupId>
-    <version>5.1-SNAPSHOT</version>
+    <version>5.2-SNAPSHOT</version>
    
     <build>
         <plugins>
