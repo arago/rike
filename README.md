@@ -1,5 +1,10 @@
 ![rike-logo](https://github.com/arago/rike/raw/master/logo.png)
 
+Status:
+=============
+
+This project is not maintained anymore.
+
 About:
 =============
 
